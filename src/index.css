@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@layer base, components, utilities;
+
+:root{
+  --container-max:1100px;
+}
+
+/* small optimized utilities */
+.container { max-width: var(--container-max); }
+.hero-overlay { background: rgba(0,0,0,0.45); }
+.card { @apply bg-white rounded-lg shadow-sm p-6; }

@@ -1,0 +1,13 @@
+{
+  "description": "Support the masjid. Choose local or international transfer.",
+  "kosovo": {
+    "bank": "Banka e Kosov\u00ebs",
+    "iban": "XK12 3456 7890 1234 5678",
+    "holder": "Masjid Name"
+  },
+  "sepa": {
+    "bank": "SEPA Bank Lithuania",
+    "iban": "LT12 3456 7890 1234 567",
+    "holder": "Masjid Name Intl"
+  }
+}
