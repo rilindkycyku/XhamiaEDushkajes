@@ -1,9 +1,10 @@
 {
   "siteName": "Xhamia e Dushkajës - Kaçanik",
-  "welcomeText": "Welcome to our community mosque. We share events, prayer times and ways to contribute.",
+  "welcomeText": "Mirë se vini në Uebfaqen e Xhamis së Dushkajës!",
   "contactShort": "Email: info@masjid.example | Phone: +383 00 000 000",
   "facebookPage": "https://www.facebook.com/profile.php?id=61561510873713",
   "heroImage": "/img/logo/LogoBIKKaqanik.png",
   "heroTitle": "Xhamia e Dushkajës - Kaçanik ",
-  "heroSubtitle": "Community \u2014 Worship \u2014 Learning"
+  "heroSubtitle": "Mirë se vini!",
+  "imamName": "Nehat Shehu"
 }

@@ -20,13 +20,20 @@ export default function Hero() {
         />
       </div>
 
-      {/* Optional: Text below image */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-center text-black">
-        <h1 className="text-2xl md:text-4xl font-bold drop-shadow-md">
-          {siteConfig.heroTitle}
-        </h1>
-        <p className="text-lg md:text-xl font-medium drop-shadow">
+      {/* Sideways gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60"></div>
+
+      {/* Centered text */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+        <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
           {siteConfig.heroSubtitle}
+        </h1>
+        <p className="mt-4 text-xl md:text-4xl font-medium text-white drop-shadow">
+          {siteConfig.heroTitle}
+        </p>
+
+        <p className="mt-2 text-lg md:text-2xl font-medium text-white drop-shadow">
+          Imam: {siteConfig.imamName}
         </p>
       </div>
     </section>

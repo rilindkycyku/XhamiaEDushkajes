@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import dhuro from "../data/dhuro-per-xhami.json"
 
 export default function DhuroPerXhamin() {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch("/data/donations.json")
-      .then((r) => r.json())
-      .then(setData)
-      .catch(console.error);
-  }, []);
-  if (!data) return <div className="container mx-auto px-4 py-8">Loading…</div>;
+  const [data] = useState(dhuro);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold">Dhuro për Xhamin</h1>
