@@ -1,6 +1,3 @@
-// api/vaktet.js
-import fetch from "node-fetch";
-
 const EXTERNAL =
   process.env.EXTERNAL_API || "https://prayer-api.takvimi.workers.dev";
 
@@ -20,6 +17,7 @@ export default async function handler(req, res) {
 
   try {
     const todayUrl = `${EXTERNAL}/api/vaktet`;
+    // ✅ use global fetch
     const todayRes = await fetch(todayUrl, {
       headers: { "User-Agent": "XhamiaProxy/1.0" },
     });
