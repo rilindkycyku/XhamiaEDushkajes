@@ -1,7 +1,8 @@
- // api/vaktet.js
-import fetch from 'node-fetch';
+// api/vaktet.js
+import fetch from "node-fetch";
 
-const EXTERNAL = process.env.EXTERNAL_API || 'https://prayer-api.takvimi.workers.dev';
+const EXTERNAL =
+  process.env.EXTERNAL_API || "https://prayer-api.takvimi.workers.dev";
 
 const toMinutes = (time) => {
   const [h, m] = time.split(":").map(Number);
@@ -15,13 +16,16 @@ const formatDateParam = (date) => {
 };
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   try {
     const todayUrl = `${EXTERNAL}/api/vaktet`;
-    const todayRes = await fetch(todayUrl, { headers: { 'User-Agent': 'XhamiaProxy/1.0' } });
+    const todayRes = await fetch(todayUrl, {
+      headers: { "User-Agent": "XhamiaProxy/1.0" },
+    });
 
-    if (!todayRes.ok) return res.status(todayRes.status).json({ error: 'Upstream error' });
+    if (!todayRes.ok)
+      return res.status(todayRes.status).json({ error: "Upstream error" });
 
     const { data: rawToday } = await todayRes.json();
     const today = Array.isArray(rawToday) ? rawToday[0] : rawToday;
@@ -39,11 +43,15 @@ export default async function handler(req, res) {
 
       try {
         const tomorrowUrl = `${EXTERNAL}/api/vaktet?date=${dateParam}`;
-        const tomorrowRes = await fetch(tomorrowUrl, { headers: { 'User-Agent': 'XhamiaProxy/1.0' } });
+        const tomorrowRes = await fetch(tomorrowUrl, {
+          headers: { "User-Agent": "XhamiaProxy/1.0" },
+        });
 
         if (tomorrowRes.ok) {
           const { data: rawTomorrow } = await tomorrowRes.json();
-          const tomorrowData = Array.isArray(rawTomorrow) ? rawTomorrow[0] : rawTomorrow;
+          const tomorrowData = Array.isArray(rawTomorrow)
+            ? rawTomorrow[0]
+            : rawTomorrow;
           enhanced.nextDaySabahu = tomorrowData.Sabahu;
           enhanced.nextDayDate = tomorrowData.data_e_formatuar;
         }
@@ -54,7 +62,10 @@ export default async function handler(req, res) {
 
     res.status(200).json({ data: enhanced });
   } catch (e) {
-    console.error("Proxy error:", e);
-    res.status(502).json({ error: 'Bad gateway' });
+    console.error("Proxy error:", e?.message || e);
+    return res.status(502).json({
+      error: "Bad gateway",
+      details: e?.message || e.toString(),
+    });
   }
 }
