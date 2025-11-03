@@ -6,10 +6,12 @@ import Kontakti from './pages/Kontakti'
 import AktiviteteJavore from './pages/AktiviteteJavore'
 import RrethXhamis from './pages/RrethXhamis'
 import Home from './pages/Home'
+import { Analytics } from "@vercel/analytics/react"
 
 export default function App(){
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      <Analytics />
       <Header />
       <main className="flex-1">
         <Routes>
