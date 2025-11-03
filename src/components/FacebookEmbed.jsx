@@ -1,19 +1,16 @@
-// YouTubeChannelEmbed.jsx
 import siteConfig from "../data/site.json";
 
-export default function YouTubeChannelEmbed() {
-  const handle = siteConfig.youtubeChannelHandle?.trim();
-  if (!handle) return null;
+export default function FacebookEmbed() {
+  const page = siteConfig.facebookPage?.trim();
+  if (!page) return null;
 
-  // Build the full channel videos page URL
-  const channelUrl = `https://www.youtube.com/${handle}/videos`;
-  const src = `${channelUrl}?embed=true&modestbranding=1&embed_domain=${
-    typeof window !== "undefined" ? window.location.hostname : "localhost"
-  }`;
+  const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
+    page
+  )}&tabs=timeline&width=500&height=800&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId`;
 
   return (
     <div className="mt-4 w-full">
-      {/* 1. Full-width wrapper – does NOT shrink the page */}
+      {/* 1. Full‑width wrapper – does NOT shrink the page */}
       <div className="flex justify-center">
         {/* 2. Responsive box that ONLY constrains the plugin */}
         <div
@@ -27,13 +24,13 @@ export default function YouTubeChannelEmbed() {
           "
         >
           <iframe
-            title="YouTube Channel"
+            title="Facebook Page"
             src={src}
             className="absolute inset-0 w-full h-full border-0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            scrolling="no"
             allowFullScreen
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             loading="lazy"
-            style={{ overflowY: "auto" }}
           />
         </div>
       </div>

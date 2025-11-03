@@ -1,5 +1,6 @@
+// AktiviteteJavore.jsx  (only the YouTube card part changed)
 import { useState } from "react";
-import activitiesData from "../data/aktivitetejavore.json"; // <-- CHANGED HERE
+import activitiesData from "../data/aktivitetejavore.json";
 import YouTubeChannelEmbed from "../components/YouTubeChannelEmbed";
 
 export default function AktiviteteJavore() {
@@ -11,12 +12,13 @@ export default function AktiviteteJavore() {
         Aktivitete Javore
       </h1>
 
+      {/* ---------- GRID: CARDS + YOUTUBE ---------- */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {/* Activity Cards */}
         {activities.map((act, idx) => (
           <article
             key={idx}
             className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
-            {/* FIT-IMAGE CONTAINER */}
             <div className="relative w-full h-56 md:h-64 bg-gray-50 flex items-center justify-center">
               <img
                 src={act.foto}
@@ -30,12 +32,10 @@ export default function AktiviteteJavore() {
               />
             </div>
 
-            {/* Card Body */}
             <div className="p-5 flex-1 flex flex-col">
               <h3 className="text-xl font-bold text-teal-700 mb-3">
                 {act.titulli}
               </h3>
-
               <div className="space-y-2 mb-4 text-sm text-gray-700">
                 <p className="flex items-center">
                   <svg
@@ -62,24 +62,40 @@ export default function AktiviteteJavore() {
                   <strong>Lokacioni:</strong> {act.lokacioni}
                 </p>
               </div>
-
               <p className="text-gray-600 whitespace-pre-line flex-1 text-sm leading-relaxed">
                 {act.teksti}
               </p>
             </div>
           </article>
         ))}
-        <div className="col-span-3">
-
-          <section className="mt-6 card">
-            <h3 className="text-xl font-semibold">YouTube</h3>
-            <p className="mt-2 text-gray-600">
-              Shiko videote tona më të reja.
+        {/* YOUTUBE CARD – NO MORE GAP */}
+        <article className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-shadow md:col-span-2 lg:col-span-3">
+          <div className="p-5">
+            <h3 className="text-xl font-bold text-teal-700 mb-2">YouTube</h3>
+            <p className="text-gray-600 mb-4">
+              Shiko Derset dhe Ligjeratat Javore.
             </p>
+          </div>
 
-            <YouTubeChannelEmbed />
-          </section>
-        </div>
+          {/* RESPONSIVE WRAPPER – height adapts to content */}
+          <div className="relative w-full px-5 pb-5">
+            <div className="flex justify-center">
+              <div
+                className="
+                  relative w-full
+                  max-w-[340px]          /* mobile */
+                  sm:max-w-[500px]       /* ≥640px */
+                  lg:max-w-[700px]       /* ≥1024px */
+                  xl:max-w-[800px]       /* ≥1280px */
+                  /* ---- REMOVE ALL pb‑% ---- */
+                "
+                style={{ minHeight: "340px" }} /* fallback for tiny channels */
+              >
+                <YouTubeChannelEmbed />
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   );
