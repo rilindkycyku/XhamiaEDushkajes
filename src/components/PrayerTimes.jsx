@@ -3,96 +3,91 @@ import { useEffect, useState } from "react";
 import vaktetData from "../data/vaktet-e-namazit.json";
 
 export default function PrayerTimes() {
-  const [data, setData] = useState(null);
-  const [currentPrayer, setCurrentPrayer] = useState(null);
+  const [teDhenat, setTeDhenat] = useState(null);
+  const [vaktiTani, setVaktiTani] = useState(null);
 
-  // ---------------- Load today's data ----------------
   useEffect(() => {
     if (!vaktetData || !Array.isArray(vaktetData)) return;
 
-    const today = new Date();
-    const todayDay = today.getDate();
-    const todayMonth = today.toLocaleString("en", { month: "short" });
+    const sot = new Date();
+    const dita = sot.getDate();
+    const muaji = sot.toLocaleString("en", { month: "short" });
 
-    // Find today's prayer data
-    const todayData =
+    const teDhenatSot =
       vaktetData.find((v) => {
-        const [dayStr, monthStr] = v.Date.split("-");
-        return Number(dayStr) === todayDay && monthStr === todayMonth;
+        const [d, m] = v.Date.split("-");
+        return Number(d) === dita && m === muaji;
       }) || vaktetData[0];
 
-    setData(todayData);
+    setTeDhenat(teDhenatSot);
   }, []);
 
-  // ---------------- Determine current prayer ----------------
   useEffect(() => {
-    if (!data) return;
+    if (!teDhenat) return;
 
-    const updateCurrentPrayer = () => {
-      const now = new Date();
-      const nowMins = now.getHours() * 60 + now.getMinutes();
+    const perditesoVaktin = () => {
+      const tani = new Date();
+      const minutaTani = tani.getHours() * 60 + tani.getMinutes();
 
-      const prayers = [
-        { name: "Sabahu", time: data.Sabahu },
-        { name: "Lindja", time: data.Lindja },
-        { name: "Dreka", time: data.Dreka },
-        { name: "Ikindia", time: data.Ikindia },
-        { name: "Akshami", time: data.Akshami },
-        { name: "Jacia", time: data.Jacia },
+      const vaktet = [
+        { emri: "Sabahu", koha: teDhenat.Sabahu },
+        { emri: "Lindja", koha: teDhenat.Lindja },
+        { emri: "Dreka", koha: teDhenat.Dreka },
+        { emri: "Ikindia", koha: teDhenat.Ikindia },
+        { emri: "Akshami", koha: teDhenat.Akshami },
+        { emri: "Jacia", koha: teDhenat.Jacia },
       ];
 
-      const toMinutes = (t) => {
-        const [h, m] = t.split(":").map(Number);
-        return h * 60 + m;
+      const neMinuta = (k) => {
+        const [o, m] = k.split(":").map(Number);
+        return o * 60 + m;
       };
 
-      let current = null;
+      let vaktAktual = null;
 
-      for (let i = 0; i < prayers.length; i++) {
-        const pMins = toMinutes(prayers[i].time);
-        if (nowMins < pMins) {
-          current = prayers[i - 1] || { name: "Sabahu", time: data.Sabahu };
+      for (let i = 0; i < vaktet.length; i++) {
+        const min = neMinuta(vaktet[i].koha);
+        if (minutaTani < min) {
+          vaktAktual = vaktet[i - 1] || { emri: "Sabahu", koha: teDhenat.Sabahu };
           break;
         }
       }
 
-      // If after Jacia → show next day Sabahu
-      if (!current || nowMins >= toMinutes(data.Jacia)) {
-        const todayIndex = vaktetData.findIndex((v) => v.Date === data.Date);
-        const nextDayData = vaktetData[todayIndex + 1] || vaktetData[0];
-        current = {
-          name: "Sabahu (nesër)",
-          time: nextDayData.Sabahu,
-          isNextDay: true,
-          date: nextDayData.Date,
+      if (!vaktAktual || minutaTani >= neMinuta(teDhenat.Jacia)) {
+        const indexSot = vaktetData.findIndex((v) => v.Date === teDhenat.Date);
+        const teDhenatNeser = vaktetData[indexSot + 1] || vaktetData[0];
+        vaktAktual = {
+          emri: "Sabahu (nesër)",
+          koha: teDhenatNeser.Sabahu,
+          eshteNeser: true,
+          data: teDhenatNeser.Date,
         };
       }
 
-      setCurrentPrayer(current);
+      setVaktiTani(vaktAktual);
     };
 
-    updateCurrentPrayer();
-    const interval = setInterval(updateCurrentPrayer, 60000); // update every minute
+    perditesoVaktin();
+    const interval = setInterval(perditesoVaktin, 60000);
     return () => clearInterval(interval);
-  }, [data]);
+  }, [teDhenat]);
 
-  /* ----------------------- Helpers ----------------------- */
-  const to12h = (time24) => {
-    if (!time24) return "";
-    const [h, m] = time24.split(":").map(Number);
-    const ampm = h < 12 ? "am" : "pm";
-    const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-    return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
+  const ne12Ore = (koha24) => {
+    if (!koha24) return "";
+    const [o, m] = koha24.split(":").map(Number);
+    const ampm = o < 12 ? "am" : "pm";
+    const o12 = o === 0 ? 12 : o > 12 ? o - 12 : o;
+    return `${o12}:${String(m).padStart(2, "0")} ${ampm}`;
   };
 
-  if (!data)
+  if (!teDhenat)
     return (
       <div className="p-6 text-center text-gray-600 font-medium">
         Duke ngarkuar…
       </div>
     );
 
-  const prayersList = [
+  const listaVakteve = [
     { key: "Sabahu", label: "Sabahu" },
     { key: "Lindja", label: "L. e Diellit" },
     { key: "Dreka", label: "Dreka" },
@@ -101,42 +96,38 @@ export default function PrayerTimes() {
     { key: "Jacia", label: "Jacia" },
   ];
 
-  const formatDate = (str) => {
-    // str example: "30-Oct"
-    const [day, monthStr] = str.split("-");
-    const date = new Date(`${monthStr} ${day}, ${new Date().getFullYear()}`);
-    const dd = String(date.getDate()).padStart(2, "0");
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const yyyy = date.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
+  const formatoDaten = (str) => {
+    const [dita, muaji] = str.split("-");
+    const viti = new Date().getFullYear();
+    const data = new Date(`${muaji} ${dita}, ${viti}`);
+    const dd = String(data.getDate()).padStart(2, "0");
+    const mm = String(data.getMonth() + 1).padStart(2, "0");
+    return `${dd}/${mm}/${viti}`;
   };
 
   return (
     <div className="max-w-md mx-auto p-4 font-sans bg-white rounded-xl shadow-lg">
-      {/* DATE + CURRENT PRAYER */}
       <div className="text-center mb-6">
-        <div className="text-lg font-bold text-gray-800">{formatDate(data.Date)}</div>
+        <div className="text-lg font-bold text-gray-800">{formatoDaten(teDhenat.Date)}</div>
 
-
-        {currentPrayer && (
+        {vaktiTani && (
           <div className="mt-3 p-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-bold text-lg shadow">
-            {currentPrayer.isNextDay ? (
+            {vaktiTani.eshteNeser ? (
               <>
-                <div className="text-sm opacity-90">{currentPrayer.date}</div>
-                <div>{currentPrayer.name}</div>
-                <div className="text-2xl mt-1">{to12h(currentPrayer.time)}</div>
+                <div className="text-sm opacity-90">{formatoDaten(vaktiTani.data)}</div>
+                <div>{vaktiTani.emri}</div>
+                <div className="text-2xl mt-1">{ne12Ore(vaktiTani.koha)}</div>
               </>
             ) : (
               <>
-                <div>{currentPrayer.name}</div>
-                <div className="text-2xl mt-1">{to12h(currentPrayer.time)}</div>
+                <div>{vaktiTani.emri}</div>
+                <div className="text-2xl mt-1">{ne12Ore(vaktiTani.koha)}</div>
               </>
             )}
           </div>
         )}
       </div>
 
-      {/* TABLE */}
       <table className="w-full border-collapse text-left text-sm">
         <thead>
           <tr className="bg-indigo-50 text-indigo-800 font-semibold">
@@ -145,18 +136,17 @@ export default function PrayerTimes() {
           </tr>
         </thead>
         <tbody>
-          {prayersList.map(({ key, label }) => {
-            const isCurrent =
-              currentPrayer && currentPrayer.name.includes(label);
+          {listaVakteve.map(({ key, label }) => {
+            const eshteTani = vaktiTani && vaktiTani.emri.includes(label);
             return (
               <tr
                 key={key}
                 className={`${
-                  isCurrent ? "bg-indigo-100 font-bold" : "bg-white"
+                  eshteTani ? "bg-indigo-100 font-bold" : "bg-white"
                 } hover:bg-gray-50 transition`}>
                 <td className="p-2 border border-gray-300">{label}</td>
                 <td className="p-2 border border-gray-300 text-right font-mono">
-                  {to12h(data[key])}
+                  {ne12Ore(teDhenat[key])}
                 </td>
               </tr>
             );

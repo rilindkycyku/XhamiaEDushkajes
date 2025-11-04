@@ -1,13 +1,13 @@
 {
-  "description": "Dhuroni per Xhami.",
-  "kosovo": {
-    "bank": "Banka e Kosov\u00ebs",
+  "pershkrimiDhuro": "Dhuroni për Xhaminë e Dushkajës – Kaçanik. Çdo kontribut ndihmon në mirëmbajtjen dhe zhvillimin e xhamisë sonë.",
+  "bankaKosove": {
+    "bank": "Banka për Biznes",
     "iban": "XK12 3456 7890 1234 5678",
-    "holder": "Masjid Name"
+    "mbajtesi": "Xhamia e Dushkajës - Kaçanik"
   },
-  "sepa": {
-    "bank": "SEPA Bank Lithuania",
+  "bankaJashtVendi": {
+    "bank": "Revolut Bank (SEPA – Lituani)",
     "iban": "LT12 3456 7890 1234 567",
-    "holder": "Masjid Name Intl"
+    "mbajtesi": "Xhamia e Dushkajës - Kaçanik (Intl)"
   }
 }

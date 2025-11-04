@@ -1,23 +1,23 @@
-// YouTubeChannelEmbed.jsx
+// components/YouTubeChannelEmbed.jsx
 import siteConfig from "../data/site.json";
 
-const getPlaylistId = (id) => {
+const merrIdListes = (id) => {
   const s = id.trim();
   return s.startsWith("UC") ? "UU" + s.slice(2) : s;
 };
 
 export default function YouTubeChannelEmbed() {
-  const channelId = siteConfig.youtubeChannelId?.trim();
-  if (!channelId) return null;
+  const idKanali = siteConfig.kanaliYouTube?.trim();
+  if (!idKanali) return null;
 
-  const playlistId = getPlaylistId(channelId);
+  const idListes = merrIdListes(idKanali);
   const src = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(
-    playlistId
+    idListes
   )}&rel=0&modestbranding=1`;
 
   return (
     <iframe
-      title="YouTube Channel"
+      title="Kanali në YouTube"
       src={src}
       className="absolute inset-0 w-full h-full border-0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

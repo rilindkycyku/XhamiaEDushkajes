@@ -1,11 +1,12 @@
 {
-  "siteName": "Xhamia e Dushkajës - Kaçanik",
-  "welcomeText": "Mirë se vini në Uebfaqen e Xhamis së Dushkajës!",
-  "contactShort": "Email: xhamiaedushkajes@gmail.com | Phone: +383 00 000 000",
-  "facebookPage": "https://www.facebook.com/profile.php?id=61561510873713",
-  "youtubeChannelId": "UCc-JeykPmOFM2-xM24whHmA",
-  "heroImage": "/img/logo/LogoBIKKaqanik.png",
-  "heroTitle": "Xhamia e Dushkajës - Kaçanik ",
-  "heroSubtitle": "Mirë se vini!",
-  "imamName": "Nehat Shehu"
+  "emriXhamis": "Xhamia e Dushkajës - Kaçanik",
+  "textiMiresevini": "Mirë se vini në Uebfaqen e Xhamis së Dushkajës!",
+  "email": "xhamiaedushkajes@gmail.com",
+  "faqeFB": "https://www.facebook.com/profile.php?id=61561510873713",
+  "kanaliYouTube": "UCc-JeykPmOFM2-xM24whHmA",
+  "logoHero": "/img/logo/LogoBIKKaqanik.png",
+  "titulliHero": "Xhamia e Dushkajës - Kaçanik",
+  "nentilluiHero": "Mirë se vini!",
+  "emriImamitXhamis": "Nehat ef. Shehu",
+  "dataEHapjesXhamis": "2022-11-04"
 }
