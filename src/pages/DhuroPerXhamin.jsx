@@ -7,7 +7,7 @@ export default function DhuroPerXhamin() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-semibold">Dhuro për Xhamin</h1>
+      <h1 className="text-2xl font-semibold">Dhuro për Xhaminë</h1>
       <p className="mt-2 text-gray-600">{teDhenat.pershkrimiDhuro}</p>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">

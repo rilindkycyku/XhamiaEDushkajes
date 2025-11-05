@@ -7,8 +7,12 @@ import emailjs from "@emailjs/browser";
 const eshteEmailValide = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export default function Kontakti() {
-  const [formulari, setFormulari] = useState({ emri: "", email: "", mesazhi: "" });
-  const [statusi, setStatusi] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [formulari, setFormulari] = useState({
+    emri: "",
+    email: "",
+    mesazhi: "",
+  });
+  const [statusi, setStatusi] = useState(null);
 
   const ndryshoFushen = (e) => {
     setFormulari({ ...formulari, [e.target.name]: e.target.value });
@@ -17,7 +21,6 @@ export default function Kontakti() {
   const dergoFormularin = async (e) => {
     e.preventDefault();
     setStatusi("sending");
-
     toast.dismiss();
 
     if (!formulari.emri || !formulari.email || !formulari.mesazhi) {
@@ -64,17 +67,19 @@ export default function Kontakti() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-white mb-3">Na Kontaktoni</h1>
-          <p className="text-slate-400 text-lg">Xhamia e Dushkajës – Kaçanik</p>
+          <p className="text-emerald-300 text-lg">
+            Xhamia e Dushkajës – Kaçanik
+          </p>
         </div>
 
-        <div className="backdrop-blur-lg bg-white/10 rounded-2xl shadow-2xl border border-white/20 p-8">
+        <div className="backdrop-blur-lg bg-emerald-800/40 rounded-2xl shadow-2xl border border-emerald-700/50 p-8">
           <form onSubmit={dergoFormularin} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-emerald-200 mb-2">
                 Emri juaj
               </label>
               <input
@@ -83,13 +88,13 @@ export default function Kontakti() {
                 value={formulari.emri}
                 onChange={ndryshoFushen}
                 required
-                className="w-full px-4 py-3 bg-white/10 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
                 placeholder="Shkruani emrin tuaj..."
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-emerald-200 mb-2">
                 Email adresa
               </label>
               <input
@@ -98,13 +103,13 @@ export default function Kontakti() {
                 value={formulari.email}
                 onChange={ndryshoFushen}
                 required
-                className="w-full px-4 py-3 bg-white/10 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                placeholder="email@juaj.com"
+                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                placeholder="email_juaj@domain.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
+              <label className="block text-sm font-medium text-emerald-200 mb-2">
                 Mesazhi
               </label>
               <textarea
@@ -113,7 +118,7 @@ export default function Kontakti() {
                 onChange={ndryshoFushen}
                 rows={5}
                 required
-                className="w-full px-4 py-3 bg-white/10 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
+                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
                 placeholder="Shkruani mesazhin tuaj këtu..."
               />
             </div>
@@ -121,8 +126,7 @@ export default function Kontakti() {
             <button
               type="submit"
               disabled={statusi === "sending"}
-              className="group relative w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-emerald-500/25 transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-            >
+              className="group relative w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-green-500/30 transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none">
               {statusi === "sending" ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -140,7 +144,7 @@ export default function Kontakti() {
             </button>
 
             {statusi === "success" && (
-              <p className="text-center text-emerald-400 font-medium animate-fade-in">
+              <p className="text-center text-green-400 font-medium animate-pulse">
                 Mesazhi u dërgua me sukses! Faleminderit!
               </p>
             )}
