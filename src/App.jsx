@@ -6,6 +6,7 @@ import AktiviteteJavore from "./pages/AktiviteteJavore";
 import RrethXhamis from "./pages/RrethXhamis";
 import Home from "./pages/Home";
 import { Analytics } from "@vercel/analytics/react";
+import KohetENamazitPerSot from "./pages/KohetENamazitPerSot";
 
 export default function App() {
   return (
@@ -19,6 +20,10 @@ export default function App() {
           <Route path="/kontakti" element={<Kontakti />} />
           <Route path="/aktivitetejavore" element={<AktiviteteJavore />} />
           <Route path="/rrethxhamis" element={<RrethXhamis />} />
+          <Route
+            path="/kohetenamazitpersot"
+            element={<KohetENamazitPerSot />}
+          />
         </Routes>
       </main>
       <Footer />

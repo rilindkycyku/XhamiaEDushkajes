@@ -2,34 +2,64 @@
 import siteConfig from "../data/site.json";
 
 export default function Hero() {
-  const foto = siteConfig.logoHero || "/assets/logo.png";
+  const logo = siteConfig.logoHero || "/assets/logo.png";
 
   return (
-    <section className="relative h-64 md:h-96 bg-gray-50 overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center p-4 md:p-8">
-        <img
-          src={foto}
-          alt={siteConfig.emriXhamis || "Xhamia e Dushkajës"}
-          className="max-w-full max-h-full object-contain drop-shadow-lg"
-          onError={(e) => {
-            e.target.src =
-              "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGV4dCB4PSIxMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj7QodW/0LjRgtC+0LvQvdC40LU8L3RleHQ+PC9zdmc+";
-          }}
-        />
+    <section className="bg-gray-100 py-8 md:py-12 lg:py-16">
+      {/* -------------------------------------------------
+          MOBILE – Logo + Welcome card, centered
+      ------------------------------------------------- */}
+      <div className="md:hidden flex flex-col items-center gap-6 px-6">
+        {/* LOGO */}
+        <div className="w-32 h-32">
+          <img
+            src={logo}
+            alt={siteConfig.emriXhamis || "Xhamia e Dushkajës"}
+            className="w-full h-full object-contain rounded-full shadow-lg"
+            onError={(e) => {
+              e.target.src =
+                "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGV4dCB4PSIxMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj7QodW/0LjRgtC+0LvQvdC40LU8L3RleHQ+PC9zdmc+";
+            }}
+          />
+        </div>
+
+        {/* WELCOME CARD */}
+        <div className="w-full max-w-sm bg-gradient-to-r from-green-700 to-green-900 rounded-3xl p-6 text-white shadow-xl text-center">
+          <h1 className="text-2xl font-bold">Mirë se vini!</h1>
+          <p className="mt-2 text-lg">{siteConfig.titulliHero}</p>
+          <p className="mt-1 text-base">
+            Imam: {siteConfig.emriImamitXhamis}
+          </p>
+        </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60"></div>
+      {/* -------------------------------------------------
+          DESKTOP – Welcome card + Logo, centered side-by-side
+      ------------------------------------------------- */}
+      <div className="hidden md:flex md:items-center md:justify-center md:gap-12 lg:gap-16 px-8 lg:px-16">
+        {/* WELCOME CARD */}
+        <div className="w-full max-w-md bg-gradient-to-r from-green-700 to-green-900 rounded-3xl p-8 text-white shadow-xl text-center">
+          <h1 className="text-3xl lg:text-4xl font-bold">
+            Mirë se vini!
+          </h1>
+          <p className="mt-3 text-xl lg:text-2xl">{siteConfig.titulliHero}</p>
+          <p className="mt-2 text-lg lg:text-xl">
+            Imam: {siteConfig.emriImamitXhamis}
+          </p>
+        </div>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
-          {siteConfig.nentilluiHero}
-        </h1>
-        <p className="mt-4 text-xl md:text-4xl font-medium text-white drop-shadow">
-          {siteConfig.titulliHero}
-        </p>
-        <p className="mt-2 text-lg md:text-2xl font-medium text-white drop-shadow">
-          Imam: {siteConfig.emriImamitXhamis}
-        </p>
+        {/* LOGO */}
+        <div className="flex-shrink-0 w-40 h-40 lg:w-48 lg:h-48">
+          <img
+            src={logo}
+            alt={siteConfig.emriXhamis || "Xhamia e Dushkajës"}
+            className="w-full h-full object-contain rounded-full shadow-lg"
+            onError={(e) => {
+              e.target.src =
+                "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGV4dCB4PSIxMDAiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj7QodW/0LjRgtC+0LvQvdC40LU8L3RleHQ+PC9zdmc+";
+            }}
+          />
+        </div>
       </div>
     </section>
   );
