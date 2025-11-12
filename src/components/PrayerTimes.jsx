@@ -348,7 +348,7 @@ export default function PrayerTimes() {
               >
                 <td className="p-2 border border-gray-300">
                   {label}
-                  {eshteArdhshëm && " (next)"}
+                  {eshteArdhshëm && " (vakti ardhshëm)"}
                   {eshteXhumaMeVone && emri === "Dreka" && " (Xhuma)"}
                 </td>
                 <td className="p-2 border border-gray-300 text-center font-mono">
