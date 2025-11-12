@@ -276,7 +276,7 @@ export default function StaticPrayerCard() {
           {/* Footer – Time + Share */}
           <div className="mt-3 flex items-center justify-between text-xs md:text-sm text-gray-600">
             <span>
-              Tani: <span className="font-mono text-emerald-700">{currentTime}</span>
+              Data: <span className="font-mono text-emerald-700">{formatDate(todayData.Date)} - {currentTime}</span>
             </span>
             <button
               onClick={share}
