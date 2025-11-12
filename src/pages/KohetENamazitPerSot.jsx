@@ -220,7 +220,7 @@ export default function StaticPrayerCard() {
 
               {/* Remaining */}
               <div className="flex justify-between items-center">
-                <span className="text-sm">Mbeten:</span>
+                <span className="text-sm">Deri në vaktin tjetër:</span>
                 <span className="font-bold text-yellow-200 text-xl">
                   {formatRemaining(prayerInfo.remaining)}
                 </span>
