@@ -305,7 +305,7 @@ export default function PrayerTimes() {
             </div>
             <div className="text-2xl mt-1">{ne12h(infoTani.ardhshëm.kohe)}</div>
             <div className="text-sm mt-1">
-              Mbeten: <strong>{formatDallim(infoTani.mbetur)}</strong>
+              Deri në vaktin tjetër: <strong>{formatDallim(infoTani.mbetur)}</strong>
             </div>
           </div>
         )}
