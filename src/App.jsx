@@ -7,6 +7,7 @@ import RrethXhamis from "./pages/RrethXhamis";
 import Home from "./pages/Home";
 import { Analytics } from "@vercel/analytics/react";
 import KohetENamazitPerSot from "./pages/KohetENamazitPerSot";
+import DhuroPerXhamin from "./pages/DhuroPerXhamin";
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/dhuroperxhamin" element={<DhuroPerXhamin />} /> */}
+          <Route path="/dhuroperxhamin" element={<DhuroPerXhamin />} />
           <Route path="/kontakti" element={<Kontakti />} />
           <Route path="/aktivitetejavore" element={<AktiviteteJavore />} />
           <Route path="/rrethxhamis" element={<RrethXhamis />} />

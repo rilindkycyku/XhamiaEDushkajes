@@ -53,7 +53,7 @@ export default function Home() {
                 {viteTeShfaqura} {viteTeShfaqura === 1 ? "Vit" : "Vite"} Dritë,
                 Dije & Bamirësi
               </h3>
-              <p className="mt-2 text-lg opacity-90">
+              <p className="mt-2 text-lg opacity-90 font-semibold">
                 {formatoDaten(dataHapjes)} –{" "}
                 {formatoDaten(new Date(vitiPervjetor, 10, 4))}
               </p>
@@ -68,14 +68,14 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="col-span-2 space-y-6">
           <section className="bg-white p-6 rounded-xl shadow-md">
-            <h2 className="text-2xl font-semibold text-teal-700">
+            <h2 className="text-2xl font-bold text-teal-700">
               Mirë se Vini
             </h2>
             <p className="mt-2 text-gray-600">{siteConfig.textiMiresevini}</p>
           </section>
 
           <section className="bg-white p-6 rounded-xl shadow-md">
-            <h3 className="text-xl font-semibold text-teal-700">Facebook</h3>
+            <h3 className="text-xl font-bold text-teal-700">Facebook</h3>
             <p className="mt-2 text-gray-600">
               Ndiqni postimet dhe njoftimet tona në Facebook.
             </p>
@@ -88,7 +88,7 @@ export default function Home() {
         <aside className="space-y-6">
           <PrayerTimes />
           <div className="bg-white p-6 rounded-xl shadow-md">
-            <h3 className="text-lg font-semibold text-teal-700">Kontakti</h3>
+            <h3 className="text-lg font-bold text-teal-700">Kontakti</h3>
             <p className="mt-2 flex items-center gap-2">
               <svg
                 className="w-5 h-5 text-teal-600"

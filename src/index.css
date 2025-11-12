@@ -1,11 +1,32 @@
 @import "tailwindcss";
-@layer base, components, utilities;
 
-:root{
-  --container-max:1100px;
+@import "@fontsource/quicksand/300.css";
+@import "@fontsource/quicksand/400.css";
+@import "@fontsource/quicksand/500.css";
+@import "@fontsource/quicksand/600.css";
+@import "@fontsource/quicksand/700.css";
+
+/* Global font */
+html {
+  font-family: "Quicksand", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* small optimized utilities */
+/* ←←← CRITICAL: Align digits in monospaced columns */
+.font-mono {
+  font-feature-settings: "tnum" 1;   /* Tabular numbers */
+  letter-spacing: 0.05em;           /* Optional: slight spacing */
+}
+
+/* Your resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --container-max: 1100px;
+}
+
 .container { max-width: var(--container-max); }
 .hero-overlay { background: rgba(0,0,0,0.45); }
-.card { @apply bg-white rounded-lg shadow-sm p-6; }

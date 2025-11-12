@@ -7,7 +7,11 @@ module.exports = {
       colors: {
         primary: '#0b5cff',
         accent: '#ffd166'
-      }
+      },
+      // ←←← THIS REPLACES Tailwind’s default monospace
+      fontFamily: {
+        mono: ['Quicksand', 'ui-monospace', 'monospace'],
+      },
     }
   },
   plugins: []

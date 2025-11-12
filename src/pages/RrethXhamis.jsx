@@ -111,14 +111,14 @@ export default function RrethXhamis() {
       </section>
 
       <section className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4 text-center text-teal-700">
+        <h2 className="text-2xl font-bold mb-4 text-center text-teal-700">
           Foto
         </h2>
         <FotoGallery />
       </section>
 
       <section className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4 text-center text-teal-700">
+        <h2 className="text-2xl font-bold mb-4 text-center text-teal-700">
           Vendndodhja
         </h2>
         <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] bg-gray-50">
