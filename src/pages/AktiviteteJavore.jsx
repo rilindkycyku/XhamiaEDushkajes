@@ -1,4 +1,4 @@
-// components/AktiviteteJavore.jsx
+// src/pages/AktiviteteJavore.jsx
 import { useState } from "react";
 import aktivitete from "../data/aktivitetejavore.json";
 import YouTubeChannelEmbed from "../components/YouTubeChannelEmbed";

@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import KohetENamazitPerSot from "./pages/KohetENamazitPerSot";
 import DhuroPerXhamin from "./pages/DhuroPerXhamin";
 
+
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

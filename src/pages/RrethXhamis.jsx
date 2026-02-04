@@ -1,23 +1,8 @@
 // pages/RrethXhamis.jsx
-import { useEffect, useState } from "react";
 import FotoGallery from "../components/FotoGallery";
+import VideoGallery from "../components/VideoGallery";
 
 export default function RrethXhamis() {
-  const [aktual, setAktual] = useState(0);
-
-  const fotot = [
-    "/img/xhamia/XhamiaJasht.jpg",
-    "/img/xhamia/XhamiaMbrenda.jpg",
-    "/img/xhamia/XhamiaNatenDritatEReja.jpg",
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAktual((para) => (para + 1) % fotot.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [fotot.length]);
-
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
       <h1 className="text-3xl font-semibold text-center mb-6 text-teal-700">
@@ -115,6 +100,13 @@ export default function RrethXhamis() {
           Foto
         </h2>
         <FotoGallery />
+      </section>
+
+      <section className="max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold mb-4 text-center text-teal-700">
+          Video
+        </h2>
+        <VideoGallery />
       </section>
 
       <section className="max-w-4xl mx-auto">

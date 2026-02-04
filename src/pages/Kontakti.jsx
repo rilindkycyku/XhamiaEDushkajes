@@ -1,4 +1,4 @@
-// components/Kontakti.jsx
+// src/pages/Kontakti.jsx
 import { useState } from "react";
 import { TbMailForward } from "react-icons/tb";
 import { toast } from "react-toastify";

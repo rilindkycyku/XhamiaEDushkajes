@@ -1,11 +1,10 @@
-// components/DhuroPerXhamin.jsx
+// src/pages/DhuroPerXhamin.jsx
 import { useState } from "react";
 import dhuro from "../data/dhuro-per-xhami.json";
 
 export default function DhuroPerXhamin() {
   const [teDhenat] = useState(dhuro);
 
-  // 5 hadithe në shqip (të marra nga burime autentike)
   const hadithet = [
     {
       id: 1,
@@ -33,7 +32,6 @@ export default function DhuroPerXhamin() {
         {teDhenat.pershkrimiDhuro}
       </p>
 
-      {/* Hadithet – zëvendësojnë kartat e bankave */}
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-teal-700 text-center mb-6">
           Hadithe për Sadakën (Donacionin)
@@ -90,7 +88,6 @@ export default function DhuroPerXhamin() {
         </div>
       </div>
 
-      {/* Finances Transparency - Google Sheet */}
       <div className="bg-white rounded-xl shadow-md p-6">
         <h2 className="text-2xl font-bold text-teal-700 mb-4 text-center">
           Transparenca Financiare
@@ -100,7 +97,7 @@ export default function DhuroPerXhamin() {
         </p>
         <div className="border border-gray-200 rounded-lg overflow-hidden">
           <iframe
-            src="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/edit?gid=0#gid=0"
+            src="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/edit?gid=1052631879#gid=1052631879"
             className="w-full h-96 md:h-screen max-h-screen"
             title="Financat e Xhamisë"
             allowFullScreen

@@ -1,4 +1,4 @@
-// src/pages/StaticPrayerCard.jsx
+// src/pages/KohetENamazitPerSot.jsx
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import vaktet from "../data/vaktet-e-namazit.json";
 
