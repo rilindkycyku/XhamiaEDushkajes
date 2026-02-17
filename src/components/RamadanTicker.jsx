@@ -55,8 +55,10 @@ export default function RamadanTicker() {
 
     return (
         <div className="bg-emerald-950 text-white py-2 overflow-hidden relative z-40">
-            {/* Only 2 copies needed — translateX(-50%) creates a seamless loop */}
+            {/* 4 copies — translateX(-25%) guarantees full coverage at any screen width */}
             <div className="flex whitespace-nowrap ticker-track">
+                {strip}
+                {strip}
                 {strip}
                 {strip}
             </div>
@@ -64,15 +66,15 @@ export default function RamadanTicker() {
             <style jsx>{`
                 @keyframes ticker {
                     from { transform: translateX(0); }
-                    to   { transform: translateX(-50%); }
+                    to   { transform: translateX(-25%); }
                 }
                 .ticker-track {
-                    will-change: transform;          /* GPU compositing layer   */
+                    will-change: transform;
                     animation: ticker 18s linear infinite;
                 }
                 @media (max-width: 768px) {
                     .ticker-track {
-                        animation-duration: 12s;     /* ~50% faster on mobile   */
+                        animation-duration: 12s;
                     }
                 }
             `}</style>
