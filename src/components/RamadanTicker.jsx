@@ -164,7 +164,7 @@ export default function RamadanTicker() {
                     height: 100%;
                     white-space: nowrap;
                     will-change: transform;
-                    animation: rt-scroll 22s linear infinite;
+                    animation: rt-scroll 40s linear infinite;
                 }
 
                 /* ── Each strip is one full set of items ── */
@@ -228,7 +228,7 @@ export default function RamadanTicker() {
 
                 /* ── Mobile: slightly faster ── */
                 @media (max-width: 640px) {
-                    .rt-track { animation-duration: 16s; }
+                    .rt-track { animation-duration: 28s; }
                     .rt-badge  { display: none; }
                 }
 
