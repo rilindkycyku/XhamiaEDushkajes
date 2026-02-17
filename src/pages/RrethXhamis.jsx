@@ -1,7 +1,7 @@
-// pages/RrethXhamis.jsx
 import FotoGallery from "../components/FotoGallery";
 import VideoGallery from "../components/VideoGallery";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 import { HiOutlineCalendar, HiOutlineMapPin, HiSparkles, HiOutlinePhoto, HiOutlineVideoCamera } from "react-icons/hi2";
 
 export default function RrethXhamis() {
@@ -20,8 +20,13 @@ export default function RrethXhamis() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="container py-8 md:py-16 space-y-16 md:space-y-32 mb-12"
+      className="container py-8 md:py-16 space-y-16 md:space-y-32 mb-12 mx-auto"
     >
+      <SEO
+        title="Rreth Xhamisë"
+        description="Mësoni më shumë për historinë e Xhamisë së Dushkajës, aktivitetet tona dhe se si jemi bërë një qendër shpirtërore për komunitetin e Kaçanikut."
+        url="/rrethxhamis"
+      />
       <section className="text-center max-w-4xl mx-auto px-4">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-8 border border-emerald-100 shadow-sm">
           <HiSparkles className="text-emerald-500 animate-pulse" /> Historia Jonë

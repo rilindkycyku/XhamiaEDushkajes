@@ -1,7 +1,7 @@
-// src/pages/KohetENamazitPerSot.jsx
 import { useEffect, useState, useCallback, useMemo } from "react";
 import vaktet from "../data/vaktet-e-namazit.json";
 import { motion, AnimatePresence } from "framer-motion";
+import SEO from "../components/SEO";
 import {
   HiOutlineShare,
   HiCheckCircle,
@@ -220,6 +220,11 @@ export default function KohetENamazitPerSot() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-8 pb-20 px-3 md:px-4 relative font-sans overflow-x-hidden">
+      <SEO
+        title="Kohët e Namazit"
+        description="Shikoni kohët e sakta të namazit për sot në Kaçanik (Dushkajë). Informohuni mbi kohën e Imsakut, Sabahut, Drekës, Ikindisë, Akshamit dhe Jacisë."
+        url="/kohetenamazitpersot"
+      />
       {/* Immersive Background Header */}
       <div className="absolute top-0 left-0 w-full h-[40vh] bg-slate-950 z-0 overflow-hidden">
         {/* Dynamic Glows */}

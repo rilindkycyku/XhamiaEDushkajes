@@ -1,11 +1,12 @@
-// src/pages/Home.jsx
+
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
 import FacebookEmbed from "../components/FacebookEmbed";
 import siteConfig from "../data/site.json";
+import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { HiArrowRight, HiMapPin, HiOutlineEnvelope, HiPhone, HiHeart } from "react-icons/hi2";
+import { HiArrowRight, HiOutlineEnvelope, HiPhone } from "react-icons/hi2";
 
 export default function Home() {
   const dataHapjes = new Date(siteConfig.dataEHapjesXhamis);
@@ -17,7 +18,6 @@ export default function Home() {
     sot.getMonth() > 10 || (sot.getMonth() === 10 && sot.getDate() >= 4);
 
   const viteTeShfaqura = eshteSezonPervjetori ? viteAktive : viteAktive - 1;
-  const vitiPervjetor = dataHapjes.getFullYear() + viteTeShfaqura;
 
   const formatoDaten = (data) => {
     const ditet = data.getDate();
@@ -44,9 +44,15 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden bg-[#f8fafc]">
+      <SEO
+        title="Ballina"
+        description="Faqja zyrtare e Xhamisë së Dushkajës - Kaçanik. Informohuni mbi kohët e namazit, aktivitetet, historinë tonë dhe kontribuoni për xhaminë."
+        url="/"
+      />
+
       <Hero />
 
-      <main className="container -mt-24 md:-mt-32 relative z-20 pb-24">
+      <main className="container -mt-24 md:-mt-32 relative z-20 pb-24 mx-auto px-4">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -111,7 +117,7 @@ export default function Home() {
                   <p className="text-slate-500">Qëndroni të informuar me aktivitetet tona.</p>
                 </div>
                 <a
-                  href={siteConfig.facebook}
+                  href={siteConfig.faqeFB}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-emerald-700 font-bold bg-emerald-50 px-6 py-3 rounded-2xl hover:bg-emerald-100 transition-colors"
@@ -167,8 +173,6 @@ export default function Home() {
                   )}
                 </div>
               </div>
-
-
             </motion.div>
           </aside>
         </motion.div>
@@ -176,5 +180,3 @@ export default function Home() {
     </div>
   );
 }
-
-

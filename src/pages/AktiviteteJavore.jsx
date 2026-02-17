@@ -1,8 +1,8 @@
-// src/pages/AktiviteteJavore.jsx
 import { useState } from "react";
 import aktivitete from "../data/aktivitetejavore.json";
 import YouTubeChannelEmbed from "../components/YouTubeChannelEmbed";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 import { HiOutlineClock, HiOutlineMapPin, HiOutlineVideoCamera, HiSparkles } from "react-icons/hi2";
 
 export default function AktiviteteJavore() {
@@ -23,8 +23,13 @@ export default function AktiviteteJavore() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="container py-12 md:py-16 space-y-24"
+      className="container py-12 md:py-16 space-y-24 mx-auto px-4"
     >
+      <SEO
+        title="Aktivitetet Javore"
+        description="Bashkohuni me ne në aktivitetet tona javore: ligjërata fetare, kurse, dhe programe edukative për të gjitha moshat në Xhaminë e Dushkajës."
+        url="/aktivitetejavore"
+      />
       <section className="text-center max-w-4xl mx-auto px-4">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-[0.2em] mb-8 border border-emerald-100 shadow-sm font-sans">
           <HiSparkles className="text-emerald-500 animate-pulse" /> Përfshiu në Mirësi

@@ -1,9 +1,9 @@
-// src/pages/Kontakti.jsx
 import { useState } from "react";
 import { HiOutlineEnvelopeOpen, HiOutlineUser, HiOutlineEnvelope, HiOutlineChatBubbleLeftRight, HiSparkles } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 
 const eshteEmailValide = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -58,6 +58,11 @@ export default function Kontakti() {
 
   return (
     <div className="min-h-screen pt-12 pb-24 px-4 relative overflow-hidden bg-[#f8fafc]">
+      <SEO
+        title="Kontakti"
+        description="Na kontaktoni për pyetje, sugjerime apo informata shtesë rreth Xhamisë së Dushkajës. Jemi këtu për t'ju shërbyer."
+        url="/kontakti"
+      />
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] -ml-64 -mb-64" />

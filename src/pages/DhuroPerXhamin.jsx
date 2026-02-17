@@ -1,7 +1,7 @@
-// src/pages/DhuroPerXhamin.jsx
 import { useState } from "react";
 import dhuro from "../data/dhuro-per-xhami.json";
 import { motion } from "framer-motion";
+import SEO from "../components/SEO";
 import { HiOutlineHeart, HiOutlineGlobeAlt, HiOutlineChatBubbleLeftRight, HiSparkles } from "react-icons/hi2";
 
 export default function DhuroPerXhamin() {
@@ -10,7 +10,7 @@ export default function DhuroPerXhamin() {
   const hadithet = [
     {
       id: 1,
-      teksti: "Agjërimi është mburojë, sadaka i anulon mëkatet sikur që uji e fik zjarrin...",
+      teksti: "Agjërimi është mburojë, sadaka i annulon mëkatet sikur që uji e fik zjarrin...",
       burimi: "Sahihu i Muslimit (40 Hadithet e Imam Neveviut)",
     },
     {
@@ -40,8 +40,13 @@ export default function DhuroPerXhamin() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="container py-12 md:py-16 space-y-24 md:space-y-32"
+      className="container py-12 md:py-16 space-y-24 md:space-y-32 mx-auto"
     >
+      <SEO
+        title="Ofroni Ndihmën Tuaj"
+        description="Kontribuoni për Xhaminë e Dushkajës. Çdo donacion i juaj ndihmon në mirëmbajtjen e xhamisë dhe zhvillimin e aktiviteteve tona bamirëse."
+        url="/dhuroperxhamin"
+      />
       <section className="text-center max-w-3xl mx-auto space-y-8 px-4">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gold-50 text-gold-700 text-xs font-black uppercase tracking-[0.2em] mb-4 border border-gold-100 shadow-sm">
           <HiSparkles className="text-gold-500 animate-pulse" /> Bëhu pjesë e mirësisë
