@@ -1,5 +1,17 @@
 // src/components/VideoGallery.jsx
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiPlay,
+  HiPause,
+  HiExclamationCircle,
+  HiArrowsPointingOut,
+  HiXMark,
+  HiSpeakerWave,
+  HiSpeakerXMark
+} from "react-icons/hi2";
 
 const videot = Object.entries(
   import.meta.glob("../assets/video/xhamia/*.{mp4,webm,mov}", {
@@ -12,226 +24,161 @@ const videot = Object.entries(
 
 export default function VideoGallery() {
   const [indeksi, setIndeksi] = useState(0);
-  const [duke_ngarkuar, setDukeNgarkuar] = useState(true);
-  const [gabim, setGabim] = useState(false);
+  const [isLuo, setIsLuo] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isFS, setIsFS] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const videoRefs = useRef([]);
-  const containerRef = useRef(null);
 
-  // SHKO TE VIDEO TJETER
-  const shko = (i) => {
+  const shko = useCallback((i) => {
     if (i < 0 || i >= videot.length) return;
-    
-    // NDALO TE GJITHA VIDEOT
-    videoRefs.current.forEach((v) => {
-      if (v) {
-        v.pause();
-        v.currentTime = 0; // Kthe ne fillim
-      }
-    });
-    
-    setIndeksi(i);
-    setDukeNgarkuar(true);
-    setGabim(false);
-    
-    // LUAJ VIDEON E RE
-    setTimeout(() => {
-      const videoAktiv = videoRefs.current[i];
-      if (videoAktiv) {
-        videoAktiv.play().catch(() => setGabim(true));
-      }
-    }, 100);
-  };
-
-  const para = () => shko((indeksi - 1 + videot.length) % videot.length);
-  const pas = () => shko((indeksi + 1) % videot.length);
-
-  const kaShume = videot.length > 1; // A KA MË SHUMË SE 1 VIDEO?
-
-  // KEYBOARD NAVIGATION (VETËM NËse ka më shumë video)
-  useEffect(() => {
-    const trajto = (e) => {
-      if (kaShume && e.key === "ArrowLeft") para();
-      else if (kaShume && e.key === "ArrowRight") pas();
-      else if (e.key === " ") {
-        e.preventDefault();
-        const video = videoRefs.current[indeksi];
-        if (video) {
-          video.paused ? video.play() : video.pause();
-        }
-      }
-    };
-
-    window.addEventListener("keydown", trajto);
-    return () => window.removeEventListener("keydown", trajto);
-  }, [indeksi, kaShume]);
-
-  // NGARKO VIDEON E PARE
-  useEffect(() => {
-    if (videot.length > 0 && videoRefs.current[0]) {
-      videoRefs.current[0].play().catch(() => setGabim(true));
+    if (i !== indeksi) {
+      setIndeksi(i);
+      setLoading(true);
+      setError(false);
     }
-  }, []);
+    setIsLuo(true);
+  }, [indeksi]);
 
-  // NUK KA VIDEO
-  if (videot.length === 0) {
-    return (
-      <div className="rounded-2xl bg-gray-50 border-2 border-dashed border-gray-300 p-12 text-center">
-        <svg
-          className="mx-auto h-12 w-12 text-gray-400 mb-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-        <p className="text-gray-500 text-lg">Nuk ka video të disponueshme</p>
-      </div>
-    );
-  }
+  const para = useCallback(() => shko((indeksi - 1 + videot.length) % videot.length), [indeksi, shko]);
+  const pas = useCallback(() => shko((indeksi + 1) % videot.length), [indeksi, shko]);
+
+  useEffect(() => {
+    const v = videoRefs.current[indeksi];
+    if (v) {
+      if (isLuo) v.play().catch(() => { });
+      else v.pause();
+    }
+  }, [isLuo, indeksi]);
+
+  if (videot.length === 0) return null;
 
   return (
-    <div className="space-y-4" ref={containerRef}>
-      {/* VIDEO AKTIV */}
-      <div className="relative rounded-2xl overflow-hidden shadow-lg bg-gray-900 group">
-        {/* LOADING INDICATOR */}
-        {duke_ngarkuar && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-teal-500 border-t-transparent" />
+    <div className="flex flex-col gap-8 w-full select-none max-w-4xl mx-auto">
+
+      {/* COMPACT CINEMATIC PLAYER */}
+      <div
+        onClick={() => setIsFS(true)}
+        className="relative group rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 cursor-zoom-in"
+      >
+        <div className="absolute inset-0 overflow-hidden pointer-events-none scale-125 blur-[80px] opacity-30 saturate-[1.6]">
+          <video
+            key={`ambient-${videot[indeksi]}`}
+            src={videot[indeksi]}
+            className="w-full h-full object-cover"
+            muted loop autoPlay playsInline
+          />
+        </div>
+
+        <AnimatePresence>
+          {loading && (
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="absolute inset-0 flex items-center justify-center bg-slate-950/80 backdrop-blur-3xl z-30"
+            >
+              <div className="w-12 h-12 border-4 border-emerald-500/10 border-t-emerald-500 rounded-full animate-spin" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {error && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/90 z-40">
+            <HiExclamationCircle className="h-16 w-16 text-red-500/80" />
           </div>
         )}
 
-        {/* ERROR STATE */}
-        {gabim && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
-            <div className="text-center text-white p-4">
-              <svg
-                className="mx-auto h-12 w-12 text-red-400 mb-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-              <p className="text-sm">Gabim në ngarkimin e videos</p>
-              <button
-                onClick={() => shko(indeksi)}
-                className="mt-3 px-4 py-2 bg-teal-600 hover:bg-teal-700 rounded-lg text-sm transition">
-                Provo Përsëri
-              </button>
-            </div>
-          </div>
-        )}
-
+        {/* Main Video */}
         <video
+          key={videot[indeksi]}
           ref={(el) => (videoRefs.current[indeksi] = el)}
           src={videot[indeksi]}
-          className="w-full h-[400px] object-contain"
-          controls
-          autoPlay
-          muted
-          loop
-          playsInline
-          onLoadedData={() => setDukeNgarkuar(false)}
-          onError={() => {
-            setDukeNgarkuar(false);
-            setGabim(true);
-          }}
+          className="w-full h-full object-contain relative z-10 p-4 md:p-8 drop-shadow-2xl"
+          autoPlay={isLuo}
+          muted={isMuted}
+          loop playsInline
+          onLoadedData={() => setLoading(false)}
+          onError={() => { setLoading(false); setError(true); }}
         />
 
-        {/* SHIGJETA MAJTAS - VETËM NËse ka më shumë video */}
-        {kaShume && (
-          <>
-            <button
-              onClick={para}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition opacity-0 group-hover:opacity-100"
-              aria-label="Video e mëparshme">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
+        {/* Floating HUD */}
+        <div className="absolute top-6 left-6 md:top-8 md:left-8 px-4 py-2 rounded-2xl bg-black/30 backdrop-blur-2xl border border-white/10 text-white z-20 flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[10px] md:text-sm font-black tracking-widest">{indeksi + 1} / {videot.length}</span>
+        </div>
 
-            {/* SHIGJETA DJATHTAS */}
-            <button
-              onClick={pas}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition opacity-0 group-hover:opacity-100"
-              aria-label="Video tjetër">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </>
-        )}
+        <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3 z-20">
+          <button onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-white/10">
+            {isMuted ? <HiSpeakerXMark size={18} /> : <HiSpeakerWave size={18} />}
+          </button>
+          <button onClick={(e) => { e.stopPropagation(); setIsFS(true); }} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all">
+            <HiArrowsPointingOut size={18} />
+          </button>
+        </div>
+      </div>
 
-        {/* COUNTER - VETËM NËse ka më shumë video */}
-        {kaShume && (
-          <div className="absolute top-3 right-3 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium">
-            {indeksi + 1} / {videot.length}
+      {/* DOCKER & THUMBNAILS */}
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        <div className="flex-1 w-full bg-white rounded-[2.5rem] md:rounded-[3rem] p-3 md:p-4 shadow-xl border border-slate-100 flex items-center gap-4 md:gap-6">
+          <button
+            onClick={() => setIsLuo(!isLuo)}
+            className="w-12 h-12 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[1.8rem] bg-slate-50 text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
+          >
+            {isLuo ? <HiPause size={24} /> : <HiPlay size={24} className="translate-x-0.5" />}
+          </button>
+
+          <div className="flex-1 hidden md:block">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Duke Luajtur</span>
+            <p className="text-sm font-black text-slate-900 truncate">Video</p>
+          </div>
+
+          {videot.length > 1 && (
+            <div className="flex items-center gap-2">
+              <button onClick={para} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronLeft size={18} /></button>
+              <button onClick={pas} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronRight size={18} /></button>
+            </div>
+          )}
+        </div>
+
+        {videot.length > 1 && (
+          <div className="overflow-x-auto w-full md:w-auto scrollbar-hide flex gap-3 px-2">
+            {videot.map((src, i) => (
+              <button
+                key={src}
+                onClick={() => shko(i)}
+                className={`relative flex-shrink-0 w-20 md:w-28 aspect-video rounded-2xl overflow-hidden border-2 transition-all ${i === indeksi ? "border-emerald-500 scale-105" : "border-slate-100 opacity-40 hover:opacity-100"
+                  }`}
+              >
+                <video src={src} className="w-full h-full object-cover" muted preload="metadata" />
+              </button>
+            ))}
           </div>
         )}
       </div>
 
-      {/* THUMBNAILS - VETËM NËse ka më shumë video */}
-      {kaShume && (
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-          {videot.map((src, i) => (
-            <button
-              key={src}
-              onClick={() => shko(i)}
-              className={`relative flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-                i === indeksi
-                  ? "border-teal-500 scale-105 shadow-lg"
-                  : "border-gray-300 hover:border-teal-300 opacity-70 hover:opacity-100"
-              }`}
-              aria-label={`Shko te video ${i + 1}`}>
-              <video
-                src={src}
-                className="w-32 h-20 object-cover pointer-events-none"
-                muted
-                preload="metadata"
-              />
-              {/* PLAY ICON */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                <svg
-                  className="w-8 h-8 text-white drop-shadow-lg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-              {/* THUMBNAIL NUMBER */}
-              <div className="absolute top-1 right-1 bg-black/70 text-white text-xs px-2 py-0.5 rounded">
-                {i + 1}
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
+      {/* FULLSCREEN THEATER */}
+      <AnimatePresence>
+        {isFS && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[2000] bg-slate-950 flex flex-col items-center justify-center p-0 md:p-12"
+            onClick={() => setIsFS(false)}
+          >
+            <div className="absolute inset-0 blur-[100px] opacity-30 saturate-[1.5]">
+              <video src={videot[indeksi]} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+            </div>
+            <button className="absolute top-10 right-10 w-16 h-16 rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50"><HiXMark size={32} /></button>
+
+            <motion.video
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              src={videot[indeksi]}
+              className="w-full h-full md:max-w-6xl md:max-h-full object-contain relative z-40 rounded-none md:rounded-[3rem] shadow-2xl"
+              autoPlay controls playsInline muted={isMuted}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

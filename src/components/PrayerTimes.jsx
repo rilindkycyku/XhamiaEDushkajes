@@ -1,71 +1,57 @@
 // components/PrayerTimes.jsx
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import vaktet from "../data/vaktet-e-namazit.json";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiOutlineShare, HiCheckCircle } from "react-icons/hi2";
 
-/* ---------- ALBANIAN MONTHS ---------- */
-const muajtShqip = [
-  "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
-  "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
-];
+const muajtShqip = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
 
 export default function PrayerTimes() {
   const [vaktiSot, setVaktiSot] = useState(null);
   const [infoTani, setInfoTani] = useState(null);
 
-  /* ---------- GJEJ VAKTET PËR SOT ---------- */
   useEffect(() => {
     if (!Array.isArray(vaktet) || vaktet.length === 0) return;
-
     const sot = new Date();
     const dite = sot.getDate();
-    const muajiShkurt = sot.toLocaleString("en", { month: "short" });
-
+    const muajiSot = sot.toLocaleString("en", { month: "short" });
     const rreshti = vaktet.find((v) => {
       const [d, m] = v.Date.split("-");
-      return Number(d) === dite && m === muajiShkurt;
+      return Number(d) === dite && m === muajiSot;
     }) ?? vaktet[0];
-
     setVaktiSot(rreshti);
   }, []);
 
-  /* ---------- HELPERS ---------- */
   const neMinuta = (ora) => {
+    if (!ora) return 0;
     const [h, m] = ora.split(":").map(Number);
     return h * 60 + m;
   };
 
   const formatDallim = (min) => {
-    if (min <= 0) return "0 min";
+    if (min <= 0) return "0m";
     const o = Math.floor(min / 60);
     const m = min % 60;
-    return `${o ? `${o} orë ` : ""}${m} min`;
+    return `${o ? `${o}h ` : ""}${m}m`;
   };
 
-  // NEW: 24-hour format
   const ne24h = (ora24) => {
     if (!ora24) return "—";
     const [h, m] = ora24.split(":").map(Number);
     return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
   };
 
-  /* ---------- FORMAT DATE IN ALBANIAN ---------- */
-  const formatDaten = (str) => {
+  const formatDatenShqip = (str) => {
+    if (!str) return "";
     const [d, m] = str.split("-");
-    const viti = new Date().getFullYear();
-    const muajiIndex = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ].indexOf(m);
+    const muajtEnglish = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const muajiIndex = muajtEnglish.indexOf(m);
     const emriMuajit = muajiIndex >= 0 ? muajtShqip[muajiIndex] : m;
-    return `${String(d).padStart(2, "0")} ${emriMuajit} ${viti}`;
+    return `${d} ${emriMuajit}`;
   };
 
-  /* ---------- XHEMATI (vetëm për 5 namazet) ---------- */
   const xhemati = (emri) => {
-    if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri))
-      return null;
-
-    // Sabahu: 40 min para lindjes
+    if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
     if (emri === "Sabahu" && vaktiSot?.Lindja) {
       const [h, m] = vaktiSot.Lindja.split(":").map(Number);
       const total = h * 60 + m - 40;
@@ -73,335 +59,185 @@ export default function PrayerTimes() {
       const min = ((total % 60) + 60) % 60;
       return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
     }
-
-    // Dreka: xhuma 13:00, otherwise next full hour
     if (emri === "Dreka" && vaktiSot?.Dreka) {
       const eshteXhuma = new Date().getDay() === 5;
       const [h, m] = vaktiSot.Dreka.split(":").map(Number);
       const minAdhan = h * 60 + m;
-
       if (eshteXhuma && minAdhan >= 12 * 60) return "13:00";
-
       const oraTjeter = Math.ceil(minAdhan / 60) * 60;
       const o = Math.floor(oraTjeter / 60);
       return `${String(o).padStart(2, "0")}:00`;
     }
-
     return vaktiSot?.[emri] ?? null;
   };
 
-  const xhematiPerDaten = (data, emri) => {
-    if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri))
-      return null;
-
-    if (emri === "Sabahu" && data?.Lindja) {
-      const [h, m] = data.Lindja.split(":").map(Number);
-      const total = h * 60 + m - 40;
-      const o = Math.floor(total / 60);
-      const min = ((total % 60) + 60) % 60;
-      return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
-    }
-
-    if (emri === "Dreka") {
-      const eshteXhuma = new Date().getDay() === 5;
-      const [h, m] = data.Dreka.split(":").map(Number);
-      const minAdhan = h * 60 + m;
-      if (eshteXhuma && minAdhan >= 12 * 60) return "13:00";
-      const oraTjeter = Math.ceil(minAdhan / 60) * 60;
-      const o = Math.floor(oraTjeter / 60);
-      return `${String(o).padStart(2, "0")}:00`;
-    }
-
-    return data?.[emri] ?? null;
-  };
-
-  /* ---------- BUILD CHRONOLOGICAL MOMENTS ---------- */
   const buildMoments = useCallback(() => {
     if (!vaktiSot) return [];
-
     const moments = [];
-
-    if (vaktiSot.Imsaku) {
-      moments.push({ label: "Imsaku", kohe: vaktiSot.Imsaku, isXhemat: false });
-    }
-
-    if (vaktiSot.Sabahu) {
-      moments.push({ label: "Sabahu", kohe: vaktiSot.Sabahu, isXhemat: false });
-      const xh = xhemati("Sabahu");
-      if (xh) moments.push({ label: "Sabahu (xhemat)", kohe: xh, isXhemat: true });
-    }
-
-    if (vaktiSot.Lindja) {
-      moments.push({ label: "L. e Diellit", kohe: vaktiSot.Lindja, isXhemat: false });
-    }
-
-    if (vaktiSot.Dreka) {
-      moments.push({ label: "Dreka", kohe: vaktiSot.Dreka, isXhemat: false });
-      const xh = xhemati("Dreka");
-      if (xh) moments.push({ label: "Dreka (xhemat)", kohe: xh, isXhemat: true });
-    }
-
-    if (vaktiSot.Ikindia) {
-      moments.push({ label: "Ikindia", kohe: vaktiSot.Ikindia, isXhemat: false });
-      const xh = xhemati("Ikindia");
-      if (xh) moments.push({ label: "Ikindia (xhemat)", kohe: xh, isXhemat: true });
-    }
-
-    if (vaktiSot.Akshami) {
-      moments.push({ label: "Akshami", kohe: vaktiSot.Akshami, isXhemat: false });
-      const xh = xhemati("Akshami");
-      if (xh) moments.push({ label: "Akshami (xhemat)", kohe: xh, isXhemat: true });
-    }
-
-    if (vaktiSot.Jacia) {
-      moments.push({ label: "Jacia", kohe: vaktiSot.Jacia, isXhemat: false });
-      const xh = xhemati("Jacia");
-      if (xh) moments.push({ label: "Jacia (xhemat)", kohe: xh, isXhemat: true });
-    }
-
+    const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
+    namazet.forEach(n => {
+      if (vaktiSot[n]) {
+        moments.push({ id: n, label: n, kohe: vaktiSot[n] });
+        const xh = xhemati(n);
+        if (xh) moments.push({ id: n, label: `${n} (xhemat)`, kohe: xh });
+      }
+    });
     return moments;
   }, [vaktiSot]);
 
-  /* ---------- PËRDITËSO NAMAZIN TANI & TË ARDHSHMIN ---------- */
   const perditeso = useCallback(() => {
     if (!vaktiSot) return;
-
     const tani = new Date();
     const minTani = tani.getHours() * 60 + tani.getMinutes();
     const moments = buildMoments();
-
-    // ---- Find first future moment ----
     let nextIdx = moments.findIndex((m) => neMinuta(m.kohe) > minTani);
 
-    // ---- All moments of today passed → go to tomorrow ----
     if (nextIdx === -1) {
       const idxSot = vaktet.findIndex((v) => v.Date === vaktiSot.Date);
-      if (idxSot === -1) return;
-
       const neser = vaktet[idxSot + 1] ?? vaktet[0];
-      if (!neser?.Sabahu) return;
-
-      const sabahAdhan = neser.Sabahu;
-      const sabahXhemat = xhematiPerDaten(neser, "Sabahu");
-
-      const minSabahAdhan = neMinuta(sabahAdhan);
-      const minSabahXhemat = neMinuta(sabahXhemat);
-
-      const minUntilAdhan = 24 * 60 - minTani + minSabahAdhan;
-
-      let label, kohe, mbetur;
-
-      if (minUntilAdhan > 0) {
-        label = "Sabahu";
-        kohe = sabahAdhan;
-        mbetur = minUntilAdhan;
-      } else {
-        label = "Sabahu (xhemat)";
-        kohe = sabahXhemat;
-        mbetur = minSabahXhemat - minTani;
-      }
-
       setInfoTani({
-        tani:
-          moments.length > 0
-            ? {
-                label: moments[moments.length - 1].label,
-                kohe: moments[moments.length - 1].kohe,
-              }
-            : null,
-        ardhshëm: {
-          label: `${label} (nesër)`,
-          kohe,
-          date: neser.Date,
-        },
-        mbetur,
+        tani: moments[moments.length - 1],
+        ardhshëm: { id: "Sabahu", label: "Sabahu", kohe: neser.Sabahu },
+        mbetur: 24 * 60 - minTani + neMinuta(neser.Sabahu),
+        total: 24 * 60 - neMinuta(moments[moments.length - 1].kohe) + neMinuta(neser.Sabahu),
       });
       return;
     }
 
-    // ---- Normal case: there is a next moment today ----
+    const currentMoment = nextIdx > 0 ? moments[nextIdx - 1] : null;
     const nextMoment = moments[nextIdx];
-    const nowMoment = nextIdx > 0 ? moments[nextIdx - 1] : null;
+    const totalMin = currentMoment ? neMinuta(nextMoment.kohe) - neMinuta(currentMoment.kohe) : 60;
 
     setInfoTani({
-      tani: nowMoment
-        ? { label: nowMoment.label, kohe: nowMoment.kohe }
-        : null,
-      ardhshëm: {
-        label: nextMoment.label,
-        kohe: nextMoment.kohe,
-        date: vaktiSot.Date,
-      },
+      tani: currentMoment,
+      ardhshëm: nextMoment,
       mbetur: neMinuta(nextMoment.kohe) - minTani,
+      total: totalMin,
     });
   }, [vaktiSot, buildMoments]);
 
-  /* ---------- UPDATE EVERY MINUTE ---------- */
   useEffect(() => {
     if (!vaktiSot) return;
     perditeso();
-    const id = setInterval(perditeso, 60_000);
+    const id = setInterval(perditeso, 10_000);
     return () => clearInterval(id);
   }, [vaktiSot, perditeso]);
 
-  /* ---------- SHARE (static page) ---------- */
-  const shareStaticPage = () => {
-    const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const shareUrl = `${baseUrl}/kohetenamazitpersot`;
-    const title = `Kohët e Namazit – ${formatDaten(vaktiSot.Date)}`;
-
+  const shareTimes = () => {
+    const url = `${window.location.origin}/kohetenamazitpersot`;
     if (navigator.share) {
-      navigator.share({ title, url: shareUrl }).catch(() => fallbackCopy(shareUrl));
+      navigator.share({ title: `Vaktet - ${formatDatenShqip(vaktiSot.Date)}`, url });
     } else {
-      fallbackCopy(shareUrl);
+      navigator.clipboard.writeText(url);
+      alert("Linku u kopjua!");
     }
   };
 
-  const fallbackCopy = (url) => {
-    const el = document.createElement("textarea");
-    el.value = url;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-    alert("Linku u kopjua! Ndaje me të tjerët.");
-  };
+  const listaNamazeve = useMemo(() => [
+    { id: "Imsaku", label: "Imsaku" },
+    { id: "Sabahu", label: "Sabahu" },
+    { id: "Lindja", label: "Lindja", dim: true },
+    { id: "Dreka", label: "Dreka" },
+    { id: "Ikindia", label: "Ikindia" },
+    { id: "Akshami", label: "Akshami" },
+    { id: "Jacia", label: "Jacia" },
+  ], []);
 
-  /* ---------- LOADING ---------- */
-  if (!vaktiSot)
-    return (
-      <div className="p-6 text-center text-gray-600 font-medium">
-        Duke ngarkuar…
-      </div>
-    );
+  if (!vaktiSot) return <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />;
 
-  const eshteXhuma = new Date().getDay() === 5;
-  const drekaMin = vaktiSot.Dreka ? neMinuta(vaktiSot.Dreka) : 0;
-  const eshteXhumaMeVone = eshteXhuma && drekaMin >= 12 * 60;
-
-  const listaNamazeve = [
-    { emri: "Imsaku", label: "Imsaku", veçori: true },
-    { emri: "Sabahu", label: "Sabahu" },
-    { emri: "Lindja", label: "L. e Diellit", veçori: true },
-    { emri: "Dreka", label: "Dreka" },
-    { emri: "Ikindia", label: "Ikindia" },
-    { emri: "Akshami", label: "Akshami" },
-    { emri: "Jacia", label: "Jacia" },
-  ];
+  const progress = infoTani ? Math.max(0, Math.min(100, (1 - infoTani.mbetur / infoTani.total) * 100)) : 0;
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-xl shadow-lg">
-      {/* KREU */}
-      <div className="text-center mb-6">
-        <div className="text-lg font-bold text-gray-800">
-          {formatDaten(vaktiSot.Date)}
-          {eshteXhumaMeVone && (
-            <span className="block mt-1 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full inline-block">
-              Xhuma (13:00)
-            </span>
-          )}
+    <div className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col max-w-md mx-auto font-sans">
+      <div className="bg-slate-900 p-5 text-white relative">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-white/5">
+          <motion.div animate={{ width: `${progress}%` }} className="h-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
         </div>
 
-        {vaktiSot.Festat && (
-          <div className="mt-3 p-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold text-sm shadow">
-            {vaktiSot.Festat}
-          </div>
-        )}
+        <AnimatePresence>
+          {(vaktiSot.Festat || vaktiSot.Shenime) && (
+            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-4 bg-emerald-600/10 border border-emerald-500/20 p-3 rounded-xl font-sans">
+              {vaktiSot.Festat && <p className="text-[10px] uppercase font-black tracking-widest text-emerald-400 flex items-center gap-2"><HiCheckCircle size={14} /> {vaktiSot.Festat}</p>}
+              {vaktiSot.Shenime && <p className="text-[10px] text-slate-400 font-medium italic mt-1">"{vaktiSot.Shenime}"</p>}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {vaktiSot.Shenime && (
-          <div className="mt-2 p-2 bg-gray-100 text-gray-700 rounded text-xs italic">
-            {vaktiSot.Shenime}
+        <div className="flex justify-between items-center mb-5 font-sans">
+          <div>
+            <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mb-0.5">Vaktet</p>
+            <p className="text-xl font-black">{formatDatenShqip(vaktiSot.Date)}</p>
           </div>
-        )}
+          <button onClick={shareTimes} className="p-2 text-slate-500 hover:text-white transition-colors"><HiOutlineShare size={18} /></button>
+        </div>
 
-        {/* KUTI ME KOHO TANI */}
-        {infoTani && (
-          <div className="mt-4 p-3 bg-gradient-to-r from-emerald-700 to-green-600 text-white rounded-lg shadow">
-            {infoTani.tani && (
-              <div className="text-sm opacity-90">
-                Tani:{" "}
-                <strong>{infoTani.tani.label.replace(" (xhemat)", "")}</strong>{" "}
-                {ne24h(infoTani.tani.kohe)}
+        {infoTani?.ardhshëm && (
+          <div className="grid grid-cols-2 gap-4 items-end pt-4 border-t border-white/5 font-sans">
+            <div>
+              <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1 text-left">Vakti i radhës</p>
+              <div className="flex items-baseline gap-2">
+                <p className="text-lg font-black text-white">{infoTani.ardhshëm.label.split(' ')[0]}</p>
+                <p className="text-sm font-mono text-emerald-500/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
               </div>
-            )}
-            <div className="mt-1 font-bold text-lg">
-              {infoTani.ardhshëm.label.replace(" (nesër)", "")}
-              {infoTani.ardhshëm.date &&
-                infoTani.ardhshëm.date !== vaktiSot.Date && (
-                  <span className="block text-xs opacity-80">
-                    {formatDaten(infoTani.ardhshëm.date)}
-                  </span>
-                )}
             </div>
-            <div className="text-2xl mt-1 font-bold">
-              {ne24h(infoTani.ardhshëm.kohe)}
-            </div>
-            <div className="text-sm mt-1">
-              Deri në vaktin tjetër:{" "}
-              <strong>{formatDallim(infoTani.mbetur)}</strong>
+            <div className="text-right">
+              <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Mbetur</p>
+              <p className="text-2xl font-black text-emerald-400 font-mono tracking-tighter">{formatDallim(infoTani.mbetur)}</p>
             </div>
           </div>
         )}
       </div>
 
-      {/* TABELA */}
-      <table className="w-full border-collapse text-left text-sm">
-        <thead>
-          <tr className="bg-emerald-50 text-emerald-800 font-semibold">
-            <th className="p-2 border border-emerald-200">Namazi</th>
-            <th className="p-2 border border-emerald-200 text-center">Koha</th>
-            <th className="p-2 border border-emerald-200 text-center">
-              Falja me Xhemat
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {listaNamazeve.map(({ emri, label, veçori }) => {
-            const kohe =
-              vaktiSot[emri] || (emri === "Imsaku" ? vaktiSot.Imsaku : null);
-            const xhemat = xhemati(emri);
+      <div className="p-2 bg-white">
+        <div className="flex items-center text-[10px] font-black uppercase text-slate-400 px-4 py-3 border-b border-slate-50 mb-1 font-sans">
+          <span className="flex-1 tracking-widest text-left">Namazi</span>
+          <span className="w-14 text-center tracking-widest">Koha</span>
+          <span className="w-20 text-center text-emerald-600 tracking-widest">Falja me Xhemat</span>
+        </div>
 
-            const eshteArdhshëm =
-              infoTani?.ardhshëm?.label === label ||
-              infoTani?.ardhshëm?.label === `${label} (xhemat)`;
+        <div className="space-y-0.5 pb-2">
+          {listaNamazeve.map(({ id, label, dim }) => {
+            const kohe = vaktiSot[id];
+            const xh = xhemati(id);
+            const isCurrent = infoTani?.tani?.id === id;
+            const isNext = infoTani?.ardhshëm?.id === id;
 
-            const eshteTani =
-              infoTani?.tani?.label === label ||
-              infoTani?.tani?.label === `${label} (xhemat)`;
+            // Subtle past prayers
+            const tani = new Date();
+            const minTani = tani.getHours() * 60 + tani.getMinutes();
+            const isPast = neMinuta(kohe) < minTani && !isNext && !isCurrent;
 
             return (
-              <tr
-                key={emri}
-                className={`
-                  ${eshteArdhshëm ? "bg-emerald-50 font-bold border-l-4 border-emerald-600" : ""}
-                  ${eshteTani ? "bg-yellow-50 border-l-4 border-yellow-500" : "bg-white"}
-                  ${veçori ? "text-gray-600" : ""}
-                  hover:bg-gray-100 transition-all duration-200 cursor-default
-                `}>
-                <td className="p-2 border border-gray-300">
-                  {label}
-                  {eshteArdhshëm && " (vakti ardhshëm)"}
-                  {eshteXhumaMeVone && emri === "Dreka" && " (Xhuma)"}
-                </td>
-                <td className="p-2 border border-gray-300 text-center font-semibold">
-                  {kohe ? ne24h(kohe) : "—"}
-                </td>
-                <td className="p-2 border border-gray-300 text-center text-green-500 font-semibold">
-                  {xhemat ? ne24h(xhemat) : "—"}
-                </td>
-              </tr>
+              <div
+                key={id}
+                className={`flex items-center px-4 py-3 rounded-xl transition-all duration-300 ${isNext ? "bg-emerald-600/5 ring-1 ring-emerald-500/10 shadow-sm" : isCurrent ? "bg-slate-50/50 ring-1 ring-slate-200" : "bg-transparent hover:bg-slate-50"
+                  }`}>
+                <div className="flex-1 flex items-center gap-2 min-w-0">
+                  <p className={`text-xs uppercase truncate font-sans tracking-tight ${isNext ? "text-emerald-700 font-black" : isCurrent ? "text-slate-900 font-black" : isPast ? "text-slate-400" : dim ? "text-slate-300" : "text-slate-700 font-bold"
+                    }`}>{label}</p>
+                  {isNext && <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />}
+                  {isCurrent && <span className="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0" />}
+                </div>
+
+                <div className="w-14 text-center">
+                  <p className={`font-mono font-bold text-sm ${isNext ? "text-emerald-700" : isCurrent ? "text-slate-900" : isPast ? "text-slate-400" : "text-slate-600"
+                    }`}>{ne24h(kohe)}</p>
+                </div>
+
+                <div className="w-20 flex justify-center">
+                  {xh ? (
+                    <div className={`w-16 py-1 rounded-lg text-center transition-all ${isNext ? 'bg-emerald-600 text-white shadow-md' : isCurrent ? 'bg-slate-200 text-slate-700 font-bold' : isPast ? 'bg-slate-50 text-slate-400' : 'bg-emerald-50 text-emerald-700 font-bold'
+                      }`}>
+                      <p className="font-mono font-bold text-sm leading-tight">{ne24h(xh)}</p>
+                    </div>
+                  ) : (
+                    <div className="w-1.5 h-1.5 bg-slate-100 rounded-full opacity-40 flex-shrink-0" />
+                  )}
+                </div>
+              </div>
             );
           })}
-        </tbody>
-      </table>
-
-      {/* SHARE BUTTON */}
-      <div className="mt-6 text-center">
-        <button
-          onClick={shareStaticPage}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-bold transition shadow-lg">
-          Ndaj Kohën e Namazit
-        </button>
+        </div>
       </div>
     </div>
   );

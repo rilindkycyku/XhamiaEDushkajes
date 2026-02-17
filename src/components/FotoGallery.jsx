@@ -1,11 +1,15 @@
 // src/components/FotoGallery.jsx
 import { useState, useRef, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiPause,
+  HiPlay,
+  HiArrowsPointingOut,
+  HiXMark
+} from "react-icons/hi2";
 
-/* 
-  LEXON AUTOMATIKISHT TË GJITHA FOTOT NGA DOSJA:
-  src/assets/img/xhamia/
-  (shto foto të reja aty – shfaqen vetë!)
-*/
 const fotot = Object.entries(
   import.meta.glob("../assets/img/xhamia/*.{jpg,jpeg,png,gif,webp}", {
     eager: true,
@@ -15,205 +19,143 @@ const fotot = Object.entries(
   .map(([rruga, moduli]) => new URL(moduli, import.meta.url).pathname)
   .sort((a, b) => a.localeCompare(b));
 
-const KOHA = 2000; // sa sekonda ndërrohet fotoja vetë
+const KOHA = 5000;
 
 export default function FotoGallery() {
-  const [indeksi, setIndeksi] = useState(0); // cila foto është aktive
-  const [luaj, setLuaj] = useState(true); // a po luan vetë?
-  const kuti = useRef(null); // div-i që rrotullon fotot
-  const interval = useRef(null); // timer-i për auto-play
-  const mbi = useRef(false); // a është maus mbi galeri?
+  const [indeksi, setIndeksi] = useState(0);
+  const [luaj, setLuaj] = useState(true);
+  const [isFS, setIsFS] = useState(false);
+  const interval = useRef(null);
 
-  /* SHKO TE NJË FOTO SPECIFIKE */
-  const shko = useCallback((i) => {
-    const el = kuti.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-    setIndeksi(i);
-  }, []);
+  const shko = useCallback((i) => setIndeksi(i), []);
+  const para = useCallback(() => shko((indeksi - 1 + fotot.length) % fotot.length), [indeksi, shko]);
+  const pas = useCallback(() => shko((indeksi + 1) % fotot.length), [indeksi, shko]);
 
-  const para = () => shko((indeksi - 1 + fotot.length) % fotot.length);
-  const pas = () => shko((indeksi + 1) % fotot.length);
-
-  /* FILLO AUTO-PLAY */
-  const fillo = useCallback(() => {
-    if (interval.current) clearInterval(interval.current);
-    interval.current = setInterval(() => {
-      if (!mbi.current) pas(); // ndërro foto vetëm nëse maus nuk është mbi
-    }, KOHA);
-  }, [pas]);
-
-  /* NDALO AUTO-PLAY */
-  const ndalo = useCallback(() => {
-    if (interval.current) {
+  useEffect(() => {
+    if (luaj && !isFS) {
+      interval.current = setInterval(pas, KOHA);
+    } else {
       clearInterval(interval.current);
-      interval.current = null;
     }
-  }, []);
+    return () => clearInterval(interval.current);
+  }, [luaj, pas, isFS]);
 
-  /* NDËRRO LUJ / PAUZO */
-  const ndrysho = () => {
-    const doLuaj = !luaj;
-    setLuaj(doLuaj);
-    if (doLuaj) fillo();
-    else ndalo();
-  };
-
-  /* RIFILLO TIMERIN PAS KLIKIMIT */
-  const rifillo = () => luaj && fillo();
-
-  /* EFEKTE: AUTO-PLAY + SCROLL + RESET */
-  useEffect(() => {
-    if (luaj) fillo();
-    return () => ndalo(); // pastro kur largohet komponenti
-  }, [luaj, fillo, ndalo]);
-
-  useEffect(() => {
-    const el = kuti.current;
-    if (!el) return;
-
-    const rrotullo = () => {
-      const i = Math.round(el.scrollLeft / el.clientWidth);
-      if (i >= 0 && i < fotot.length) setIndeksi(i);
-    };
-
-    el.addEventListener("scroll", rrotullo);
-    return () => el.removeEventListener("scroll", rrotullo);
-  }, [fotot.length]);
-
-  useEffect(() => shko(0), [shko]); // fillo nga fotoja e parë
-
-  /* MAUSI MBI GALERI */
-  const hyne = () => {
-    mbi.current = true;
-    ndalo();
-  };
-  const dil = () => {
-    mbi.current = false;
-    if (luaj) fillo();
-  };
+  if (fotot.length === 0) return null;
 
   return (
-    <div
-      className="relative overflow-hidden rounded-2xl shadow-lg bg-gray-50"
-      onMouseEnter={hyne}
-      onMouseLeave={dil}>
-      {/* ZONA E RROTULLIMIT TË FOTOVE */}
+    <div className="flex flex-col gap-8 w-full select-none max-w-4xl mx-auto">
+      {/* MAIN VIEWER - COMPACT & CENTERED */}
       <div
-        ref={kuti}
-        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
-        style={{ scrollSnapType: "x mandatory" }}>
-        {fotot.map((src, i) => (
-          <div
-            key={src}
-            className="w-full flex-shrink-0"
-            style={{ height: "400px" }}>
-            <img
-              src={src}
-              alt={`Foto ${i + 1}`}
-              className="w-full h-full object-contain"
-              loading="lazy"
+        onClick={() => setIsFS(true)}
+        className="relative group rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 cursor-zoom-in"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={fotot[indeksi]}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2 }}
+            className="absolute inset-0"
+          >
+            {/* Ambient Dynamic Background */}
+            <div
+              className="absolute inset-0 scale-125 blur-[80px] opacity-40 saturate-[1.5]"
+              style={{
+                backgroundImage: `url(${fotot[indeksi]})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
             />
-          </div>
-        ))}
+
+            {/* Image Content */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1.02, opacity: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full h-full p-4 md:p-8 relative z-10 flex items-center justify-center"
+            >
+              <img
+                src={fotot[indeksi]}
+                className="max-w-full max-h-full object-contain rounded-2xl md:rounded-[1.5rem] shadow-2xl"
+                alt="Gallery"
+              />
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* HUD UI */}
+        <div className="absolute top-6 left-6 md:top-8 md:left-8 px-4 py-2 rounded-2xl bg-black/30 backdrop-blur-2xl border border-white/10 text-white z-20 flex items-center gap-3">
+          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          <span className="text-[10px] md:text-sm font-black tracking-widest">{String(indeksi + 1).padStart(2, '0')} / {String(fotot.length).padStart(2, '0')}</span>
+        </div>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); setIsFS(true); }}
+          className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-emerald-600 transition-all z-20"
+        >
+          <HiArrowsPointingOut size={20} />
+        </button>
+
+        {/* Desktop Side Controls */}
+        <div className="absolute inset-y-0 left-0 w-20 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+          <button onClick={(e) => { e.stopPropagation(); para(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronLeft size={24} /></button>
+        </div>
+        <div className="absolute inset-y-0 right-0 w-20 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+          <button onClick={(e) => { e.stopPropagation(); pas(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronRight size={24} /></button>
+        </div>
       </div>
 
-      {/* SHIGJETA MAJTAS */}
-      <button
-        onClick={() => {
-          para();
-          rifillo();
-        }}
-        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow transition"
-        aria-label="Foto e mëparshme">
-        <ShigjetaMajtas />
-      </button>
+      {/* DOCKER BAR */}
+      <div className="w-full bg-white rounded-[2.5rem] md:rounded-[3rem] p-3 md:p-4 shadow-xl border border-slate-100 flex items-center gap-4 md:gap-6">
+        <button
+          onClick={() => setLuaj(!luaj)}
+          className={`w-12 h-12 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[1.8rem] flex items-center justify-center transition-all ${luaj ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}
+        >
+          {luaj ? <HiPause size={24} /> : <HiPlay size={24} />}
+        </button>
 
-      {/* SHIGJETA DJATHTAS */}
-      <button
-        onClick={() => {
-          pas();
-          rifillo();
-        }}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow transition"
-        aria-label="Foto tjetër">
-        <ShigjetaDjathtas />
-      </button>
+        <div className="flex-1 flex gap-2 overflow-hidden px-2">
+          {fotot.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => shko(i)}
+              className={`relative h-1.5 min-w-[12px] rounded-full transition-all duration-700 ${i === indeksi ? "flex-grow bg-emerald-500" : "w-1.5 bg-slate-100 hover:bg-slate-200"
+                }`}
+            />
+          ))}
+        </div>
 
-      {/* PIKAT POSHTË (NAVIGIM) */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-        {fotot.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              shko(i);
-              rifillo();
-            }}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              i === indeksi ? "bg-white" : "bg-white/50"
-            }`}
-            aria-label={`Shko te foto ${i + 1}`}
-          />
-        ))}
+        <div className="hidden md:flex items-center gap-2">
+          <button onClick={para} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronLeft size={18} /></button>
+          <button onClick={pas} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronRight size={18} /></button>
+        </div>
       </div>
 
-      {/* BUTONI LUJ / PAUZO */}
-      <button
-        onClick={ndrysho}
-        className="absolute bottom-3 right-3 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow transition"
-        aria-label={luaj ? "Pauzo" : "Luaj"}
-        title={luaj ? "Pauzo" : "Luaj"}>
-        {luaj ? <Pauzo /> : <Luaj />}
-      </button>
+      {/* LIGHTBOX */}
+      <AnimatePresence>
+        {isFS && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[2000] bg-slate-950 flex items-center justify-center p-4 md:p-12"
+            onClick={() => setIsFS(false)}
+          >
+            <div
+              className="absolute inset-0 blur-[100px] opacity-30 saturate-[1.5]"
+              style={{ backgroundImage: `url(${fotot[indeksi]})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+            />
+            <button className="absolute top-10 right-10 w-16 h-16 rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50 shadow-2xl"><HiXMark size={32} /></button>
+
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              src={fotot[indeksi]}
+              className="max-w-full max-h-full object-contain relative z-40 rounded-[2rem] md:rounded-[3rem] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-
-/* IKONAT */
-const ShigjetaMajtas = () => (
-  <svg
-    className="w-5 h-5 text-gray-800"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M15 19l-7-7 7-7"
-    />
-  </svg>
-);
-
-const ShigjetaDjathtas = () => (
-  <svg
-    className="w-5 h-5 text-gray-800"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9 5l7 7-7 7"
-    />
-  </svg>
-);
-
-const Luaj = () => (
-  <svg
-    className="w-4 h-4 text-gray-800"
-    fill="currentColor"
-    viewBox="0 0 24 24">
-    <path d="M8 5v14l11-7z" />
-  </svg>
-);
-
-const Pauzo = () => (
-  <svg
-    className="w-4 h-4 text-gray-800"
-    fill="currentColor"
-    viewBox="0 0 24 24">
-    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-  </svg>
-);

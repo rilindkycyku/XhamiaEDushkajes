@@ -1,17 +1,14 @@
 // src/pages/Kontakti.jsx
 import { useState } from "react";
-import { TbMailForward } from "react-icons/tb";
+import { HiOutlineEnvelopeOpen, HiOutlineUser, HiOutlineEnvelope, HiOutlineChatBubbleLeftRight, HiSparkles } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const eshteEmailValide = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export default function Kontakti() {
-  const [formulari, setFormulari] = useState({
-    emri: "",
-    email: "",
-    mesazhi: "",
-  });
+  const [formulari, setFormulari] = useState({ emri: "", email: "", mesazhi: "" });
   const [statusi, setStatusi] = useState(null);
 
   const ndryshoFushen = (e) => {
@@ -45,112 +42,149 @@ export default function Kontakti() {
     }
 
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formulari.emri,
-          from_email: formulari.email,
-          message: formulari.mesazhi,
-        },
-        publicKey
-      );
-
-      toast.success("Mesazhi u dërgua me sukses! Faleminderit!");
+      await emailjs.send(serviceId, templateId, {
+        from_name: formulari.emri,
+        from_email: formulari.email,
+        message: formulari.mesazhi,
+      }, publicKey);
+      toast.success("Mesazhi u dërgua me sukses!");
       setFormulari({ emri: "", email: "", mesazhi: "" });
       setStatusi("success");
     } catch (err) {
-      console.error(err);
-      toast.error("Dështoi dërgimi. Ju lutem provoni përsëri.");
+      toast.error("Dështoi dërgimi. Provoni përsëri.");
       setStatusi("error");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-white mb-3">Na Kontaktoni</h1>
-          <p className="text-emerald-300 text-lg">
-            Xhamia e Dushkajës – Kaçanik
-          </p>
-        </div>
+    <div className="min-h-screen pt-12 pb-24 px-4 relative overflow-hidden bg-[#f8fafc]">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] -mr-64 -mt-64" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold-500/5 rounded-full blur-[120px] -ml-64 -mb-64" />
 
-        <div className="backdrop-blur-lg bg-emerald-800/40 rounded-2xl shadow-2xl border border-emerald-700/50 p-8">
-          <form onSubmit={dergoFormularin} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-emerald-200 mb-2">
-                Emri juaj
-              </label>
-              <input
-                name="emri"
-                type="text"
-                value={formulari.emri}
-                onChange={ndryshoFushen}
-                required
-                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                placeholder="Shkruani emrin tuaj..."
-              />
-            </div>
+      <div className="container relative z-10">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-            <div>
-              <label className="block text-sm font-medium text-emerald-200 mb-2">
-                Email adresa
-              </label>
-              <input
-                name="email"
-                type="email"
-                value={formulari.email}
-                onChange={ndryshoFushen}
-                required
-                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
-                placeholder="email_juaj@domain.com"
-              />
-            </div>
+          <div className="lg:col-span-4 text-slate-900 pt-10">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-12"
+            >
+              <div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-[0.2em] mb-8 border border-emerald-100 shadow-sm"
+                >
+                  <HiSparkles className="text-emerald-500 animate-pulse" /> Flisni me ne
+                </motion.div>
+                <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tighter">
+                  Na <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-800">kontaktoni</span>
+                </h1>
+                <p className="text-xl text-slate-500 font-medium leading-relaxed">
+                  Keni pyetje apo sugjerime? Jemi këtu për ju. Na shkruani dhe do t'ju kthejmë përgjigje sa më shpejt të jetë e mundur.
+                </p>
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-emerald-200 mb-2">
-                Mesazhi
-              </label>
-              <textarea
-                name="mesazhi"
-                value={formulari.mesazhi}
-                onChange={ndryshoFushen}
-                rows={5}
-                required
-                className="w-full px-4 py-3 bg-emerald-900/50 border border-emerald-600 rounded-xl text-white placeholder-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
-                placeholder="Shkruani mesazhin tuaj këtu..."
-              />
-            </div>
+              <div className="space-y-6">
+                <div className="group flex items-center gap-6 bg-white p-6 rounded-3xl shadow-xl shadow-slate-300/20 border border-slate-100 hover:border-emerald-200 transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-inner">
+                    <HiOutlineEnvelope size={28} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Na shkruani</p>
+                    <p className="font-black text-slate-700 break-all">xhamiaedushkajes@gmail.com</p>
+                  </div>
+                </div>
+              </div>
 
-            <button
-              type="submit"
-              disabled={statusi === "sending"}
-              className="group relative w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-emerald-600 to-green-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-green-500/30 transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none">
-              {statusi === "sending" ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Po dërgohet...</span>
-                </>
-              ) : (
-                <>
-                  <span>Dërgo Mesazhin</span>
-                  <TbMailForward
-                    size={22}
-                    className="group-hover:translate-x-1 transition-transform duration-300"
+              <div className="p-8 bg-emerald-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-125 transition-standard" />
+                <p className="relative z-10 text-emerald-200 font-bold mb-4 uppercase tracking-widest text-xs">Përgjigje e shpejtë</p>
+                <p className="relative z-10 text-lg font-medium leading-relaxed mb-6 italic">"Secili donacion i juaji është një dritë më shumë për ne."</p>
+                <div className="relative z-10 w-12 h-1 bg-emerald-500 rounded-full" />
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="lg:col-span-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-white p-10 md:p-16 rounded-[4rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] border border-slate-100 relative group"
+            >
+              <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-500 via-emerald-400 to-gold-500 opacity-60 rounded-t-full" />
+
+              <form onSubmit={dergoFormularin} className="space-y-10 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                  <div className="space-y-4">
+                    <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                      <HiOutlineUser className="text-emerald-500" /> Emri juaj
+                    </label>
+                    <input
+                      name="emri"
+                      value={formulari.emri}
+                      onChange={ndryshoFushen}
+                      className="w-full px-8 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300"
+                      placeholder="Shkruani emrin..."
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                      <HiOutlineEnvelope className="text-emerald-500" /> Email adresa
+                    </label>
+                    <input
+                      name="email"
+                      type="email"
+                      value={formulari.email}
+                      onChange={ndryshoFushen}
+                      className="w-full px-8 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300"
+                      placeholder="email@shembull.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                    <HiOutlineChatBubbleLeftRight className="text-emerald-500" /> Mesazhi i juaj
+                  </label>
+                  <textarea
+                    name="mesazhi"
+                    value={formulari.mesazhi}
+                    onChange={ndryshoFushen}
+                    rows={6}
+                    className="w-full px-8 py-6 bg-slate-50 border border-slate-200 rounded-[2.5rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 resize-none shadow-inner group-hover:border-slate-300"
+                    placeholder="Si mund t'ju ndihmojmë?"
                   />
-                </>
-              )}
-            </button>
+                </div>
 
-            {statusi === "success" && (
-              <p className="text-center text-green-400 font-medium animate-pulse">
-                Mesazhi u dërgua me sukses! Faleminderit!
-              </p>
-            )}
-          </form>
+                <button
+                  type="submit"
+                  disabled={statusi === "sending"}
+                  className="w-full group/btn relative overflow-hidden flex items-center justify-center gap-4 px-10 py-6 bg-emerald-700 text-white font-black text-lg rounded-[2.5rem] shadow-2xl shadow-emerald-700/20 hover:bg-emerald-800 transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0"
+                >
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-600 to-emerald-800 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
+
+                  {statusi === "sending" ? (
+                    <div className="relative z-10 w-7 h-7 border-[4px] border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <div className="relative z-10 flex items-center gap-4">
+                      <span>Dërgo Mesazhin</span>
+                      <HiOutlineEnvelopeOpen size={26} className="group-hover/btn:rotate-12 transition-transform" />
+                    </div>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+          </div>
+
         </div>
       </div>
     </div>
   );
 }
+
+

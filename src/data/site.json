@@ -4,9 +4,13 @@
   "email": "xhamiaedushkajes@gmail.com",
   "faqeFB": "https://www.facebook.com/xhamiaedushkajeskacanik",
   "kanaliYouTube": "UCc-JeykPmOFM2-xM24whHmA",
-  "logoHero": "/img/logo/LogoBIKKaqanik.png",
+  "kanaliYouTubeLink": "https://youtube.com/@xhamiaedushkajeskacanik?si=hKR7_QwJQEzuy9tK",
+  "logoHero": "/img/logo/LogoBIKKaqanikNoBG.png",
   "titulliHero": "Xhamia e Dushkajës - Kaçanik",
   "nentilluiHero": "Mirë se vini!",
   "emriImamitXhamis": "Nehat ef. Shehu",
-  "dataEHapjesXhamis": "2022-11-04"
+  "dataEHapjesXhamis": "2022-11-04",
+  "ramazanActive": true,
+  "mesazhiRamazanitStart": "Urime muaji i shenjtë i Ramazanit!",
+  "mesazhiRamazanitEnd": "Agjërim të lehtë dhe të pranuar për të gjithë besimtarët!"
 }

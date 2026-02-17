@@ -1,541 +1,403 @@
 // src/pages/KohetENamazitPerSot.jsx
-import { useEffect, useState, useCallback, useMemo, useRef } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import vaktet from "../data/vaktet-e-namazit.json";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  HiOutlineShare,
+  HiCheckCircle,
+  HiOutlineCalendar,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
+  HiClock
+} from "react-icons/hi2";
 
-/* ---------- MUAJT SHQIP ---------- */
-const muajtShqip = [
-  "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
-  "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
-];
+const muajtShqip = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
 
-const PRAYER_ORDER = [
-  { key: "Imsaku", label: "Imsaku", special: true },
-  { key: "Sabahu", label: "Sabahu" },
-  { key: "Lindja", label: "L. e Diellit", special: true },
-  { key: "Dreka", label: "Dreka" },
-  { key: "Ikindia", label: "Ikindia" },
-  { key: "Akshami", label: "Akshami" },
-  { key: "Jacia", label: "Jacia" },
-];
-
-/* ---------- FUNKCIONE NDIMËSE ---------- */
-const toMinutes = (t) => (t ? t.split(":").reduce((h, m) => h * 60 + +m, 0) : -1);
-
-// NEW: 24-hour format (e.g., 14:05)
-const to24h = (t) => {
-  if (!t) return "—";
-  const [h, m] = t.split(":").map(Number);
-  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-};
-
-const formatRemaining = (m) => {
-  if (m <= 0) return "0 min";
-  const h = Math.floor(m / 60);
-  const min = m % 60;
-  return `${h ? `${h} orë ` : ""}${min} min`;
-};
-
-/* ---------- FORMATIMI I DATËS (PA ZERO NË FILLIM) ---------- */
-const formatDate = (dateStr) => {
-  const [dayStr, monShort] = dateStr.split("-");
-  const day = parseInt(dayStr, 10);
-  const year = new Date().getFullYear();
-  const monthIndex = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].indexOf(monShort);
-  const monthName = monthIndex >= 0 ? muajtShqip[monthIndex] : monShort;
-  return `${day} ${monthName} ${year}`;
-};
-
-/* ---------- LLOGARITJA E XHEMATIT ---------- */
-const calculateXhemat = (p, data, isFri) => {
-  if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(p)) return null;
-
-  if (p === "Sabahu" && data.Lindja) {
-    const total = toMinutes(data.Lindja) - 40;
-    const hrs = Math.floor(total / 60);
-    const mins = ((total % 60) + 60) % 60;
-    return `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
-  }
-
-  if (p === "Dreka" && data.Dreka) {
-    const adhan = toMinutes(data.Dreka);
-    if (isFri && adhan >= 720) return "13:00";
-    const nextHour = Math.ceil(adhan / 60) * 60;
-    const hrs = Math.floor(nextHour / 60);
-    return `${hrs.toString().padStart(2, "0")}:00`;
-  }
-
-  return data[p] || null;
-};
-
-/* ---------- KALENDARI (ME BUTONIN "SOT") ---------- */
-const Calendar = ({ selectedDate, onSelect, onClose, vaktet, minDate, maxDate }) => {
+const Calendar = ({ selectedDate, onSelect, onClose }) => {
   const [currentMonth, setCurrentMonth] = useState(selectedDate);
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
-
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const handlePrev = () => {
-    const prev = new Date(year, month - 1);
-    if (prev >= minDate) setCurrentMonth(prev);
-  };
-
-  const handleNext = () => {
-    const next = new Date(year, month + 1);
-    if (next <= maxDate) setCurrentMonth(next);
-  };
-
-  const handleToday = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    setCurrentMonth(today);
-    onSelect(today);
-    onClose();
-  };
-
-  const hasData = (day) => {
-    const monthShort = currentMonth.toLocaleString("en", { month: "short" });
-    const padded = `${day.toString().padStart(2, "0")}-${monthShort}`;
-    const unpadded = `${day}-${monthShort}`;
-    return vaktet.some(v => v.Date === padded || v.Date === unpadded);
-  };
-
-  const isInRange = (day) => {
-    const date = new Date(year, month, day);
-    return date >= minDate && date <= maxDate;
-  };
-
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
-      <div
-        className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full"
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-[200] p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }}
+        className="bg-white rounded-[2.5rem] shadow-2xl p-5 md:p-8 max-w-sm w-full border border-slate-100 font-sans"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center mb-4">
-          <button
-            onClick={handlePrev}
-            disabled={new Date(year, month - 1) < minDate}
-            aria-label="Mbrapa"
-            className="p-3 hover:bg-gray-100 rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            <svg className="w-5 h-5 text-emerald-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <div className="flex items-center gap-2">
-            <h3 className="font-bold text-lg text-emerald-800">
-              {muajtShqip[month]} {year}
-            </h3>
-            <button
-              onClick={handleToday}
-              className="px-3 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded-full transition-colors"
-              title="Kthehu te sot"
-            >
-              Sot
-            </button>
-          </div>
-
-          <button
-            onClick={handleNext}
-            disabled={new Date(year, month + 1) > maxDate}
-            aria-label="Përpara"
-            className="p-3 hover:bg-gray-100 rounded-full disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            <svg className="w-5 h-5 text-emerald-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        <div className="flex justify-between items-center mb-6 px-2">
+          <button onClick={() => setCurrentMonth(new Date(year, month - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-slate-100 rounded-xl transition-all"><HiOutlineChevronLeft size={20} /></button>
+          <h3 className="font-black text-slate-900 uppercase tracking-widest text-xs">{muajtShqip[month]} {year}</h3>
+          <button onClick={() => setCurrentMonth(new Date(year, month + 1))} className="w-10 h-10 flex items-center justify-center hover:bg-slate-100 rounded-xl transition-all"><HiOutlineChevronRight size={20} /></button>
         </div>
-
-        <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-600 mb-2">
-          {["D", "H", "M", "M", "E", "P", "S"].map(d => (
-            <div key={d}>{d}</div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-7 gap-1 text-sm">
-          {Array.from({ length: firstDay }, (_, i) => (
-            <div key={`empty-${i}`} />
-          ))}
-          {Array.from({ length: daysInMonth }, (_, i) => {
-            const day = i + 1;
-            const date = new Date(year, month, day);
+        <div className="grid grid-cols-7 gap-1">
+          {["D", "H", "M", "M", "E", "P", "S"].map(d => <div key={d} className="text-center text-[10px] font-black text-slate-400 py-2">{d}</div>)}
+          {Array.from({ length: firstDay }).map((_, i) => <div key={i} />)}
+          {Array.from({ length: daysInMonth }).map((_, i) => {
+            const dayNum = i + 1;
+            const date = new Date(year, month, dayNum);
             date.setHours(0, 0, 0, 0);
-
             const isToday = date.getTime() === today.getTime();
             const isSelected = date.getTime() === selectedDate.getTime();
-            const inRange = isInRange(day);
-            const hasEntry = inRange && hasData(day);
-            const dateStr = `${day.toString().padStart(2, "0")}-${currentMonth.toLocaleString("en", { month: "short" })}`;
-            const hasFesta = hasEntry && vaktet.find(v => v.Date === dateStr)?.Festat;
-
             return (
               <button
-                key={day}
-                onClick={() => hasEntry && onSelect(date)}
-                disabled={!hasEntry}
-                className={`
-                  p-2 rounded-lg transition-all relative text-xs
-                  ${isToday ? "bg-emerald-100 font-bold" : ""}
-                  ${isSelected ? "bg-emerald-600 text-white" : "hover:bg-emerald-50"}
-                  ${!hasEntry ? "text-gray-300 cursor-not-allowed" : "text-gray-800"}
-                  ${hasFesta ? "ring-2 ring-green-500 ring-offset-1" : ""}
-                `}
+                key={dayNum}
+                onClick={() => { onSelect(date); onClose(); }}
+                className={`aspect-square flex items-center justify-center rounded-xl text-xs font-black transition-all ${isSelected ? "bg-emerald-600 text-white shadow-lg" : isToday ? "bg-emerald-50 text-emerald-700" : "hover:bg-slate-50 text-slate-600"
+                  }`}
               >
-                {day}
-                {hasFesta && <div className="absolute top-0 right-0 w-1.5 h-1.5 bg-green-500 rounded-full"></div>}
+                {dayNum}
               </button>
             );
           })}
         </div>
-
-        <button
-          onClick={onClose}
-          className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 rounded-lg"
-        >
-          Mbyll
-        </button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
-export default function StaticPrayerCard() {
+export default function KohetENamazitPerSot() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-
-  const [minDate, maxDate] = useMemo(() => {
-    if (!vaktet.length) return [today, today];
-    const dates = vaktet.map(v => {
-      const [d, m] = v.Date.split("-");
-      return new Date(`${m} ${d}, ${new Date().getFullYear()}`);
-    });
-    return [new Date(Math.min(...dates)), new Date(Math.max(...dates))];
-  }, []);
-
   const [selectedDate, setSelectedDate] = useState(today);
   const [todayData, setTodayData] = useState(null);
-  const [currentTime, setCurrentTime] = useState("");
-  const [prayerInfo, setPrayerInfo] = useState(null);
+  const [infoTani, setInfoTani] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  const intervalRef = useRef(null);
-
-  const isFriday = selectedDate.getDay() === 5;
-  const drekaMin = todayData?.Dreka ? toMinutes(todayData.Dreka) : 0;
-  const isLateFriday = isFriday && drekaMin >= 720;
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    const day = selectedDate.getDate();
-    const monthShort = selectedDate.toLocaleString("en", { month: "short" });
-    const padded = `${day.toString().padStart(2, "0")}-${monthShort}`;
-    const unpadded = `${day}-${monthShort}`;
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-    const row = vaktet.find(v => v.Date === padded || v.Date === unpadded);
-    setTodayData(row || null);
+  useEffect(() => {
+    const dNum = selectedDate.getDate();
+    const mShort = selectedDate.toLocaleString("en", { month: "short" });
+    const row = vaktet.find(v => {
+      const [vD, vM] = v.Date.split("-");
+      return parseInt(vD, 10) === dNum && vM === mShort;
+    });
+    setTodayData(row || vaktet[0]);
   }, [selectedDate]);
 
-  const moments = useMemo(() => {
+  const neMinuta = (ora) => {
+    if (!ora) return 0;
+    const [h, m] = ora.split(":").map(Number);
+    return h * 60 + m;
+  };
+
+  const formatDallim = (min) => {
+    if (min <= 0) return "0m";
+    const o = Math.floor(min / 60);
+    const m = min % 60;
+    return `${o ? `${o}h ` : ""}${m}m`;
+  };
+
+  const ne24h = (ora24) => {
+    if (!ora24) return "—";
+    const [h, m] = ora24.split(":").map(Number);
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  };
+
+  const formatDatenShqip = (str) => {
+    if (!str) return "";
+    const [d, m] = str.split("-");
+    const muajtEnglish = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const muajiIndex = muajtEnglish.indexOf(m);
+    const emriMuajit = muajiIndex >= 0 ? muajtShqip[muajiIndex] : m;
+    return `${parseInt(d, 10)} ${emriMuajit}`;
+  };
+
+  const xhemati = (emri) => {
+    if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
+    if (emri === "Sabahu" && todayData?.Lindja) {
+      const [h, m] = todayData.Lindja.split(":").map(Number);
+      const total = h * 60 + m - 40;
+      const o = Math.floor(total / 60);
+      const min = ((total % 60) + 60) % 60;
+      return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
+    }
+    if (emri === "Dreka" && todayData?.Dreka) {
+      const isFri = selectedDate.getDay() === 5;
+      const [h, m] = todayData.Dreka.split(":").map(Number);
+      const minAdhan = h * 60 + m;
+      if (isFri && minAdhan >= 12 * 60) return "13:00";
+      const oraTjeter = Math.ceil(minAdhan / 60) * 60;
+      const o = Math.floor(oraTjeter / 60);
+      return `${String(o).padStart(2, "0")}:00`;
+    }
+    return todayData?.[emri] ?? null;
+  };
+
+  const buildMoments = useCallback(() => {
     if (!todayData) return [];
-    const list = [];
-    PRAYER_ORDER.forEach(({ key, label, special }) => {
-      const time =
-        todayData[key] || (key === "Imsaku" ? todayData.Imsaku : null);
-      if (!time) return;
-      list.push({ label, time, isXhemat: false, special });
-      if (!special && key !== "Imsaku") {
-        const xh = calculateXhemat(key, todayData, isFriday);
-        if (xh)
-          list.push({ label: `${label} (xhemat)`, time: xh, isXhemat: true });
+    const moments = [];
+    const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
+    namazet.forEach(n => {
+      if (todayData[n]) {
+        moments.push({ id: n, label: n, kohe: todayData[n] });
+        const xh = xhemati(n);
+        if (xh) moments.push({ id: n, label: `${n} (xhemat)`, kohe: xh });
       }
     });
-    return list;
-  }, [todayData, isFriday]);
+    return moments;
+  }, [todayData, selectedDate]);
 
-  const updatePrayer = useCallback(() => {
-    const now = new Date();
-    const isToday =
-      selectedDate.getDate() === now.getDate() &&
-      selectedDate.getMonth() === now.getMonth() &&
-      selectedDate.getFullYear() === now.getFullYear();
-
-    if (!isToday || !todayData) {
-      setPrayerInfo(null);
+  const perditeso = useCallback(() => {
+    if (!todayData) return;
+    const isToday = selectedDate.getTime() === today.getTime();
+    if (!isToday) {
+      setInfoTani(null);
       return;
     }
 
-    const minsNow = now.getHours() * 60 + now.getMinutes();
-    const nextIdx = moments.findIndex((m) => toMinutes(m.time) > minsNow);
+    const tani = new Date();
+    const minTani = tani.getHours() * 60 + tani.getMinutes();
+    const moments = buildMoments();
+    let nextIdx = moments.findIndex((m) => neMinuta(m.kohe) > minTani);
 
     if (nextIdx === -1) {
-      const todayIdx = vaktet.findIndex((v) => v.Date === todayData.Date);
-      if (todayIdx === -1) {
-        setPrayerInfo(null);
-        return;
-      }
-
-      const tomorrow = vaktet[todayIdx + 1] ?? vaktet[0];
-      if (!tomorrow?.Sabahu) {
-        setPrayerInfo(null);
-        return;
-      }
-
-      const sabahAdhan = tomorrow.Sabahu;
-      const sabahXhemat = calculateXhemat("Sabahu", tomorrow, isFriday);
-
-      const minAdhan = toMinutes(sabahAdhan);
-      const minXhemat = toMinutes(sabahXhemat);
-      const minUntilAdhan = 1440 - minsNow + minAdhan;
-
-      let nextLabel, nextTime, remaining;
-
-      if (minUntilAdhan > 0) {
-        nextLabel = "Sabahu";
-        nextTime = sabahAdhan;
-        remaining = minUntilAdhan;
-      } else {
-        nextLabel = "Sabahu (xhemat)";
-        nextTime = sabahXhemat;
-        remaining = minXhemat - minsNow;
-      }
-
-      setPrayerInfo({
-        current: moments[moments.length - 1] || null,
-        next: {
-          label: `${nextLabel} (nesër)`,
-          time: nextTime,
-          date: tomorrow.Date,
-        },
-        remaining,
+      const v_idx = vaktet.findIndex(v => v.Date === todayData.Date);
+      const neser = vaktet[v_idx + 1] ?? vaktet[0];
+      setInfoTani({
+        tani: moments[moments.length - 1],
+        ardhshëm: { id: "Sabahu", label: "Sabahu", kohe: neser.Sabahu },
+        mbetur: 24 * 60 - minTani + neMinuta(neser.Sabahu),
+        total: 24 * 60 - neMinuta(moments[moments.length - 1].kohe) + neMinuta(neser.Sabahu),
       });
       return;
     }
 
-    const next = moments[nextIdx];
-    const current = nextIdx > 0 ? moments[nextIdx - 1] : null;
+    const currentMoment = nextIdx > 0 ? moments[nextIdx - 1] : null;
+    const nextMoment = moments[nextIdx];
+    const totalMin = currentMoment ? neMinuta(nextMoment.kohe) - neMinuta(currentMoment.kohe) : 60;
 
-    setPrayerInfo({
-      current,
-      next: { label: next.label, time: next.time, date: todayData.Date },
-      remaining: toMinutes(next.time) - minsNow,
+    setInfoTani({
+      tani: currentMoment,
+      ardhshëm: nextMoment,
+      mbetur: neMinuta(nextMoment.kohe) - minTani,
+      total: totalMin,
     });
-  }, [moments, todayData, isFriday, selectedDate]);
+  }, [todayData, selectedDate, buildMoments]);
 
-  /* ---------- ORA + TICK (24-hour format) ---------- */
   useEffect(() => {
-    const tick = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, "0");
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      setCurrentTime(`${hours}:${minutes}`);
-      updatePrayer();
-    };
-    tick();
-    intervalRef.current = setInterval(tick, 60_000);
-    return () => clearInterval(intervalRef.current);
-  }, [updatePrayer]);
+    perditeso();
+    const id = setInterval(perditeso, 10_000);
+    return () => clearInterval(id);
+  }, [perditeso]);
 
-  /* ---------- NDAJ ---------- */
-  const share = useCallback(async () => {
-    const url = window.location.href;
-    const title = `Koha e Namazit – ${todayData ? formatDate(todayData.Date) : ""}`;
-
+  const shareTimes = () => {
+    const url = window.location.origin + "/kohetenamazitpersot";
     if (navigator.share) {
-      try {
-        await navigator.share({ title, url });
-        console.log("Shared natively");
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          await fallbackCopy(url);
-        }
-      }
+      navigator.share({ title: `Vaktet - ${formatDatenShqip(todayData.Date)}`, url });
     } else {
-      await fallbackCopy(url);
-    }
-  }, [todayData]);
-
-  const fallbackCopy = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert("Linku u kopjua në kujtesë!");
-    } catch (err) {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
+      navigator.clipboard.writeText(url);
       alert("Linku u kopjua!");
     }
   };
 
-  if (!todayData) {
-    return (
-      <div className="h-screen bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center p-4">
-        <div className="text-xl font-medium text-emerald-700">
-          {vaktet.length > 0 ? "Nuk ka të dhëna për këtë datë" : "Duke u ngarkuar…"}
-        </div>
-      </div>
-    );
-  }
+  const listaNamazeve = useMemo(() => [
+    { id: "Imsaku", label: "Imsaku" },
+    { id: "Sabahu", label: "Sabahu" },
+    { id: "Lindja", label: "Lindja", dim: true },
+    { id: "Dreka", label: "Dreka" },
+    { id: "Ikindia", label: "Ikindia" },
+    { id: "Akshami", label: "Akshami" },
+    { id: "Jacia", label: "Jacia" },
+  ], []);
 
-  const isToday =
-    selectedDate.getDate() === today.getDate() &&
-    selectedDate.getMonth() === today.getMonth() &&
-    selectedDate.getFullYear() === today.getFullYear();
+  if (!todayData) return null;
+
+  const progress = infoTani ? Math.max(0, Math.min(100, (1 - infoTani.mbetur / infoTani.total) * 100)) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 flex flex-col items-center p-4 md:p-6">
-      <div className="mb-4">
-        <button
-          onClick={() => setShowCalendar(true)}
-          className="bg-white/80 backdrop-blur px-6 py-2.5 rounded-full shadow-md text-emerald-700 font-medium text-sm hover:bg-white transition flex items-center gap-2"
-        >
-          {formatDate(todayData.Date)} {isToday && "(Sot)"}
-        </button>
+    <div className="min-h-screen bg-slate-50 pt-8 pb-20 px-3 md:px-4 relative font-sans overflow-x-hidden">
+      {/* Immersive Background Header */}
+      <div className="absolute top-0 left-0 w-full h-[40vh] bg-slate-950 z-0 overflow-hidden">
+        {/* Dynamic Glows */}
+        <div className="absolute top-[-10%] right-[-10%] w-[70%] h-[70%] bg-emerald-500/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-emerald-900/10 rounded-full blur-[80px]" />
       </div>
 
-      {showCalendar && (
-        <Calendar
-          selectedDate={selectedDate}
-          onSelect={(date) => {
-            setSelectedDate(date);
-            setShowCalendar(false);
-          }}
-          onClose={() => setShowCalendar(false)}
-          vaktet={vaktet}
-          minDate={minDate}
-          maxDate={maxDate}
-        />
-      )}
+      <div className="container mx-auto max-w-lg relative z-10">
+        <div className="flex flex-col gap-5">
 
-      <div className="w-full max-w-5xl grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-2">
-        <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-5 md:p-7 border border-white/30 flex flex-col gap-5">
-          <h1 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-900 tracking-tight">
-            {formatDate(todayData.Date)}
-            {!isToday && <span className="block text-sm text-emerald-600 mt-1">Jo sot</span>}
-          </h1>
-
-          {todayData.Festat && (
-            <div className="text-center p-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-bold text-sm shadow-md">
-              {todayData.Festat}
-            </div>
-          )}
-
-          {todayData.Shenime && (
-            <p className="text-center text-xs text-gray-600 italic bg-gray-50 px-4 py-2 rounded-xl">
-              {todayData.Shenime}
-            </p>
-          )}
-
-          {prayerInfo && isToday && (
-            <div className="bg-gradient-to-r from-green-700 to-green-900 rounded-3xl text-white p-5 shadow-xl flex flex-col gap-3">
-              {prayerInfo.current && (
-                <div className="flex justify-between items-center text-sm opacity-90">
-                  <span>Tani:</span>
-                  <span className="font-medium">
-                    {prayerInfo.current.label.replace(" (xhemat)", "")} — {to24h(prayerInfo.current.time)}
-                  </span>
+          {/* TOP NAV & DATE CARD */}
+          <div className="flex flex-col gap-6 text-white mb-2">
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-1.5 h-6 bg-emerald-500 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">Vaktet e Namazit</span>
                 </div>
-              )}
-
-              {prayerInfo.next.date && prayerInfo.next.date !== todayData.Date && (
-                <p className="text-center text-xs opacity-80 font-medium">
-                  {formatDate(prayerInfo.next.date)}
-                </p>
-              )}
-
-              <div className="flex justify-between items-center">
-                <span className="font-semibold text-lg">
-                  {prayerInfo.next.label.includes("nesër") ? "Sabahu" : prayerInfo.next.label.replace(" (xhemat)", "")}
-                </span>
-                <span className="text-3xl md:text-4xl font-bold">
-                  {to24h(prayerInfo.next.time)}
-                </span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Deri në namazin tjetër:</span>
-                <span className="font-bold text-yellow-200 text-xl">
-                  {formatRemaining(prayerInfo.remaining)}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {!isToday && (
-            <div className="bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl p-5 shadow-xl text-center">
-              <p className="text-sm opacity-90">Koha aktuale:</p>
-              <p className="text-3xl font-bold">{currentTime}</p>
-              <p className="text-xs mt-2">Zgjidh sot për të parë kohën e namazit të ardhshëm</p>
-            </div>
-          )}
-        </div>
-
-        <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-5 border border-white/30 flex flex-col">
-          <div className="flex-1 overflow-auto rounded-xl border border-gray-200">
-            <table className="w-full text-xs md:text-sm">
-              <thead>
-                <tr className="bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-900 font-bold sticky top-0">
-                  <th className="p-2 md:p-3 text-left">Namazi</th>
-                  <th className="p-2 md:p-3 text-center">Koha</th>
-                  <th className="p-2 md:p-3 text-center">Xhemati</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {PRAYER_ORDER.map(({ key, label, special }) => {
-                  const time = todayData[key] || (key === "Imsaku" ? todayData.Imsaku : null);
-                  const xh = calculateXhemat(key, todayData, isFriday);
-                  const isNext = prayerInfo?.next?.label === label || prayerInfo?.next?.label === `${label} (xhemat)`;
-                  const isCurrent = prayerInfo?.current?.label === label || prayerInfo?.current?.label === `${label} (xhemat)`;
-
-                  return (
-                    <tr
-                      key={key}
-                      className={`
-                        ${isNext && isToday ? "bg-emerald-50 font-bold" : ""}
-                        ${isCurrent && isToday ? "bg-yellow-50" : "bg-white"}
-                        ${special ? "text-gray-500 italic" : ""}
-                      `}
+                {/* Special Occasion Badge */}
+                <AnimatePresence>
+                  {(todayData.Festat || todayData.Shenime) && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full w-fit"
                     >
-                      <td className="p-2 md:p-3 font-medium">
-                        {label}
-                        {isLateFriday && key === "Dreka" && " (Xhuma)"}
-                      </td>
-                      <td className="p-2 md:p-3 text-center text-emerald-800">
-                        {time ? to24h(time) : "—"}
-                      </td>
-                      <td className="p-2 md:p-3 text-center font-semibold text-teal-700">
-                        {xh ? to24h(xh) : "—"}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      <HiCheckCircle className="text-emerald-400 flex-shrink-0" size={14} />
+                      <p className="text-[9px] uppercase font-black tracking-widest text-emerald-400 line-clamp-1">{todayData.Festat || todayData.Shenime}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <button
+                onClick={shareTimes}
+                className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 active:scale-90 transition-all"
+              >
+                <HiOutlineShare size={18} className="text-white/70" />
+              </button>
+            </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs md:text-sm text-gray-600">
-            <span>
-              Data: <span className="font-semibold text-emerald-700">{formatDate(todayData.Date)} - {currentTime}</span>
-            </span>
-            <button
-              onClick={share}
-              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 
-                         text-white font-bold px-5 py-2 rounded-full shadow-md transition-all text-sm flex items-center gap-1"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Ndaj
+            <button onClick={() => setShowCalendar(true)} className="text-left group outline-none w-fit">
+              <p className="text-[9px] uppercase font-black tracking-[0.2em] text-white/40 mb-1">Data e zgjedhur</p>
+              <div className="flex items-center gap-3 group">
+                <h1 className="text-3xl md:text-5xl font-black tracking-tighter group-hover:text-emerald-400 transition-colors">
+                  {formatDatenShqip(todayData.Date)}
+                </h1>
+                <HiOutlineCalendar size={22} className="text-emerald-500 group-hover:scale-110 transition-transform" />
+              </div>
             </button>
           </div>
+
+          {/* COUNTDOWN CARD (MOBILE OPTIMIZED) */}
+          {infoTani?.ardhshëm && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative p-6 rounded-[2.5rem] overflow-hidden group shadow-2xl border border-white/10 bg-slate-900/40 backdrop-blur-3xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-white/5 pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col gap-6">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                      <HiClock className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/80 mb-0.5">Namazi i Radhës</p>
+                      <h2 className="text-xl font-black uppercase text-white tracking-tight">{infoTani.ardhshëm.label.split(' ')[0]}</h2>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/30 mb-0.5">Koha</p>
+                    <p className="text-lg font-mono font-black text-white/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Mbetur edhe</span>
+                    <span className="text-4xl font-mono font-black text-emerald-400 tracking-tighter">
+                      {formatDallim(infoTani.mbetur)}
+                    </span>
+                  </div>
+                  {/* Progress Line */}
+                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      className="h-full bg-emerald-500 rounded-full relative"
+                    >
+                      <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-md" />
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* PRAYER LIST (MOBILE OPTIMIZED) */}
+          <div className="bg-white rounded-[2.5rem] p-2 md:p-4 shadow-xl shadow-slate-200 border border-slate-100 flex flex-col font-sans">
+            {/* Table Header */}
+            <div className="flex items-center text-[9px] font-black uppercase text-slate-400 px-5 py-5 border-b border-slate-50 mb-2 tracking-widest">
+              <span className="flex-1">Namazi</span>
+              <span className="w-16 text-center">Koha</span>
+              <span className="w-24 text-center text-emerald-600">Xhemat</span>
+            </div>
+
+            <div className="flex flex-col gap-1 pb-2">
+              {listaNamazeve.map(({ id, label, dim }) => {
+                const kohe = todayData[id];
+                const xh = xhemati(id);
+                const isCurrent = infoTani?.tani?.id === id;
+                const isNext = infoTani?.ardhshëm?.id === id;
+
+                const tani = new Date();
+                const minTani = tani.getHours() * 60 + tani.getMinutes();
+                const isPast = neMinuta(kohe) < minTani && !isNext && !isCurrent;
+
+                return (
+                  <motion.div
+                    key={id}
+                    layout
+                    className={`flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 relative ${isNext
+                      ? "bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 z-10"
+                      : isCurrent
+                        ? "bg-slate-900 text-white shadow-md z-10 scale-[1.01]"
+                        : "hover:bg-slate-50"
+                      }`}
+                  >
+                    <div className="flex-1 flex items-center gap-3 min-w-0">
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${isNext ? "bg-white animate-pulse" : isCurrent ? "bg-emerald-500" : isPast ? "bg-slate-200" : "bg-emerald-100"
+                        }`} />
+
+                      <div className="flex flex-col">
+                        <p className={`text-xs transition-all duration-300 ${isNext || isCurrent ? "font-black uppercase tracking-tight" : "font-bold text-slate-700"
+                          } ${isPast ? "text-slate-400 opacity-60" : ""}`}>
+                          {label}
+                        </p>
+                        {isNext && <span className="text-[7px] font-black uppercase tracking-widest text-emerald-100/70">Vakti Ardhshëm</span>}
+                        {isCurrent && <span className="text-[7px] font-black uppercase tracking-widest text-slate-500">Aktualisht</span>}
+                      </div>
+                    </div>
+
+                    <div className="w-16 text-center">
+                      <p className={`font-mono font-black text-base tabular-nums ${isNext || isCurrent ? "text-white" : isPast ? "text-slate-200" : "text-slate-900"
+                        }`}>
+                        {ne24h(kohe)}
+                      </p>
+                    </div>
+
+                    <div className="w-24 flex justify-center">
+                      {xh ? (
+                        <div className={`px-3 py-1.5 rounded-xl text-center min-w-[65px] transition-all duration-300 ${isNext
+                          ? "bg-white/20 text-white font-black border border-white/20"
+                          : isCurrent
+                            ? "bg-emerald-500/10 text-emerald-400 font-black"
+                            : "bg-emerald-50 text-emerald-700 font-black"
+                          } ${isPast ? "opacity-20 grayscale" : ""}`}>
+                          <p className="font-mono font-black text-base leading-none tabular-nums">{ne24h(xh)}</p>
+                        </div>
+                      ) : (
+                        <div className="w-1.5 h-1.5 bg-slate-100 rounded-full opacity-30" />
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showCalendar && (
+          <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} onClose={() => setShowCalendar(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

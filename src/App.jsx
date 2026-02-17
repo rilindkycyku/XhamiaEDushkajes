@@ -10,12 +10,16 @@ import KohetENamazitPerSot from "./pages/KohetENamazitPerSot";
 import DhuroPerXhamin from "./pages/DhuroPerXhamin";
 
 
+import siteConfig from "./data/site.json";
+
 export default function App() {
+  const offsetHeight = siteConfig.ramazanActive ? "pt-[100px] md:pt-[120px]" : "pt-[64px] md:pt-[80px]";
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Analytics />
       <Header />
-      <main className="flex-1">
+      <main className={`flex-1 ${offsetHeight}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dhuroperxhamin" element={<DhuroPerXhamin />} />
