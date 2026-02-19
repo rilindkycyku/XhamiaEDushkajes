@@ -1,11 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 
 export default function SEO({ title, description, image, url, type = 'website' }) {
-    const siteName = "Xhamia e Dushkajës - Kaçanik";
-    const fullTitle = title ? `${title} | ${siteName}` : siteName;
+    const siteName = "Xhamia e Dushkajës";
+    const domain = "xhamiaedushkajes.org";
+
+    // For the home page, we want "Title | Domain | Title" as requested
+    // This also helps Google identify the Site Name correctly.
+    const fullTitle = (title === "Ballina" || !title)
+        ? `${siteName} | ${domain} | ${siteName}`
+        : `${title} | ${siteName}`;
+
     const defaultDesc = "Mirë se vini në faqen zyrtare të Xhamisë së Dushkajës në Kaçanik. Informohuni mbi kohët e namazit, aktivitetet javore, dhe jeta fetare në xhaminë tonë.";
-    const siteUrl = "https://www.xhamiaedushkajes.org"; // Replace with real URL if different
-    const defaultImage = "/img/logo/og-image.jpg"; // Prepare an OG image later
+    const siteUrl = "https://www.xhamiaedushkajes.org";
+    const defaultImage = "/img/logo/og-image.jpg";
 
     return (
         <Helmet>
