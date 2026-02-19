@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import vaktet from "../data/vaktet-e-namazit.json";
+import site from "../data/site.json";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import {
@@ -118,12 +119,15 @@ export default function KohetENamazitPerSot() {
 
   const xhemati = (emri) => {
     if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
-    if (emri === "Sabahu" && todayData?.Lindja) {
-      const [h, m] = todayData.Lindja.split(":").map(Number);
-      const total = h * 60 + m - 40;
-      const o = Math.floor(total / 60);
-      const min = ((total % 60) + 60) % 60;
-      return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
+    if (emri === "Sabahu" && todayData) {
+      if (site.ramazanActive) return todayData.Sabahu;
+      if (todayData.Lindja) {
+        const [h, m] = todayData.Lindja.split(":").map(Number);
+        const total = h * 60 + m - 40;
+        const o = Math.floor(total / 60);
+        const min = ((total % 60) + 60) % 60;
+        return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
+      }
     }
     if (emri === "Dreka" && todayData?.Dreka) {
       const isFri = selectedDate.getDay() === 5;
@@ -205,12 +209,12 @@ export default function KohetENamazitPerSot() {
   };
 
   const listaNamazeve = useMemo(() => [
-    { id: "Imsaku", label: "Imsaku" },
+    { id: "Imsaku", label: site.ramazanActive ? "Syfyri (Imsaku)" : "Imsaku" },
     { id: "Sabahu", label: "Sabahu" },
     { id: "Lindja", label: "Lindja", dim: true },
     { id: "Dreka", label: "Dreka" },
     { id: "Ikindia", label: "Ikindia" },
-    { id: "Akshami", label: "Akshami" },
+    { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
     { id: "Jacia", label: "Jacia" },
   ], []);
 

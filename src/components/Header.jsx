@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import siteConfig from '../data/site.json';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import RamadanTicker from './RamadanTicker';
+import VaktetTicker from './VaktetTicker';
 
 export default function Header() {
   const titulli = siteConfig?.emriXhamis ?? 'Xhamia';
@@ -72,8 +72,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Global Ramadan Ticker */}
-        <RamadanTicker />
+        {/* Global Vaktet Ticker */}
+        <VaktetTicker />
 
         {/* Mobile Nav */}
         <AnimatePresence>

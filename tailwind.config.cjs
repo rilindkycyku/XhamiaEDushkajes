@@ -17,7 +17,11 @@ module.exports = {
         }
       },
       fontFamily: {
-        mono: ['Quicksand', 'ui-monospace', 'monospace'],
+        // make Quicksand the default sans-serif so classes like
+        // `font-sans` and the HTML element inherit will work without
+        // needing a special `font-quicksand` utility.
+        sans: ['Quicksand', 'ui-sans-serif', 'system-ui'],
+        mono: ['ui-monospace', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

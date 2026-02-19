@@ -4,24 +4,53 @@ import vaktet from '../data/vaktet-e-namazit.json';
 import { HiMoon, HiSparkles, HiCalendar } from 'react-icons/hi2';
 import { HiOutlineSun } from 'react-icons/hi';
 
-const ITEMS_CONFIG = (dataSot, vaktiSot) => [
-    { text: siteConfig.mesazhiRamazanitStart,              icon: 'sparkles' },
-    { text: `Data Sot: ${dataSot}`,                        icon: 'calendar' },
-    { text: `Përfundimi i Syfyrit: ${vaktiSot.Imsaku}`,   icon: 'moon'     },
-    { text: `Fillimi i Iftarit: ${vaktiSot.Akshami}`,     icon: 'sun'      },
-    { text: `Namazi i Teravive: 20:00`,                    icon: 'moon2'    },
-    { text: siteConfig.mesazhiRamazanitEnd,                icon: 'sparkles2'},
-];
+const getSabahuXhemat = (vaktiSot) => {
+    if (siteConfig.ramazanActive) return vaktiSot.Sabahu;
+    if (vaktiSot.Lindja) {
+        const [h, m] = vaktiSot.Lindja.split(":").map(Number);
+        const total = h * 60 + m - 40;
+        const o = Math.floor(total / 60);
+        const min = ((total % 60) + 60) % 60;
+        return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
+    }
+    return vaktiSot.Sabahu;
+};
+
+const ITEMS_CONFIG = (dataSot, vaktiSot) => {
+    const xhSabahu = getSabahuXhemat(vaktiSot);
+
+    if (siteConfig.ramazanActive) {
+        return [
+            { text: siteConfig.mesazhiRamazanitStart, icon: 'sparkles' },
+            { text: `Data Sot: ${dataSot}`, icon: 'calendar' },
+            { text: `Përfundimi i Syfyrit: ${vaktiSot.Imsaku}`, icon: 'moon' },
+            { text: `Namazi i Sabahut: ${xhSabahu}`, icon: 'moon2' },
+            { text: `Fillimi i Iftarit: ${vaktiSot.Akshami}`, icon: 'sun' },
+            { text: `Namazi i Teravive: 20:00`, icon: 'moon' },
+            { text: siteConfig.mesazhiRamazanitEnd, icon: 'sparkles2' },
+        ];
+    }
+
+    return [
+        { text: `Vaktet e Namazit - ${dataSot}`, icon: 'calendar' },
+        { text: `Imsaku: ${vaktiSot.Imsaku}`, icon: 'moon' },
+        { text: `Sabahu: ${xhSabahu}`, icon: 'moon2' },
+        { text: `Dreka: ${vaktiSot.Dreka}`, icon: 'sun' },
+        { text: `Ikindia: ${vaktiSot.Ikindia}`, icon: 'sun' },
+        { text: `Akshami: ${vaktiSot.Akshami}`, icon: 'moon' },
+        { text: `Jacia: ${vaktiSot.Jacia}`, icon: 'moon2' },
+    ];
+};
 
 function Icon({ type }) {
     switch (type) {
         case 'sparkles':
         case 'sparkles2': return <HiSparkles style={{ color: '#d4af37' }} />;
-        case 'calendar':  return <HiCalendar style={{ color: '#6ee7b7' }} />;
+        case 'calendar': return <HiCalendar style={{ color: '#6ee7b7' }} />;
         case 'moon':
-        case 'moon2':     return <HiMoon     style={{ color: '#cbd5e1' }} />;
-        case 'sun':       return <HiOutlineSun style={{ color: '#fbbf24' }} />;
-        default:          return null;
+        case 'moon2': return <HiMoon style={{ color: '#cbd5e1' }} />;
+        case 'sun': return <HiOutlineSun style={{ color: '#fbbf24' }} />;
+        default: return null;
     }
 }
 
@@ -35,7 +64,7 @@ function Separator() {
     );
 }
 
-export default function RamadanTicker() {
+export default function VaktetTicker() {
     const [vaktiSot, setVaktiSot] = useState(null);
     const trackRef = useRef(null);
 
@@ -53,7 +82,7 @@ export default function RamadanTicker() {
 
     const dataSot = useMemo(() => {
         const sot = new Date();
-        const muajt = ['Janar','Shkurt','Mars','Prill','Maj','Qershor','Korrik','Gusht','Shtator','Tetor','Nëntor','Dhjetor'];
+        const muajt = ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'];
         return `${sot.getDate()} ${muajt[sot.getMonth()]} ${sot.getFullYear()}`;
     }, []);
 
@@ -62,7 +91,7 @@ export default function RamadanTicker() {
         return ITEMS_CONFIG(dataSot, vaktiSot);
     }, [vaktiSot, dataSot]);
 
-    if (!siteConfig.ramazanActive || !vaktiSot) return null;
+    if (!vaktiSot) return null;
 
     // Render one full strip of items
     const renderStrip = (keyPrefix) =>

@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
-@import "@fontsource/quicksand/300.css";
-@import "@fontsource/quicksand/400.css";
-@import "@fontsource/quicksand/500.css";
-@import "@fontsource/quicksand/600.css";
-@import "@fontsource/quicksand/700.css";
+/* FontFace declarations are imported from JS entrypoint so that Vite
+   can correctly process and bundle the font files during build.  The
+   previous CSS imports were leaving `./files/...` references in the
+   generated stylesheet without ever copying the `.woff2`/`.woff`
+   assets, which is why the fonts disappeared on Vercel. */
+
+/* imports moved to src/main.jsx */
 
 @theme {
   --color-emerald-50: #f0fdf4;
