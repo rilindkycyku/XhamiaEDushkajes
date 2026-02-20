@@ -1,14 +1,13 @@
 // components/Footer.jsx
 import { Link } from 'react-router-dom';
 import siteConfig from '../data/site.json';
-import { HiHeart } from 'react-icons/hi2';
-import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-white pt-24 pb-12 border-t border-white/5 mt-auto relative overflow-hidden">
+    <footer className="bg-slate-950 text-white pt-16 md:pt-24 pb-10 md:pb-12 border-t border-white/5 mt-auto relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-emerald-500/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-900/5 rounded-full blur-[120px]" />
@@ -45,7 +44,7 @@ export default function Footer() {
           <div className="space-y-8">
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-emerald-500">Lidhje të Shpejta</h4>
             <nav className="flex flex-col gap-4">
-              {['Ballina', 'Rreth Xhamisë', 'Aktivitete', 'Dhuro', 'Kontakti'].map((link) => (
+              {['Ballina', 'Rreth Xhamisë', 'Aktivitete Javore', 'Dhuro', 'Kontakti'].map((link) => (
                 <Link
                   key={link}
                   to={link === 'Ballina' ? '/' : link === 'Dhuro' ? '/dhuroperxhamin' : `/${link.toLowerCase().replace(' ', '')}`}

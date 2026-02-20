@@ -60,7 +60,7 @@ export default function VideoGallery() {
       {/* COMPACT CINEMATIC PLAYER */}
       <div
         onClick={() => setIsFS(true)}
-        className="relative group rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 cursor-zoom-in"
+        className="relative group rounded-3xl md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 cursor-zoom-in"
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none scale-125 blur-[80px] opacity-30 saturate-[1.6]">
           <video
@@ -77,14 +77,14 @@ export default function VideoGallery() {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               className="absolute inset-0 flex items-center justify-center bg-slate-950/80 backdrop-blur-3xl z-30"
             >
-              <div className="w-12 h-12 border-4 border-emerald-500/10 border-t-emerald-500 rounded-full animate-spin" />
+              <div className="w-10 h-10 md:w-12 md:h-12 border-4 border-emerald-500/10 border-t-emerald-500 rounded-full animate-spin" />
             </motion.div>
           )}
         </AnimatePresence>
 
         {error && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-950/90 z-40">
-            <HiExclamationCircle className="h-16 w-16 text-red-500/80" />
+            <HiExclamationCircle className="h-12 w-12 md:h-16 md:w-16 text-red-500/80" />
           </div>
         )}
 
@@ -93,7 +93,7 @@ export default function VideoGallery() {
           key={videot[indeksi]}
           ref={(el) => (videoRefs.current[indeksi] = el)}
           src={videot[indeksi]}
-          className="w-full h-full object-contain relative z-10 p-4 md:p-8 drop-shadow-2xl"
+          className="w-full h-full object-contain relative z-10 p-3 md:p-8 drop-shadow-2xl"
           autoPlay={isLuo}
           muted={isMuted}
           loop playsInline
@@ -102,29 +102,29 @@ export default function VideoGallery() {
         />
 
         {/* Floating HUD */}
-        <div className="absolute top-6 left-6 md:top-8 md:left-8 px-4 py-2 rounded-2xl bg-black/30 backdrop-blur-2xl border border-white/10 text-white z-20 flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[10px] md:text-sm font-black tracking-widest">{indeksi + 1} / {videot.length}</span>
+        <div className="absolute top-4 left-4 md:top-8 md:left-8 px-3 md:px-4 py-1.5 md:py-2 rounded-xl md:rounded-2xl bg-black/30 backdrop-blur-2xl border border-white/10 text-white z-20 flex items-center gap-2">
+          <div className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-[9px] md:text-sm font-black tracking-widest">{indeksi + 1} / {videot.length}</span>
         </div>
 
-        <div className="absolute top-6 right-6 md:top-8 md:right-8 flex gap-3 z-20">
-          <button onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-white/10">
-            {isMuted ? <HiSpeakerXMark size={18} /> : <HiSpeakerWave size={18} />}
+        <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-2 md:gap-3 z-20">
+          <button onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-white/10 transition-all">
+            {isMuted ? <HiSpeakerXMark size={16} md:size={18} /> : <HiSpeakerWave size={16} md:size={18} />}
           </button>
-          <button onClick={(e) => { e.stopPropagation(); setIsFS(true); }} className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all">
-            <HiArrowsPointingOut size={18} />
+          <button onClick={(e) => { e.stopPropagation(); setIsFS(true); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all">
+            <HiArrowsPointingOut size={16} md:size={18} />
           </button>
         </div>
       </div>
 
       {/* DOCKER & THUMBNAILS */}
-      <div className="flex flex-col md:flex-row items-center gap-6">
-        <div className="flex-1 w-full bg-white rounded-[2.5rem] md:rounded-[3rem] p-3 md:p-4 shadow-xl border border-slate-100 flex items-center gap-4 md:gap-6">
+      <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <div className="flex-1 w-full bg-white rounded-2xl md:rounded-[3rem] p-2 md:p-4 shadow-xl border border-slate-100 flex items-center gap-3 md:gap-6">
           <button
             onClick={() => setIsLuo(!isLuo)}
-            className="w-12 h-12 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[1.8rem] bg-slate-50 text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
+            className="w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.8rem] bg-slate-50 text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
           >
-            {isLuo ? <HiPause size={24} /> : <HiPlay size={24} className="translate-x-0.5" />}
+            {isLuo ? <HiPause size={20} md:size={24} /> : <HiPlay size={20} md:size={24} className="translate-x-0.5" />}
           </button>
 
           <div className="flex-1 hidden md:block">
@@ -134,8 +134,8 @@ export default function VideoGallery() {
 
           {videot.length > 1 && (
             <div className="flex items-center gap-2">
-              <button onClick={para} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronLeft size={18} /></button>
-              <button onClick={pas} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronRight size={18} /></button>
+              <button onClick={para} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronLeft size={16} md:size={18} /></button>
+              <button onClick={pas} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronRight size={16} md:size={18} /></button>
             </div>
           )}
         </div>

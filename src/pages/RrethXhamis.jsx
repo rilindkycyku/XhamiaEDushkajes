@@ -27,15 +27,15 @@ export default function RrethXhamis() {
         description="Mësoni më shumë për historinë e Xhamisë së Dushkajës, aktivitetet tona dhe se si jemi bërë një qendër shpirtërore për komunitetin e Kaçanikut."
         url="/rrethxhamis"
       />
-      <section className="text-center max-w-4xl mx-auto px-4">
+      <section className="text-center max-w-4xl mx-auto px-4 md:px-0">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-8 border border-emerald-100 shadow-sm">
           <HiSparkles className="text-emerald-500 animate-pulse" /> Historia Jonë
         </motion.div>
-        <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-6 md:mb-10 leading-[1.05] tracking-tighter">
+        <motion.h1 variants={itemVariants} className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-6 md:mb-10 leading-[1.05] tracking-tighter">
           Një Vatër Drite në <br className="hidden sm:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-800">Dushkajë</span>
         </motion.h1>
-        <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed px-2">
+        <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed px-4">
           Zbuloni rrugëtimin tonë dhe se si një ëndërr u shndërrua në një qendër shpirtërore për komunitetin.
         </motion.p>
       </section>

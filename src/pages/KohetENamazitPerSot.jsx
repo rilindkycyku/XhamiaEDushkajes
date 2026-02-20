@@ -270,12 +270,12 @@ export default function KohetENamazitPerSot() {
             </div>
 
             <button onClick={() => setShowCalendar(true)} className="text-left group outline-none w-fit">
-              <p className="text-[9px] uppercase font-black tracking-[0.2em] text-white/40 mb-1">Data e zgjedhur</p>
+              <p className="text-[8px] md:text-[9px] uppercase font-black tracking-[0.2em] text-white/40 mb-1">Data e zgjedhur</p>
               <div className="flex items-center gap-3 group">
-                <h1 className="text-3xl md:text-5xl font-black tracking-tighter group-hover:text-emerald-400 transition-colors">
+                <h1 className="text-2xl md:text-5xl font-black tracking-tighter group-hover:text-emerald-400 transition-colors">
                   {formatDatenShqip(todayData.Date)}
                 </h1>
-                <HiOutlineCalendar size={22} className="text-emerald-500 group-hover:scale-110 transition-transform" />
+                <HiOutlineCalendar size={20} className="text-emerald-500 group-hover:scale-110 transition-transform md:w-[22px] md:h-[22px]" />
               </div>
             </button>
           </div>
@@ -285,24 +285,24 @@ export default function KohetENamazitPerSot() {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative p-6 rounded-[2.5rem] overflow-hidden group shadow-2xl border border-white/10 bg-slate-900/40 backdrop-blur-3xl"
+              className="relative p-5 md:p-6 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group shadow-2xl border border-white/10 bg-slate-900/40 backdrop-blur-3xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-white/5 pointer-events-none" />
 
-              <div className="relative z-10 flex flex-col gap-6">
+              <div className="relative z-10 flex flex-col gap-5 md:gap-6">
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                      <HiClock className="text-white" size={24} />
+                  <div className="flex items-center gap-3 md:gap-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                      <HiClock className="text-white" size={20} md:size={24} />
                     </div>
                     <div>
-                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/80 mb-0.5">Namazi i Radhës</p>
-                      <h2 className="text-xl font-black uppercase text-white tracking-tight">{infoTani.ardhshëm.label.split(' ')[0]}</h2>
+                      <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/80 mb-0.5">Namazi i Radhës</p>
+                      <h2 className="text-lg md:text-xl font-black uppercase text-white tracking-tight">{infoTani.ardhshëm.label.split(' ')[0]}</h2>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/30 mb-0.5">Koha</p>
-                    <p className="text-lg font-mono font-black text-white/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
+                    <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-white/30 mb-0.5">Koha</p>
+                    <p className="text-base md:text-lg font-mono font-black text-white/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
                   </div>
                 </div>
 
@@ -337,12 +337,13 @@ export default function KohetENamazitPerSot() {
               <span className="w-24 text-center text-emerald-600">Xhemat</span>
             </div>
 
-            <div className="flex flex-col gap-1 pb-2">
+            <div className="flex flex-col gap-0.5 md:gap-1 pb-2">
               {listaNamazeve.map(({ id, label, dim }) => {
                 const kohe = todayData[id];
                 const xh = xhemati(id);
                 const isCurrent = infoTani?.tani?.id === id;
                 const isNext = infoTani?.ardhshëm?.id === id;
+                const isJumuah = selectedDate.getDay() === 5 && id === "Dreka";
 
                 const tani = new Date();
                 const minTani = tani.getHours() * 60 + tani.getMinutes();
@@ -352,43 +353,63 @@ export default function KohetENamazitPerSot() {
                   <motion.div
                     key={id}
                     layout
-                    className={`flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 relative ${isNext
+                    className={`flex items-center px-3 md:px-4 py-2.5 md:py-3.5 rounded-xl md:rounded-2xl transition-all duration-300 relative ${isNext
                       ? "bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 z-10"
                       : isCurrent
                         ? "bg-slate-900 text-white shadow-md z-10 scale-[1.01]"
-                        : "hover:bg-slate-50"
+                        : isJumuah
+                          ? "bg-amber-50 text-amber-900 border border-amber-200"
+                          : "hover:bg-slate-50"
                       }`}
                   >
-                    <div className="flex-1 flex items-center gap-3 min-w-0">
-                      <div className={`w-2 h-2 rounded-full flex-shrink-0 transition-all duration-500 ${isNext ? "bg-white animate-pulse" : isCurrent ? "bg-emerald-500" : isPast ? "bg-slate-200" : "bg-emerald-100"
+                    <div className="flex-1 flex items-center gap-2 md:gap-3 min-w-0">
+                      <div className={`w-1.5 md:w-2 h-1.5 md:h-2 rounded-full flex-shrink-0 transition-all duration-500 ${isNext ? "bg-white animate-pulse"
+                          : isCurrent ? "bg-emerald-500"
+                            : isJumuah ? "bg-amber-500"
+                              : isPast ? "bg-slate-200"
+                                : "bg-emerald-100"
                         }`} />
 
                       <div className="flex flex-col">
-                        <p className={`text-xs transition-all duration-300 ${isNext || isCurrent ? "font-black uppercase tracking-tight" : "font-bold text-slate-700"
-                          } ${isPast ? "text-slate-400 opacity-60" : ""}`}>
-                          {label}
-                        </p>
-                        {isNext && <span className="text-[7px] font-black uppercase tracking-widest text-emerald-100/70">Vakti Ardhshëm</span>}
-                        {isCurrent && <span className="text-[7px] font-black uppercase tracking-widest text-slate-500">Aktualisht</span>}
+                        <div className="flex items-center gap-2">
+                          <p className={`text-[10px] md:text-xs transition-all duration-300 ${isNext || isCurrent ? "font-black uppercase tracking-tight"
+                              : isJumuah ? "font-black uppercase tracking-tight text-amber-700"
+                                : "font-bold text-slate-700"
+                            } ${isPast && !isJumuah ? "text-slate-400 opacity-60" : ""}`}>
+                            {label}
+                          </p>
+                          {isJumuah && !isNext && !isCurrent && (
+                            <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-600 text-[8px] uppercase font-black tracking-widest border border-amber-200">
+                              Xhumaja
+                            </span>
+                          )}
+                        </div>
+                        {isNext && <span className="text-[6px] md:text-[7px] font-black uppercase tracking-widest text-emerald-100/70">Vakti Ardhshëm</span>}
+                        {isCurrent && <span className="text-[6px] md:text-[7px] font-black uppercase tracking-widest text-slate-500">Aktualisht</span>}
                       </div>
                     </div>
 
-                    <div className="w-16 text-center">
-                      <p className={`font-mono font-black text-base tabular-nums ${isNext || isCurrent ? "text-white" : isPast ? "text-slate-200" : "text-slate-900"
+                    <div className="w-14 md:w-16 text-center">
+                      <p className={`font-mono font-black text-sm md:text-base tabular-nums ${isNext || isCurrent ? "text-white"
+                          : isJumuah ? "text-amber-700"
+                            : isPast ? "text-slate-200"
+                              : "text-slate-900"
                         }`}>
                         {ne24h(kohe)}
                       </p>
                     </div>
 
-                    <div className="w-24 flex justify-center">
+                    <div className="w-20 md:w-24 flex justify-center">
                       {xh ? (
-                        <div className={`px-3 py-1.5 rounded-xl text-center min-w-[65px] transition-all duration-300 ${isNext
+                        <div className={`px-2 md:px-3 py-1 md:py-1.5 rounded-lg md:rounded-xl text-center min-w-[55px] md:min-w-[65px] transition-all duration-300 ${isNext
                           ? "bg-white/20 text-white font-black border border-white/20"
                           : isCurrent
                             ? "bg-emerald-500/10 text-emerald-400 font-black"
-                            : "bg-emerald-50 text-emerald-700 font-black"
-                          } ${isPast ? "opacity-20 grayscale" : ""}`}>
-                          <p className="font-mono font-black text-base leading-none tabular-nums">{ne24h(xh)}</p>
+                            : isJumuah
+                              ? "bg-amber-100 text-amber-700 font-black border border-amber-200"
+                              : "bg-emerald-50 text-emerald-700 font-black"
+                          } ${isPast && !isJumuah ? "opacity-20 grayscale" : ""}`}>
+                          <p className="font-mono font-black text-sm md:text-base leading-none tabular-nums">{ne24h(xh)}</p>
                         </div>
                       ) : (
                         <div className="w-1.5 h-1.5 bg-slate-100 rounded-full opacity-30" />

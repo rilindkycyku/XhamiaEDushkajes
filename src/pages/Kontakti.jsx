@@ -81,14 +81,14 @@ export default function Kontakti() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-[0.2em] mb-8 border border-emerald-100 shadow-sm"
+                  className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-8 border border-emerald-100 shadow-sm"
                 >
                   <HiSparkles className="text-emerald-500 animate-pulse" /> Flisni me ne
                 </motion.div>
-                <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-tighter">
+                <h1 className="text-4xl md:text-7xl font-black mb-6 md:mb-8 leading-[1.1] tracking-tighter">
                   Na <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-800">kontaktoni</span>
                 </h1>
-                <p className="text-xl text-slate-500 font-medium leading-relaxed">
+                <p className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed">
                   Keni pyetje apo sugjerime? Jemi këtu për ju. Na shkruani dhe do t'ju kthejmë përgjigje sa më shpejt të jetë e mundur.
                 </p>
               </div>
@@ -119,26 +119,26 @@ export default function Kontakti() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white p-10 md:p-16 rounded-[4rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] border border-slate-100 relative group"
+              className="bg-white p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.06)] border border-slate-100 relative group"
             >
               <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-500 via-emerald-400 to-gold-500 opacity-60 rounded-t-full" />
 
-              <form onSubmit={dergoFormularin} className="space-y-10 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+              <form onSubmit={dergoFormularin} className="space-y-8 md:space-y-10 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
                   <div className="space-y-4">
-                    <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                    <label className="flex items-center gap-2 text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
                       <HiOutlineUser className="text-emerald-500" /> Emri juaj
                     </label>
                     <input
                       name="emri"
                       value={formulari.emri}
                       onChange={ndryshoFushen}
-                      className="w-full px-8 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-slate-50 border border-slate-200 rounded-2xl md:rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300 text-sm md:text-base"
                       placeholder="Shkruani emrin..."
                     />
                   </div>
                   <div className="space-y-4">
-                    <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                    <label className="flex items-center gap-2 text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
                       <HiOutlineEnvelope className="text-emerald-500" /> Email adresa
                     </label>
                     <input
@@ -146,14 +146,14 @@ export default function Kontakti() {
                       type="email"
                       value={formulari.email}
                       onChange={ndryshoFushen}
-                      className="w-full px-8 py-5 bg-slate-50 border border-slate-200 rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300"
+                      className="w-full px-6 md:px-8 py-4 md:py-5 bg-slate-50 border border-slate-200 rounded-2xl md:rounded-[2rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 shadow-inner group-hover:border-slate-300 text-sm md:text-base"
                       placeholder="email@shembull.com"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <label className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
+                  <label className="flex items-center gap-2 text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">
                     <HiOutlineChatBubbleLeftRight className="text-emerald-500" /> Mesazhi i juaj
                   </label>
                   <textarea
@@ -161,7 +161,7 @@ export default function Kontakti() {
                     value={formulari.mesazhi}
                     onChange={ndryshoFushen}
                     rows={6}
-                    className="w-full px-8 py-6 bg-slate-50 border border-slate-200 rounded-[2.5rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 resize-none shadow-inner group-hover:border-slate-300"
+                    className="w-full px-6 md:px-8 py-4 md:py-6 bg-slate-50 border border-slate-200 rounded-[1.5rem] md:rounded-[2.5rem] focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:bg-white transition-all duration-300 font-bold text-slate-800 placeholder:text-slate-300 resize-none shadow-inner group-hover:border-slate-300 text-sm md:text-base"
                     placeholder="Si mund t'ju ndihmojmë?"
                   />
                 </div>
@@ -169,7 +169,7 @@ export default function Kontakti() {
                 <button
                   type="submit"
                   disabled={statusi === "sending"}
-                  className="w-full group/btn relative overflow-hidden flex items-center justify-center gap-4 px-10 py-6 bg-emerald-700 text-white font-black text-lg rounded-[2.5rem] shadow-2xl shadow-emerald-700/20 hover:bg-emerald-800 transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0"
+                  className="w-full group/btn relative overflow-hidden flex items-center justify-center gap-4 px-8 md:px-10 py-5 md:py-6 bg-emerald-700 text-white font-black text-base md:text-lg rounded-2xl md:rounded-[2.5rem] shadow-2xl shadow-emerald-700/20 hover:bg-emerald-800 transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 disabled:opacity-50 disabled:translate-y-0"
                 >
                   <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-600 to-emerald-800 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
 

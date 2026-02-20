@@ -67,23 +67,23 @@ export default function Home() {
             {viteTeShfaqura > 0 && (
               <motion.div variants={itemVariants}>
                 <Link to="/rrethxhamis" className="group block">
-                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-800 via-emerald-900 to-slate-950 text-white rounded-[2.5rem] p-10 md:p-14 shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:shadow-emerald-900/20">
+                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-800 via-emerald-900 to-slate-950 text-white rounded-[2.5rem] p-8 md:p-14 shadow-2xl transition-all duration-500 hover:scale-[1.01] hover:shadow-emerald-900/20">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full -mr-32 -mt-32 blur-[100px] group-hover:bg-emerald-500/20 transition-colors" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold-500/5 rounded-full -ml-20 -mb-20 blur-[80px]" />
 
                     <div className="relative z-10">
-                      <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-emerald-300 text-xs font-bold uppercase tracking-[0.2em] mb-8">
+                      <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-emerald-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 md:mb-8">
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         Historia Jonë
                       </div>
-                      <h3 className="text-4xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
+                      <h3 className="text-3xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
                         {viteTeShfaqura} {viteTeShfaqura === 1 ? "Vit" : "Vite"} Dritë, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">Dije & Bamirësi</span>
                       </h3>
-                      <p className="text-xl text-emerald-100/70 font-medium mb-10 max-w-xl">
+                      <p className="text-lg md:text-xl text-emerald-100/70 font-medium mb-8 md:mb-10 max-w-xl">
                         Duke shërbyer komunitetin me përkushtim që nga {formatoDaten(dataHapjes)}.
                       </p>
-                      <div className="inline-flex items-center gap-3 text-white font-bold bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl transition-all group-hover:gap-5">
+                      <div className="inline-flex items-center gap-3 text-white font-bold bg-white/10 hover:bg-white/20 px-6 md:px-8 py-3.5 md:py-4 rounded-2xl transition-all group-hover:gap-5 text-sm md:text-base">
                         Zbuloni Historinë <HiArrowRight className="text-xl text-emerald-400" />
                       </div>
                     </div>
@@ -93,15 +93,15 @@ export default function Home() {
             )}
 
             {/* Welcome Section */}
-            <motion.section variants={itemVariants} className="bg-white p-10 md:p-16 rounded-[3rem] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden group">
+            <motion.section variants={itemVariants} className="bg-white p-8 md:p-16 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50/50 rounded-full blur-3xl -mr-32 -mt-32 transition-standard group-hover:bg-emerald-100/50" />
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 flex items-center gap-4">
-                  <span className="w-2 h-10 bg-emerald-600 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.4)]" />
+                <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-6 md:mb-8 flex items-center gap-4">
+                  <span className="w-2 h-8 md:h-10 bg-emerald-600 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.4)]" />
                   Mirë se Vini
                 </h2>
                 <div className="prose prose-slate prose-lg max-w-none">
-                  <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                  <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
                     {siteConfig.textiMiresevini}
                   </p>
                 </div>
@@ -109,23 +109,23 @@ export default function Home() {
             </motion.section>
 
             {/* Social Feed */}
-            <motion.section variants={itemVariants} className="bg-white p-10 md:p-16 rounded-[3rem] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden">
+            <motion.section variants={itemVariants} className="bg-white p-6 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 to-gold-500 opacity-50" />
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-10 gap-4">
                 <div>
-                  <h3 className="text-3xl font-bold text-slate-900 mb-2">Njoftimet e Fundit</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Njoftimet e Fundit</h3>
                   <p className="text-slate-500">Qëndroni të informuar me aktivitetet tona.</p>
                 </div>
                 <a
                   href={siteConfig.faqeFB}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-emerald-700 font-bold bg-emerald-50 px-6 py-3 rounded-2xl hover:bg-emerald-100 transition-colors"
+                  className="inline-flex items-center justify-center w-full sm:w-auto gap-2 text-emerald-700 font-bold bg-emerald-50 px-6 py-3 rounded-2xl hover:bg-emerald-100 transition-colors"
                 >
                   Facebook <HiArrowRight />
                 </a>
               </div>
-              <div className="rounded-[2rem] overflow-hidden border border-slate-100 bg-slate-50/50 p-4">
+              <div className="rounded-xl md:rounded-[2rem] overflow-hidden border border-slate-100 bg-slate-50/50 p-2 md:p-4">
                 <FacebookEmbed />
               </div>
             </motion.section>

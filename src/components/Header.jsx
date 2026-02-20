@@ -23,9 +23,9 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200/50 bg-white/80 backdrop-blur-xl">
         <div className="glass py-3 md:py-4 !border-none shadow-none">
           <div className="container flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-4 group">
+            <Link to="/" className="flex items-center gap-3 md:gap-4 group">
               <div className="relative">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-all shadow-md shadow-slate-200 border border-slate-100 overflow-hidden p-1.5">
+                <div className="w-9 h-9 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-all shadow-md shadow-slate-200 border border-slate-100 overflow-hidden p-1.5">
                   <img
                     src={siteConfig.logoHero}
                     alt="Logo"
@@ -33,7 +33,7 @@ export default function Header() {
                   />
                 </div>
               </div>
-              <span className="text-xl md:text-2xl font-black tracking-tight text-slate-900">
+              <span className="text-lg md:text-2xl font-black tracking-tight text-slate-900">
                 {titulli}<span className="text-emerald-500">.</span>
               </span>
             </Link>

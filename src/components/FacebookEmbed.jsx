@@ -15,18 +15,15 @@ export default function FacebookEmbed() {
         <div
           className="
             relative w-full
-            max-w-[340px]
-            sm:max-w-[500px]
-            lg:max-w-[700px]
-            xl:max-w-[800px]
-            pb-[160%] sm:pb-[160%] lg:pb-[114.2857%] xl:pb-[100%]
+            max-w-[500px]
+            pb-[160%]
           "
         >
           <iframe
             title="Faqja në Facebook"
             src={src}
             className="absolute inset-0 w-full h-full border-0"
-            scrolling="no"
+            scrolling="yes"
             allowFullScreen
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             loading="lazy"

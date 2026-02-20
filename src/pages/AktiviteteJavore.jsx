@@ -1,9 +1,31 @@
 import { useState } from "react";
 import aktivitete from "../data/aktivitetejavore.json";
 import YouTubeChannelEmbed from "../components/YouTubeChannelEmbed";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
-import { HiOutlineClock, HiOutlineMapPin, HiOutlineVideoCamera, HiSparkles } from "react-icons/hi2";
+import { HiOutlineClock, HiOutlineMapPin, HiOutlineVideoCamera, HiSparkles, HiOutlineChevronDown } from "react-icons/hi2";
+
+const ActivityDescription = ({ text }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = text && text.length > 150;
+
+  return (
+    <div className="flex-1 flex flex-col">
+      <p className={`text-slate-500 text-lg leading-relaxed font-medium transition-all duration-300 ${!isExpanded && isLong ? 'line-clamp-3' : ''}`}>
+        {text}
+      </p>
+      {isLong && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-4 flex items-center gap-1.5 text-emerald-600 font-bold text-sm hover:text-emerald-700 transition-colors group/btn"
+        >
+          {isExpanded ? "Shih më pak" : "Lexo më shumë"}
+          <HiOutlineChevronDown className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+        </button>
+      )}
+    </div>
+  );
+};
 
 export default function AktiviteteJavore() {
   const [lista] = useState(aktivitete);
@@ -30,22 +52,22 @@ export default function AktiviteteJavore() {
         description="Bashkohuni me ne në aktivitetet tona javore: ligjërata fetare, kurse, dhe programe edukative për të gjitha moshat në Xhaminë e Dushkajës."
         url="/aktivitetejavore"
       />
-      <section className="text-center max-w-4xl mx-auto px-4">
-        <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-black uppercase tracking-[0.2em] mb-8 border border-emerald-100 shadow-sm font-sans">
+      <section className="text-center max-w-4xl mx-auto px-4 md:px-0">
+        <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-8 border border-emerald-100 shadow-sm font-sans">
           <HiSparkles className="text-emerald-500 animate-pulse" /> Përfshiu në Mirësi
         </motion.div>
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-10 leading-[1.05] tracking-tighter"
+          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-6 md:mb-8 leading-[1.05] tracking-tighter"
         >
           Aktivitetet <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-800">Javore</span>
         </motion.h1>
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
+        <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto px-2">
           Zbuloni programin tonë dinamik të ligjëratave, kurseve dhe aktiviteteve që organizohen rregullisht në xhaminë tonë.
         </motion.p>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 px-2 sm:px-0">
         {lista.map((akt, idx) => (
           <motion.article
             key={idx}
@@ -89,9 +111,7 @@ export default function AktiviteteJavore() {
                 </div>
               </div>
 
-              <p className="text-slate-500 text-lg leading-relaxed mb-8 flex-1 font-medium">
-                {akt.teksti}
-              </p>
+              <ActivityDescription text={akt.teksti} />
             </div>
           </motion.article>
         ))}

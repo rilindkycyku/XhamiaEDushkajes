@@ -96,21 +96,48 @@ export default function PrayerTimes() {
     const moments = buildMoments();
     let nextIdx = moments.findIndex((m) => neMinuta(m.kohe) > minTani);
 
+    // Case: End of Day (After last moment, usually Jacia Xhemat) -> Next is Tomorrow Sabahu
     if (nextIdx === -1) {
       const idxSot = vaktet.findIndex((v) => v.Date === vaktiSot.Date);
       const neser = vaktet[idxSot + 1] ?? vaktet[0];
+      const nextSabahu = neser.Sabahu;
+      const lastMoment = moments[moments.length - 1]; // usually Jacia or Jacia Xhemat
+
       setInfoTani({
-        tani: moments[moments.length - 1],
-        ardhshëm: { id: "Sabahu", label: "Sabahu", kohe: neser.Sabahu },
-        mbetur: 24 * 60 - minTani + neMinuta(neser.Sabahu),
-        total: 24 * 60 - neMinuta(moments[moments.length - 1].kohe) + neMinuta(neser.Sabahu),
+        tani: { id: "Jacia", label: "Jacia" }, // Highlight Jacia
+        ardhshëm: { id: "Sabahu", label: "Sabahu", kohe: nextSabahu },
+        mbetur: (24 * 60 - minTani) + neMinuta(nextSabahu),
+        total: (24 * 60 - neMinuta(lastMoment.kohe)) + neMinuta(nextSabahu),
       });
       return;
     }
 
-    const currentMoment = nextIdx > 0 ? moments[nextIdx - 1] : null;
+    // Case: Start of Day (Before Imsaku) -> Current is Last Night's Jacia
+    if (nextIdx === 0) {
+      const idxSot = vaktet.findIndex((v) => v.Date === vaktiSot.Date);
+      // Get yesterday's data to find Jacia time
+      const dje = idxSot > 0 ? vaktet[idxSot - 1] : vaktet[vaktet.length - 1];
+      const djeJacia = dje.Jacia;
+      const nextMoment = moments[0]; // Imsaku
+
+      // Time from yesterday's Jacia to Imsaku today
+      const totalDuration = (24 * 60 - neMinuta(djeJacia)) + neMinuta(nextMoment.kohe);
+      // Time remaining to Imsaku
+      const remaining = neMinuta(nextMoment.kohe) - minTani;
+
+      setInfoTani({
+        tani: { id: "Jacia", label: "Jacia" }, // Highlight Jacia row
+        ardhshëm: nextMoment,
+        mbetur: remaining,
+        total: totalDuration
+      });
+      return;
+    }
+
+    // Normal Case
+    const currentMoment = moments[nextIdx - 1];
     const nextMoment = moments[nextIdx];
-    const totalMin = currentMoment ? neMinuta(nextMoment.kohe) - neMinuta(currentMoment.kohe) : 60;
+    const totalMin = neMinuta(nextMoment.kohe) - neMinuta(currentMoment.kohe);
 
     setInfoTani({
       tani: currentMoment,
@@ -121,11 +148,10 @@ export default function PrayerTimes() {
   }, [vaktiSot, buildMoments]);
 
   useEffect(() => {
-    if (!vaktiSot) return;
     perditeso();
-    const id = setInterval(perditeso, 10_000);
+    const id = setInterval(perditeso, 1000);
     return () => clearInterval(id);
-  }, [vaktiSot, perditeso]);
+  }, [perditeso]);
 
   const shareTimes = () => {
     const url = `${window.location.origin}/kohetenamazitpersot`;
@@ -167,10 +193,10 @@ export default function PrayerTimes() {
           )}
         </AnimatePresence>
 
-        <div className="flex justify-between items-center mb-5 font-sans">
+        <div className="flex justify-between items-center mb-4 md:mb-5 font-sans">
           <div>
-            <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mb-0.5">Vaktet</p>
-            <p className="text-xl font-black">{formatDatenShqip(vaktiSot.Date)}</p>
+            <p className="text-[9px] md:text-[10px] text-emerald-400 font-bold uppercase tracking-widest mb-0.5">Vaktet</p>
+            <p className="text-lg md:text-xl font-black">{formatDatenShqip(vaktiSot.Date)}</p>
           </div>
           <button onClick={shareTimes} className="p-2 text-slate-500 hover:text-white transition-colors"><HiOutlineShare size={18} /></button>
         </div>
@@ -178,25 +204,25 @@ export default function PrayerTimes() {
         {infoTani?.ardhshëm && (
           <div className="grid grid-cols-2 gap-4 items-end pt-4 border-t border-white/5 font-sans">
             <div>
-              <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1 text-left">Vakti i radhës</p>
+              <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-widest mb-1 text-left">Vakti i radhës</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-lg font-black text-white">{infoTani.ardhshëm.label.split(' ')[0]}</p>
-                <p className="text-sm font-mono text-emerald-500/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
+                <p className="text-base md:text-lg font-black text-white">{infoTani.ardhshëm.label.split(' ')[0]}</p>
+                <p className="text-[10px] md:text-sm font-mono text-emerald-500/50">{ne24h(infoTani.ardhshëm.kohe)}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Mbetur</p>
-              <p className="text-2xl font-black text-emerald-400 font-mono tracking-tighter">{formatDallim(infoTani.mbetur)}</p>
+              <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-widest mb-1">Mbetur</p>
+              <p className="text-xl md:text-2xl font-black text-emerald-400 font-mono tracking-tighter">{formatDallim(infoTani.mbetur)}</p>
             </div>
           </div>
         )}
       </div>
 
-      <div className="p-2 bg-white">
-        <div className="flex items-center text-[10px] font-black uppercase text-slate-400 px-4 py-3 border-b border-slate-50 mb-1 font-sans">
+      <div className="p-1 md:p-2 bg-white">
+        <div className="flex items-center text-[9px] md:text-[10px] font-black uppercase text-slate-400 px-3 md:px-4 py-2 md:py-3 border-b border-slate-50 mb-1 font-sans">
           <span className="flex-1 tracking-widest text-left">Namazi</span>
-          <span className="w-14 text-center tracking-widest">Koha</span>
-          <span className="w-20 text-center text-emerald-600 tracking-widest">Falja me Xhemat</span>
+          <span className="w-12 md:w-14 text-center tracking-widest">Koha</span>
+          <span className="w-16 md:w-20 text-center text-emerald-600 tracking-widest">Falja me Xhemat</span>
         </div>
 
         <div className="space-y-0.5 pb-2">
@@ -205,6 +231,7 @@ export default function PrayerTimes() {
             const xh = xhemati(id);
             const isCurrent = infoTani?.tani?.id === id;
             const isNext = infoTani?.ardhshëm?.id === id;
+            const isJumuah = new Date().getDay() === 5 && id === "Dreka";
 
             // Subtle past prayers
             const tani = new Date();
@@ -214,28 +241,55 @@ export default function PrayerTimes() {
             return (
               <div
                 key={id}
-                className={`flex items-center px-4 py-3 rounded-xl transition-all duration-300 ${isNext ? "bg-emerald-600/5 ring-1 ring-emerald-500/10 shadow-sm" : isCurrent ? "bg-slate-50/50 ring-1 ring-slate-200" : "bg-transparent hover:bg-slate-50"
+                className={`flex items-center px-3 md:px-4 py-2.5 md:py-3 rounded-xl transition-all duration-300 ${isNext ? "bg-emerald-600/5 ring-1 ring-emerald-500/10 shadow-sm"
+                    : isCurrent ? "bg-slate-50/50 ring-1 ring-slate-200"
+                      : isJumuah ? "bg-amber-50 ring-1 ring-amber-100" // Jumuah style
+                        : "bg-transparent hover:bg-slate-50"
                   }`}>
-                <div className="flex-1 flex items-center gap-2 min-w-0">
-                  <p className={`text-xs uppercase truncate font-sans tracking-tight ${isNext ? "text-emerald-700 font-black" : isCurrent ? "text-slate-900 font-black" : isPast ? "text-slate-400" : dim ? "text-slate-300" : "text-slate-700 font-bold"
-                    }`}>{label}</p>
-                  {isNext && <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />}
-                  {isCurrent && <span className="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0" />}
+                <div className="flex-1 flex items-center gap-1.5 md:gap-2 min-w-0">
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2">
+                      <p className={`text-[10px] md:text-xs uppercase truncate font-sans tracking-tight ${isNext ? "text-emerald-700 font-black"
+                          : isCurrent ? "text-slate-900 font-black"
+                            : isJumuah ? "text-amber-700 font-black" // Jumuah text color
+                              : isPast ? "text-slate-400"
+                                : dim ? "text-slate-300"
+                                  : "text-slate-700 font-bold"
+                        }`}>
+                        {label}
+                      </p>
+                      {isJumuah && !isNext && !isCurrent && (
+                        <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-600 text-[9px] uppercase font-black tracking-widest border border-amber-200">
+                          Xhumaja
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {isNext && <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-emerald-500 rounded-full animate-pulse flex-shrink-0" />}
+                  {isCurrent && <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-slate-400 rounded-full flex-shrink-0" />}
                 </div>
 
-                <div className="w-14 text-center">
-                  <p className={`font-mono font-bold text-sm ${isNext ? "text-emerald-700" : isCurrent ? "text-slate-900" : isPast ? "text-slate-400" : "text-slate-600"
+                <div className="w-12 md:w-14 text-center">
+                  <p className={`font-mono font-bold text-xs md:text-sm ${isNext ? "text-emerald-700"
+                      : isCurrent ? "text-slate-900"
+                        : isJumuah ? "text-amber-700"
+                          : isPast ? "text-slate-400"
+                            : "text-slate-600"
                     }`}>{ne24h(kohe)}</p>
                 </div>
 
-                <div className="w-20 flex justify-center">
+                <div className="w-16 md:w-20 flex justify-center">
                   {xh ? (
-                    <div className={`w-16 py-1 rounded-lg text-center transition-all ${isNext ? 'bg-emerald-600 text-white shadow-md' : isCurrent ? 'bg-slate-200 text-slate-700 font-bold' : isPast ? 'bg-slate-50 text-slate-400' : 'bg-emerald-50 text-emerald-700 font-bold'
+                    <div className={`w-14 md:w-16 py-0.5 md:py-1 rounded-lg text-center transition-all ${isNext ? 'bg-emerald-600 text-white shadow-md'
+                        : isCurrent ? 'bg-slate-200 text-slate-700 font-bold'
+                          : isJumuah ? 'bg-amber-100 text-amber-700 font-bold ring-1 ring-amber-200'
+                            : isPast ? 'bg-slate-50 text-slate-400'
+                              : 'bg-emerald-50 text-emerald-700 font-bold'
                       }`}>
-                      <p className="font-mono font-bold text-sm leading-tight">{ne24h(xh)}</p>
+                      <p className="font-mono font-bold text-xs md:text-sm leading-tight">{ne24h(xh)}</p>
                     </div>
                   ) : (
-                    <div className="w-1.5 h-1.5 bg-slate-100 rounded-full opacity-40 flex-shrink-0" />
+                    <div className="w-1 md:w-1.5 h-1 md:h-1.5 bg-slate-100 rounded-full opacity-40 flex-shrink-0" />
                   )}
                 </div>
               </div>

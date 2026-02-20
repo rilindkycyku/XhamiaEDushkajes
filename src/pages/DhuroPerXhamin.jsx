@@ -47,15 +47,15 @@ export default function DhuroPerXhamin() {
         description="Kontribuoni për Xhaminë e Dushkajës. Çdo donacion i juaj ndihmon në mirëmbajtjen e xhamisë dhe zhvillimin e aktiviteteve tona bamirëse."
         url="/dhuroperxhamin"
       />
-      <section className="text-center max-w-3xl mx-auto space-y-8 px-4">
-        <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gold-50 text-gold-700 text-xs font-black uppercase tracking-[0.2em] mb-4 border border-gold-100 shadow-sm">
+      <section className="text-center max-w-3xl mx-auto space-y-8 px-4 md:px-0">
+        <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gold-50 text-gold-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-4 border border-gold-100 shadow-sm">
           <HiSparkles className="text-gold-500 animate-pulse" /> Bëhu pjesë e mirësisë
         </motion.div>
-        <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 leading-[1.05] tracking-tighter">
+        <motion.h1 variants={itemVariants} className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 leading-[1.05] tracking-tighter">
           Dhuroni për <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-500 to-gold-700">Xhaminë Tonë</span>
         </motion.h1>
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium">
+        <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 leading-relaxed font-medium px-4">
           {teDhenat.pershkrimiDhuro}
         </motion.p>
       </section>
