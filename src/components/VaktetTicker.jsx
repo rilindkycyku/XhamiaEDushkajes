@@ -18,6 +18,7 @@ const getSabahuXhemat = (vaktiSot) => {
 
 const ITEMS_CONFIG = (dataSot, vaktiSot) => {
     const xhSabahu = getSabahuXhemat(vaktiSot);
+    const kohaTeravise = (siteConfig.ramazanActive && siteConfig.kohaTeravise) || vaktiSot.Jacia;
 
     if (siteConfig.ramazanActive) {
         return [
@@ -26,7 +27,7 @@ const ITEMS_CONFIG = (dataSot, vaktiSot) => {
             { text: `Përfundimi i Syfyrit: ${vaktiSot.Imsaku}`, icon: 'moon' },
             { text: `Namazi i Sabahut: ${xhSabahu}`, icon: 'moon2' },
             { text: `Fillimi i Iftarit: ${vaktiSot.Akshami}`, icon: 'sun' },
-            { text: `Namazi i Teravive: 20:00`, icon: 'moon' },
+            { text: `Namazi i Teravive: ${kohaTeravise}`, icon: 'moon' },
             { text: siteConfig.mesazhiRamazanitEnd, icon: 'sparkles2' },
         ];
     }

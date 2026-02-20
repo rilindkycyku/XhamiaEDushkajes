@@ -98,12 +98,17 @@ export default function TvDisplay() {
                     const o = Math.floor(oraTjeter / 60);
                     return `${String(o).padStart(2, "0")}:00`;
                 }
+                if (emri === "Jacia" && vaktiSot?.Jacia) {
+                    if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+                    return vaktiSot.Jacia;
+                }
                 return rreshti?.[emri] ?? null;
             };
 
             const getLabel = (id) => {
                 if (id === 'Imsaku' && site.ramazanActive) return "Syfyri (Imsaku)";
                 if (id === 'Akshami' && site.ramazanActive) return "Iftari (Akshami)";
+                if (id === 'Jacia' && site.ramazanActive) return "Teravia (Jacia)";
                 return id;
             };
 
@@ -207,6 +212,10 @@ export default function TvDisplay() {
             const o = Math.floor(oraTjeter / 60);
             return `${String(o).padStart(2, "0")}:00`;
         }
+        if (emri === "Jacia" && vaktiSot?.Jacia) {
+            if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+            return vaktiSot.Jacia;
+        }
         return vaktiSot?.[emri] ?? null;
     };
 
@@ -217,7 +226,7 @@ export default function TvDisplay() {
         { id: "Dreka", label: "Dreka" },
         { id: "Ikindia", label: "Ikindia" },
         { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
-        { id: "Jacia", label: "Jacia" },
+        { id: "Jacia", label: site.ramazanActive ? "Teravia (Jacia)" : "Jacia" },
     ], []);
 
     const hijriDate = useMemo(() => {
@@ -226,34 +235,42 @@ export default function TvDisplay() {
             const adjustedDate = new Date(currentTime);
             adjustedDate.setDate(adjustedDate.getDate() - 1);
 
-            const dateStr = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            }).format(adjustedDate);
+            // Use 'numeric' for parts to avoid translation and era issues (like "bc" on Safari)
+            // We try 'u-ca-islamic-umalqura' first, then fallback to 'u-ca-islamic'
+            let parts;
+            try {
+                parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+                    day: 'numeric',
+                    month: 'numeric',
+                    year: 'numeric'
+                }).formatToParts(adjustedDate);
+            } catch (e) {
+                parts = new Intl.DateTimeFormat('en-u-ca-islamic', {
+                    day: 'numeric',
+                    month: 'numeric',
+                    year: 'numeric'
+                }).formatToParts(adjustedDate);
+            }
 
-            // Map English Islamic months to Albanian
-            const monthMap = {
-                "Muharram": "Muharrem",
-                "Safar": "Safer",
-                "Rabiʻ I": "Rebiul Evel",
-                "Rabiʻ II": "Rebiul Ahir",
-                "Jumada I": "Xhumadel Ula",
-                "Jumada II": "Xhumadel Ahire",
-                "Rajab": "Rexhep",
-                "Shaʻban": "Shaban",
-                "Ramadan": "Ramazan",
-                "Shawwal": "Sheval",
-                "Dhuʻl-Qiʻdah": "Dhul Kade",
-                "Dhuʻl-Hijjah": "Dhul Hixhe"
-            };
+            const d = parts.find(p => p.type === 'day')?.value;
+            const m = parts.find(p => p.type === 'month')?.value;
+            let y = parts.find(p => p.type === 'year')?.value;
 
-            let formatted = dateStr;
-            Object.keys(monthMap).forEach(key => {
-                formatted = formatted.replace(key, monthMap[key]);
-            });
-            // Cleanup "AH" suffix if present and formatting
-            return formatted.replace(" AH", "").trim();
+            // Clean year from any era suffixes (like "AH" or "bc")
+            if (y) {
+                y = y.replace(/[^0-9]/g, '');
+            }
+
+            const monthNames = [
+                "Muharrem", "Safer", "Rebiul Evel", "Rebiul Ahir",
+                "Xhumadel Ula", "Xhumadel Ahire", "Rexhep", "Shaban",
+                "Ramazan", "Sheval", "Dhul Kade", "Dhul Hixhe"
+            ];
+
+            const monthIndex = parseInt(m) - 1;
+            const albanianMonth = monthNames[monthIndex] || "";
+
+            return `${d} ${albanianMonth} ${y}`;
         } catch (e) {
             return "";
         }

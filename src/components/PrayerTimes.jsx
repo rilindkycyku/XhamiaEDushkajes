@@ -72,6 +72,10 @@ export default function PrayerTimes() {
       const o = Math.floor(oraTjeter / 60);
       return `${String(o).padStart(2, "0")}:00`;
     }
+    if (emri === "Jacia" && vaktiSot?.Jacia) {
+      if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+      return vaktiSot.Jacia;
+    }
     return vaktiSot?.[emri] ?? null;
   };
 
@@ -79,11 +83,17 @@ export default function PrayerTimes() {
     if (!vaktiSot) return [];
     const moments = [];
     const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
+    const getLabel = (id) => {
+      if (id === 'Imsaku' && site.ramazanActive) return "Syfyri (Imsaku)";
+      if (id === 'Akshami' && site.ramazanActive) return "Iftari (Akshami)";
+      if (id === 'Jacia' && site.ramazanActive) return "Teravia (Jacia)";
+      return id;
+    };
     namazet.forEach(n => {
       if (vaktiSot[n]) {
-        moments.push({ id: n, label: n, kohe: vaktiSot[n] });
+        moments.push({ id: n, label: getLabel(n), kohe: vaktiSot[n] });
         const xh = xhemati(n);
-        if (xh) moments.push({ id: n, label: `${n} (xhemat)`, kohe: xh });
+        if (xh) moments.push({ id: n, label: `${getLabel(n)} (xhemat)`, kohe: xh });
       }
     });
     return moments;
@@ -170,7 +180,7 @@ export default function PrayerTimes() {
     { id: "Dreka", label: "Dreka" },
     { id: "Ikindia", label: "Ikindia" },
     { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
-    { id: "Jacia", label: "Jacia" },
+    { id: "Jacia", label: site.ramazanActive ? "Teravia (Jacia)" : "Jacia" },
   ], []);
 
   if (!vaktiSot) return <div className="h-64 bg-slate-50 animate-pulse rounded-2xl" />;
@@ -242,19 +252,19 @@ export default function PrayerTimes() {
               <div
                 key={id}
                 className={`flex items-center px-3 md:px-4 py-2.5 md:py-3 rounded-xl transition-all duration-300 ${isNext ? "bg-emerald-600/5 ring-1 ring-emerald-500/10 shadow-sm"
-                    : isCurrent ? "bg-slate-50/50 ring-1 ring-slate-200"
-                      : isJumuah ? "bg-amber-50 ring-1 ring-amber-100" // Jumuah style
-                        : "bg-transparent hover:bg-slate-50"
+                  : isCurrent ? "bg-slate-50/50 ring-1 ring-slate-200"
+                    : isJumuah ? "bg-amber-50 ring-1 ring-amber-100" // Jumuah style
+                      : "bg-transparent hover:bg-slate-50"
                   }`}>
                 <div className="flex-1 flex items-center gap-1.5 md:gap-2 min-w-0">
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2">
                       <p className={`text-[10px] md:text-xs uppercase truncate font-sans tracking-tight ${isNext ? "text-emerald-700 font-black"
-                          : isCurrent ? "text-slate-900 font-black"
-                            : isJumuah ? "text-amber-700 font-black" // Jumuah text color
-                              : isPast ? "text-slate-400"
-                                : dim ? "text-slate-300"
-                                  : "text-slate-700 font-bold"
+                        : isCurrent ? "text-slate-900 font-black"
+                          : isJumuah ? "text-amber-700 font-black" // Jumuah text color
+                            : isPast ? "text-slate-400"
+                              : dim ? "text-slate-300"
+                                : "text-slate-700 font-bold"
                         }`}>
                         {label}
                       </p>
@@ -271,20 +281,20 @@ export default function PrayerTimes() {
 
                 <div className="w-12 md:w-14 text-center">
                   <p className={`font-mono font-bold text-xs md:text-sm ${isNext ? "text-emerald-700"
-                      : isCurrent ? "text-slate-900"
-                        : isJumuah ? "text-amber-700"
-                          : isPast ? "text-slate-400"
-                            : "text-slate-600"
+                    : isCurrent ? "text-slate-900"
+                      : isJumuah ? "text-amber-700"
+                        : isPast ? "text-slate-400"
+                          : "text-slate-600"
                     }`}>{ne24h(kohe)}</p>
                 </div>
 
                 <div className="w-16 md:w-20 flex justify-center">
                   {xh ? (
                     <div className={`w-14 md:w-16 py-0.5 md:py-1 rounded-lg text-center transition-all ${isNext ? 'bg-emerald-600 text-white shadow-md'
-                        : isCurrent ? 'bg-slate-200 text-slate-700 font-bold'
-                          : isJumuah ? 'bg-amber-100 text-amber-700 font-bold ring-1 ring-amber-200'
-                            : isPast ? 'bg-slate-50 text-slate-400'
-                              : 'bg-emerald-50 text-emerald-700 font-bold'
+                      : isCurrent ? 'bg-slate-200 text-slate-700 font-bold'
+                        : isJumuah ? 'bg-amber-100 text-amber-700 font-bold ring-1 ring-amber-200'
+                          : isPast ? 'bg-slate-50 text-slate-400'
+                            : 'bg-emerald-50 text-emerald-700 font-bold'
                       }`}>
                       <p className="font-mono font-bold text-xs md:text-sm leading-tight">{ne24h(xh)}</p>
                     </div>

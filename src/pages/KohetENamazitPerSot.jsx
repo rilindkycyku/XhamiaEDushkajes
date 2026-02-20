@@ -138,6 +138,10 @@ export default function KohetENamazitPerSot() {
       const o = Math.floor(oraTjeter / 60);
       return `${String(o).padStart(2, "0")}:00`;
     }
+    if (emri === "Jacia" && todayData?.Jacia) {
+      if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+      return todayData.Jacia;
+    }
     return todayData?.[emri] ?? null;
   };
 
@@ -145,11 +149,17 @@ export default function KohetENamazitPerSot() {
     if (!todayData) return [];
     const moments = [];
     const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
+    const getLabel = (id) => {
+      if (id === 'Imsaku' && site.ramazanActive) return "Syfyri (Imsaku)";
+      if (id === 'Akshami' && site.ramazanActive) return "Iftari (Akshami)";
+      if (id === 'Jacia' && site.ramazanActive) return "Teravia (Jacia)";
+      return id;
+    };
     namazet.forEach(n => {
       if (todayData[n]) {
-        moments.push({ id: n, label: n, kohe: todayData[n] });
+        moments.push({ id: n, label: getLabel(n), kohe: todayData[n] });
         const xh = xhemati(n);
-        if (xh) moments.push({ id: n, label: `${n} (xhemat)`, kohe: xh });
+        if (xh) moments.push({ id: n, label: `${getLabel(n)} (xhemat)`, kohe: xh });
       }
     });
     return moments;
@@ -215,7 +225,7 @@ export default function KohetENamazitPerSot() {
     { id: "Dreka", label: "Dreka" },
     { id: "Ikindia", label: "Ikindia" },
     { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
-    { id: "Jacia", label: "Jacia" },
+    { id: "Jacia", label: site.ramazanActive ? "Teravia (Jacia)" : "Jacia" },
   ], []);
 
   if (!todayData) return null;
@@ -364,17 +374,17 @@ export default function KohetENamazitPerSot() {
                   >
                     <div className="flex-1 flex items-center gap-2 md:gap-3 min-w-0">
                       <div className={`w-1.5 md:w-2 h-1.5 md:h-2 rounded-full flex-shrink-0 transition-all duration-500 ${isNext ? "bg-white animate-pulse"
-                          : isCurrent ? "bg-emerald-500"
-                            : isJumuah ? "bg-amber-500"
-                              : isPast ? "bg-slate-200"
-                                : "bg-emerald-100"
+                        : isCurrent ? "bg-emerald-500"
+                          : isJumuah ? "bg-amber-500"
+                            : isPast ? "bg-slate-200"
+                              : "bg-emerald-100"
                         }`} />
 
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
                           <p className={`text-[10px] md:text-xs transition-all duration-300 ${isNext || isCurrent ? "font-black uppercase tracking-tight"
-                              : isJumuah ? "font-black uppercase tracking-tight text-amber-700"
-                                : "font-bold text-slate-700"
+                            : isJumuah ? "font-black uppercase tracking-tight text-amber-700"
+                              : "font-bold text-slate-700"
                             } ${isPast && !isJumuah ? "text-slate-400 opacity-60" : ""}`}>
                             {label}
                           </p>
@@ -391,9 +401,9 @@ export default function KohetENamazitPerSot() {
 
                     <div className="w-14 md:w-16 text-center">
                       <p className={`font-mono font-black text-sm md:text-base tabular-nums ${isNext || isCurrent ? "text-white"
-                          : isJumuah ? "text-amber-700"
-                            : isPast ? "text-slate-200"
-                              : "text-slate-900"
+                        : isJumuah ? "text-amber-700"
+                          : isPast ? "text-slate-200"
+                            : "text-slate-900"
                         }`}>
                         {ne24h(kohe)}
                       </p>
