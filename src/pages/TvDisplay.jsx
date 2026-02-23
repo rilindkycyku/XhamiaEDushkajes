@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import QRCode from "react-qr-code";
+import { HiCog, HiX } from "react-icons/hi";
 import vaktet from '../data/vaktet-e-namazit.json';
 import site from '../data/site.json';
 import haditheData from '../data/hadithe.json';
@@ -11,29 +12,72 @@ export default function TvDisplay() {
     const [vaktiSot, setVaktiSot] = useState(null);
     const [infoTani, setInfoTani] = useState(null);
     const [currentHadith, setCurrentHadith] = useState(null);
-    const [showMesazh, setShowMesazh] = useState(false);
+    const [displayMode, setDisplayMode] = useState('hadith'); // 'hadith', 'message', 'qr', 'custom'
+    const [localMessage, setLocalMessage] = useState(localStorage.getItem('tv_custom_msg') || "");
+    const [showSettings, setShowSettings] = useState(false);
+    const [tempMessage, setTempMessage] = useState(localMessage);
 
-    // Initial cycle: Start with Hadith (10min), then Message (1min)
+    // Updated Display Cycle: 
+    // If localMessage exists: Custom(10min) -> Hadith(2min) -> QR(1min) -> Shenime(1min)
+    // Else: Hadith(10min) -> QR(1min) -> Shenime(1min)
     useEffect(() => {
         let timeoutId;
 
+        const showCustom = () => {
+            if (localMessage) {
+                setDisplayMode('custom');
+                timeoutId = setTimeout(showHadith, 600000); // 10 minutes
+            } else {
+                showHadith();
+            }
+        };
+
         const showHadith = () => {
-            setShowMesazh(false); // Show Hadith
-            // Wait 10 mins before showing Message
-            timeoutId = setTimeout(showMsg, 600000);
+            setDisplayMode('hadith');
+            const duration = localMessage ? 120000 : 600000; // 2 min if custom exists, else 10 min
+            timeoutId = setTimeout(showQR, duration);
         };
 
-        const showMsg = () => {
-            setShowMesazh(true); // Show Message
-            // Wait 1 min before returning to Hadith
-            timeoutId = setTimeout(showHadith, 60000);
+        const showQR = () => {
+            setDisplayMode('qr');
+            timeoutId = setTimeout(showMsgIfAny, 60000); // 1 minute
         };
 
-        // Start cycle
-        showHadith();
+        const showMsgIfAny = () => {
+            const hasMessage = vaktiSot?.Festat || vaktiSot?.Shenime;
+            if (hasMessage) {
+                setDisplayMode('message');
+                timeoutId = setTimeout(localMessage ? showCustom : showHadith, 60000); // 1 minute
+            } else {
+                if (localMessage) showCustom(); else showHadith();
+            }
+        };
+
+        if (localMessage) showCustom(); else showHadith();
 
         return () => clearTimeout(timeoutId);
+    }, [vaktiSot, localMessage]);
+
+    // Handle Keyboard Input on TV (Press 'S' or 'M' to open settings)
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key.toLowerCase() === 's' || e.key.toLowerCase() === 'm') {
+                setShowSettings(true);
+            }
+            if (e.key === 'Escape') {
+                setShowSettings(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
+
+    const saveSettings = () => {
+        setLocalMessage(tempMessage);
+        localStorage.setItem('tv_custom_msg', tempMessage);
+        setShowSettings(false);
+    };
 
     // Update clock every second
     useEffect(() => {
@@ -113,7 +157,7 @@ export default function TvDisplay() {
             };
 
             const moments = [];
-            const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
+            const namazet = ["Imsaku", "Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"];
 
             namazet.forEach(n => {
                 if (rreshti[n]) {
@@ -179,8 +223,13 @@ export default function TvDisplay() {
         const m = min % 60;
 
         let result = "";
-        if (o > 0) result += `${o} ${o === 1 ? 'orë' : 'orë'} e `;
-        if (m > 0) result += `${m} ${m === 1 ? 'minut' : 'minuta'}`;
+        if (o > 0) {
+            result += `${o} ${o === 1 ? 'orë' : 'orë'}`;
+            if (m > 0) result += " e ";
+        }
+        if (m > 0) {
+            result += `${m} ${m === 1 ? 'minut' : 'minuta'}`;
+        }
 
         return result || "0 minut";
     };
@@ -222,7 +271,6 @@ export default function TvDisplay() {
     const listaNamazeve = useMemo(() => [
         { id: "Imsaku", label: site.ramazanActive ? "Syfyri (Imsaku)" : "Imsaku" },
         { id: "Sabahu", label: "Sabahu" },
-        { id: "Lindja", label: "Lindja", dim: true },
         { id: "Dreka", label: "Dreka" },
         { id: "Ikindia", label: "Ikindia" },
         { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
@@ -276,31 +324,72 @@ export default function TvDisplay() {
         }
     }, [currentTime]);
 
-    if (!vaktiSot) return <div className="h-screen bg-slate-950 flex items-center justify-center text-white">Duke ngarkuar...</div>;
+    if (!vaktiSot) return <div className="h-screen bg-black flex items-center justify-center text-white">Duke ngarkuar...</div>;
 
     return (
-        <div className="h-screen bg-slate-950 text-white font-sans overflow-hidden flex flex-col p-6">
+        <div className="tv-container h-screen bg-black text-white font-sans overflow-hidden flex flex-col p-10 select-none relative">
+            <style>
+                {`
+                    body::before { display: none !important; }
+                    ::-webkit-scrollbar { display: none; }
+                    
+                    @keyframes pulse-slow {
+                        0%, 100% { opacity: 1; transform: scale(1); }
+                        50% { opacity: 0.8; transform: scale(0.99); }
+                    }
+                    .animate-pulse-slow {
+                        animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                        will-change: transform, opacity;
+                    }
+
+                    @keyframes float {
+                        0%, 100% { transform: translate(0, 0); }
+                        50% { transform: translate(20px, -20px); }
+                    }
+                    .bg-glow {
+                        animation: float 20s ease-in-out infinite;
+                        will-change: transform;
+                    }
+                `}
+            </style>
+
+            {/* Background Ambient Glow */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="bg-glow absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-emerald-900/10 rounded-full blur-[120px]" />
+                <div className="bg-glow absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-emerald-900/10 rounded-full blur-[120px]" style={{ animationDelay: '-7s' }} />
+            </div>
+
+            {/* Settings Trigger (Top-right or press 'S') */}
+            <button
+                onClick={() => setShowSettings(true)}
+                className="absolute top-0 right-0 w-32 h-32 flex items-start justify-end p-6 bg-transparent opacity-0 hover:opacity-100 transition-opacity z-[100] cursor-pointer"
+                title="Settings"
+            >
+                <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+                    <HiCog className="text-2xl text-zinc-400" />
+                </div>
+            </button>
 
             {/* Top Header */}
             <header className="flex justify-between items-start mb-6 shrink-0">
                 <div>
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-200 bg-clip-text text-transparent mb-1">
+                    <h1 className="text-5xl font-bold text-emerald-400 mb-1">
                         Xhamia e Dushkajës
                     </h1>
-                    <p className="text-slate-400 text-xl font-medium">Kaçanik</p>
-                    <p className="text-slate-500 text-lg font-medium mt-1 tracking-wide">
-                        Imami: <span className="text-slate-400">{site.emriImamitXhamis}</span>
+                    <p className="text-zinc-400 text-2xl font-medium">Kaçanik</p>
+                    <p className="text-zinc-500 text-xl font-medium mt-1 tracking-wide">
+                        Imami: <span className="text-zinc-400">{site.emriImamitXhamis}</span>
                     </p>
                 </div>
 
                 <div className="text-right">
-                    <div className="text-6xl font-black tabular-nums tracking-tight leading-none mb-1 text-white">
+                    <div className="text-7xl font-black tabular-nums tracking-tight leading-none mb-1 text-white">
                         {currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                        <span className="text-2xl text-slate-500 font-bold ml-2">
+                        <span className="text-3xl text-zinc-500 font-bold ml-2">
                             {currentTime.getSeconds().toString().padStart(2, '0')}
                         </span>
                     </div>
-                    <div className="text-emerald-400/80 text-xl font-medium tracking-wide uppercase">
+                    <div className="text-emerald-400 text-2xl font-medium tracking-wide uppercase">
                         {(() => {
                             const days = ['E Diele', 'E Hëne', 'E Marte', 'E Mërkure', 'E Enjte', 'E Premte', 'E Shtune'];
                             const months = ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'];
@@ -311,69 +400,119 @@ export default function TvDisplay() {
                             return `${dayName}, ${day} ${monthName} ${year}`;
                         })()}
                     </div>
-                    <div className="text-emerald-600/60 text-lg font-medium tracking-wider uppercase mt-1">
+                    <div className="text-emerald-600 text-xl font-medium tracking-wider uppercase mt-1">
                         {hijriDate}
                     </div>
                 </div>
             </header>
 
-            {/* Main Content Grid - Static Layout */}
-            <main className="flex-1 grid grid-cols-12 gap-6 min-h-0">
+            {/* Main Content Sections */}
+            <main className="flex-1 flex flex-col gap-6 min-h-0">
 
-                {/* Left Col: Next Prayer (Top) + Hadith (Bottom) */}
-                <div className="col-span-5 flex flex-col gap-6 h-full">
+                {/* Top Row: Next Prayer & Hadith Side-by-Side */}
+                <div className="flex-[1.1] grid grid-cols-2 gap-8 relative z-10 min-h-0">
 
                     {/* Next Prayer Card */}
-                    <div className="flex-1 bg-gradient-to-br from-emerald-900/50 to-slate-900 border border-emerald-500/20 rounded-[2rem] p-8 relative overflow-hidden flex flex-col justify-center">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -mr-20 -mt-20" />
+                    <div className="bg-zinc-900 border border-white/10 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col justify-center shadow-2xl group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent opacity-50" />
 
-                        <p className="text-emerald-400 font-bold uppercase tracking-[0.2em] text-xs lg:text-sm mb-4">
-                            Vakti i radhës
-                        </p>
                         {infoTani?.ardhshëm ? (
-                            <>
-                                <h2 className="text-6xl lg:text-7xl font-black text-white mb-2 tracking-tight leading-none">
-                                    {infoTani.ardhshëm.label.split(' ')[0]}
-                                </h2>
-                                <div className="text-3xl lg:text-4xl text-emerald-200/80 font-mono font-bold mb-6">
-                                    {ne24h(infoTani.ardhshëm.kohe)}
+                            <div className="relative z-10 w-full animate-in fade-in slide-in-from-left-8 duration-700">
+                                <div className="flex justify-between items-start mb-8 w-full">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                                            <p className="text-emerald-500 font-black uppercase tracking-[0.4em] text-xl">
+                                                Vakti i radhës
+                                            </p>
+                                        </div>
+                                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-2xl">
+                                            {infoTani.ardhshëm.label.split(' ')[0]}
+                                        </h2>
+                                        {infoTani.ardhshëm.label.includes('(') && (
+                                            <p className="text-3xl text-emerald-500/80 font-black mt-2 uppercase tracking-widest">
+                                                {infoTani.ardhshëm.label.split('(')[1].replace(')', '')}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className="bg-emerald-500 text-black px-10 py-8 rounded-[3rem] font-mono text-6xl lg:text-7xl font-black shadow-[0_20px_50px_rgba(16,185,129,0.4)] transform group-hover:scale-105 transition-transform duration-500">
+                                        {ne24h(infoTani.ardhshëm.kohe)}
+                                    </div>
                                 </div>
 
-                                <div className="bg-black/20 rounded-2xl p-6 border border-white/5 mt-auto">
-                                    <p className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">
-                                        Koha e mbetur
+                                <div className="h-px w-full bg-gradient-to-r from-zinc-800 via-zinc-800 to-transparent mb-8" />
+
+                                <div className="flex flex-col">
+                                    <p className="text-zinc-500 text-sm uppercase font-black tracking-widest mb-6 flex items-center gap-4">
+                                        Kohë e mbetur deri në ezan
+                                        <span className="flex-1 h-px bg-zinc-800/50" />
                                     </p>
-                                    <p className="text-4xl lg:text-5xl font-mono font-bold text-white tabular-nums">
+                                    <div className={`text-6xl lg:text-7xl xl:text-8xl font-black tabular-nums tracking-tighter italic leading-none whitespace-nowrap ${infoTani.mbetur <= 15 ? 'text-amber-400 animate-pulse' : 'text-emerald-400'}`}>
                                         {formatDallim(infoTani.mbetur)}
-                                    </p>
+                                    </div>
                                 </div>
-                            </>
+                            </div>
                         ) : (
-                            <p>Loading...</p>
+                            <div className="flex items-center justify-center h-full">
+                                <p className="text-zinc-500 animate-pulse text-2xl font-black uppercase tracking-widest">Duke u përditësuar...</p>
+                            </div>
                         )}
                     </div>
 
-                    {/* Hadith Card (Dynamic Cycle) */}
-                    <div className="flex-[1.2] bg-slate-900/90 border border-slate-700/50 rounded-[2rem] p-8 relative overflow-hidden flex flex-col justify-center text-center">
-                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500" />
+                    {/* Hadith / Info / QR Card */}
+                    <div className="bg-zinc-900 border border-white/10 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col items-center justify-center transition-all duration-700 shadow-2xl">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 via-transparent to-transparent opacity-50" />
 
-                        {(() => {
-                            const hasMessage = vaktiSot?.Festat || vaktiSot?.Shenime;
-                            // If message exists, toggle between it and Hadith based on showMesazh. Otherwise always Hadith.
-                            const displayingMessage = hasMessage && showMesazh;
+                        {displayMode === 'qr' ? (
+                            <div className="flex flex-row items-center gap-16 animate-in fade-in zoom-in duration-700 w-full h-full justify-center px-10">
+                                <div className="p-6 bg-white rounded-[3rem] shadow-[0_0_80px_rgba(16,185,129,0.3)] transform hover:scale-105 transition-transform duration-500 shrink-0">
+                                    <QRCode value={site.website || site.faqeFB} size={400} />
+                                </div>
 
-                            return (
-                                <>
-                                    <p className="text-slate-500 uppercase tracking-widest text-xs font-bold mb-4">
-                                        {displayingMessage ? "Mesazh Dite" : "Hadith / Info"}
+                                <div className="flex flex-col items-start gap-6">
+                                    <div className="flex flex-col">
+                                        <p className="text-emerald-400 uppercase tracking-[0.5em] text-3xl font-black leading-tight">
+                                            SKANO FAQEN
+                                        </p>
+                                        <p className="text-zinc-500 uppercase tracking-[0.2em] text-sm font-bold mt-2">
+                                            Për më shumë informata
+                                        </p>
+                                    </div>
+
+                                    <div className="h-px w-32 bg-zinc-800" />
+
+                                    <div className="flex flex-col">
+                                        <p className="text-zinc-400 text-4xl font-black tracking-tighter opacity-80 break-all max-w-[400px] leading-tight">
+                                            {site.website?.replace('https://', '') || site.faqeFB?.replace('https://', '')}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <>
+                                <div className="w-full mb-6 opacity-50">
+                                    <p className="text-zinc-500 uppercase tracking-widest text-sm font-black text-center">
+                                        {displayMode === 'message' ? "Lajmërim / Festë" :
+                                            displayMode === 'custom' ? "Njoftim i Rëndësishëm" : "Hadith / Info"}
                                     </p>
+                                </div>
 
-                                    {displayingMessage ? (
+                                <div className="flex-1 flex flex-col justify-center text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    {displayMode === 'custom' ? (
+                                        <div className="flex-1 flex flex-col justify-center items-center overflow-hidden">
+                                            <h3 className="text-5xl lg:text-6xl font-black text-emerald-400 leading-tight mb-8">
+                                                Njoftim
+                                            </h3>
+                                            <p className="text-3xl lg:text-5xl text-white font-bold leading-relaxed px-4">
+                                                {localMessage}
+                                            </p>
+                                        </div>
+                                    ) : displayMode === 'message' ? (
                                         <div className="flex-1 flex flex-col justify-center items-center overflow-hidden">
                                             {vaktiSot.Festat && (
                                                 <div className="mb-6">
-                                                    <div className="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 opacity-80">Festa</div>
-                                                    <h3 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
+                                                    <div className="text-emerald-400 font-bold uppercase tracking-widest text-lg mb-2 opacity-80">Festa</div>
+                                                    <h3 className="text-4xl lg:text-6xl font-black text-white leading-tight">
                                                         {vaktiSot.Festat}
                                                     </h3>
                                                 </div>
@@ -381,7 +520,7 @@ export default function TvDisplay() {
                                             {vaktiSot.Shenime && (
                                                 <div>
                                                     {vaktiSot.Festat && <div className="w-16 h-px bg-white/10 mx-auto my-6" />}
-                                                    <p className="text-xl lg:text-2xl text-slate-300 italic serif leading-relaxed px-4">
+                                                    <p className="text-3xl lg:text-5xl text-zinc-300 italic serif leading-relaxed px-4">
                                                         "{vaktiSot.Shenime}"
                                                     </p>
                                                 </div>
@@ -390,48 +529,37 @@ export default function TvDisplay() {
                                     ) : currentHadith ? (
                                         <div className="flex-1 flex flex-col justify-center items-center overflow-hidden">
                                             {currentHadith.entryText && (
-                                                <p className="text-slate-400 text-base mb-3 italic line-clamp-2">
+                                                <p className="text-zinc-400 text-2xl mb-4 italic">
                                                     {currentHadith.entryText}
                                                 </p>
                                             )}
-                                            <h3 className="text-2xl lg:text-3xl leading-relaxed italic font-medium text-white mb-6 line-clamp-6">
+                                            <h3 className="text-3xl lg:text-4xl leading-relaxed italic font-bold text-white mb-8 line-clamp-5">
                                                 "{currentHadith.textContent}"
                                             </h3>
-                                            <div className="w-12 h-1 bg-emerald-500/30 rounded-full mb-3 shrink-0" />
-                                            <p className="text-emerald-400 font-medium text-lg">
+                                            <div className="w-16 h-1.5 bg-emerald-500 rounded-full mb-4 shrink-0" />
+                                            <p className="text-emerald-400 font-black text-3xl">
                                                 {currentHadith.reference}
                                             </p>
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center justify-center h-full gap-4">
-                                            <h3 className="text-3xl font-bold text-white">{site.emriImamitXhamis}</h3>
-                                            <p className="text-slate-400">{site.email}</p>
+                                            <h3 className="text-4xl font-bold text-white">{site.emriImamitXhamis}</h3>
+                                            <p className="text-zinc-400 text-2xl">{site.email}</p>
                                         </div>
                                     )}
-                                </>
-                            );
-                        })()}
+                                </div>
+                            </>
+                        )}
                     </div>
-
                 </div>
 
-                {/* Right Col: Timetable (Static) */}
-                <div className="col-span-7 h-full relative">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-[2rem] p-6 border border-white/5 shadow-2xl h-full flex flex-col relative z-20">
-
-                        {/* Table Header */}
-                        <div className="grid grid-cols-12 gap-4 px-4 py-4 border-b border-white/10 text-slate-400 uppercase text-xs font-black tracking-widest mb-2">
-                            <div className="col-span-6">Vakti</div>
-                            <div className="col-span-3 text-center">Koha</div>
-                            <div className="col-span-3 text-center text-emerald-500">Me Xhemat</div>
-                        </div>
-
-                        <div className="flex-1 flex flex-col justify-between">
-                            {listaNamazeve.map(({ id, label, dim }) => {
+                {/* Bottom Row: Timetable Grid */}
+                <div className="flex-1 min-h-0 relative z-10">
+                    <div className="bg-black/40 rounded-[3.5rem] p-6 border border-white/5 shadow-2xl h-full flex flex-col justify-center">
+                        <div className="grid grid-cols-6 gap-3 h-full">
+                            {listaNamazeve.map(({ id, label }) => {
                                 const kohe = vaktiSot[id];
-                                // Explicitly check for Syfyri(Imsaku) and Lindja to exclude Xhemat time
-                                const hasXhemat = !['Imsaku', 'Lindja'].includes(id);
-                                const xh = hasXhemat ? xhemati(id) : null;
+                                const xh = !['Imsaku', 'Lindja'].includes(id) ? xhemati(id) : null;
 
                                 const isCurrent = infoTani?.tani?.id === id;
                                 const isNext = infoTani?.ardhshëm?.id === id;
@@ -441,60 +569,107 @@ export default function TvDisplay() {
                                 return (
                                     <div
                                         key={id}
-                                        className={`grid grid-cols-12 gap-4 px-6 py-4 rounded-xl items-center ${isNext ? 'bg-emerald-900/40 border border-emerald-500/30 relative z-10' :
-                                            isCurrent ? 'bg-slate-800/80 border border-slate-700' :
-                                                isJumuah ? 'bg-amber-900/20 border border-amber-500/30' :
-                                                    'bg-transparent border border-transparent'
+                                        className={`flex flex-col rounded-[3rem] px-2 py-6 items-center justify-between border-2 transition-all duration-500 relative overflow-hidden group ${isCurrent ? 'bg-emerald-600 border-white/40 shadow-[0_30px_60px_-15px_rgba(16,185,129,0.5)] scale-105 z-10' :
+                                            isNext ? 'bg-zinc-800/80 border-emerald-500 shadow-lg' :
+                                                isJumuah ? 'bg-amber-900/20 border-amber-500/30' :
+                                                    'bg-black/40 border-white/5'
                                             }`}
                                     >
-                                        <div className="col-span-6 flex items-center gap-4">
-                                            <div className={`text-xl md:text-2xl font-bold tracking-tight ${isNext ? 'text-white' :
-                                                isCurrent ? 'text-white' :
-                                                    isJumuah ? 'text-amber-400' :
-                                                        dim ? 'text-slate-500' : 'text-slate-300'
+                                        <div className="flex flex-col items-center gap-1">
+                                            <div className={`text-2xl font-black uppercase tracking-[0.1em] transform group-hover:translate-y-[-2px] transition-transform text-center leading-tight ${isCurrent ? 'text-white' :
+                                                isJumuah ? 'text-amber-400' : 'text-zinc-500'
                                                 }`}>
-                                                {label}
+                                                {label.split(' (')[0]}
                                             </div>
-                                            {isCurrent && <span className="px-2 py-0.5 rounded bg-white/10 text-white text-[10px] uppercase font-bold tracking-widest border border-white/10">Tani</span>}
-                                            {isJumuah && !isCurrent && <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-500 text-[10px] uppercase font-bold tracking-widest border border-amber-500/20">Xhumaja</span>}
-                                        </div>
-
-                                        <div className={`col-span-3 text-center font-mono text-2xl md:text-3xl font-bold ${isNext ? 'text-white' :
-                                            isCurrent ? 'text-emerald-400' :
-                                                isJumuah ? 'text-amber-400' : 'text-slate-400'
-                                            }`}>
-                                            {ne24h(kohe)}
-                                        </div>
-
-                                        <div className="col-span-3 flex justify-center">
-                                            {xh ? (
-                                                <div className={`px-3 py-1 rounded-lg font-mono text-xl md:text-2xl font-bold ${isNext ? 'bg-white/10 text-white' :
-                                                    isCurrent ? 'bg-slate-700 text-slate-300' :
-                                                        isJumuah ? 'bg-amber-500/20 text-amber-500' :
-                                                            'bg-emerald-500/10 text-emerald-500'
-                                                    }`}>
-                                                    {ne24h(xh)}
+                                            {label.includes('(') && (
+                                                <div className={`text-xs font-bold uppercase tracking-widest opacity-60 ${isCurrent ? 'text-white' : 'text-zinc-500'}`}>
+                                                    {label.split('(')[1].replace(')', '')}
                                                 </div>
-                                            ) : (
-                                                <span className="text-slate-700 font-mono text-xl">—</span>
                                             )}
                                         </div>
+
+                                        <div className="flex flex-col items-center gap-1 py-2">
+                                            <div className={`text-7xl font-black font-mono tracking-tighter whitespace-nowrap ${isCurrent ? 'text-white' :
+                                                isJumuah ? 'text-amber-400' : 'text-white'
+                                                }`}>
+                                                {ne24h(kohe)}
+                                            </div>
+                                            {isJumuah && !isCurrent && <span className="px-4 py-1.5 rounded-full bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest shadow-lg">Xhumaja</span>}
+                                        </div>
+
+                                        <div className="w-full relative px-2">
+                                            <div className={`text-[11px] font-black uppercase tracking-[0.2em] text-center mb-3 ${isCurrent ? 'text-white/70' : 'text-zinc-500'
+                                                }`}>
+                                                Me Xhemat
+                                            </div>
+                                            <div className={`w-full py-5 rounded-[2.5rem] font-mono text-5xl font-black text-center shadow-inner transition-colors whitespace-nowrap ${isCurrent ? 'bg-white text-emerald-950 shadow-2xl' :
+                                                isJumuah ? 'bg-amber-500 text-black' :
+                                                    'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                                }`}>
+                                                {xh ? ne24h(xh) : "—"}
+                                            </div>
+                                        </div>
+
                                     </div>
                                 );
                             })}
                         </div>
-
-                        {/* Dedicated Footer for QR Code to prevent overlap */}
-                        <div className="pt-2 mt-2 border-t border-white/5 flex justify-end items-center opacity-80">
-                            <div className="p-2 bg-white rounded-lg shadow-xl">
-                                <QRCode value={site.website || site.faqeFB} size={100} />
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
             </main>
+
+            {/* Settings Modal */}
+            {showSettings && (
+                <div className="settings-modal fixed inset-0 z-[200] flex items-center justify-center p-12 bg-black/95 animate-in fade-in duration-300">
+                    <div className="bg-zinc-900 border border-zinc-800 rounded-[3rem] w-full max-w-5xl p-12 shadow-2xl scale-in-center overflow-hidden relative">
+                        <div className="flex justify-between items-center mb-12">
+                            <h2 className="text-5xl font-black text-white">Konfigurimi i TV-së</h2>
+                            <button
+                                onClick={() => setShowSettings(false)}
+                                className="p-4 hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                            >
+                                <HiX className="text-5xl text-zinc-500" />
+                            </button>
+                        </div>
+
+                        <div className="space-y-12">
+                            <div>
+                                <label className="block text-emerald-500 uppercase tracking-[0.4em] text-2xl font-black mb-8">
+                                    Njoftim Special për TV
+                                </label>
+                                <textarea
+                                    value={tempMessage}
+                                    onChange={(e) => setTempMessage(e.target.value)}
+                                    placeholder="Shkruani njoftimin këtu... (Shembull: Sot pas namazit të drekës ka ligjëratë)"
+                                    className="w-full h-96 bg-black/60 border-2 border-zinc-800 rounded-[2.5rem] p-12 text-white text-4xl font-bold focus:border-emerald-500 focus:bg-black transition-all outline-none resize-none shadow-inner"
+                                />
+                                <div className="flex items-center gap-4 mt-8 text-zinc-500">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    <p className="text-2xl font-medium tracking-tight">
+                                        Ky mesazh do të shfaqet në ekranin kryesor për 10 minuta.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-10 pt-4">
+                                <button
+                                    onClick={saveSettings}
+                                    className="py-10 bg-emerald-600 hover:bg-emerald-500 text-white rounded-[2.5rem] font-black text-4xl transition-all cursor-pointer shadow-[0_20px_50px_rgba(16,185,129,0.3)] flex items-center justify-center gap-4 active:scale-95"
+                                >
+                                    RUAJ NDRYSHIMET
+                                </button>
+                                <button
+                                    onClick={() => { setTempMessage(""); }}
+                                    className="py-10 bg-zinc-800 hover:bg-zinc-700 text-white rounded-[2.5rem] font-black text-4xl transition-all cursor-pointer flex items-center justify-center gap-4 active:scale-95 border-2 border-zinc-700"
+                                >
+                                    FSHI MESAZHIN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
