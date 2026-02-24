@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { HiArrowRight, HiOutlineEnvelope, HiPhone } from "react-icons/hi2";
 
 export default function Home() {
-  const dataHapjes = new Date(siteConfig.dataEHapjesXhamis);
+  const dataHapjes = new Date(siteConfig.home?.dataHapjes);
   const sot = new Date();
 
   const viteAktive = sot.getFullYear() - dataHapjes.getFullYear();
@@ -102,7 +102,7 @@ export default function Home() {
                 </h2>
                 <div className="prose prose-slate prose-lg max-w-none">
                   <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
-                    {siteConfig.textiMiresevini}
+                    {siteConfig.home?.welcomeText}
                   </p>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function Home() {
                   <p className="text-slate-500">Qëndroni të informuar me aktivitetet tona.</p>
                 </div>
                 <a
-                  href={siteConfig.faqeFB}
+                  href={siteConfig.socials?.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center w-full sm:w-auto gap-2 text-emerald-700 font-bold bg-emerald-50 px-6 py-3 rounded-2xl hover:bg-emerald-100 transition-colors"
@@ -138,41 +138,6 @@ export default function Home() {
                 <PrayerTimes />
               </div>
 
-              <div className="mt-10 bg-slate-950 text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full -mr-20 -mt-20 blur-[60px] group-hover:bg-emerald-500/20 transition-standard" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gold-500/5 rounded-full -ml-16 -mb-16 blur-[50px]" />
-
-                <h3 className="text-2xl font-bold mb-8 relative z-10 flex items-center gap-3">
-                  <span className="w-1.5 h-6 bg-emerald-500 rounded-full" />
-                  Kontakti
-                </h3>
-
-                <div className="space-y-8 relative z-10">
-                  <div className="group/item flex items-start gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-400 flex-shrink-0 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-standard scale-100 group-hover/item:scale-110">
-                      <HiOutlineEnvelope size={24} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.2em] mb-1">Email</p>
-                      <a href={`mailto:${siteConfig.email}`} className="text-lg text-slate-300 font-medium hover:text-white transition-colors break-all">
-                        {siteConfig.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  {siteConfig.telefoni && (
-                    <div className="group/item flex items-start gap-5">
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-emerald-400 flex-shrink-0 group-hover/item:bg-emerald-500 group-hover/item:text-white transition-standard scale-100 group-hover/item:scale-110">
-                        <HiPhone size={24} />
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-slate-500 uppercase font-black tracking-[0.2em] mb-1">Telefoni</p>
-                        <p className="text-lg text-slate-300 font-medium">{siteConfig.telefoni}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
             </motion.div>
           </aside>
         </motion.div>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import dhuro from "../data/dhuro-per-xhami.json";
+import site from "../data/site.json";
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
-import { HiOutlineHeart, HiOutlineGlobeAlt, HiOutlineChatBubbleLeftRight, HiSparkles } from "react-icons/hi2";
+import { HiOutlineHeart, HiOutlineGlobeAlt, HiSparkles } from "react-icons/hi2";
 
 export default function DhuroPerXhamin() {
   const [teDhenat] = useState(dhuro);
@@ -84,43 +85,13 @@ export default function DhuroPerXhamin() {
         ))}
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <motion.div variants={itemVariants} className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white p-12 md:p-16 rounded-[4rem] shadow-2xl shadow-emerald-900/20 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-[80px] group-hover:scale-125 transition-standard" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full -ml-24 -mb-24 blur-[60px]" />
-
-          <HiOutlineChatBubbleLeftRight className="text-6xl mb-10 text-emerald-300 drop-shadow-lg" />
-          <h3 className="text-4xl font-black mb-6 tracking-tight">Na Kontaktoni</h3>
-          <p className="text-xl text-emerald-100/80 mb-12 font-medium leading-relaxed max-w-md">
-            Për çdo donacion apo pyetje rreth procesit, plotësoni formularin tonë.
-          </p>
-          <a href="/kontakti" className="inline-flex items-center justify-center gap-3 w-full bg-white text-emerald-800 font-black py-5 rounded-[2rem] hover:bg-emerald-50 transition-all shadow-[0_15px_30px_-5px_rgba(255,255,255,0.2)] hover:-translate-y-1 active:scale-95">
-            Shko te Formulari <HiSparkles className="text-gold-500" />
-          </a>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="bg-slate-950 text-white p-12 md:p-16 rounded-[4rem] shadow-2xl shadow-slate-900/40 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full -mr-32 -mt-32 blur-[80px] group-hover:scale-125 transition-standard" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gold-500/5 rounded-full -ml-24 -mb-24 blur-[60px]" />
-
-          <HiOutlineGlobeAlt className="text-6xl mb-10 text-emerald-400 drop-shadow-lg" />
-          <h3 className="text-4xl font-black mb-6 tracking-tight">Rrjetet Sociale</h3>
-          <p className="text-xl text-slate-400 mb-12 font-medium leading-relaxed max-w-md">
-            Na dërgoni një mesazh direkt në faqen tonë zyrtare në Facebook për detaje.
-          </p>
-          <a href="https://www.facebook.com/xhamiaedushkajeskacanik/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-full bg-white/5 text-white font-black py-5 rounded-[2rem] hover:bg-white/10 transition-all backdrop-blur-xl border border-white/10 hover:-translate-y-1 active:scale-95">
-            Dërgo Mesazh
-          </a>
-        </motion.div>
-      </div>
-
       <motion.section variants={itemVariants} className="group relative">
         <div className="absolute inset-0 bg-gold-500/5 rounded-[4.5rem] rotate-1 group-hover:rotate-0 transition-standard" />
         <div className="bg-white rounded-[4rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] overflow-hidden border border-slate-100 relative">
           <div className="p-10 md:p-20">
             <div className="max-w-2xl mb-16">
               <div className="inline-flex items-center gap-2 text-emerald-700 font-black text-xs uppercase tracking-[0.2em] mb-4 bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100">
-                <HiSparkles /> 100% Transparencë
+                <HiSparkles /> {site.ramazan?.active ? "Ramazani" : "100%"} Transparencë
               </div>
               <h2 className="text-4xl md:text-5xl font-black text-slate-950 mb-8 tracking-tighter">Transparenca Financiare</h2>
               <p className="text-xl text-slate-500 font-medium leading-relaxed">
@@ -128,14 +99,38 @@ export default function DhuroPerXhamin() {
               </p>
             </div>
 
-            <div className="rounded-[3rem] overflow-hidden border border-slate-100 shadow-2xl h-[650px] bg-slate-50 relative group/frame">
-              <div className="absolute inset-0 border-[12px] border-white rounded-[2.8rem] pointer-events-none z-10" />
-              <iframe
-                src="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/edit?gid=1052631879#gid=1052631879"
-                className="w-full h-full"
-                title="Financat e Xhamisë"
-                allowFullScreen
-              />
+            <div className="rounded-[3rem] overflow-hidden border border-slate-200/60 shadow-2xl h-[700px] bg-white relative group/frame flex flex-col">
+              {/* Window Header */}
+              <div className="h-14 bg-slate-50 border-b border-slate-200/60 flex items-center justify-between px-8 shrink-0">
+                <div className="flex gap-2">
+                  <div className="w-3.5 h-3.5 rounded-full bg-slate-200" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-slate-200" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-slate-200" />
+                </div>
+                <div className="hidden md:flex items-center gap-2 bg-white px-4 py-1.5 rounded-xl border border-slate-200/60 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  docs.google.com
+                </div>
+                <a
+                  href="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/edit?gid=1052631879#gid=1052631879"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-black text-xs uppercase tracking-widest transition-colors"
+                >
+                  Hap në Tab të Ri <HiOutlineGlobeAlt size={16} />
+                </a>
+              </div>
+
+              {/* Spreadsheat Body */}
+              <div className="flex-1 bg-slate-50 relative">
+                <div className="absolute inset-0 bg-gold-500/5 pointer-events-none z-10 opacity-0 group-hover/frame:opacity-100 transition-opacity" />
+                <iframe
+                  src="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/preview?gid=1052631879&widget=true&headers=false&chrome=false"
+                  className="w-full h-full relative z-0"
+                  title="Financat e Xhamisë"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
             </div>
             <div className="mt-10 flex flex-col items-center gap-4">
               <p className="text-xs text-slate-400 uppercase font-black tracking-[0.3em]">

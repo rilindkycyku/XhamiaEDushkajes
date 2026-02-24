@@ -6,7 +6,7 @@ import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import VaktetTicker from './VaktetTicker';
 
 export default function Header() {
-  const titulli = siteConfig?.emriXhamis ?? 'Xhamia';
+  const titulli = siteConfig.global?.emriXhamis ?? 'Xhamia';
   const [menuHapur, setMenuHapur] = useState(false);
   const location = useLocation();
 
@@ -15,7 +15,6 @@ export default function Header() {
     { emri: 'Rreth Xhamisë', path: '/rrethxhamis' },
     { emri: 'Aktivitet Javore', path: '/aktivitetejavore' },
     { emri: 'Dhuro', path: '/dhuroperxhamin' },
-    { emri: 'Kontakti', path: '/kontakti' },
   ];
 
   return (
@@ -27,7 +26,7 @@ export default function Header() {
               <div className="relative">
                 <div className="w-9 h-9 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-all shadow-md shadow-slate-200 border border-slate-100 overflow-hidden p-1.5">
                   <img
-                    src={siteConfig.logoHero}
+                    src={siteConfig.global?.logo}
                     alt="Logo"
                     className="w-full h-full object-contain"
                   />

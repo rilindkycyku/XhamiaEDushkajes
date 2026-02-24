@@ -7,7 +7,7 @@ const merrIdListes = (id) => {
 };
 
 export default function YouTubeChannelEmbed() {
-  const idKanali = siteConfig.kanaliYouTube?.trim();
+  const idKanali = siteConfig.socials?.youtubeId?.trim();
   if (!idKanali) return null;
 
   const idListes = merrIdListes(idKanali);

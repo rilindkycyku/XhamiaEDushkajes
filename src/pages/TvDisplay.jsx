@@ -124,7 +124,7 @@ export default function TvDisplay() {
             const xhemati = (emri) => {
                 if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
                 if (emri === "Sabahu" && rreshti) {
-                    if (site.ramazanActive) return rreshti.Sabahu;
+                    if (site.ramazan?.active) return rreshti.Sabahu;
                     if (rreshti.Lindja) {
                         const [h, m] = rreshti.Lindja.split(":").map(Number);
                         const total = h * 60 + m - 40;
@@ -143,16 +143,16 @@ export default function TvDisplay() {
                     return `${String(o).padStart(2, "0")}:00`;
                 }
                 if (emri === "Jacia" && vaktiSot?.Jacia) {
-                    if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+                    if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
                     return vaktiSot.Jacia;
                 }
                 return rreshti?.[emri] ?? null;
             };
 
             const getLabel = (id) => {
-                if (id === 'Imsaku' && site.ramazanActive) return "Syfyri (Imsaku)";
-                if (id === 'Akshami' && site.ramazanActive) return "Iftari (Akshami)";
-                if (id === 'Jacia' && site.ramazanActive) return "Teravia (Jacia)";
+                if (id === 'Imsaku' && site.ramazan?.active) return "Syfyri (Imsaku)";
+                if (id === 'Akshami' && site.ramazan?.active) return "Iftari (Akshami)";
+                if (id === 'Jacia' && site.ramazan?.active) return "Teravia (Jacia)";
                 return id;
             };
 
@@ -243,7 +243,7 @@ export default function TvDisplay() {
     const xhemati = (emri) => {
         if (!vaktiSot) return null;
         if (emri === "Sabahu" && vaktiSot) {
-            if (site.ramazanActive) return vaktiSot.Sabahu;
+            if (site.ramazan?.active) return vaktiSot.Sabahu;
             if (vaktiSot.Lindja) {
                 const [h, m] = vaktiSot.Lindja.split(":").map(Number);
                 const total = h * 60 + m - 40;
@@ -262,19 +262,19 @@ export default function TvDisplay() {
             return `${String(o).padStart(2, "0")}:00`;
         }
         if (emri === "Jacia" && vaktiSot?.Jacia) {
-            if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+            if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
             return vaktiSot.Jacia;
         }
         return vaktiSot?.[emri] ?? null;
     };
 
     const listaNamazeve = useMemo(() => [
-        { id: "Imsaku", label: site.ramazanActive ? "Syfyri (Imsaku)" : "Imsaku" },
+        { id: "Imsaku", label: site.ramazan?.active ? "Syfyri (Imsaku)" : "Imsaku" },
         { id: "Sabahu", label: "Sabahu" },
         { id: "Dreka", label: "Dreka" },
         { id: "Ikindia", label: "Ikindia" },
-        { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
-        { id: "Jacia", label: site.ramazanActive ? "Teravia (Jacia)" : "Jacia" },
+        { id: "Akshami", label: site.ramazan?.active ? "Iftari (Akshami)" : "Akshami" },
+        { id: "Jacia", label: site.ramazan?.active ? "Teravia (Jacia)" : "Jacia" },
     ], []);
 
     const hijriDate = useMemo(() => {
@@ -370,19 +370,23 @@ export default function TvDisplay() {
                 </div>
             </button>
 
-            {/* Top Header */}
-            <header className="flex justify-between items-start mb-6 shrink-0">
-                <div>
-                    <h1 className="text-5xl font-bold text-emerald-400 mb-1">
-                        Xhamia e Dushkajës
-                    </h1>
-                    <p className="text-zinc-400 text-2xl font-medium">Kaçanik</p>
-                    <p className="text-zinc-500 text-xl font-medium mt-1 tracking-wide">
-                        Imami: <span className="text-zinc-400">{site.emriImamitXhamis}</span>
+            <header className="grid grid-cols-3 items-center mb-8 shrink-0">
+                <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-left-4 duration-700">
+                    <p className="text-zinc-400 text-5xl font-black tracking-widest uppercase mb-1">
+                        {site.tvOptions?.adresa || "Kaçanik"}
+                    </p>
+                    <p className="text-zinc-500 text-4xl font-bold tracking-wide">
+                        Imami: <span className="text-zinc-300">{site.global?.imam}</span>
                     </p>
                 </div>
 
-                <div className="text-right">
+                <div className="text-center flex flex-col items-center justify-center animate-in fade-in slide-in-from-top-4 duration-700">
+                    <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap drop-shadow-lg">
+                        {site.tvOptions?.emriXhamis || "Xhamia e Dushkajës"}
+                    </h1>
+                </div>
+
+                <div className="text-right animate-in fade-in slide-in-from-right-4 duration-700">
                     <div className="text-7xl font-black tabular-nums tracking-tight leading-none mb-1 text-white">
                         {currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
                         <span className="text-3xl text-zinc-500 font-bold ml-2">
@@ -444,7 +448,7 @@ export default function TvDisplay() {
 
                                 <div className="flex flex-col">
                                     <p className="text-zinc-500 text-sm uppercase font-black tracking-widest mb-6 flex items-center gap-4">
-                                        Kohë e mbetur deri në ezan
+                                        Kohë e mbetur
                                         <span className="flex-1 h-px bg-zinc-800/50" />
                                     </p>
                                     <div className={`text-6xl lg:text-7xl xl:text-8xl font-black tabular-nums tracking-tighter italic leading-none whitespace-nowrap ${infoTani.mbetur <= 15 ? 'text-amber-400 animate-pulse' : 'text-emerald-400'}`}>
@@ -466,7 +470,7 @@ export default function TvDisplay() {
                         {displayMode === 'qr' ? (
                             <div className="flex flex-row items-center gap-16 animate-in fade-in zoom-in duration-700 w-full h-full justify-center px-10">
                                 <div className="p-6 bg-white rounded-[3rem] shadow-[0_0_80px_rgba(16,185,129,0.3)] transform hover:scale-105 transition-transform duration-500 shrink-0">
-                                    <QRCode value={site.website || site.faqeFB} size={400} />
+                                    <QRCode value={site.tvOptions?.qrUrl || site.socials?.facebook} size={400} />
                                 </div>
 
                                 <div className="flex flex-col items-start gap-6">
@@ -482,8 +486,8 @@ export default function TvDisplay() {
                                     <div className="h-px w-32 bg-zinc-800" />
 
                                     <div className="flex flex-col">
-                                        <p className="text-zinc-400 text-4xl font-black tracking-tighter opacity-80 break-all max-w-[400px] leading-tight">
-                                            {site.website?.replace('https://', '') || site.faqeFB?.replace('https://', '')}
+                                        <p className="text-zinc-400 text-4xl font-black tracking-tighter opacity-80 break-all max-w-[400px] leading-tight text-left italic">
+                                            {site.tvOptions?.qrUrl?.replace('https://', '')?.replace('www.', '') || site.socials?.facebook?.replace('https://', '')}
                                         </p>
                                     </div>
                                 </div>
@@ -492,8 +496,8 @@ export default function TvDisplay() {
                             <>
                                 <div className="w-full mb-6 opacity-50">
                                     <p className="text-zinc-500 uppercase tracking-widest text-sm font-black text-center">
-                                        {displayMode === 'message' ? "Lajmërim / Festë" :
-                                            displayMode === 'custom' ? "Njoftim i Rëndësishëm" : "Hadith / Info"}
+                                        {displayMode === 'message' ? "Shënim / Festë" :
+                                            displayMode === 'custom' ? "Njoftim i Rëndësishëm" : "Hadith / Ajet"}
                                     </p>
                                 </div>
 
@@ -543,8 +547,7 @@ export default function TvDisplay() {
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center justify-center h-full gap-4">
-                                            <h3 className="text-4xl font-bold text-white">{site.emriImamitXhamis}</h3>
-                                            <p className="text-zinc-400 text-2xl">{site.email}</p>
+                                            <h3 className="text-4xl font-bold text-white">{site.global?.emriXhamis}</h3>
                                         </div>
                                     )}
                                 </div>

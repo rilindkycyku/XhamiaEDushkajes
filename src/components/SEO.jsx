@@ -6,9 +6,7 @@ export default function SEO({ title, description, image, url, type = 'website' }
 
     // For the home page, we want "Title | Domain | Title" as requested
     // This also helps Google identify the Site Name correctly.
-    const fullTitle = (title === "Ballina" || !title)
-        ? `${siteName} | ${domain} | ${siteName}`
-        : `${title} | ${siteName}`;
+    const fullTitle = `${title} | ${siteName}`;
 
     const defaultDesc = "Mirë se vini në faqen zyrtare të Xhamisë së Dushkajës në Kaçanik. Informohuni mbi kohët e namazit, aktivitetet javore, dhe jeta fetare në xhaminë tonë.";
     const siteUrl = "https://www.xhamiaedushkajes.org";

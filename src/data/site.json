@@ -1,18 +1,33 @@
 {
-  "emriXhamis": "Xhamia e Dushkajës - Kaçanik",
-  "textiMiresevini": "Mirë se vini në Uebfaqen e Xhamis së Dushkajës!",
-  "email": "xhamiaedushkajes@gmail.com",
-  "faqeFB": "https://www.facebook.com/xhamiaedushkajeskacanik",
-  "kanaliYouTube": "UCc-JeykPmOFM2-xM24whHmA",
-  "kanaliYouTubeLink": "https://youtube.com/@xhamiaedushkajeskacanik?si=hKR7_QwJQEzuy9tK",
-  "logoHero": "/img/logo/LogoBIKKaqanikNoBG.png",
-  "titulliHero": "Xhamia e Dushkajës - Kaçanik",
-  "nentilluiHero": "Mirë se vini!",
-  "emriImamitXhamis": "Nehat ef. Shehu",
-  "dataEHapjesXhamis": "2022-11-04",
-  "ramazanActive": true,
-  "mesazhiRamazanitStart": "Urime muaji i shenjtë i Ramazanit!",
-  "mesazhiRamazanitEnd": "Agjërim të lehtë dhe të pranuar për të gjithë besimtarët!",
-  "kohaTeravise": "20:00",
-  "website": "https://xhamiaedushkajes.org"
+  "global": {
+    "emriXhamis": "Xhamia e Dushkajës - Kaçanik",
+    "logo": "/img/logo/LogoBIKKaqanikNoBG.png",
+    "imam": "Nehat ef. Shehu"
+  },
+  "socials": {
+    "facebook": "https://www.facebook.com/xhamiaedushkajeskacanik",
+    "youtube": "https://youtube.com/@xhamiaedushkajeskacanik?si=hKR7_QwJQEzuy9tK",
+    "youtubeId": "UCc-JeykPmOFM2-xM24whHmA"
+  },
+  "hero": {
+    "titulli": "Xhamia e Dushkajës - Kaçanik"
+  },
+  "home": {
+    "welcomeText": "Mirë se vini në Uebfaqen e Xhamis së Dushkajës!",
+    "dataHapjes": "2022-11-04"
+  },
+  "footer": {
+    "adresa": "Lagjeja Dushkajë, Kaçanik"
+  },
+  "ramazan": {
+    "active": true,
+    "kohaTeravise": "20:00",
+    "mesazhiStart": "Urime muaji i shenjtë i Ramazanit!",
+    "mesazhiEnd": "Agjërim të lehtë dhe të pranuar për të gjithë besimtarët!"
+  },
+  "tvOptions": {
+    "emriXhamis": "Xhamia e Dushkajës",
+    "adresa": "Kaçanik",
+    "qrUrl": "https://xhamiaedushkajes.org"
+  }
 }

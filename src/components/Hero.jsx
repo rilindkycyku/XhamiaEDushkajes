@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import xhamiaImage from "../assets/img/xhamia/A-XhamiaJasht.jpg";
 
 export default function Hero() {
-  const logo = siteConfig.logoHero || "/assets/logo.png";
+  const logo = siteConfig.global?.logo || "/assets/logo.png";
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -41,7 +41,7 @@ export default function Hero() {
 
               <img
                 src={logo}
-                alt={siteConfig.emriXhamis}
+                alt={siteConfig.global?.emriXhamis}
                 className="w-full h-full object-contain relative z-10 p-2 drop-shadow-sm transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnL3N2ZyI+PHRleHQgeD0iMTAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+0KHVv9C40YLSvtC70L3QuNC1PC90ZXh0Pjwvc3ZnPg==";
@@ -76,7 +76,7 @@ export default function Hero() {
               transition={{ delay: 0.6 }}
               className="text-lg md:text-2xl text-slate-300 mb-8 md:mb-10 font-medium leading-relaxed max-w-3xl mx-auto px-2"
             >
-              {siteConfig.titulliHero}
+              {siteConfig.hero?.titulli}
             </motion.p>
 
             <motion.div
@@ -90,7 +90,7 @@ export default function Hero() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 md:h-3 md:w-3 bg-emerald-500"></span>
                 </span>
-                <span className="text-emerald-50 font-bold tracking-wide text-sm md:text-base">Imam: {siteConfig.emriImamitXhamis}</span>
+                <span className="text-emerald-50 font-bold tracking-wide text-sm md:text-base">Imam: {siteConfig.global?.imam}</span>
               </div>
             </motion.div>
           </motion.div>

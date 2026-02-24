@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
+import site from "../data/site.json";
 
 const eshteEmailValide = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -100,7 +101,7 @@ export default function Kontakti() {
                   </div>
                   <div>
                     <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">Na shkruani</p>
-                    <p className="font-black text-slate-700 break-all">xhamiaedushkajes@gmail.com</p>
+                    <p className="font-black text-slate-700 break-all">{site.global?.email}</p>
                   </div>
                 </div>
               </div>

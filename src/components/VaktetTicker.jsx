@@ -5,7 +5,7 @@ import { HiMoon, HiSparkles, HiCalendar } from 'react-icons/hi2';
 import { HiOutlineSun } from 'react-icons/hi';
 
 const getSabahuXhemat = (vaktiSot) => {
-    if (siteConfig.ramazanActive) return vaktiSot.Sabahu;
+    if (siteConfig.ramazan?.active) return vaktiSot.Sabahu;
     if (vaktiSot.Lindja) {
         const [h, m] = vaktiSot.Lindja.split(":").map(Number);
         const total = h * 60 + m - 40;
@@ -18,17 +18,17 @@ const getSabahuXhemat = (vaktiSot) => {
 
 const ITEMS_CONFIG = (dataSot, vaktiSot) => {
     const xhSabahu = getSabahuXhemat(vaktiSot);
-    const kohaTeravise = (siteConfig.ramazanActive && siteConfig.kohaTeravise) || vaktiSot.Jacia;
+    const kohaTeravise = (siteConfig.ramazan?.active && siteConfig.ramazan?.kohaTeravise) || vaktiSot.Jacia;
 
-    if (siteConfig.ramazanActive) {
+    if (siteConfig.ramazan?.active) {
         return [
-            { text: siteConfig.mesazhiRamazanitStart, icon: 'sparkles' },
+            { text: siteConfig.ramazan?.mesazhiStart, icon: 'sparkles' },
             { text: `Data Sot: ${dataSot}`, icon: 'calendar' },
             { text: `Përfundimi i Syfyrit: ${vaktiSot.Imsaku}`, icon: 'moon' },
             { text: `Namazi i Sabahut: ${xhSabahu}`, icon: 'moon2' },
             { text: `Fillimi i Iftarit: ${vaktiSot.Akshami}`, icon: 'sun' },
             { text: `Namazi i Teravive: ${kohaTeravise}`, icon: 'moon' },
-            { text: siteConfig.mesazhiRamazanitEnd, icon: 'sparkles2' },
+            { text: siteConfig.ramazan?.mesazhiEnd, icon: 'sparkles2' },
         ];
     }
 

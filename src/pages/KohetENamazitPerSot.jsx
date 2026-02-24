@@ -120,7 +120,7 @@ export default function KohetENamazitPerSot() {
   const xhemati = (emri) => {
     if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
     if (emri === "Sabahu" && todayData) {
-      if (site.ramazanActive) return todayData.Sabahu;
+      if (site.ramazan?.active) return todayData.Sabahu;
       if (todayData.Lindja) {
         const [h, m] = todayData.Lindja.split(":").map(Number);
         const total = h * 60 + m - 40;
@@ -139,7 +139,7 @@ export default function KohetENamazitPerSot() {
       return `${String(o).padStart(2, "0")}:00`;
     }
     if (emri === "Jacia" && todayData?.Jacia) {
-      if (site.ramazanActive && site.kohaTeravise) return site.kohaTeravise;
+      if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
       return todayData.Jacia;
     }
     return todayData?.[emri] ?? null;
@@ -150,9 +150,9 @@ export default function KohetENamazitPerSot() {
     const moments = [];
     const namazet = ["Imsaku", "Sabahu", "Lindja", "Dreka", "Ikindia", "Akshami", "Jacia"];
     const getLabel = (id) => {
-      if (id === 'Imsaku' && site.ramazanActive) return "Syfyri (Imsaku)";
-      if (id === 'Akshami' && site.ramazanActive) return "Iftari (Akshami)";
-      if (id === 'Jacia' && site.ramazanActive) return "Teravia (Jacia)";
+      if (id === 'Imsaku' && site.ramazan?.active) return "Syfyri (Imsaku)";
+      if (id === 'Akshami' && site.ramazan?.active) return "Iftari (Akshami)";
+      if (id === 'Jacia' && site.ramazan?.active) return "Teravia (Jacia)";
       return id;
     };
     namazet.forEach(n => {
@@ -219,13 +219,13 @@ export default function KohetENamazitPerSot() {
   };
 
   const listaNamazeve = useMemo(() => [
-    { id: "Imsaku", label: site.ramazanActive ? "Syfyri (Imsaku)" : "Imsaku" },
+    { id: "Imsaku", label: site.ramazan?.active ? "Syfyri (Imsaku)" : "Imsaku" },
     { id: "Sabahu", label: "Sabahu" },
     { id: "Lindja", label: "Lindja", dim: true },
     { id: "Dreka", label: "Dreka" },
     { id: "Ikindia", label: "Ikindia" },
-    { id: "Akshami", label: site.ramazanActive ? "Iftari (Akshami)" : "Akshami" },
-    { id: "Jacia", label: site.ramazanActive ? "Teravia (Jacia)" : "Jacia" },
+    { id: "Akshami", label: site.ramazan?.active ? "Iftari (Akshami)" : "Akshami" },
+    { id: "Jacia", label: site.ramazan?.active ? "Teravia (Jacia)" : "Jacia" },
   ], []);
 
   if (!todayData) return null;

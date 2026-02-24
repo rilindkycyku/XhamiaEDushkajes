@@ -2,7 +2,7 @@
 import siteConfig from "../data/site.json";
 
 export default function FacebookEmbed() {
-  const faqja = siteConfig.faqeFB?.trim();
+  const faqja = siteConfig.socials?.facebook?.trim();
   if (!faqja) return null;
 
   const src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
