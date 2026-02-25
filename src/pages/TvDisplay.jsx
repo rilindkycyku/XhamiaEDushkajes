@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import QRCode from "react-qr-code";
+import { QRCodeCanvas } from 'qrcode.react';
 import { HiCog, HiX } from "react-icons/hi";
 import vaktet from '../data/vaktet-e-namazit.json';
 import site from '../data/site.json';
@@ -12,6 +12,13 @@ export default function TvDisplay() {
     const [vaktiSot, setVaktiSot] = useState(null);
     const [infoTani, setInfoTani] = useState(null);
     const [currentHadith, setCurrentHadith] = useState(null);
+
+    // Optimized time formatter to avoid creating objects every second
+    const timeFormatter = useMemo(() => new Intl.DateTimeFormat('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    }), []);
     const [displayMode, setDisplayMode] = useState('hadith'); // 'hadith', 'message', 'qr', 'custom'
     const [localMessage, setLocalMessage] = useState(localStorage.getItem('tv_custom_msg') || "");
     const [showSettings, setShowSettings] = useState(false);
@@ -34,7 +41,7 @@ export default function TvDisplay() {
 
         const showHadith = () => {
             setDisplayMode('hadith');
-            const duration = localMessage ? 120000 : 600000; // 2 min if custom exists, else 10 min
+            const duration = localMessage ? 120000 : 2000; // 2 min if custom exists, else 10 min
             timeoutId = setTimeout(showQR, duration);
         };
 
@@ -342,21 +349,18 @@ export default function TvDisplay() {
                         will-change: transform, opacity;
                     }
 
-                    @keyframes float {
-                        0%, 100% { transform: translate(0, 0); }
-                        50% { transform: translate(20px, -20px); }
-                    }
                     .bg-glow {
-                        animation: float 20s ease-in-out infinite;
                         will-change: transform;
                     }
                 `}
             </style>
 
-            {/* Background Ambient Glow */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="bg-glow absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-emerald-900/10 rounded-full blur-[120px]" />
-                <div className="bg-glow absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-emerald-900/10 rounded-full blur-[120px]" style={{ animationDelay: '-7s' }} />
+            {/* Background Ambient Glow (Ultra-light gradients for TV) */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+                <div className="absolute -top-[20%] -left-[20%] w-[60%] h-[60%] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+                <div className="absolute -bottom-[20%] -right-[20%] w-[60%] h-[60%] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
             </div>
 
             {/* Settings Trigger (Top-right or press 'S') */}
@@ -370,8 +374,8 @@ export default function TvDisplay() {
                 </div>
             </button>
 
-            <header className="grid grid-cols-3 items-center mb-8 shrink-0">
-                <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-left-4 duration-700">
+            <header className="grid grid-cols-3 items-center mb-8 shrink-0" style={{ contain: 'layout' }}>
+                <div className="flex flex-col gap-2">
                     <p className="text-zinc-400 text-5xl font-black tracking-widest uppercase mb-1">
                         {site.tvOptions?.adresa || "Kaçanik"}
                     </p>
@@ -380,16 +384,18 @@ export default function TvDisplay() {
                     </p>
                 </div>
 
-                <div className="text-center flex flex-col items-center justify-center animate-in fade-in slide-in-from-top-4 duration-700">
-                    <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap drop-shadow-lg">
+                <div className="text-center flex flex-col items-center justify-center">
+                    <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap">
                         {site.tvOptions?.emriXhamis || "Xhamia e Dushkajës"}
                     </h1>
                 </div>
 
-                <div className="text-right animate-in fade-in slide-in-from-right-4 duration-700">
-                    <div className="text-7xl font-black tabular-nums tracking-tight leading-none mb-1 text-white">
-                        {currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                        <span className="text-3xl text-zinc-500 font-bold ml-2">
+                <div className="text-right flex flex-col items-end" style={{ isolation: 'isolate', contain: 'layout' }}>
+                    <div className="flex items-baseline text-7xl font-black tabular-nums tracking-tight leading-none mb-1 text-white">
+                        <span>
+                            {timeFormatter.format(currentTime)}
+                        </span>
+                        <span className="text-4xl text-zinc-500 font-bold w-[70px] text-center inline-block border-l-2 border-zinc-800/50 ml-4 font-mono">
                             {currentTime.getSeconds().toString().padStart(2, '0')}
                         </span>
                     </div>
@@ -414,14 +420,12 @@ export default function TvDisplay() {
             <main className="flex-1 flex flex-col gap-6 min-h-0">
 
                 {/* Top Row: Next Prayer & Hadith Side-by-Side */}
-                <div className="flex-[1.1] grid grid-cols-2 gap-8 relative z-10 min-h-0">
+                <div className="flex-[1.1] grid grid-cols-2 gap-8 relative z-10 min-h-0" style={{ contain: 'layout' }}>
 
-                    {/* Next Prayer Card */}
-                    <div className="bg-zinc-900 border border-white/10 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col justify-center shadow-2xl group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent opacity-50" />
-
+                    {/* Next Prayer Card - Optimized for TV GPU */}
+                    <div className="bg-zinc-900 border-2 border-white/5 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col justify-center">
                         {infoTani?.ardhshëm ? (
-                            <div className="relative z-10 w-full animate-in fade-in slide-in-from-left-8 duration-700">
+                            <div className="relative z-10 w-full">
                                 <div className="flex justify-between items-start mb-8 w-full">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-3 mb-4">
@@ -430,7 +434,7 @@ export default function TvDisplay() {
                                                 Vakti i radhës
                                             </p>
                                         </div>
-                                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-2xl">
+                                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none">
                                             {infoTani.ardhshëm.label.split(' ')[0]}
                                         </h2>
                                         {infoTani.ardhshëm.label.includes('(') && (
@@ -439,7 +443,7 @@ export default function TvDisplay() {
                                             </p>
                                         )}
                                     </div>
-                                    <div className="bg-emerald-500 text-black px-10 py-8 rounded-[3rem] font-mono text-6xl lg:text-7xl font-black shadow-[0_20px_50px_rgba(16,185,129,0.4)] transform group-hover:scale-105 transition-transform duration-500">
+                                    <div className="bg-emerald-500 text-black px-10 py-8 rounded-[3rem] font-mono text-6xl lg:text-7xl font-black border-4 border-emerald-400/30">
                                         {ne24h(infoTani.ardhshëm.kohe)}
                                     </div>
                                 </div>
@@ -448,7 +452,7 @@ export default function TvDisplay() {
 
                                 <div className="flex flex-col">
                                     <p className="text-zinc-500 text-sm uppercase font-black tracking-widest mb-6 flex items-center gap-4">
-                                        Kohë e mbetur
+                                        Koha e mbetur
                                         <span className="flex-1 h-px bg-zinc-800/50" />
                                     </p>
                                     <div className={`text-6xl lg:text-7xl xl:text-8xl font-black tabular-nums tracking-tighter italic leading-none whitespace-nowrap ${infoTani.mbetur <= 15 ? 'text-amber-400 animate-pulse' : 'text-emerald-400'}`}>
@@ -463,17 +467,23 @@ export default function TvDisplay() {
                         )}
                     </div>
 
-                    {/* Hadith / Info / QR Card */}
-                    <div className="bg-zinc-900 border border-white/10 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col items-center justify-center transition-all duration-700 shadow-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/5 via-transparent to-transparent opacity-50" />
-
+                    {/* Hadith / Info / QR Card - Flat borders for better performance */}
+                    <div className="bg-zinc-900 border-2 border-white/5 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col items-center justify-center transition-all duration-700">
                         {displayMode === 'qr' ? (
-                            <div className="flex flex-row items-center gap-16 animate-in fade-in zoom-in duration-700 w-full h-full justify-center px-10">
-                                <div className="p-6 bg-white rounded-[3rem] shadow-[0_0_80px_rgba(16,185,129,0.3)] transform hover:scale-105 transition-transform duration-500 shrink-0">
-                                    <QRCode value={site.tvOptions?.qrUrl || site.socials?.facebook} size={400} />
+                            <div className="flex flex-row items-center gap-16 w-full h-full justify-center px-10">
+                                <div className="p-5 bg-white rounded-[2rem] shrink-0">
+                                    <QRCodeCanvas
+                                        value={site.tvOptions?.qrUrl || site.socials?.facebook}
+                                        size={410}
+                                        level="L"
+                                        style={{
+                                            display: 'block',
+                                            imageRendering: 'pixelated'
+                                        }}
+                                    />
                                 </div>
 
-                                <div className="flex flex-col items-start gap-6">
+                                <div className="flex flex-col items-start gap-6 text-left">
                                     <div className="flex flex-col">
                                         <p className="text-emerald-400 uppercase tracking-[0.5em] text-3xl font-black leading-tight">
                                             SKANO FAQEN
@@ -486,8 +496,8 @@ export default function TvDisplay() {
                                     <div className="h-px w-32 bg-zinc-800" />
 
                                     <div className="flex flex-col">
-                                        <p className="text-zinc-400 text-4xl font-black tracking-tighter opacity-80 break-all max-w-[400px] leading-tight text-left italic">
-                                            {site.tvOptions?.qrUrl?.replace('https://', '')?.replace('www.', '') || site.socials?.facebook?.replace('https://', '')}
+                                        <p className="text-zinc-400 text-4xl font-black tracking-tighter opacity-80 break-all max-w-[400px] leading-tight italic">
+                                            {site.tvOptions?.qrUrl?.replace('https://', '')?.replace('www.', '') || "xhamiaedushkajes.org"}
                                         </p>
                                     </div>
                                 </div>
@@ -554,7 +564,7 @@ export default function TvDisplay() {
                             </>
                         )}
                     </div>
-                </div>
+                </div >
 
                 {/* Bottom Row: Timetable Grid */}
                 <div className="flex-1 min-h-0 relative z-10">
@@ -572,8 +582,8 @@ export default function TvDisplay() {
                                 return (
                                     <div
                                         key={id}
-                                        className={`flex flex-col rounded-[3rem] px-2 py-6 items-center justify-between border-2 transition-all duration-500 relative overflow-hidden group ${isCurrent ? 'bg-emerald-600 border-white/40 shadow-[0_30px_60px_-15px_rgba(16,185,129,0.5)] scale-105 z-10' :
-                                            isNext ? 'bg-zinc-800/80 border-emerald-500 shadow-lg' :
+                                        className={`flex flex-col rounded-[3rem] px-2 py-6 items-center justify-between border-2 transition-all duration-500 relative overflow-hidden group ${isCurrent ? 'bg-emerald-600 border-white/60 z-10' :
+                                            isNext ? 'bg-zinc-800/80 border-emerald-500' :
                                                 isJumuah ? 'bg-amber-900/20 border-amber-500/30' :
                                                     'bg-black/40 border-white/5'
                                             }`}
