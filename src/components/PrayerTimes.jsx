@@ -30,10 +30,13 @@ export default function PrayerTimes() {
   };
 
   const formatDallim = (min) => {
-    if (min <= 0) return "0m";
+    if (min <= 0) return "0 minuta";
     const o = Math.floor(min / 60);
     const m = min % 60;
-    return `${o ? `${o}h ` : ""}${m}m`;
+    let res = "";
+    if (o > 0) res += `${o} orë${m > 0 ? ' e ' : ''}`;
+    if (m > 0) res += `${m} ${m === 1 ? 'minutë' : 'minuta'}`;
+    return res || "0 minuta";
   };
 
   const ne24h = (ora24) => {
