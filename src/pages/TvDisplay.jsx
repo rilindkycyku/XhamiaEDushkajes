@@ -45,7 +45,7 @@ export default function TvDisplay() {
 
         const showHadith = () => {
             setDisplayMode('hadith');
-            const duration = customMsg ? durations.hadith : (durations.hadith * 5);
+            const duration = customMsg ? durations.hadith : durations.hadith;
             timeoutId = setTimeout(showQR, duration);
         };
 
