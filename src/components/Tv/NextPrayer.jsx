@@ -9,25 +9,30 @@ const NextPrayer = memo(function NextPrayer({ infoTani, ne24hFn, formatDallimFn 
         );
     }
 
+    const isXh = infoTani.ardhshëm.isXh;
+    const labelMain = infoTani.ardhshëm.label.replace('ME XHEMAT: ', '');
+
     return (
-        <div className="bg-zinc-900/80 backdrop-blur-sm border-2 border-white/5 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col justify-center shadow-2xl">
+        <div className="bg-zinc-900 border-2 border-white/5 rounded-[3.5rem] p-12 relative overflow-hidden flex flex-col justify-center">
             <div className="relative z-10 w-full animate-slide-up">
                 <div className="flex justify-between items-start mb-8 w-full">
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-                            <p className="text-emerald-500 font-black uppercase tracking-[0.4em] text-xl">Vakti i radhës</p>
+                            <div className={`w-3 h-3 rounded-full animate-pulse ${isXh ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
+                            <p className={`${isXh ? 'text-emerald-400' : 'text-emerald-600'} font-black uppercase tracking-[0.4em] text-xl`}>
+                                {isXh ? 'Me Xhemat' : 'Vakti i radhës'}
+                            </p>
                         </div>
-                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-xl">
-                            {infoTani.ardhshëm.label.split(' ')[0]}
+                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none">
+                            {labelMain.split(' ')[0]}
                         </h2>
-                        {infoTani.ardhshëm.label.includes('(') && (
+                        {labelMain.includes('(') && (
                             <p className="text-3xl text-emerald-500/80 font-black mt-2 uppercase tracking-widest opacity-80">
-                                {infoTani.ardhshëm.label.split('(')[1].replace(')', '')}
+                                {labelMain.split('(')[1].replace(')', '')}
                             </p>
                         )}
                     </div>
-                    <div className="bg-emerald-500 text-black px-10 py-8 rounded-[3rem] font-mono text-6xl lg:text-7xl font-black border-4 border-emerald-400/30 shadow-2xl">
+                    <div className={`${isXh ? 'bg-emerald-400 text-black' : 'bg-zinc-800 text-white'} px-10 py-8 rounded-[3rem] font-mono text-7xl lg:text-8xl font-black`}>
                         {ne24hFn(infoTani.ardhshëm.kohe)}
                     </div>
                 </div>

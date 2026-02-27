@@ -46,10 +46,10 @@ const Clock = memo(function Clock() {
                     {currentTime.getSeconds().toString().padStart(2, '0')}
                 </span>
             </div>
-            <div className="text-emerald-400 text-2xl font-medium tracking-wide uppercase">
+            <div className="text-emerald-400 text-2xl font-black tracking-wide uppercase" style={{ textShadow: '0 2px 5px rgba(0,0,0,0.3)' }}>
                 {dateInfo}
             </div>
-            <div className="text-emerald-600 text-xl font-medium tracking-wider uppercase mt-1">{hijriDate}</div>
+            <div className="text-emerald-600 text-xl font-bold tracking-wider uppercase mt-1 opacity-80">{hijriDate}</div>
         </div>
     );
 });
