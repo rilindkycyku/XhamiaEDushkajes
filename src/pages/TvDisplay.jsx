@@ -95,13 +95,38 @@ export default function TvDisplay() {
         return () => clearInterval(interval);
     }, []);
 
-    // --- MAINTENANCE & STABILITY ---
+    // --- MAINTENANCE & STABILITY (STAGGERED) ---
     useEffect(() => {
-        const interval = setInterval(() => {
-            const now = new Date();
-            if (now.getHours() === 3 && now.getMinutes() === 0) window.location.reload();
-        }, 60000);
-        return () => clearInterval(interval);
+        const now = new Date();
+        const target = new Date();
+
+        // 1. Randomly picks a time between 1:00 AM and 3:59 AM
+        const randomHour = Math.floor(Math.random() * 3) + 1; 
+        const randomMinute = Math.floor(Math.random() * 60);
+
+        target.setHours(randomHour, randomMinute, 0, 0);
+
+        // 2. If it is already past that time today, schedule for tomorrow
+        if (now > target) {
+            target.setDate(target.getDate() + 1);
+        }
+
+        const msUntilTrigger = target.getTime() - now.getTime();
+
+        // 3. Set a single timer instead of an interval
+        const timerId = setTimeout(() => {
+            // Only reload if the TV is connected to avoid "No Internet" screen
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                // If offline, wait 30 mins and try a reload again
+                setTimeout(() => {
+                    if (navigator.onLine) window.location.reload();
+                }, 30 * 60000);
+            }
+        }, msUntilTrigger);
+
+        return () => clearTimeout(timerId);
     }, []);
 
     useEffect(() => {
