@@ -260,8 +260,15 @@ export default function TvDisplay() {
                 const dje = idxS > 0 ? vaktet[idxS - 1] : vaktet[vaktet.length - 1];
                 nI = { tani: { id: "Jacia", label: getL("Jacia", false), kohe: dje.Jacia }, ardhshëm: { ...moments[0], label: getL(moments[0].id, moments[0].isXh) }, mbetur: neMinuta(moments[0].kohe) - minTani };
             } else {
+                let tani = { ...moments[nIdx - 1], label: getL(moments[nIdx - 1].id, moments[nIdx - 1].isXh) };
+
+                // If it's past Sunrise (Lindja), Sabahu is no longer "current"
+                if (tani.id === "Sabahu" && rreshti.Lindja && minTani >= neMinuta(rreshti.Lindja)) {
+                    tani = { id: "Lindja", label: "Lindja e Diellit", kohe: rreshti.Lindja };
+                }
+
                 nI = {
-                    tani: { ...moments[nIdx - 1], label: getL(moments[nIdx - 1].id, moments[nIdx - 1].isXh) },
+                    tani: tani,
                     ardhshëm: { ...moments[nIdx], label: getL(moments[nIdx].id, moments[nIdx].isXh) },
                     mbetur: neMinuta(moments[nIdx].kohe) - minTani
                 };
