@@ -70,10 +70,8 @@ export default function PrayerTimes() {
       const eshteXhuma = new Date().getDay() === 5;
       const [h, m] = vaktiSot.Dreka.split(":").map(Number);
       const minAdhan = h * 60 + m;
-      if (eshteXhuma && minAdhan >= 12 * 60) return "13:00";
-      const oraTjeter = Math.ceil(minAdhan / 60) * 60;
-      const o = Math.floor(oraTjeter / 60);
-      return `${String(o).padStart(2, "0")}:00`;
+      if (eshteXhuma && minAdhan >= 12 * 60) return "12:55";
+      return "11:55";
     }
     if (emri === "Jacia" && vaktiSot?.Jacia) {
       if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;

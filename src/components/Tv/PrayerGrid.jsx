@@ -7,7 +7,7 @@ const PrayerGrid = memo(function PrayerGrid({ listaNamazeve, vaktiSot, infoTani,
                 <div className={`grid gap-3 h-full ${listaNamazeve.length === 5 ? 'grid-cols-5' : 'grid-cols-6'}`}>
                     {listaNamazeve.map(({ id, label }) => {
                         const kohe = vaktiSot[id];
-                        const xh = !['Imsaku', 'Lindja'].includes(id) ? xhematiFn(id) : null;
+                        const xh = xhematiFn(id);
                         const isCurrent = infoTani?.tani?.id === id;
                         const isNext = infoTani?.ardhshëm?.id === id;
                         const isFriday = new Date().getDay() === 5;
@@ -22,7 +22,7 @@ const PrayerGrid = memo(function PrayerGrid({ listaNamazeve, vaktiSot, infoTani,
                                     {label.includes('(') && <div className={`text-lg font-bold uppercase tracking-widest opacity-60 ${isCurrent ? 'text-white' : 'text-zinc-500'}`}>{label.split('(')[1].replace(')', '')}</div>}
                                 </div>
                                 <div className="flex flex-col items-center justify-center flex-1 py-1">
-                                    <div className={`text-[8.2rem] font-black font-mono tracking-tighter whitespace-nowrap leading-none ${isCurrent ? 'text-white' : isJumuah ? 'text-amber-400' : 'text-white'}`}>
+                                    <div className={`text-6xl lg:text-[5.8rem] font-black font-mono tracking-tighter whitespace-nowrap leading-none ${isCurrent ? 'text-white' : isJumuah ? 'text-amber-400' : 'text-white'}`}>
                                         {xh ? ne24hFn(xh) : "—"}
                                     </div>
                                 </div>

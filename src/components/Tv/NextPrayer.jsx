@@ -23,7 +23,7 @@ const NextPrayer = memo(function NextPrayer({ infoTani, ne24hFn, formatDallimFn 
                                 {isXh ? 'Me Xhemat' : 'Vakti i radhës'}
                             </p>
                         </div>
-                        <h2 className="text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-none">
+                        <h2 className="text-7xl lg:text-8xl font-black text-white tracking-tighter uppercase leading-none">
                             {labelMain.split(' ')[0]}
                         </h2>
                         {labelMain.includes('(') && (
@@ -32,14 +32,14 @@ const NextPrayer = memo(function NextPrayer({ infoTani, ne24hFn, formatDallimFn 
                             </p>
                         )}
                     </div>
-                    <div className={`${isXh ? 'bg-emerald-400 text-black' : 'bg-zinc-800 text-white'} px-10 py-8 rounded-[3rem] font-mono text-7xl lg:text-8xl font-black`}>
+                    <div className={`${isXh ? 'bg-emerald-400 text-black' : 'bg-zinc-800 text-white'} px-8 py-6 rounded-[2.5rem] font-mono text-6xl lg:text-7xl font-black`}>
                         {ne24hFn(infoTani.ardhshëm.kohe)}
                     </div>
                 </div>
                 <div className="h-px w-full bg-gradient-to-r from-zinc-800 via-zinc-800 to-transparent mb-8 opacity-50" />
                 <div className="flex flex-col">
                     <p className="text-zinc-500 text-sm uppercase font-black tracking-widest mb-6 flex items-center gap-4">Koha e mbetur <span className="flex-1 h-px bg-zinc-800/50" /></p>
-                    <div className={`text-7xl lg:text-8xl xl:text-9xl font-black tabular-nums tracking-tighter italic leading-none whitespace-nowrap ${infoTani.mbetur <= 15 ? 'text-amber-400 animate-pulse' : 'text-emerald-400'}`}>
+                    <div className={`text-7xl lg:text-8xl font-black tabular-nums tracking-tighter italic leading-none whitespace-nowrap ${infoTani.mbetur <= 15 ? 'text-amber-400 animate-pulse' : 'text-emerald-400'}`}>
                         {formatDallimFn(infoTani.mbetur)}
                     </div>
                 </div>

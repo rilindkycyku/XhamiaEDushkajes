@@ -2,24 +2,50 @@ import { memo } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import site from '../../data/site.json';
 
-const ActivityBox = memo(function ActivityBox({ displayMode, customMsg, currentHadith, vaktiSot }) {
+const ActivityBox = memo(function ActivityBox({ displayMode, customMsg, currentHadith, vaktiSot, infoTani }) {
+    const { isSilenceMode } = infoTani || {};
+
+    // 1. SILENCE MODE (Highest Priority)
+    if (isSilenceMode) {
+        return (
+            <div className="bg-zinc-900 border-4 border-amber-500/50 rounded-[3.5rem] p-8 relative overflow-hidden flex flex-col items-center justify-center animate-pulse">
+                <div className="text-amber-500 mb-6">
+                    <svg className="w-48 h-48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 115.636 5.636m12.728 12.728L5.636 5.636" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h2 className="text-5xl font-black text-white text-center leading-tight">JU LUTEMI FIKNI OSE NDALJANI ZËRIN TELEFONAVE!</h2>
+                <p className="text-amber-500 uppercase tracking-[0.3em] font-black text-4xl mt-6">Koha e Namazit</p>
+            </div>
+        );
+    }
+
     if (displayMode === 'qr') {
         const qrUrl = site.tvOptions?.qrUrl || "https://xhamiaedushkajes.org";
         return (
-            <div className="bg-zinc-900/80 backdrop-blur-sm border-2 border-white/5 rounded-[3.5rem] p-8 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl">
-                <div className="flex flex-row items-center gap-10 w-full h-full justify-between px-8 animate-slide-up">
-                    <div className="p-5 bg-white rounded-[2rem] shrink-0 shadow-2xl">
-                        <QRCodeCanvas value={qrUrl} size={380} level="H" />
+            <div className="bg-zinc-900 border-2 border-white/5 rounded-[3.5rem] p-10 relative overflow-hidden flex flex-col items-center justify-center shadow-premium">
+                <div className="flex flex-row items-center gap-12 w-full h-full justify-center px-6 animate-slide-up">
+                    <div className="p-6 bg-white rounded-[2.5rem] shrink-0 shadow-[0_0_50px_rgba(16,185,129,0.2)]">
+                        <QRCodeCanvas
+                            value={qrUrl}
+                            size={320}
+                            level="H"
+                            fgColor="#000000"
+                            includeMargin={false}
+                        />
                     </div>
-                    <div className="flex flex-col items-start gap-6 text-left flex-1 ml-4">
-                        <div className="flex flex-col">
-                            <p className="text-emerald-400 uppercase tracking-[0.4em] text-3xl font-black leading-tight">SKANO FAQEN</p>
-                            <p className="text-zinc-500 uppercase tracking-[0.2em] text-sm font-bold mt-2">Për më shumë informata</p>
+                    <div className="flex flex-col items-start gap-4 text-left">
+                        <div className="flex flex-col gap-1">
+                            <span className="text-emerald-400 uppercase tracking-[0.5em] text-xl font-black">Skano Faqen</span>
+                            <span className="text-zinc-500 uppercase tracking-[0.2em] text-sm font-bold opacity-60">Për më shumë informata</span>
                         </div>
-                        <div className="h-px w-32 bg-zinc-800" />
-                        <p className="text-zinc-400 text-4xl lg:text-5xl font-black tracking-tighter opacity-80 break-all leading-tight italic">
-                            {qrUrl.replace('https://', '').replace('www.', '')}
-                        </p>
+                        <div className="h-1.5 w-16 bg-emerald-500/30 rounded-full my-2" />
+                        <div className="bg-white/5 border border-white/10 px-6 py-4 rounded-2xl">
+                            <p className="text-zinc-300 text-3xl font-mono font-bold tracking-tight">
+                                {qrUrl.replace('https://', '').replace('www.', '')}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

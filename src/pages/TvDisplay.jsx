@@ -24,6 +24,22 @@ export default function TvDisplay() {
     const [currentHadith, setCurrentHadith] = useState(null);
     const [displayMode, setDisplayMode] = useState('hadith');
     const [showSettings, setShowSettings] = useState(false);
+    const [scale, setScale] = useState(1);
+
+    // Optimized Scaling Logic to fit any screen
+    useEffect(() => {
+        const handleResize = () => {
+            const targetWidth = 1920;
+            const targetHeight = 1080;
+            const widthScale = window.innerWidth / targetWidth;
+            const heightScale = window.innerHeight / targetHeight;
+            // Use the smaller scale factor to ensure everything fits (letterboxing if aspect ratio differs)
+            setScale(Math.min(widthScale, heightScale));
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Live Notification (Stored locally on this TV only)
     const [customMsg, setCustomMsg] = useState(() => localStorage.getItem('tv_custom_msg') || "");
@@ -51,7 +67,8 @@ export default function TvDisplay() {
         };
 
         const showQR = () => {
-            if (durations.qr > 0) {
+            const shouldShow = site.tvOptions?.showQr !== false;
+            if (shouldShow && durations.qr > 0) {
                 setDisplayMode('qr');
                 const duration = customMsg ? Math.min(durations.qr, 15000) : durations.qr;
                 timeoutId = setTimeout(showMsgIfAny, duration);
@@ -197,11 +214,11 @@ export default function TvDisplay() {
                     }
                 }
                 if (emri === "Dreka" && rreshti?.Dreka) {
-                    const isDST = (dt) => {
-                        const jan = new Date(dt.getFullYear(), 0, 1).getTimezoneOffset();
-                        return dt.getTimezoneOffset() < jan;
-                    };
-                    return isDST(sot) ? "12:55" : "11:55";
+                    const [h, min] = rreshti.Dreka.split(":").map(Number);
+                    const adhanMinArr = h * 60 + min;
+                    const isF = sot.getDay() === 5;
+                    if (isF && adhanMinArr >= 12 * 60) return "12:55";
+                    return "11:55";
                 }
                 if (emri === "Jacia" && rreshti?.Jacia) {
                     if (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00") return site.ramazan.kohaTeravise;
@@ -249,7 +266,12 @@ export default function TvDisplay() {
                     mbetur: neMinuta(moments[nIdx].kohe) - minTani
                 };
             }
-            setInfoTani(prev => (JSON.stringify(prev) === JSON.stringify(nI) ? prev : nI));
+            const isSilenceMode = nI.mbetur <= 5 && nI.mbetur >= -2;
+
+            setInfoTani(prev => {
+                const updated = { ...nI, isSilenceMode };
+                return JSON.stringify(prev) === JSON.stringify(updated) ? prev : updated;
+            });
         };
         perditeso();
         const intv = setInterval(perditeso, 10000);
@@ -320,62 +342,71 @@ export default function TvDisplay() {
     );
 
     return (
-        <div className="tv-container h-screen bg-black text-white font-sans overflow-hidden flex flex-col p-8 select-none relative"
-            style={{ contain: 'strict' }}>
+        <div className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden">
+            <div className="tv-container bg-black text-white font-sans overflow-hidden flex flex-col p-8 select-none relative"
+                style={{
+                    width: '1920px',
+                    height: '1080px',
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'center center',
+                    flexShrink: 0,
+                    contain: 'strict'
+                }}>
 
-            <style>{`
-                body::before { display: none !important; }
-                ::-webkit-scrollbar { display: none; }
-                @keyframes slide-up { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-                .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
-                .bg-glow { border-radius: 50%; width: 60%; height: 60%; position: absolute; pointer-events: none; opacity: 0.15; transform: translateZ(0); will-change: opacity; }
-                /* Optimized for TV performance: No shadows or filters for maximum stability */
-                * { text-rendering: auto; transform: translateZ(0); backface-visibility: hidden; }
-                .tv-container { -webkit-font-smoothing: antialiased; }
-            `}</style>
+                <style>{`
+                    body::before { display: none !important; }
+                    ::-webkit-scrollbar { display: none; }
+                    @keyframes slide-up { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+                    .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
+                    .bg-glow { border-radius: 50%; width: 60%; height: 60%; position: absolute; pointer-events: none; opacity: 0.15; transform: translateZ(0); will-change: opacity; }
+                    /* Optimized for TV performance: No shadows or filters for maximum stability */
+                    * { text-rendering: auto; transform: translateZ(0); backface-visibility: hidden; }
+                    .tv-container { -webkit-font-smoothing: antialiased; }
+                `}</style>
 
-            <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'strict' }}>
-                <div className="bg-glow -top-[20%] -left-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
-                <div className="bg-glow -bottom-[20%] -right-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'strict' }}>
+                    <div className="bg-glow -top-[20%] -left-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+                    <div className="bg-glow -bottom-[20%] -right-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+                </div>
+
+                <button
+                    onClick={() => setShowSettings(true)}
+                    className="absolute top-4 right-4 z-[100] p-4 bg-white/5 hover:bg-emerald-600/20 rounded-full text-zinc-600 hover:text-emerald-400 border border-white/5 hover:border-emerald-500/30 transition-all cursor-pointer opacity-0 hover:opacity-100 group"
+                    title="Cilësimet"
+                >
+                    <HiCog className="text-4xl group-hover:rotate-90 transition-transform duration-500" />
+                </button>
+
+                <header className="grid grid-cols-3 items-center mb-8 shrink-0" style={{ contain: 'layout style' }}>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-zinc-400 text-4xl font-black tracking-widest uppercase truncate">{site.tvOptions?.adresa || "Kaçanik"}</p>
+                        <p className="text-zinc-500 text-3xl font-bold tracking-wide">Imami: <span className="text-zinc-300">{site.global?.imam}</span></p>
+                    </div>
+                    <div className="text-center">
+                        <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap">{site.tvOptions?.emriXhamis || "Xhamia e Dushkajës"}</h1>
+                    </div>
+                    <Clock />
+                </header>
+
+                <main className="flex-1 flex flex-col gap-6 min-h-0" style={{ contain: 'layout style paint' }}>
+                    <div className="flex-[1.2] grid grid-cols-2 gap-8 relative z-10 min-h-0">
+                        <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
+                        <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
+                    </div>
+                    <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
+                </main>
+
+                <SettingsModal
+                    show={showSettings}
+                    customMsg={customMsg}
+                    onClose={() => setShowSettings(false)}
+                    onSave={(msg) => {
+                        setCustomMsg(msg);
+                        localStorage.setItem('tv_custom_msg', msg);
+                        setShowSettings(false);
+                    }}
+                />
             </div>
-
-            <button
-                onClick={() => setShowSettings(true)}
-                className="absolute top-4 right-4 z-[100] p-4 bg-white/5 hover:bg-emerald-600/20 rounded-full text-zinc-600 hover:text-emerald-400 border border-white/5 hover:border-emerald-500/30 transition-all cursor-pointer opacity-0 hover:opacity-100 group"
-                title="Cilësimet"
-            >
-                <HiCog className="text-4xl group-hover:rotate-90 transition-transform duration-500" />
-            </button>
-
-            <header className="grid grid-cols-3 items-center mb-8 shrink-0" style={{ contain: 'layout style' }}>
-                <div className="flex flex-col gap-2">
-                    <p className="text-zinc-400 text-4xl font-black tracking-widest uppercase truncate">{site.tvOptions?.adresa || "Kaçanik"}</p>
-                    <p className="text-zinc-500 text-3xl font-bold tracking-wide">Imami: <span className="text-zinc-300">{site.global?.imam}</span></p>
-                </div>
-                <div className="text-center">
-                    <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap">{site.tvOptions?.emriXhamis || "Xhamia e Dushkajës"}</h1>
-                </div>
-                <Clock />
-            </header>
-
-            <main className="flex-1 flex flex-col gap-6 min-h-0" style={{ contain: 'layout style paint' }}>
-                <div className="flex-[1.2] grid grid-cols-2 gap-8 relative z-10 min-h-0">
-                    <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
-                    <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} />
-                </div>
-                <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
-            </main>
-
-            <SettingsModal
-                show={showSettings}
-                customMsg={customMsg}
-                onClose={() => setShowSettings(false)}
-                onSave={(msg) => {
-                    setCustomMsg(msg);
-                    localStorage.setItem('tv_custom_msg', msg);
-                    setShowSettings(false);
-                }}
-            />
         </div>
     );
 }
