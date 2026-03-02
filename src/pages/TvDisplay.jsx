@@ -181,6 +181,7 @@ export default function TvDisplay() {
         const handleKeyDown = (e) => {
             const key = e.key.toLowerCase();
             if (['s', 'm', 'enter', 'select'].includes(key)) setShowSettings(true);
+            if (key === 'r') window.location.reload();
             if (e.key === 'Escape') setShowSettings(false);
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -200,8 +201,8 @@ export default function TvDisplay() {
                 return Number(vd) === d && vm === mStr;
             }) ?? vaktet[0];
 
-            // Only update state if the day has changed to avoid resetting the display cycle
-            setVaktiSot(prev => (prev?.Date === rreshti.Date ? prev : rreshti));
+            // Update state if data has changed (even on the same day)
+            setVaktiSot(prev => (JSON.stringify(prev) === JSON.stringify(rreshti) ? prev : rreshti));
 
             const xhemati_inner = (emri) => {
                 if (!PRAYERS.includes(emri)) return null;
@@ -273,7 +274,13 @@ export default function TvDisplay() {
                     mbetur: neMinuta(moments[nIdx].kohe) - minTani
                 };
             }
-            const isSilenceMode = nI.mbetur <= 5 && nI.mbetur >= -2;
+            // Fix Silence Mode logic:
+            // 1. Up to 5 minutes BEFORE the next prayer
+            // 2. Up to 2 minutes AFTER the prayer that just started (tani)
+            const diffA = nI.ardhshëm ? neMinuta(nI.ardhshëm.kohe) - minTani : 999;
+            const diffT = nI.tani?.kohe ? minTani - neMinuta(nI.tani.kohe) : 999;
+
+            const isSilenceMode = (diffA <= 5 && diffA >= 0) || (diffT >= 0 && diffT <= 2);
 
             setInfoTani(prev => {
                 const updated = { ...nI, isSilenceMode };
@@ -402,6 +409,14 @@ export default function TvDisplay() {
                     </div>
                     <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
                 </main>
+
+                <footer className="mt-4 flex justify-center items-center opacity-60 px-8 shrink-0">
+                    <div className="bg-black/40 px-6 py-2 rounded-full border border-white/10 text-zinc-400 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-4 shadow-sm backdrop-blur-sm">
+                        <span>© {new Date().getFullYear()} - Zhvilluar nga: <span className="text-emerald-500">Rilind Kyçyku</span> | Xhemati i xhamisë së Dushkajës</span>
+                        <span className="w-1 h-1 bg-white/10 rounded-full" />
+                        <span className="text-zinc-600">www.rilindkycyku.dev | www.xhamiaedushkajes.org</span>
+                    </div>
+                </footer>
 
                 <SettingsModal
                     show={showSettings}

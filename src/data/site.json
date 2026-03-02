@@ -29,7 +29,8 @@
     "emriXhamis": "Xhamia e Dushkajës",
     "adresa": "Kaçanik",
     "qrUrl": "https://xhamiaedushkajes.org",
-    "showQr": true
+    "showQr": true,
+    "showSilenceWarning": true
   },
   "tvDurations": {
     "hadithRefresh": 45,
