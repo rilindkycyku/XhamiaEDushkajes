@@ -1,4 +1,3 @@
-
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
 import FacebookEmbed from "../components/FacebookEmbed";
@@ -6,7 +5,7 @@ import siteConfig from "../data/site.json";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { HiArrowRight, HiOutlineEnvelope, HiPhone } from "react-icons/hi2";
+import { HiArrowRight } from "react-icons/hi2";
 
 export default function Home() {
   const dataHapjes = new Date(siteConfig.home?.dataHapjes);

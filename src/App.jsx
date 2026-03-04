@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import KohetENamazitPerSot from "./pages/KohetENamazitPerSot";
 import DhuroPerXhamin from "./pages/DhuroPerXhamin";
 import TvDisplay from "./pages/TvDisplay";
+import GlobalQuranRadio from "./components/GlobalQuranRadio";
 import siteConfig from "./data/site.json";
 
 export default function App() {
@@ -45,6 +46,9 @@ export default function App() {
           <Route path="/tv" element={<TvDisplay />} />
         </Routes>
       </main>
+
+      {/* Global Quran Radio (Sound everywhere) */}
+      {!isTvPage && <GlobalQuranRadio />}
 
       {/* Footer hidden on TV subdomain */}
       {!isTvPage && <Footer />}
