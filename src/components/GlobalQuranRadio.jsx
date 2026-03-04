@@ -1,134 +1,159 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     HiPlay,
     HiPause,
-    HiSpeakerWave,
+    HiSpeakerWave
 } from 'react-icons/hi2';
 
-const QURAN_BACKUPS = [
-    'https://stream.radiojar.com/0tpy1h0kxtzuv', // Saudi Quran Radio (Safest)
-    'https://backup.qurango.net/radio/mix',       // Mix Quran Radio
-    'https://backup.qurango.net/radio/mishary_alafasi',
-    'https://backup.qurango.net/radio/ahmad_alajmy'
-];
+// ─── Permanent Yasser Al-Dosari Radio Stream ─────────────────────────────────
+const RADIO_URL = 'https://backup.qurango.net/radio/yasser_aldosari/;';
 
-// SINGLETON AUDIO INSTANCE (Guarantees only one sound ever)
+// ─── Singleton audio ─────────────────────────────────────────────────────────
 let globalAudio = null;
 if (typeof window !== 'undefined') {
     globalAudio = new Audio();
-    globalAudio.volume = 0.5;
-    globalAudio.preload = "auto";
-    globalAudio.src = QURAN_BACKUPS[0];
+    globalAudio.src = RADIO_URL;
+    globalAudio.volume = 0.7;
+    globalAudio.preload = 'none';
+    globalAudio.crossOrigin = 'anonymous';
 }
 
 export default function GlobalQuranRadio() {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const backupIndexRef = useRef(0);
+    const [showToast, setShowToast] = useState(false);
 
+    // ── Audio event wiring ────────────────────────────────────────────────────
     useEffect(() => {
         if (!globalAudio) return;
-
         const audio = globalAudio;
 
-        const handlePlay = () => setIsPlaying(true);
-        const handlePause = () => setIsPlaying(false);
-        const handleWaiting = () => setIsLoading(true);
-        const handlePlaying = () => {
+        const onPlay = () => {
+            setIsPlaying(true);
+            setIsLoading(false);
+        };
+        const onPause = () => setIsPlaying(false);
+        const onWaiting = () => setIsLoading(true);
+        const onPlaying = () => {
             setIsLoading(false);
             setIsPlaying(true);
         };
-
-        const handleError = (e) => {
-            console.warn("Stream issue, switching to backup...", e);
-            backupIndexRef.current = (backupIndexRef.current + 1) % QURAN_BACKUPS.length;
-            audio.src = QURAN_BACKUPS[backupIndexRef.current];
+        const onError = (e) => {
+            console.error("Radio Audio Error:", e);
+            setIsLoading(false);
+            setIsPlaying(false);
             audio.load();
-            if (isPlaying) {
-                audio.play().catch(err => console.error("Backup failed:", err));
-            }
+            audio.src = RADIO_URL;
         };
 
-        audio.addEventListener('playing', handlePlaying);
-        audio.addEventListener('waiting', handleWaiting);
-        audio.addEventListener('pause', handlePause);
-        audio.addEventListener('play', handlePlay);
-        audio.addEventListener('error', handleError);
+        audio.addEventListener('play', onPlay);
+        audio.addEventListener('pause', onPause);
+        audio.addEventListener('waiting', onWaiting);
+        audio.addEventListener('playing', onPlaying);
+        audio.addEventListener('error', onError);
 
-        // Sync initial state
         setIsPlaying(!audio.paused);
 
-        // One-time interaction listener to unlock audio if autoplay is blocked
-        const unlockAudio = () => {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    setShowNotification(true);
-                    setTimeout(() => setShowNotification(false), 5000);
-                }).catch(() => { });
-            }
-            window.removeEventListener('click', unlockAudio);
-        };
-        window.addEventListener('click', unlockAudio);
-
-        // Attempt autoplay immediately
-        audio.play().then(() => {
-            setShowNotification(true);
-            setTimeout(() => setShowNotification(false), 5000);
-        }).catch(() => {
-            console.log("Autoplay blocked - awaiting first click.");
-        });
-
         return () => {
-            audio.removeEventListener('playing', handlePlaying);
-            audio.removeEventListener('waiting', handleWaiting);
-            audio.removeEventListener('pause', handlePause);
-            audio.removeEventListener('play', handlePlay);
-            audio.removeEventListener('error', handleError);
-            window.removeEventListener('click', unlockAudio);
+            audio.removeEventListener('play', onPlay);
+            audio.removeEventListener('pause', onPause);
+            audio.removeEventListener('waiting', onWaiting);
+            audio.removeEventListener('playing', onPlaying);
+            audio.removeEventListener('error', onError);
         };
+    }, []);
+
+    // ── Autoplay Attempt ─────────────────────────────────────────────────────
+    useEffect(() => {
+        if (!globalAudio) return;
+
+        const startRadio = () => {
+            if (globalAudio.paused) {
+                togglePlay();
+            }
+            cleanup();
+        };
+
+        const cleanup = () => {
+            window.removeEventListener('mousedown', startRadio);
+            window.removeEventListener('touchstart', startRadio);
+            window.removeEventListener('keydown', startRadio);
+        };
+
+        // 1. Try immediate autoplay
+        globalAudio.play()
+            .then(() => {
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            })
+            .catch(() => {
+                // 2. If blocked, wait for ANY interaction
+                window.addEventListener('mousedown', startRadio);
+                window.addEventListener('touchstart', startRadio);
+                window.addEventListener('keydown', startRadio);
+            });
+
+        return cleanup;
     }, []);
 
     const togglePlay = () => {
         if (!globalAudio) return;
+
         if (globalAudio.paused) {
-            globalAudio.play().catch(e => console.error("Play failed:", e));
+            setIsLoading(true);
+            // Ensure src is set for live stream
+            if (!globalAudio.src || globalAudio.src === window.location.href) {
+                globalAudio.src = RADIO_URL;
+            }
+
+            globalAudio.play()
+                .then(() => {
+                    setShowToast(true);
+                    setTimeout(() => setShowToast(false), 3000);
+                })
+                .catch(err => {
+                    console.error("Play blocked or failed:", err);
+                    setIsLoading(false);
+                });
         } else {
             globalAudio.pause();
+            globalAudio.src = "";
+            globalAudio.load();
         }
     };
 
     return (
-        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-3 pointer-events-none">
+        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-3 pointer-events-none select-none">
+
+            {/* ── Toast Feedback ── */}
             <AnimatePresence>
-                {showNotification && (
+                {showToast && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                        className="bg-white/95 backdrop-blur-xl border border-emerald-100 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto"
+                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                        className="bg-white/90 backdrop-blur-md border border-emerald-100 px-4 py-2 rounded-full shadow-lg flex items-center gap-2 pointer-events-auto"
                     >
-                        <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white shrink-0">
-                            <HiSpeakerWave size={16} className="animate-pulse" />
-                        </div>
-                        <p className="text-xs font-bold text-slate-800">Kurani po luan në sfond...</p>
+                        <HiSpeakerWave className="text-emerald-500 animate-pulse" size={14} />
+                        <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">Radio Kuran: LIVE</span>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            <div className="flex flex-col items-end gap-2 pointer-events-auto">
+            {/* ── Main Toggle Button ── */}
+            <div className="pointer-events-auto">
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={togglePlay}
-                    className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-[0_10px_30px_rgba(16,185,129,0.3)] ${isPlaying
-                        ? 'bg-emerald-600 text-white ring-4 ring-emerald-100'
-                        : 'bg-white text-slate-400 border border-slate-100'
+                    className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl border-4 ${isPlaying
+                        ? 'bg-emerald-600 border-white text-white shadow-emerald-500/20'
+                        : 'bg-white border-slate-50 text-slate-400'
                         }`}
                 >
                     {isLoading ? (
-                        <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-3 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
                     ) : isPlaying ? (
                         <HiPause size={32} />
                     ) : (
@@ -136,14 +161,9 @@ export default function GlobalQuranRadio() {
                     )}
 
                     {isPlaying && (
-                        <div className="absolute -inset-2 rounded-full border-2 border-emerald-500/20 animate-ping pointer-events-none" />
+                        <div className="absolute -inset-4 rounded-full border-2 border-emerald-400/20 animate-ping pointer-events-none" />
                     )}
                 </motion.button>
-
-                <div className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full transition-all ${isPlaying ? 'bg-emerald-500/10 text-emerald-600' : 'bg-slate-100 text-slate-400'
-                    }`}>
-                    {isPlaying ? 'Live' : 'Dëgjo Kuranin'}
-                </div>
             </div>
         </div>
     );
