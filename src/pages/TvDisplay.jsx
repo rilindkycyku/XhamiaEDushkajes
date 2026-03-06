@@ -164,12 +164,24 @@ export default function TvDisplay() {
         let wakeLock = null;
         const requestWakeLock = async () => {
             try {
-                if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen');
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+
+                    // Listen for when the lock is released by the system
+                    wakeLock.addEventListener('release', () => {
+                        // Only re-request if the page is still visible
+                        if (document.visibilityState === 'visible') requestWakeLock();
+                    });
+                }
             } catch (err) { }
         };
+
         requestWakeLock();
+
+        // 1. Re-request if the screen becomes visible again (e.g. browser minimized/restored)
         const handleVisibility = () => { if (document.visibilityState === 'visible') requestWakeLock(); };
         document.addEventListener('visibilitychange', handleVisibility);
+
         return () => {
             document.removeEventListener('visibilitychange', handleVisibility);
             wakeLock?.release();
@@ -215,11 +227,10 @@ export default function TvDisplay() {
                     }
                 }
                 if (emri === "Dreka" && rreshti?.Dreka) {
-                    const [h, min] = rreshti.Dreka.split(":").map(Number);
-                    const adhanMinArr = h * 60 + min;
-                    const isF = sot.getDay() === 5;
-                    if (isF && adhanMinArr >= 12 * 60) return "12:55";
-                    return "11:55";
+                    const now = new Date();
+                    // Automatically switch between 12:55 (DST) and 11:55 (Standard Time)
+                    const isDST = now.getTimezoneOffset() < new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
+                    return isDST ? "12:55" : "11:55";
                 }
                 if (emri === "Jacia" && rreshti?.Jacia) {
                     if (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00") return site.ramazan.kohaTeravise;
@@ -357,7 +368,7 @@ export default function TvDisplay() {
 
     return (
         <div className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden">
-            <div className="tv-container bg-black text-white font-sans overflow-hidden flex flex-col p-8 select-none relative"
+            <div className="tv-container bg-black text-white font-sans overflow-hidden flex flex-col px-8 pt-1 pb-4 select-none relative"
                 style={{
                     width: '1920px',
                     height: '1080px',
@@ -373,9 +384,8 @@ export default function TvDisplay() {
                     @keyframes slide-up { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
                     .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
                     .bg-glow { border-radius: 50%; width: 60%; height: 60%; position: absolute; pointer-events: none; opacity: 0.15; transform: translateZ(0); will-change: opacity; }
-                    /* Optimized for TV performance: No shadows or filters for maximum stability */
-                    * { text-rendering: auto; transform: translateZ(0); backface-visibility: hidden; }
-                    .tv-container { -webkit-font-smoothing: antialiased; }
+                     /* Optimized for TV performance: Apply acceleration only to the main container */
+                     .tv-container { -webkit-font-smoothing: antialiased; transform: translateZ(0); backface-visibility: hidden; }
                 `}</style>
 
                 <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'strict' }}>
@@ -391,7 +401,7 @@ export default function TvDisplay() {
                     <HiCog className="text-4xl group-hover:rotate-90 transition-transform duration-500" />
                 </button>
 
-                <header className="grid grid-cols-3 items-center mb-8 shrink-0" style={{ contain: 'layout style' }}>
+                <header className="grid grid-cols-3 items-center mb-2 shrink-0" style={{ contain: 'layout style' }}>
                     <div className="flex flex-col gap-2">
                         <p className="text-zinc-400 text-4xl font-black tracking-widest uppercase truncate">{site.tvOptions?.adresa || "Kaçanik"}</p>
                         <p className="text-zinc-500 text-3xl font-bold tracking-wide">Imami: <span className="text-zinc-300">{site.global?.imam}</span></p>
@@ -402,19 +412,22 @@ export default function TvDisplay() {
                     <Clock />
                 </header>
 
-                <main className="flex-1 flex flex-col gap-6 min-h-0" style={{ contain: 'layout style paint' }}>
-                    <div className="flex-[1.2] grid grid-cols-2 gap-8 relative z-10 min-h-0">
+                <main className="flex-1 flex flex-col gap-4 min-h-0" style={{ contain: 'layout style paint' }}>
+                    <div className="flex-[1.4] grid grid-cols-2 gap-8 relative z-10 min-h-0">
                         <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
                         <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
                     </div>
                     <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
                 </main>
 
-                <footer className="mt-4 flex justify-center items-center opacity-60 px-8 shrink-0">
-                    <div className="bg-black/40 px-6 py-2 rounded-full border border-white/10 text-zinc-400 text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-4 shadow-sm backdrop-blur-sm">
-                        <span>© {new Date().getFullYear()} - Zhvilluar nga: <span className="text-emerald-500">Rilind Kyçyku</span> | Xhemati i xhamisë së Dushkajës</span>
-                        <span className="w-1 h-1 bg-white/10 rounded-full" />
-                        <span className="text-zinc-600">www.rilindkycyku.dev | www.xhamiaedushkajes.org</span>
+                <footer className="mt-2 px-8 shrink-0">
+                    <div className="w-full h-12 flex justify-between items-center bg-black/40 px-12 rounded-full border border-white/10 text-zinc-400 font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-sm">
+                        <div className="flex items-center gap-2 text-sm font-black">
+                            © {new Date().getFullYear()} - Zhvilluar nga: <span className="text-emerald-500">Rilind Kyçyku</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm opacity-80 font-black">
+                            <span>www.rilindkycyku.dev</span>
+                        </div>
                     </div>
                 </footer>
 

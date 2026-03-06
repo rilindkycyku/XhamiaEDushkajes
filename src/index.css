@@ -59,6 +59,11 @@ body::before {
   pointer-events: none;
 }
 
+/* Disable noise on TV for stability */
+body:has(.tv-container)::before {
+  display: none;
+}
+
 ::selection {
   @apply bg-emerald-100 text-emerald-900;
 }

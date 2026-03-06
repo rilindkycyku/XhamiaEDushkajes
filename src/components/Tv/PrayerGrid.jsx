@@ -14,7 +14,7 @@ const PrayerGrid = memo(function PrayerGrid({ listaNamazeve, vaktiSot, infoTani,
                         const isJumuah = isFriday && id === 'Dreka';
 
                         return (
-                            <div key={id} className={`flex flex-col rounded-[3rem] px-2 py-6 items-center justify-between border-2 transition-[background-color,border-color,transform,box-shadow] duration-500 relative overflow-hidden ${isCurrent ? 'bg-emerald-600 border-white/60 z-10 shadow-[0_0_50px_rgba(16,185,129,0.3)]' : isNext ? 'bg-zinc-800/80 border-emerald-500/50' : isJumuah ? 'bg-amber-900/20 border-amber-500/30' : 'bg-black/40 border-white/5'}`}>
+                            <div key={id} className={`flex flex-col rounded-[3rem] px-2 py-4 items-center justify-between border-2 transition-[background-color,border-color,transform,box-shadow] duration-500 relative overflow-hidden ${isCurrent ? 'bg-emerald-600 border-white/60 z-10 shadow-[0_0_50px_rgba(16,185,129,0.3)]' : isNext ? 'bg-zinc-800/80 border-emerald-500/50' : isJumuah ? 'bg-amber-900/20 border-amber-500/30' : 'bg-black/40 border-white/5'}`}>
                                 <div className="flex flex-col items-center gap-1">
                                     <div className={`text-3xl font-black uppercase tracking-[0.2em] text-center leading-tight ${isCurrent ? 'text-white' : isJumuah ? 'text-amber-400' : 'text-zinc-500'}`}>
                                         {label.split(' (')[0]}
@@ -22,7 +22,7 @@ const PrayerGrid = memo(function PrayerGrid({ listaNamazeve, vaktiSot, infoTani,
                                     {label.includes('(') && <div className={`text-base font-bold uppercase tracking-[0.2em] opacity-60 ${isCurrent ? 'text-white' : 'text-zinc-500'}`}>{label.split('(')[1].replace(')', '')}</div>}
                                 </div>
                                 <div className="flex flex-col items-center justify-center flex-1 py-1">
-                                    <div className={`text-5xl lg:text-[5.3rem] font-black font-mono whitespace-nowrap leading-none ${isCurrent ? 'text-white' : isJumuah ? 'text-amber-400' : 'text-white'}`}>
+                                    <div className={`text-5xl lg:text-[4.8rem] font-black font-mono whitespace-nowrap leading-none ${isCurrent ? 'text-white' : isJumuah ? 'text-amber-400' : 'text-white'}`}>
                                         {xh ? ne24hFn(xh) : "—"}
                                     </div>
                                 </div>
