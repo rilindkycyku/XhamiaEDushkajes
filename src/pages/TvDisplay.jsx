@@ -25,6 +25,9 @@ export default function TvDisplay() {
     const [displayMode, setDisplayMode] = useState('hadith');
     const [showSettings, setShowSettings] = useState(false);
     const [scale, setScale] = useState(1);
+    const [pixelShift, setPixelShift] = useState({ x: 0, y: 0 });
+    const [isNightDimmed, setIsNightDimmed] = useState(false);
+    const [nextHadith, setNextHadith] = useState(null);
 
     // Optimized Scaling Logic to fit any screen
     useEffect(() => {
@@ -61,6 +64,11 @@ export default function TvDisplay() {
 
         const showHadith = () => {
             setDisplayMode('hadith');
+            // Seamless Hadith Refresh: If we have a queued hadith, swap it now while rotation is happening
+            if (nextHadith) {
+                setCurrentHadith(nextHadith);
+                setNextHadith(null);
+            }
             // If there's a priority message, show hadith for less time to rotate faster
             const duration = customMsg ? Math.min(durations.hadith, 30000) : durations.hadith;
             timeoutId = setTimeout(showQR, duration);
@@ -100,17 +108,42 @@ export default function TvDisplay() {
         return () => clearTimeout(timeoutId);
     }, [vaktiSot, customMsg, durations]);
 
-    // --- HADITH REFRESH LOGIC ---
+    // --- HADITH REFRESH LOGIC (Optimized) ---
     useEffect(() => {
         const refreshMin = site.tvDurations?.hadithRefresh || 60;
         const pickHadith = () => {
             if (haditheData.a?.length) {
                 const randomIdx = Math.floor(Math.random() * haditheData.a.length);
-                setCurrentHadith(haditheData.a[randomIdx]);
+                const chosen = haditheData.a[randomIdx];
+                // Instead of setting it immediately, we queue it
+                setNextHadith(prev => (!currentHadith ? null : chosen));
+                if (!currentHadith) setCurrentHadith(chosen);
             }
         };
         pickHadith();
         const interval = setInterval(pickHadith, refreshMin * 60000);
+        return () => clearInterval(interval);
+    }, [currentHadith]);
+
+    // --- BURN-IN PROTECTION & ENERGY SAVING ---
+    useEffect(() => {
+        const updateStability = () => {
+            const now = new Date();
+            const hour = now.getHours();
+
+            // 1. Pixel Shift: Moves the entire layout by 1-2 pixels every minute 
+            // to prevent OLED/Plasma burn-in on static elements.
+            setPixelShift({
+                x: Math.floor(Math.random() * 3) - 1,
+                y: Math.floor(Math.random() * 3) - 1
+            });
+
+            // 2. Night Dimming: Dims the UI significantly between 23:00 and 04:00
+            setIsNightDimmed(hour >= 23 || hour < 4);
+        };
+
+        updateStability();
+        const interval = setInterval(updateStability, 60000); // Shift every minute
         return () => clearInterval(interval);
     }, []);
 
@@ -122,38 +155,34 @@ export default function TvDisplay() {
 
         const scheduleReload = () => {
             const now = new Date();
-            const target = new Date();
+            const nightTarget = new Date();
+            const morningTarget = new Date();
 
-            // 1. Randomly picks a time between 1:00 AM and 3:59 AM to stagger server load
-            const randomHour = Math.floor(Math.random() * 3) + 1;
-            const randomMinute = Math.floor(Math.random() * 60);
+            // 1. Night Reload (01:00 - 03:59) - For memory/stability
+            nightTarget.setHours(Math.floor(Math.random() * 3) + 1, Math.floor(Math.random() * 60), 0, 0);
+            if (now > nightTarget) nightTarget.setDate(nightTarget.getDate() + 1);
 
-            target.setHours(randomHour, randomMinute, 0, 0);
+            // 2. Daytime Reload (10:00 - 17:00) - Random sync during daylight hours
+            morningTarget.setHours(Math.floor(Math.random() * 8) + 10, Math.floor(Math.random() * 60), 0, 0);
+            if (now > morningTarget) morningTarget.setDate(morningTarget.getDate() + 1);
 
-            // 2. If it is already past that time today, schedule for tomorrow
-            if (now > target) {
-                target.setDate(target.getDate() + 1);
-            }
+            // Pick whichever happens sooner
+            const nextTarget = nightTarget < morningTarget ? nightTarget : morningTarget;
+            const msUntilTrigger = nextTarget.getTime() - now.getTime();
 
-            const msUntilTrigger = target.getTime() - now.getTime();
-
-            // 3. Set timer for the reload
             timerId = setTimeout(() => {
-                // Only reload if the TV is connected to avoid "No Internet" screen
                 if (navigator.onLine) {
                     window.location.reload();
                 } else {
-                    // If offline, wait 30 mins and check again before reloading
                     retryTimerId = setTimeout(() => {
                         if (navigator.onLine) window.location.reload();
-                        else scheduleReload(); // Still offline? Try again next day (or loop)
+                        else scheduleReload();
                     }, 30 * 60000);
                 }
             }, msUntilTrigger);
         };
 
         scheduleReload();
-
         return () => {
             clearTimeout(timerId);
             clearTimeout(retryTimerId);
@@ -244,9 +273,22 @@ export default function TvDisplay() {
 
             PRAYER_KEYS.forEach(n => {
                 if (rreshti[n]) {
-                    moments.push({ id: n, kohe: rreshti[n], isXh: false });
                     const xh = xhemati_inner(n);
-                    if (xh) moments.push({ id: n, kohe: xh, isXh: true });
+
+                    // In Ramazan, skip the raw Jacia (Adhan) time to prioritize Teravia (if configured)
+                    const skipRawJacia = (n === "Jacia" && isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00");
+
+                    if (!skipRawJacia) {
+                        moments.push({ id: n, kohe: rreshti[n], isXh: false });
+                    }
+
+                    if (xh) {
+                        // Avoid adding duplicate entries if the xhemat time is identical to the vakti time
+                        // unless we skipped the raw time, in which case we definitely need the xhemat entry.
+                        if (xh !== rreshti[n] || skipRawJacia) {
+                            moments.push({ id: n, kohe: xh, isXh: true });
+                        }
+                    }
                 }
             });
 
@@ -372,10 +414,11 @@ export default function TvDisplay() {
                 style={{
                     width: '1920px',
                     height: '1080px',
-                    transform: `scale(${scale})`,
+                    transform: `scale(${scale}) translate(${pixelShift.x}px, ${pixelShift.y}px)`,
                     transformOrigin: 'center center',
                     flexShrink: 0,
-                    contain: 'strict'
+                    contain: 'strict',
+                    transition: 'transform 0.5s ease-out'
                 }}>
 
                 <style>{`
@@ -385,8 +428,12 @@ export default function TvDisplay() {
                     .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
                     .bg-glow { border-radius: 50%; width: 60%; height: 60%; position: absolute; pointer-events: none; opacity: 0.15; transform: translateZ(0); will-change: opacity; }
                      /* Optimized for TV performance: Apply acceleration only to the main container */
-                     .tv-container { -webkit-font-smoothing: antialiased; transform: translateZ(0); backface-visibility: hidden; }
+                     .tv-container { -webkit-font-smoothing: antialiased; transform: translateZ(0); backface-visibility: hidden; will-change: transform, opacity; }
+                     .next-prayer-box, .activity-box, .prayer-grid { will-change: transform; transform: translateZ(0); }
+                     .dimmed-overlay { pointer-events: none; position: fixed; inset: 0; background: black; transition: opacity 2s ease; z-index: 9999; }
                 `}</style>
+
+                {isNightDimmed && <div className="dimmed-overlay" style={{ opacity: 0.6 }} />}
 
                 <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'strict' }}>
                     <div className="bg-glow -top-[20%] -left-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
@@ -407,7 +454,12 @@ export default function TvDisplay() {
                         <p className="text-zinc-500 text-3xl font-bold tracking-wide">Imami: <span className="text-zinc-300">{site.global?.imam}</span></p>
                     </div>
                     <div className="text-center">
-                        <h1 className="text-7xl font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap">{site.tvOptions?.emriXhamis || "Xhamia e Dushkajës"}</h1>
+                        <h1 className={`font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap relative -left-8 ${(site.tvOptions?.emriXhamis).length > 25 ? 'text-5xl' :
+                            (site.tvOptions?.emriXhamis).length > 18 ? 'text-6xl' :
+                                'text-7xl'
+                            }`}>
+                            {site.tvOptions?.emriXhamis}
+                        </h1>
                     </div>
                     <Clock />
                 </header>
@@ -422,11 +474,11 @@ export default function TvDisplay() {
 
                 <footer className="mt-2 px-8 shrink-0">
                     <div className="w-full h-12 flex justify-between items-center bg-black/40 px-12 rounded-full border border-white/10 text-zinc-400 font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-sm">
-                        <div className="flex items-center gap-2 text-sm font-black">
+                        <div className="flex items-center gap-2 text-lg font-black">
                             © {new Date().getFullYear()} - Zhvilluar nga: <span className="text-emerald-500">Rilind Kyçyku</span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm opacity-80 font-black">
-                            <span>www.rilindkycyku.dev</span>
+                        <div className="flex items-center gap-4 text-lg font-black">
+                            <span className="text-emerald-500 uppercase tracking-wider">www.rilindkycyku.dev</span>
                         </div>
                     </div>
                 </footer>
