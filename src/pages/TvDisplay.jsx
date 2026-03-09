@@ -129,7 +129,7 @@ export default function TvDisplay() {
     useEffect(() => {
         const updateStability = () => {
             const now = new Date();
-            const hour = now.getHours();
+            const minTani = now.getHours() * 60 + now.getMinutes();
 
             // 1. Pixel Shift: Moves the entire layout by 1-2 pixels every minute 
             // to prevent OLED/Plasma burn-in on static elements.
@@ -138,14 +138,26 @@ export default function TvDisplay() {
                 y: Math.floor(Math.random() * 3) - 1
             });
 
-            // 2. Night Dimming: Dims the UI significantly between 23:00 and 04:00
-            setIsNightDimmed(hour >= 23 || hour < 4);
+            // 2. Night Dimming: Dims 30 minutes after Jacia/Teravia until 10m before Sabahu
+            let dimStart = 23 * 60;
+            let dimEnd = 4 * 60;
+
+            if (vaktiSot) {
+                const isR = site.ramazan?.active;
+                const jaciaTime = (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00")
+                    ? site.ramazan.kohaTeravise
+                    : vaktiSot.Jacia;
+                if (jaciaTime) dimStart = neMinuta(jaciaTime) + 30;
+                if (vaktiSot.Sabahu) dimEnd = neMinuta(vaktiSot.Sabahu) - 10;
+            }
+
+            setIsNightDimmed(minTani >= dimStart || minTani < dimEnd);
         };
 
         updateStability();
         const interval = setInterval(updateStability, 60000); // Shift every minute
         return () => clearInterval(interval);
-    }, []);
+    }, [vaktiSot]); // Update when prayer times for the day are loaded
 
     // --- MAINTENANCE & STABILITY (STAGGERED) ---
     // This effect ensures the TV browser reloads every night to prevent memory leaks and crashes.
@@ -474,10 +486,15 @@ export default function TvDisplay() {
 
                 <footer className="mt-2 px-8 shrink-0">
                     <div className="w-full h-12 flex justify-between items-center bg-black/40 px-12 rounded-full border border-white/10 text-zinc-400 font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-sm">
-                        <div className="flex items-center gap-2 text-lg font-black">
-                            © {new Date().getFullYear()} - Zhvilluar nga: <span className="text-emerald-500">Rilind Kyçyku</span>
+                        <div className="flex items-center gap-2 text-2xl font-black">
+                            © {new Date().getFullYear()} - <span className="text-emerald-500">Rilind Kyçyku</span>
                         </div>
-                        <div className="flex items-center gap-4 text-lg font-black">
+                        <div className="flex items-center gap-2 text-2xl font-black whitespace-nowrap">
+                            <span className="text-emerald-500">Mosque Screen TV</span>
+                            <span className="text-zinc-600 mx-4">•</span>
+                            <span className="text-emerald-500 tracking-wider">www.tv.rilindkycyku.dev</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-2xl font-black">
                             <span className="text-emerald-500 uppercase tracking-wider">www.rilindkycyku.dev</span>
                         </div>
                     </div>
