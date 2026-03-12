@@ -22,19 +22,25 @@ const Clock = memo(function Clock() {
 
     const hijriDate = useMemo(() => {
         try {
-            const adjustedDate = new Date(currentTime);
-            adjustedDate.setDate(adjustedDate.getDate() - 1);
-            let parts;
-            try {
-                parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(adjustedDate);
-            } catch (e) {
-                parts = new Intl.DateTimeFormat('en-u-ca-islamic', { day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(adjustedDate);
-            }
-            const d = parts.find(p => p.type === 'day')?.value;
-            const m = parts.find(p => p.type === 'month')?.value;
-            let y = parts.find(p => p.type === 'year')?.value?.replace(/[^0-9]/g, '');
+            const getParts = (date) => {
+                const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+                try {
+                    return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { ...options }).formatToParts(date);
+                } catch (e) {
+                    return new Intl.DateTimeFormat('en-u-ca-islamic', { ...options }).formatToParts(date);
+                }
+            };
+
+            const parts = getParts(currentTime);
+            const rawDay = parseInt(parts.find(p => p.type === 'day')?.value);
+            const rawMonth = parseInt(parts.find(p => p.type === 'month')?.value);
+            const year = parts.find(p => p.type === 'year')?.value?.replace(/[^0-9]/g, '');
+
+            // Regional adjustment: Apply -1 day offset only inside Ramadan (month 9) and not on day 1
+            const displayDay = (rawMonth === 9 && rawDay > 1) ? rawDay - 1 : rawDay;
+
             const monthNames = ["Muharrem", "Safer", "Rebiul Evel", "Rebiul Ahir", "Xhumadel Ula", "Xhumadel Ahire", "Rexhep", "Shaban", "Ramazan", "Sheval", "Dhul Kade", "Dhul Hixhe"];
-            return `${d} ${monthNames[parseInt(m) - 1]} ${y}`;
+            return `${displayDay} ${monthNames[rawMonth - 1]} ${year}`;
         } catch (e) { return ""; }
     }, [currentTime.getDate(), currentTime.getMonth(), currentTime.getFullYear()]);
 
