@@ -25,7 +25,6 @@ export default function TvDisplay() {
     const [displayMode, setDisplayMode] = useState('hadith');
     const [showSettings, setShowSettings] = useState(false);
     const [scale, setScale] = useState(1);
-    const [pixelShift, setPixelShift] = useState({ x: 0, y: 0 });
     const [isNightDimmed, setIsNightDimmed] = useState(false);
     const [nextHadith, setNextHadith] = useState(null);
 
@@ -108,37 +107,28 @@ export default function TvDisplay() {
         return () => clearTimeout(timeoutId);
     }, [vaktiSot, customMsg, durations]);
 
-    // --- HADITH REFRESH LOGIC (Optimized) ---
+    // --- HADITH REFRESH LOGIC ---
     useEffect(() => {
         const refreshMin = site.tvDurations?.hadithRefresh || 60;
         const pickHadith = () => {
             if (haditheData.a?.length) {
-                const randomIdx = Math.floor(Math.random() * haditheData.a.length);
-                const chosen = haditheData.a[randomIdx];
-                // Instead of setting it immediately, we queue it
-                setNextHadith(prev => (!currentHadith ? null : chosen));
-                if (!currentHadith) setCurrentHadith(chosen);
+                const chosen = haditheData.a[Math.floor(Math.random() * haditheData.a.length)];
+                setCurrentHadith(prev => prev ? (setNextHadith(chosen), prev) : chosen);
             }
         };
         pickHadith();
         const interval = setInterval(pickHadith, refreshMin * 60000);
         return () => clearInterval(interval);
-    }, [currentHadith]);
+    // Only re-run if refresh interval changes — not on every hadith change
+    }, []);
 
-    // --- BURN-IN PROTECTION & ENERGY SAVING ---
+    // --- BURN-IN PROTECTION: Night dimming only (pixel shift is a CSS animation in index.css) ---
     useEffect(() => {
-        const updateStability = () => {
+        const checkDim = () => {
             const now = new Date();
             const minTani = now.getHours() * 60 + now.getMinutes();
 
-            // 1. Pixel Shift: Moves the entire layout by 1-2 pixels every minute 
-            // to prevent OLED/Plasma burn-in on static elements.
-            setPixelShift({
-                x: Math.floor(Math.random() * 3) - 1,
-                y: Math.floor(Math.random() * 3) - 1
-            });
-
-            // 2. Night Dimming: Dims 30 minutes after Jacia/Teravia until 10m before Sabahu
+            // Night Dimming: dims 30 minutes after Jacia until 10m before Sabahu
             let dimStart = 23 * 60;
             let dimEnd = 4 * 60;
 
@@ -154,10 +144,10 @@ export default function TvDisplay() {
             setIsNightDimmed(minTani >= dimStart || minTani < dimEnd);
         };
 
-        updateStability();
-        const interval = setInterval(updateStability, 60000); // Shift every minute
+        checkDim();
+        const interval = setInterval(checkDim, 60000);
         return () => clearInterval(interval);
-    }, [vaktiSot]); // Update when prayer times for the day are loaded
+    }, [vaktiSot]);
 
     // --- MAINTENANCE & STABILITY (STAGGERED) ---
     // This effect ensures the TV browser reloads every night to prevent memory leaks and crashes.
@@ -426,24 +416,12 @@ export default function TvDisplay() {
                 style={{
                     width: '1920px',
                     height: '1080px',
-                    transform: `scale(${scale}) translate(${pixelShift.x}px, ${pixelShift.y}px)`,
+                    transform: `scale(${scale})`,
                     transformOrigin: 'center center',
                     flexShrink: 0,
-                    contain: 'strict',
-                    transition: 'transform 0.5s ease-out'
+                    contain: 'strict'
                 }}>
 
-                <style>{`
-                    body::before { display: none !important; }
-                    ::-webkit-scrollbar { display: none; }
-                    @keyframes slide-up { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-                    .animate-slide-up { animation: slide-up 0.4s ease-out forwards; }
-                    .bg-glow { border-radius: 50%; width: 60%; height: 60%; position: absolute; pointer-events: none; opacity: 0.15; transform: translateZ(0); will-change: opacity; }
-                     /* Optimized for TV performance: Apply acceleration only to the main container */
-                     .tv-container { -webkit-font-smoothing: antialiased; transform: translateZ(0); backface-visibility: hidden; will-change: transform, opacity; }
-                     .next-prayer-box, .activity-box, .prayer-grid { will-change: transform; transform: translateZ(0); }
-                     .dimmed-overlay { pointer-events: none; position: fixed; inset: 0; background: black; transition: opacity 2s ease; z-index: 9999; }
-                `}</style>
 
                 {isNightDimmed && <div className="dimmed-overlay" style={{ opacity: 0.6 }} />}
 
