@@ -20,8 +20,8 @@
     "adresa": "Lagjeja Dushkajë, Kaçanik"
   },
   "ramazan": {
-    "active": true,
-    "kohaTeravise": "20:00",
+    "active": false,
+    "kohaTeravise": "00:00",
     "mesazhiStart": "Urime muaji i shenjtë i Ramazanit!",
     "mesazhiEnd": "Agjërim të lehtë dhe të pranuar për të gjithë besimtarët!"
   },
