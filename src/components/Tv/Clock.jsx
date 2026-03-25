@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, memo } from 'react';
 
-const Clock = memo(function Clock() {
+const Clock = memo(function Clock({ mode }) {
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const Clock = memo(function Clock() {
         const days = ['E Diele', 'E Hëne', 'E Marte', 'E Mërkure', 'E Enjte', 'E Premte', 'E Shtune'];
         const months = ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'];
         return `${days[currentTime.getDay()]}, ${currentTime.getDate()} ${months[currentTime.getMonth()]} ${currentTime.getFullYear()}`;
-    }, [currentTime.getDate(), currentTime.getMonth(), currentTime.getFullYear()]);
+    }, [currentTime.getDay(), currentTime.getDate(), currentTime.getMonth(), currentTime.getFullYear()]);
 
     const hijriDate = useMemo(() => {
         try {
@@ -43,6 +43,23 @@ const Clock = memo(function Clock() {
             return `${displayDay} ${monthNames[rawMonth - 1]} ${year}`;
         } catch (e) { return ""; }
     }, [currentTime.getDate(), currentTime.getMonth(), currentTime.getFullYear()]);
+
+    if (mode === 'home_left') {
+        return (
+            <div className="flex flex-col items-start gap-1">
+                <span className="text-emerald-500 text-3xl font-black uppercase tracking-tight">{dateInfo}</span>
+                <span className="text-zinc-500 text-2xl font-bold uppercase tracking-tight opacity-70">{hijriDate}</span>
+            </div>
+        );
+    }
+
+    if (mode === 'home_right') {
+        return (
+            <div className="text-[7rem] font-black tabular-nums tracking-tighter leading-none text-white mr-4">
+                {timeFormatter.format(currentTime)}
+            </div>
+        );
+    }
 
     return (
         <div className="text-right flex flex-col items-end">

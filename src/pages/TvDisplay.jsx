@@ -225,7 +225,6 @@ export default function TvDisplay() {
             const key = e.key.toLowerCase();
             if (['s', 'm', 'enter', 'select'].includes(key)) setShowSettings(true);
             if (key === 'r') window.location.reload();
-            if (e.key === 'Escape') setShowSettings(false);
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
@@ -277,17 +276,21 @@ export default function TvDisplay() {
                 if (rreshti[n]) {
                     const xh = xhemati_inner(n);
 
+                    // LOGIC: Skip raw astronomical Dreka to prioritize the mosque fixed time (11:55/12:55)
+                    const skipRawDreka = (n === "Dreka");
+                    // LOGIC: Skip raw astronomical Sabahu (Imsak/Adhan target) to point the countdown directly to the congregation time
+                    const skipRawSabahu = (n === "Sabahu" && xh && xh !== rreshti[n]);
                     // In Ramazan, skip the raw Jacia (Adhan) time to prioritize Teravia (if configured)
                     const skipRawJacia = (n === "Jacia" && isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00");
 
-                    if (!skipRawJacia) {
+                    if (!skipRawDreka && !skipRawJacia && !skipRawSabahu) {
                         moments.push({ id: n, kohe: rreshti[n], isXh: false });
                     }
 
                     if (xh) {
                         // Avoid adding duplicate entries if the xhemat time is identical to the vakti time
                         // unless we skipped the raw time, in which case we definitely need the xhemat entry.
-                        if (xh !== rreshti[n] || skipRawJacia) {
+                        if (xh !== rreshti[n] || skipRawJacia || skipRawSabahu) {
                             moments.push({ id: n, kohe: xh, isXh: true });
                         }
                     }
@@ -310,7 +313,35 @@ export default function TvDisplay() {
 
             if (nIdx === -1) {
                 const neser = vaktet[vaktet.findIndex(v => v.Date === rreshti.Date) + 1] ?? vaktet[0];
-                nI = { tani: { id: "Jacia", label: getL("Jacia", false) }, ardhshëm: { id: "Sabahu", label: getL("Sabahu", false), kohe: neser.Sabahu, isXh: false }, mbetur: (24 * 60 - minTani) + neMinuta(neser.Sabahu) };
+                const isR = site.ramazan?.active;
+                const hasNN = isR && site.ramazan?.namazNate?.active;
+                
+                let tomId, tomK, isXh;
+                if (hasNN) {
+                    tomId = "NamazNate";
+                    tomK = site.ramazan?.namazNate?.koha || "00:30";
+                    isXh = true;
+                } else if (isR) {
+                    tomId = "Imsaku";
+                    tomK = neser.Imsaku;
+                    isXh = false;
+                } else {
+                    tomId = "Sabahu";
+                    isXh = true;
+                    if (neser.Lindja) {
+                        const [h, min] = neser.Lindja.split(":").map(Number);
+                        const total = h * 60 + min - 40;
+                        tomK = `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(((total % 60) + 60) % 60).padStart(2, "0")}`;
+                    } else {
+                        tomK = neser.Sabahu;
+                    }
+                }
+
+                nI = { 
+                    tani: { id: "Jacia", label: getL("Jacia", false) }, 
+                    ardhshëm: { id: tomId, label: getL(tomId, isXh), kohe: tomK, isXh: isXh }, 
+                    mbetur: (24 * 60 - minTani) + neMinuta(tomK) 
+                };
             } else if (nIdx === 0) {
                 const idxS = vaktet.findIndex(v => v.Date === rreshti.Date);
                 const dje = idxS > 0 ? vaktet[idxS - 1] : vaktet[vaktet.length - 1];
@@ -411,12 +442,15 @@ export default function TvDisplay() {
     );
 
     return (
-        <div className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden">
-            <div className="tv-container bg-black text-white font-sans overflow-hidden flex flex-col px-8 pt-1 pb-4 select-none relative"
+        <div className="fixed top-0 left-0 w-full h-full bg-black z-[50] overflow-hidden">
+            <div className="tv-container bg-black text-white font-sans overflow-hidden flex flex-col p-1 select-none"
                 style={{
                     width: '1920px',
                     height: '1080px',
-                    transform: `scale(${scale})`,
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: `translate(-50%, -50%) scale(${Math.max(0.01, scale)})`,
                     transformOrigin: 'center center',
                     flexShrink: 0,
                     contain: 'strict'
@@ -425,37 +459,46 @@ export default function TvDisplay() {
 
                 {isNightDimmed && <div className="dimmed-overlay" style={{ opacity: 0.6 }} />}
 
-                <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ contain: 'strict' }}>
-                    <div className="bg-glow -top-[20%] -left-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
-                    <div className="bg-glow -bottom-[20%] -right-[20%]" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
+                    <div className="absolute -top-[20%] -left-[20%] w-[60%] h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)', willChange: 'transform' }} />
+                    <div className="absolute -bottom-[20%] -right-[20%] w-[60%] h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)', willChange: 'transform' }} />
                 </div>
 
-                <button
-                    onClick={() => setShowSettings(true)}
-                    className="absolute top-4 right-4 z-[100] p-4 bg-white/5 hover:bg-emerald-600/20 rounded-full text-zinc-600 hover:text-emerald-400 border border-white/5 hover:border-emerald-500/30 transition-all cursor-pointer opacity-0 hover:opacity-100 group"
-                    title="Cilësimet"
-                >
-                    <HiCog className="text-4xl group-hover:rotate-90 transition-transform duration-500" />
-                </button>
+                <header className="mb-2 shrink-0 relative z-20">
+                    <div className="flex justify-between items-center w-full px-10">
+                        {/* Left Column: Location & Personnel */}
+                        <div className="flex flex-col gap-0 flex-1 min-w-0">
+                            <p className="text-zinc-500 text-4xl font-black tracking-wider uppercase whitespace-nowrap overflow-visible">{site.tvOptions?.adresa || "Kaçanik"}</p>
+                            <p className="text-zinc-600 text-2xl font-bold tracking-tight uppercase">
+                                Imami: <span className="text-zinc-400 font-black">{site.global?.imam}</span>
+                            </p>
 
-                <header className="grid grid-cols-3 items-center mb-2 shrink-0" style={{ contain: 'layout style' }}>
-                    <div className="flex flex-col gap-2">
-                        <p className="text-zinc-400 text-4xl font-black tracking-widest uppercase truncate">{site.tvOptions?.adresa || "Kaçanik"}</p>
-                        <p className="text-zinc-500 text-3xl font-bold tracking-wide">Imami: <span className="text-zinc-300">{site.global?.imam}</span></p>
+                            <button
+                                onClick={() => setShowSettings(true)}
+                                className="flex items-center gap-4 px-8 py-3 w-fit rounded-[1.5rem] bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 transition-all duration-500 group mt-1 shadow-2xl backdrop-blur-xl -ml-2"
+                            >
+                                <HiCog className="text-4xl text-zinc-600 group-hover:text-emerald-400 group-hover:rotate-180 transition-all duration-700" />
+                                <span className="text-xl font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-emerald-400">Konfiguro</span>
+                            </button>
+                        </div>
+
+                        {/* Center Column: Mosque Brand */}
+                        <div className="flex-[2] flex justify-center px-0">
+                            <h1 className={`font-black text-emerald-500 tracking-tighter uppercase text-center leading-[0.8] whitespace-nowrap ${(site.tvOptions?.emriXhamis || "").length > 20 ? 'text-5xl' : 'text-7xl'
+                                }`}>
+                                {site.tvOptions?.emriXhamis}
+                            </h1>
+                        </div>
+
+                        {/* Right Column: Time & Calendar */}
+                        <div className="flex-1 flex justify-end">
+                            <Clock />
+                        </div>
                     </div>
-                    <div className="text-center">
-                        <h1 className={`font-black text-emerald-400 tracking-tighter uppercase whitespace-nowrap relative -left-8 ${(site.tvOptions?.emriXhamis).length > 25 ? 'text-5xl' :
-                            (site.tvOptions?.emriXhamis).length > 18 ? 'text-6xl' :
-                                'text-7xl'
-                            }`}>
-                            {site.tvOptions?.emriXhamis}
-                        </h1>
-                    </div>
-                    <Clock />
                 </header>
 
-                <main className="flex-1 flex flex-col gap-4 min-h-0" style={{ contain: 'layout style paint' }}>
-                    <div className="flex-[1.4] grid grid-cols-2 gap-8 relative z-10 min-h-0">
+                <main className="flex-1 flex flex-col gap-2 min-h-0" style={{ contain: 'layout style paint' }}>
+                    <div className="flex-[1.4] grid grid-cols-2 gap-2 relative z-10 min-h-0">
                         <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
                         <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
                     </div>

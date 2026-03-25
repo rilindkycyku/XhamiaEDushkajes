@@ -1,8 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HiX, HiCheck, HiChatAlt2, HiTrash } from "react-icons/hi";
 
 export default function SettingsModal({ show, customMsg, onClose, onSave }) {
     const [tempMsg, setTempMsg] = useState(customMsg || "");
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                e.stopPropagation();
+                onSave(tempMsg);
+            }
+        };
+        if (show) window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [show, tempMsg, onSave]);
 
     if (!show) return null;
 
@@ -19,7 +30,7 @@ export default function SettingsModal({ show, customMsg, onClose, onSave }) {
                             <p className="text-zinc-500 text-2xl mt-1 font-medium italic opacity-70 tracking-wide">Shtoni një njoftim live në ekran (p.sh. për ligjërata, programe, etj)</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-5 hover:bg-white/10 rounded-full transition-all text-zinc-500 hover:text-white active:scale-90">
+                    <button onClick={() => onSave(tempMsg)} className="p-5 hover:bg-white/10 rounded-full transition-all text-zinc-500 hover:text-white active:scale-90">
                         <HiX className="text-6xl" />
                     </button>
                 </header>
