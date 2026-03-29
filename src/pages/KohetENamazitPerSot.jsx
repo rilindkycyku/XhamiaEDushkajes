@@ -144,10 +144,10 @@ export default function KohetENamazitPerSot() {
 
     if (emri === "Jacia" && todayData?.Jacia) {
       if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
-      return vaktiSot.Jacia;
+      return todayData.Jacia;
     }
     
-    return vaktiSot?.[emri] ?? null;
+    return todayData?.[emri] ?? null;
   };
 
 
