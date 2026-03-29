@@ -117,31 +117,39 @@ export default function KohetENamazitPerSot() {
     return `${parseInt(d, 10)} ${emriMuajit}`;
   };
 
-  const xhemati = (emri) => {
+    const xhemati = (emri) => {
     if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
-    if (emri === "Sabahu" && todayData) {
-      if (site.ramazan?.active) return todayData.Sabahu;
-      if (todayData.Lindja) {
-        const [h, m] = todayData.Lindja.split(":").map(Number);
+
+    if (emri === "Sabahu" && vaktiSot) {
+      if (site.ramazan?.active) return vaktiSot.Sabahu;
+      if (vaktiSot.Lindja) {
+        const [h, m] = vaktiSot.Lindja.split(":").map(Number);
         const total = h * 60 + m - 40;
         const o = Math.floor(total / 60);
         const min = ((total % 60) + 60) % 60;
         return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
       }
     }
-    if (emri === "Dreka" && todayData?.Dreka) {
-      const isFri = selectedDate.getDay() === 5;
-      const [h, m] = todayData.Dreka.split(":").map(Number);
-      const minAdhan = h * 60 + m;
-      if (isFri && minAdhan >= 12 * 60) return "12:55";
-      return "11:55";
+
+    if (emri === "Dreka" && vaktiSot?.Dreka) {
+      // BASE ON JSON: Extract the hour from the JSON 'Dreka' time
+      const [oraDrekes] = vaktiSot.Dreka.split(":").map(Number);
+      
+      // If Dreka in JSON is 12:xx or 13:xx, it is Summer Time.
+      // If Dreka in JSON is 11:xx, it is Winter Time.
+      const isSummerTime = oraDrekes >= 12;
+
+      return isSummerTime ? "12:55" : "11:55";
     }
-    if (emri === "Jacia" && todayData?.Jacia) {
+
+    if (emri === "Jacia" && vaktiSot?.Jacia) {
       if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
-      return todayData.Jacia;
+      return vaktiSot.Jacia;
     }
-    return todayData?.[emri] ?? null;
+    
+    return vaktiSot?.[emri] ?? null;
   };
+
 
   const buildMoments = useCallback(() => {
     if (!todayData) return [];
