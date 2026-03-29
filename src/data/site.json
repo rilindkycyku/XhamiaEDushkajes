@@ -30,7 +30,8 @@
     "adresa": "Kaçanik",
     "qrUrl": "https://xhamiaedushkajes.org",
     "showQr": true,
-    "showSilenceWarning": true
+    "showSilenceWarning": true,
+    "showFooter": true
   },
   "tvDurations": {
     "hadithRefresh": 45,

@@ -48,12 +48,12 @@ export default function TvDisplay() {
 
     // Optimized Duration Calculator
     const durations = useMemo(() => {
-        const raw = site.tvDurations || { hadith: 2, qr: 1, notification: 10, announcement: 1 };
+        const d = site.tvDurations || {};
         return {
-            hadith: raw.hadith * 60000,
-            qr: raw.qr * 60000,
-            notification: raw.notification * 60000,
-            announcement: raw.announcement * 60000
+            hadith: (d.hadith ?? 5) * 60000,
+            qr: (d.qr ?? 1) * 60000,
+            notification: (d.notification ?? 10) * 60000,
+            announcement: (d.announcement ?? 1) * 60000
         };
     }, []);
 
@@ -109,7 +109,7 @@ export default function TvDisplay() {
 
     // --- HADITH REFRESH LOGIC ---
     useEffect(() => {
-        const refreshMin = site.tvDurations?.hadithRefresh || 60;
+        const refreshMin = site.tvDurations?.hadithRefresh ?? 45;
         const pickHadith = () => {
             if (haditheData.a?.length) {
                 const chosen = haditheData.a[Math.floor(Math.random() * haditheData.a.length)];
@@ -505,21 +505,6 @@ export default function TvDisplay() {
                     <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
                 </main>
 
-                <footer className="mt-2 px-8 shrink-0">
-                    <div className="w-full h-12 flex justify-between items-center bg-black/40 px-12 rounded-full border border-white/10 text-zinc-400 font-bold uppercase tracking-[0.2em] shadow-sm backdrop-blur-sm">
-                        <div className="flex items-center gap-2 text-2xl font-black">
-                            © {new Date().getFullYear()} - <span className="text-emerald-500">Rilind Kyçyku</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-2xl font-black whitespace-nowrap">
-                            <span className="text-emerald-500">Mosque Screen TV</span>
-                            <span className="text-zinc-600 mx-4">•</span>
-                            <span className="text-emerald-500 tracking-wider">www.tv.rilindkycyku.dev</span>
-                        </div>
-                        <div className="flex items-center gap-4 text-2xl font-black">
-                            <span className="text-emerald-500 uppercase tracking-wider">www.rilindkycyku.dev</span>
-                        </div>
-                    </div>
-                </footer>
 
                 <SettingsModal
                     show={showSettings}
