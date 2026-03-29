@@ -54,8 +54,9 @@ export default function PrayerTimes() {
     return `${d} ${emriMuajit}`;
   };
 
-  const xhemati = (emri) => {
+    const xhemati = (emri) => {
     if (!["Sabahu", "Dreka", "Ikindia", "Akshami", "Jacia"].includes(emri)) return null;
+
     if (emri === "Sabahu" && vaktiSot) {
       if (site.ramazan?.active) return vaktiSot.Sabahu;
       if (vaktiSot.Lindja) {
@@ -66,19 +67,26 @@ export default function PrayerTimes() {
         return `${String(o).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
       }
     }
+
     if (emri === "Dreka" && vaktiSot?.Dreka) {
-      const eshteXhuma = new Date().getDay() === 5;
-      const [h, m] = vaktiSot.Dreka.split(":").map(Number);
-      const minAdhan = h * 60 + m;
-      if (eshteXhuma && minAdhan >= 12 * 60) return "12:55";
-      return "11:55";
+      // BASE ON JSON: Extract the hour from the JSON 'Dreka' time
+      const [oraDrekes] = vaktiSot.Dreka.split(":").map(Number);
+      
+      // If Dreka in JSON is 12:xx or 13:xx, it is Summer Time.
+      // If Dreka in JSON is 11:xx, it is Winter Time.
+      const isSummerTime = oraDrekes >= 12;
+
+      return isSummerTime ? "12:55" : "11:55";
     }
+
     if (emri === "Jacia" && vaktiSot?.Jacia) {
       if (site.ramazan?.active && site.ramazan?.kohaTeravise) return site.ramazan?.kohaTeravise;
       return vaktiSot.Jacia;
     }
+    
     return vaktiSot?.[emri] ?? null;
   };
+
 
   const buildMoments = useCallback(() => {
     if (!vaktiSot) return [];
