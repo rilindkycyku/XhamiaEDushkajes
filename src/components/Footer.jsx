@@ -109,7 +109,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-slate-500 text-sm font-bold tracking-wide">
-            © {year} — Zhvilluar me përkushtim nga Xhemati i Xhamisë së Dushkajës.
+            © {year} - Zhvilluar me përkushtim nga Xhemati i Xhamisë së Dushkajës.
           </p>
         </div>
       </div>

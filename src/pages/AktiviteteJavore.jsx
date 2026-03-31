@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import aktivitete from "../data/aktivitetejavore.json";
-import YouTubeChannelEmbed from "../components/YouTubeChannelEmbed";
+const YouTubeChannelEmbed = lazy(() => import("../components/YouTubeChannelEmbed"));
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import { HiOutlineClock, HiOutlineMapPin, HiOutlineVideoCamera, HiSparkles, HiOutlineChevronDown } from "react-icons/hi2";
@@ -56,12 +56,11 @@ export default function AktiviteteJavore() {
         <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-6 md:mb-8 border border-emerald-100 shadow-sm font-sans">
           <HiSparkles className="text-emerald-500 animate-pulse" /> Përfshiu në Mirësi
         </motion.div>
-        <motion.h1
-          variants={itemVariants}
-          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-6 md:mb-8 leading-[1.05] tracking-tighter"
+        <h1
+          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-950 mb-6 md:mb-8 leading-[1.05] tracking-tighter animate-fade-in-up"
         >
           Aktivitetet <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-800">Javore</span>
-        </motion.h1>
+        </h1>
         <motion.p variants={itemVariants} className="text-lg md:text-2xl text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto px-2">
           Zbuloni programin tonë dinamik të ligjëratave, kurseve dhe aktiviteteve që organizohen rregullisht në xhaminë tonë.
         </motion.p>
@@ -92,9 +91,9 @@ export default function AktiviteteJavore() {
             </div>
 
             <div className="p-10 flex-1 flex flex-col">
-              <h3 className="text-2xl font-black text-slate-950 mb-6 leading-tight group-hover:text-emerald-700 transition-colors">
+              <h2 className="text-2xl font-black text-slate-950 mb-6 leading-tight group-hover:text-emerald-700 transition-colors">
                 {akt.titulli}
-              </h3>
+              </h2>
 
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-4 text-slate-500 font-bold text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
@@ -132,7 +131,9 @@ export default function AktiviteteJavore() {
 
             <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] border border-white/10 p-4 md:p-10 w-full shadow-2xl">
               <div className="aspect-video w-full rounded-[2rem] overflow-hidden bg-slate-900 shadow-2xl border-4 border-white/5">
-                <YouTubeChannelEmbed />
+                <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-white/50 animate-pulse">Duke u ngarkuar...</div>}>
+                  <YouTubeChannelEmbed />
+                </Suspense>
               </div>
             </div>
           </div>

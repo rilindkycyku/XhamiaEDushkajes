@@ -67,7 +67,7 @@ export default function VideoGallery() {
             key={`ambient-${videot[indeksi]}`}
             src={videot[indeksi]}
             className="w-full h-full object-cover"
-            muted loop autoPlay playsInline
+            muted loop autoPlay playsInline preload="none"
           />
         </div>
 
@@ -97,6 +97,7 @@ export default function VideoGallery() {
           autoPlay={isLuo}
           muted={isMuted}
           loop playsInline
+          preload="none"
           onLoadedData={() => setLoading(false)}
           onError={() => { setLoading(false); setError(true); }}
         />
@@ -108,10 +109,10 @@ export default function VideoGallery() {
         </div>
 
         <div className="absolute top-4 right-4 md:top-8 md:right-8 flex gap-2 md:gap-3 z-20">
-          <button onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-white/10 transition-all">
+          <button aria-label={isMuted ? "Aktivizo Zërin" : "Ndalo Zërin"} onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-white/10 transition-all">
             {isMuted ? <HiSpeakerXMark size={16} md:size={18} /> : <HiSpeakerWave size={16} md:size={18} />}
           </button>
-          <button onClick={(e) => { e.stopPropagation(); setIsFS(true); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all">
+          <button aria-label="Zmadho" onClick={(e) => { e.stopPropagation(); setIsFS(true); }} className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all">
             <HiArrowsPointingOut size={16} md:size={18} />
           </button>
         </div>
@@ -122,6 +123,7 @@ export default function VideoGallery() {
         <div className="flex-1 w-full bg-white rounded-2xl md:rounded-[3rem] p-2 md:p-4 shadow-xl border border-slate-100 flex items-center gap-3 md:gap-6">
           <button
             onClick={() => setIsLuo(!isLuo)}
+            aria-label={isLuo ? "Ndalo Videon" : "Luaj Videon"}
             className="w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.8rem] bg-slate-50 text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm"
           >
             {isLuo ? <HiPause size={20} md:size={24} /> : <HiPlay size={20} md:size={24} className="translate-x-0.5" />}
@@ -134,8 +136,8 @@ export default function VideoGallery() {
 
           {videot.length > 1 && (
             <div className="flex items-center gap-2">
-              <button onClick={para} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronLeft size={16} md:size={18} /></button>
-              <button onClick={pas} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronRight size={16} md:size={18} /></button>
+              <button aria-label="Video Paraprake" onClick={para} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronLeft size={16} md:size={18} /></button>
+              <button aria-label="Video e Radhës" onClick={pas} className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 text-slate-900 hover:bg-emerald-600 hover:text-white transition-all"><HiChevronRight size={16} md:size={18} /></button>
             </div>
           )}
         </div>
@@ -145,11 +147,12 @@ export default function VideoGallery() {
             {videot.map((src, i) => (
               <button
                 key={src}
+                aria-label={`Video ${i + 1}`}
                 onClick={() => shko(i)}
                 className={`relative flex-shrink-0 w-20 md:w-28 aspect-video rounded-2xl overflow-hidden border-2 transition-all ${i === indeksi ? "border-emerald-500 scale-105" : "border-slate-100 opacity-40 hover:opacity-100"
                   }`}
               >
-                <video src={src} className="w-full h-full object-cover" muted preload="metadata" />
+                <video src={src} className="w-full h-full object-cover" muted preload="none" />
               </button>
             ))}
           </div>
@@ -167,7 +170,7 @@ export default function VideoGallery() {
             <div className="absolute inset-0 blur-[100px] opacity-30 saturate-[1.5]">
               <video src={videot[indeksi]} className="w-full h-full object-cover" autoPlay muted loop playsInline />
             </div>
-            <button className="absolute top-10 right-10 w-16 h-16 rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50"><HiXMark size={32} /></button>
+            <button aria-label="Mbyll Zmadhimin" onClick={() => setIsFS(false)} className="absolute top-10 right-10 w-16 h-16 rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50"><HiXMark size={32} /></button>
 
             <motion.video
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}

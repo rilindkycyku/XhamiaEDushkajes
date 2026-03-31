@@ -1,7 +1,7 @@
 // src/components/Hero.jsx
 import siteConfig from "../data/site.json";
 import { motion } from "framer-motion";
-import xhamiaImage from "../assets/img/xhamia/A-XhamiaJasht.jpg";
+import xhamiaImage from "../assets/img/xhamia/A-XhamiaJasht.webp";
 
 export default function Hero() {
   const logo = siteConfig.global?.logo || "/assets/logo.png";
@@ -10,13 +10,12 @@ export default function Hero() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Enhanced Overlays */}
       <div className="absolute inset-0 z-0">
-        <motion.img
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1.05 }}
-          transition={{ duration: 10, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+        <img
           src={xhamiaImage}
           alt="Xhamia e Dushkajës"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover animate-hero-zoom"
+          fetchPriority="high"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/40 to-slate-950/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/20 to-transparent" />
@@ -42,6 +41,8 @@ export default function Hero() {
               <img
                 src={logo}
                 alt={siteConfig.global?.emriXhamis}
+                width="200"
+                height="200"
                 className="w-full h-full object-contain relative z-10 p-2 drop-shadow-sm transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnL3N2ZyI+PHRleHQgeD0iMTAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+0KHVv9C40YLSvtC70L3QuNC1PC90ZXh0Pjwvc3ZnPg==";

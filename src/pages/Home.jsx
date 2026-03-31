@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
-import FacebookEmbed from "../components/FacebookEmbed";
+import { lazy, Suspense } from "react";
+const FacebookEmbed = lazy(() => import("../components/FacebookEmbed"));
 import siteConfig from "../data/site.json";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
@@ -75,10 +76,10 @@ export default function Home() {
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         Historia Jonë
                       </div>
-                      <h3 className="text-3xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
+                      <h2 className="text-3xl md:text-6xl font-bold mb-6 leading-[1.1] tracking-tight">
                         {viteTeShfaqura} {viteTeShfaqura === 1 ? "Vit" : "Vite"} Dritë, <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">Dije & Bamirësi</span>
-                      </h3>
+                      </h2>
                       <p className="text-lg md:text-xl text-emerald-100/70 font-medium mb-8 md:mb-10 max-w-xl">
                         Duke shërbyer komunitetin me përkushtim që nga {formatoDaten(dataHapjes)}.
                       </p>
@@ -125,7 +126,9 @@ export default function Home() {
                 </a>
               </div>
               <div className="rounded-xl md:rounded-[2rem] overflow-hidden border border-slate-100 bg-slate-50/50 p-2 md:p-4">
-                <FacebookEmbed />
+                <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-400">Duke u ngarkuar...</div>}>
+                  <FacebookEmbed />
+                </Suspense>
               </div>
             </motion.section>
           </div>

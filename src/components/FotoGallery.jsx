@@ -80,6 +80,11 @@ export default function FotoGallery() {
                 src={fotot[indeksi]}
                 className="max-w-full max-h-full object-contain rounded-xl md:rounded-[1.5rem] shadow-2xl"
                 alt="Gallery"
+                width="800"
+                height="600"
+                loading="lazy"
+                decoding="async"
+                fetchPriority={indeksi === 0 ? "high" : "auto"}
               />
             </motion.div>
           </motion.div>
@@ -93,6 +98,7 @@ export default function FotoGallery() {
 
         <button
           onClick={(e) => { e.stopPropagation(); setIsFS(true); }}
+          aria-label="Zmadho"
           className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 text-white flex items-center justify-center hover:bg-emerald-600 transition-all z-20"
         >
           <HiArrowsPointingOut size={16} md:size={20} />
@@ -100,10 +106,10 @@ export default function FotoGallery() {
 
         {/* Desktop Side Controls */}
         <div className="absolute inset-y-0 left-0 w-20 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
-          <button onClick={(e) => { e.stopPropagation(); para(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronLeft size={24} /></button>
+          <button aria-label="Foto Paraprake" onClick={(e) => { e.stopPropagation(); para(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronLeft size={24} /></button>
         </div>
         <div className="absolute inset-y-0 right-0 w-20 hidden md:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
-          <button onClick={(e) => { e.stopPropagation(); pas(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronRight size={24} /></button>
+          <button aria-label="Foto e Radhës" onClick={(e) => { e.stopPropagation(); pas(); }} className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl text-white flex items-center justify-center hover:bg-emerald-500 transition-all"><HiChevronRight size={24} /></button>
         </div>
       </div>
 
@@ -111,6 +117,7 @@ export default function FotoGallery() {
       <div className="w-full bg-white rounded-2xl md:rounded-[3rem] p-2 md:p-4 shadow-xl border border-slate-100 flex items-center gap-3 md:gap-6">
         <button
           onClick={() => setLuaj(!luaj)}
+          aria-label={luaj ? "Ndalo Sllajdin" : "Luaj Sllajdin"}
           className={`w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.8rem] flex items-center justify-center transition-all ${luaj ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}
         >
           {luaj ? <HiPause size={20} md:size={24} /> : <HiPlay size={20} md:size={24} />}
@@ -121,6 +128,7 @@ export default function FotoGallery() {
             <button
               key={i}
               onClick={() => shko(i)}
+              aria-label={`Shko tek foto ${i + 1}`}
               className={`relative h-1 md:h-1.5 min-w-[8px] md:min-w-[12px] rounded-full transition-all duration-700 ${i === indeksi ? "flex-grow bg-emerald-500" : "w-1 md:w-1.5 bg-slate-100 hover:bg-slate-200"
                 }`}
             />
@@ -128,8 +136,8 @@ export default function FotoGallery() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <button onClick={para} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronLeft size={18} /></button>
-          <button onClick={pas} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronRight size={18} /></button>
+          <button aria-label="Foto Paraprake" onClick={para} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronLeft size={18} /></button>
+          <button aria-label="Foto e Radhës" onClick={pas} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><HiChevronRight size={18} /></button>
         </div>
       </div>
 
@@ -145,7 +153,7 @@ export default function FotoGallery() {
               className="absolute inset-0 blur-[100px] opacity-30 saturate-[1.5]"
               style={{ backgroundImage: `url(${fotot[indeksi]})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             />
-            <button className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50 shadow-2xl transition-transform active:scale-90"><HiXMark size={24} md:size={32} /></button>
+            <button aria-label="Mbyll Zmadhimin" onClick={() => setIsFS(false)} className="absolute top-6 right-6 md:top-10 md:right-10 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-[2rem] bg-white text-slate-900 flex items-center justify-center z-50 shadow-2xl transition-transform active:scale-90"><HiXMark size={24} md:size={32} /></button>
 
             <motion.img
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
