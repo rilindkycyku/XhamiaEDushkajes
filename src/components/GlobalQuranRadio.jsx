@@ -5,29 +5,46 @@ import {
     HiPause,
     HiSpeakerWave
 } from 'react-icons/hi2';
+import useConsentAccepted from '../hooks/useConsentAccepted';
 
 // ─── Permanent Yasser Al-Dosari Radio Stream ─────────────────────────────────
 const RADIO_URL = 'https://backup.qurango.net/radio/yasser_aldosari/;';
 
-// ─── Singleton audio ─────────────────────────────────────────────────────────
-let globalAudio = null;
-if (typeof window !== 'undefined') {
-    globalAudio = new Audio();
-    globalAudio.src = RADIO_URL;
-    globalAudio.volume = 0.7;
-    globalAudio.preload = 'none';
-    globalAudio.crossOrigin = 'anonymous';
-}
-
 export default function GlobalQuranRadio() {
+    const consentAccepted = useConsentAccepted();
+    const [audio, setAudio] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
+    // ── Lazy Audio Initialization ───────────────────────────────────────────
+    useEffect(() => {
+        if (!consentAccepted || typeof window === 'undefined') {
+            if (audio) {
+                audio.pause();
+                audio.src = "";
+                setAudio(null);
+            }
+            return;
+        }
+
+        const newAudio = new Audio();
+        newAudio.src = RADIO_URL;
+        newAudio.volume = 0.7;
+        newAudio.preload = 'none';
+        newAudio.crossOrigin = 'anonymous';
+        setAudio(newAudio);
+
+        return () => {
+            newAudio.pause();
+            newAudio.src = "";
+            setAudio(null);
+        };
+    }, [consentAccepted]);
+
     // ── Audio event wiring ────────────────────────────────────────────────────
     useEffect(() => {
-        if (!globalAudio) return;
-        const audio = globalAudio;
+        if (!audio) return;
 
         const onPlay = () => {
             setIsPlaying(true);
@@ -40,11 +57,12 @@ export default function GlobalQuranRadio() {
             setIsPlaying(true);
         };
         const onError = (e) => {
-            console.error("Radio Audio Error:", e);
+            // Only log if it's a real playback error after user started it
+            if (audio.src && audio.src !== window.location.href) {
+                console.error("Radio Audio Error:", e);
+            }
             setIsLoading(false);
             setIsPlaying(false);
-            audio.load();
-            audio.src = RADIO_URL;
         };
 
         audio.addEventListener('play', onPlay);
@@ -62,14 +80,14 @@ export default function GlobalQuranRadio() {
             audio.removeEventListener('playing', onPlaying);
             audio.removeEventListener('error', onError);
         };
-    }, []);
+    }, [audio]);
 
     // ── Autoplay Attempt ─────────────────────────────────────────────────────
     useEffect(() => {
-        if (!globalAudio) return;
+        if (!audio) return;
 
         const startRadio = () => {
-            if (globalAudio.paused) {
+            if (audio.paused) {
                 togglePlay();
             }
             cleanup();
@@ -82,7 +100,7 @@ export default function GlobalQuranRadio() {
         };
 
         // 1. Try immediate autoplay
-        globalAudio.play()
+        audio.play()
             .then(() => {
                 setShowToast(true);
                 setTimeout(() => setShowToast(false), 3000);
@@ -95,19 +113,18 @@ export default function GlobalQuranRadio() {
             });
 
         return cleanup;
-    }, []);
+    }, [audio]);
 
     const togglePlay = () => {
-        if (!globalAudio) return;
+        if (!audio) return;
 
-        if (globalAudio.paused) {
+        if (audio.paused) {
             setIsLoading(true);
-            // Ensure src is set for live stream
-            if (!globalAudio.src || globalAudio.src === window.location.href) {
-                globalAudio.src = RADIO_URL;
+            if (!audio.src || audio.src === window.location.href) {
+                audio.src = RADIO_URL;
             }
 
-            globalAudio.play()
+            audio.play()
                 .then(() => {
                     setShowToast(true);
                     setTimeout(() => setShowToast(false), 3000);
@@ -117,11 +134,14 @@ export default function GlobalQuranRadio() {
                     setIsLoading(false);
                 });
         } else {
-            globalAudio.pause();
-            globalAudio.src = "";
-            globalAudio.load();
+            audio.pause();
+            // Clear src to stop background download of the live stream
+            audio.src = "";
+            audio.load();
         }
     };
+
+    if (!consentAccepted || !audio) return null;
 
     return (
         <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-3 pointer-events-none select-none">

@@ -1,8 +1,17 @@
-import FotoGallery from "../components/FotoGallery";
-import VideoGallery from "../components/VideoGallery";
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import { HiOutlineCalendar, HiOutlineMapPin, HiSparkles, HiOutlinePhoto, HiOutlineVideoCamera } from "react-icons/hi2";
+import { useInView } from "react-intersection-observer";
+import { lazy, Suspense } from "react";
+
+const FotoGallery = lazy(() => import("../components/FotoGallery"));
+const VideoGallery = lazy(() => import("../components/VideoGallery"));
+
+const LoadingPlaceholder = () => (
+  <div className="w-full h-[400px] bg-slate-50 animate-pulse rounded-[2.5rem] flex items-center justify-center border border-slate-100">
+    <div className="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+  </div>
+);
 
 export default function RrethXhamis() {
   const containerVariants = {
@@ -14,6 +23,9 @@ export default function RrethXhamis() {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
+
+  const { ref: fotoRef, inView: fotoInView } = useInView({ triggerOnce: true, rootMargin: '200px 0px' });
+  const { ref: videoRef, inView: videoInView } = useInView({ triggerOnce: true, rootMargin: '200px 0px' });
 
   return (
     <motion.div
@@ -118,8 +130,14 @@ export default function RrethXhamis() {
             </div>
             <div className="hidden md:block w-32 h-1 bg-slate-100 rounded-full" />
           </div>
-          <div className="w-full">
-            <FotoGallery />
+          <div className="w-full" ref={fotoRef}>
+            {fotoInView ? (
+              <Suspense fallback={<LoadingPlaceholder />}>
+                <FotoGallery />
+              </Suspense>
+            ) : (
+              <LoadingPlaceholder />
+            )}
           </div>
         </motion.section>
 
@@ -133,8 +151,14 @@ export default function RrethXhamis() {
             </div>
             <div className="hidden md:block w-32 h-1 bg-slate-100 rounded-full" />
           </div>
-          <div className="w-full">
-            <VideoGallery />
+          <div className="w-full" ref={videoRef}>
+            {videoInView ? (
+              <Suspense fallback={<LoadingPlaceholder />}>
+                <VideoGallery />
+              </Suspense>
+            ) : (
+              <LoadingPlaceholder />
+            )}
           </div>
         </motion.section>
       </div>
@@ -159,7 +183,7 @@ export default function RrethXhamis() {
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"
-            className="filter contrast-[1.1]"
+            className="filter contrast-[1.1] bg-slate-100"
           />
         </div>
       </motion.section>

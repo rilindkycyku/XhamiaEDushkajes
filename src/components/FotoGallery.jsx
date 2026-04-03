@@ -80,11 +80,11 @@ export default function FotoGallery() {
                 src={fotot[indeksi]}
                 className="max-w-full max-h-full object-contain rounded-xl md:rounded-[1.5rem] shadow-2xl"
                 alt="Gallery"
-                width="800"
-                height="600"
+                width="1200"
+                height="800"
                 loading="lazy"
                 decoding="async"
-                fetchPriority={indeksi === 0 ? "high" : "auto"}
+                fetchpriority={indeksi === 0 ? "high" : "auto"}
               />
             </motion.div>
           </motion.div>

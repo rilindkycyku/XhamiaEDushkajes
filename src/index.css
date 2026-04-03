@@ -14,12 +14,12 @@
   --color-emerald-200: #a7f3d0;
   --color-emerald-300: #6ee7b7;
   --color-emerald-400: #34d399;
-  --color-emerald-500: #10b981;
-  --color-emerald-600: #059669;
-  --color-emerald-700: #047857;
-  --color-emerald-800: #065f46;
-  --color-emerald-900: #064e3b;
-  --color-emerald-950: #022c22;
+  --color-emerald-500: #059669; /* Darkened from #10b981 for better contrast */
+  --color-emerald-600: #047857;
+  --color-emerald-700: #065f46;
+  --color-emerald-800: #064e3b;
+  --color-emerald-900: #022c22;
+  --color-emerald-950: #01140f;
 
   --color-gold-50: #fffbeb;
   --color-gold-100: #fef3c7;
@@ -43,6 +43,7 @@ html {
 body {
   @apply bg-[#f8fafc] text-slate-950 antialiased;
   position: relative;
+  text-rendering: optimizeLegibility; /* Improved from optimizeSpeed for better visual quality */
 }
 
 /* Premium Noise Texture Overlay */
@@ -70,10 +71,10 @@ body:has(.tv-container)::before {
 body:has(.tv-container) ::-webkit-scrollbar { display: none; }
 body:has(.tv-container) * { scrollbar-width: none; }
 
-/* Slide-up animation for content cycling */
+/* Slide-up animation for content cycling - GPU Accelerated */
 @keyframes slide-up {
-  from { transform: translateY(15px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from { transform: translate3d(0, 15px, 0); opacity: 0; }
+  to   { transform: translate3d(0, 0, 0);    opacity: 1; }
 }
 .animate-slide-up {
   animation: slide-up 0.4s ease-out forwards;
@@ -111,8 +112,9 @@ body:has(.tv-container) * { scrollbar-width: none; }
 .next-prayer-box,
 .activity-box,
 .prayer-grid {
-  will-change: transform;
-  transform: translateZ(0);
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  contain: layout style; /* Massive CPU saving: isolates component updates */
 }
 
 /* Night-dimming overlay */

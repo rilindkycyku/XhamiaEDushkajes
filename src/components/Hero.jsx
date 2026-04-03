@@ -2,6 +2,7 @@
 import siteConfig from "../data/site.json";
 import { motion } from "framer-motion";
 import xhamiaImage from "../assets/img/xhamia/A-XhamiaJasht.webp";
+import xhamiaImageAVIF from "../assets/img/xhamia/A-XhamiaJasht.avif";
 
 export default function Hero() {
   const logo = siteConfig.global?.logo || "/assets/logo.png";
@@ -10,13 +11,19 @@ export default function Hero() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Enhanced Overlays */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={xhamiaImage}
-          alt="Xhamia e Dushkajës"
-          className="w-full h-full object-cover animate-hero-zoom"
-          fetchPriority="high"
-          loading="eager"
-        />
+        <picture>
+          <source srcSet={xhamiaImageAVIF} type="image/avif" />
+          <img
+            src={xhamiaImage}
+            alt="Xhamia e Dushkajës"
+            width="1920"
+            height="1080"
+            className="w-full h-full object-cover animate-hero-zoom"
+            fetchpriority="high"
+            loading="eager"
+            decoding="sync"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/40 to-slate-950/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/20 to-transparent" />
       </div>

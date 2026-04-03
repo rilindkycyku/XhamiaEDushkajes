@@ -48,8 +48,8 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: <FaFacebook size={20} />, url: siteConfig.socials?.facebook, label: 'Facebook' },
-                { icon: <FaYoutube size={20} />, url: siteConfig.socials?.youtube, label: 'YouTube' }
+                { icon: <FaFacebook size={20} />, url: siteConfig.socials?.facebook, label: 'Vizitoni faqen tonë në Facebook' },
+                { icon: <FaYoutube size={20} />, url: siteConfig.socials?.youtube, label: 'Na ndiqni në YouTube' }
               ].map((social, i) => (
                 <a
                   key={i}

@@ -197,6 +197,13 @@ export default function CookieConsent() {
                               <p className="text-white/35 text-[11px] leading-relaxed">Video dhe postime të integruara i përmbahen politikave të këtyre platformave sapo i shfaqni.</p>
                             </div>
                           </div>
+                          <div className="flex items-start gap-2.5 border-t border-white/5 pt-2.5">
+                            <BiBarChartAlt2 className="text-[13px] text-emerald-400 mt-0.5 flex-shrink-0" />
+                            <div>
+                              <p className="text-white/70 text-xs font-semibold">Radio Kuran (Streaming)</p>
+                              <p className="text-white/35 text-[11px] leading-relaxed">Transmetimi i drejtpërdrejtë i Kuranit është një shërbim i jashtëm. Dëgjimi i tij i nënshtrohet politikave të privatësisë të ofruesit të stream-it.</p>
+                            </div>
+                          </div>
                         </div>
                       </motion.div>
                     )}

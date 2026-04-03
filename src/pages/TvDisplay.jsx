@@ -8,6 +8,7 @@ import NextPrayer from '../components/Tv/NextPrayer';
 import PrayerGrid from '../components/Tv/PrayerGrid';
 import ActivityBox from '../components/Tv/ActivityBox';
 import SettingsModal from '../components/Tv/SettingsModal';
+import ErrorBoundary from '../components/Tv/ErrorBoundary/ErrorBoundary';
 import { HiCog } from 'react-icons/hi';
 
 // Move static helpers outside to reduce component overhead
@@ -46,6 +47,14 @@ export default function TvDisplay() {
     // Live Notification (Stored locally on this TV only)
     const [customMsg, setCustomMsg] = useState(() => localStorage.getItem('tv_custom_msg') || "");
 
+    // --- RECOVERY & STABILITY: LocalStorage Sync ---
+    const saveToSafety = (key, data) => {
+        try { localStorage.setItem(`safety_${key}`, JSON.stringify(data)); } catch (e) {}
+    };
+    const getFromSafety = (key) => {
+        try { return JSON.parse(localStorage.getItem(`safety_${key}`)); } catch (e) { return null; }
+    };
+
     // Optimized Duration Calculator
     const durations = useMemo(() => {
         const d = site.tvDurations || {};
@@ -57,23 +66,24 @@ export default function TvDisplay() {
         };
     }, []);
 
-    // --- DISPLAY CYCLE CONTROL ---
+    // --- DISPLAY CYCLE CONTROL: Robust Timer Management ---
     useEffect(() => {
         let timeoutId;
+        let isMounted = true;
 
         const showHadith = () => {
+            if (!isMounted) return;
             setDisplayMode('hadith');
-            // Seamless Hadith Refresh: If we have a queued hadith, swap it now while rotation is happening
             if (nextHadith) {
                 setCurrentHadith(nextHadith);
                 setNextHadith(null);
             }
-            // If there's a priority message, show hadith for less time to rotate faster
             const duration = customMsg ? Math.min(durations.hadith, 30000) : durations.hadith;
             timeoutId = setTimeout(showQR, duration);
         };
 
         const showQR = () => {
+            if (!isMounted) return;
             const shouldShow = site.tvOptions?.showQr !== false;
             if (shouldShow && durations.qr > 0) {
                 setDisplayMode('qr');
@@ -85,6 +95,7 @@ export default function TvDisplay() {
         };
 
         const showMsgIfAny = () => {
+            if (!isMounted) return;
             const hasMessage = vaktiSot?.Festat || vaktiSot?.Shenime;
             if (hasMessage && durations.announcement > 0) {
                 setDisplayMode('message');
@@ -95,6 +106,7 @@ export default function TvDisplay() {
         };
 
         const showCustomIfAny = () => {
+            if (!isMounted) return;
             if (customMsg && durations.notification > 0) {
                 setDisplayMode('custom');
                 timeoutId = setTimeout(showHadith, durations.notification);
@@ -104,22 +116,32 @@ export default function TvDisplay() {
         };
 
         showHadith();
-        return () => clearTimeout(timeoutId);
-    }, [vaktiSot, customMsg, durations]);
+        return () => {
+            isMounted = false;
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, [vaktiSot?.Date, customMsg, durations]);
 
     // --- HADITH REFRESH LOGIC ---
     useEffect(() => {
-        const refreshMin = site.tvDurations?.hadithRefresh ?? 45;
+        const refreshMin = site.tvOptions?.durations?.hadithRefresh ?? 45;
+        let isStillCurrent = true;
         const pickHadith = () => {
-            if (haditheData.a?.length) {
-                const chosen = haditheData.a[Math.floor(Math.random() * haditheData.a.length)];
+            const select = () => {
+                if (!isStillCurrent || !haditheData.a?.length) return;
+                const randomIdx = Math.floor(Math.random() * haditheData.a.length);
+                const chosen = haditheData.a[randomIdx];
                 setCurrentHadith(prev => prev ? (setNextHadith(chosen), prev) : chosen);
-            }
+            };
+            if ('requestIdleCallback' in window) window.requestIdleCallback(select);
+            else setTimeout(select, 0);
         };
         pickHadith();
-        const interval = setInterval(pickHadith, refreshMin * 60000);
-        return () => clearInterval(interval);
-    // Only re-run if refresh interval changes — not on every hadith change
+        const interval = setInterval(() => { if (isStillCurrent) pickHadith(); }, refreshMin * 60000);
+        return () => {
+            isStillCurrent = false;
+            clearInterval(interval);
+        };
     }, []);
 
     // --- BURN-IN PROTECTION: Night dimming only (pixel shift is a CSS animation in index.css) ---
@@ -149,47 +171,54 @@ export default function TvDisplay() {
         return () => clearInterval(interval);
     }, [vaktiSot]);
 
-    // --- MAINTENANCE & STABILITY (STAGGERED) ---
-    // This effect ensures the TV browser reloads every night to prevent memory leaks and crashes.
+    // --- MAINTENANCE & STABILITY: Smart Reload (4 times a day) ---
     useEffect(() => {
         let timerId;
-        let retryTimerId;
-
-        const scheduleReload = () => {
+        const checkReload = () => {
             const now = new Date();
-            const nightTarget = new Date();
-            const morningTarget = new Date();
-
-            // 1. Night Reload (01:00 - 03:59) - For memory/stability
-            nightTarget.setHours(Math.floor(Math.random() * 3) + 1, Math.floor(Math.random() * 60), 0, 0);
-            if (now > nightTarget) nightTarget.setDate(nightTarget.getDate() + 1);
-
-            // 2. Daytime Reload (10:00 - 17:00) - Random sync during daylight hours
-            morningTarget.setHours(Math.floor(Math.random() * 8) + 10, Math.floor(Math.random() * 60), 0, 0);
-            if (now > morningTarget) morningTarget.setDate(morningTarget.getDate() + 1);
-
-            // Pick whichever happens sooner
-            const nextTarget = nightTarget < morningTarget ? nightTarget : morningTarget;
-            const msUntilTrigger = nextTarget.getTime() - now.getTime();
-
+            const currentPeriod = Math.floor(now.getHours() / 6);
+            const nextPeriodHour = (currentPeriod + 1) * 6;
+            const nextPeriodDate = new Date();
+            nextPeriodDate.setHours(nextPeriodHour, Math.floor(Math.random() * 15), 0, 0); 
+            
+            const msUntilCheck = nextPeriodDate.getTime() - now.getTime();
             timerId = setTimeout(() => {
-                if (navigator.onLine) {
-                    window.location.reload();
-                } else {
-                    retryTimerId = setTimeout(() => {
-                        if (navigator.onLine) window.location.reload();
-                        else scheduleReload();
-                    }, 30 * 60000);
-                }
-            }, msUntilTrigger);
+                const isNearPrayer = infoTani && infoTani.mbetur < 15;
+                const isIdleMode = displayMode === 'hadith' || displayMode === 'qr';
+                if (isIdleMode && !isNearPrayer && navigator.onLine && !showSettings) window.location.reload();
+                else setTimeout(checkReload, 5 * 60000);
+            }, msUntilCheck);
         };
+        checkReload();
+        return () => { if (timerId) clearTimeout(timerId); };
+    }, [displayMode, !!infoTani, showSettings]);
 
-        scheduleReload();
-        return () => {
-            clearTimeout(timerId);
-            clearTimeout(retryTimerId);
+    // --- RECOVERY & STABILITY: Performance Monitoring (Self-Healing) ---
+    useEffect(() => {
+        let lastTime = performance.now();
+        let frames = 0;
+        let warningTicks = 0;
+        let pTimer;
+
+        const monitor = (time) => {
+            frames++;
+            if (time >= lastTime + 1000) {
+                const fps = Math.round((frames * 1000) / (time - lastTime));
+                if (fps < 25 && !showSettings) {
+                    warningTicks++;
+                    if (warningTicks > 15) {
+                        const isNearPrayer = infoTani && infoTani.mbetur < 12;
+                        if (!isNearPrayer && navigator.onLine) window.location.reload();
+                    }
+                } else { warningTicks = 0; }
+                frames = 0;
+                lastTime = time;
+            }
+            pTimer = requestAnimationFrame(monitor);
         };
-    }, []);
+        pTimer = requestAnimationFrame(monitor);
+        return () => cancelAnimationFrame(pTimer);
+    }, [!!infoTani, showSettings]);
 
     useEffect(() => {
         let wakeLock = null;
@@ -219,16 +248,19 @@ export default function TvDisplay() {
         };
     }, []);
 
-    // Remote Shortcuts
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            const key = e.key.toLowerCase();
-            if (['s', 'm', 'enter', 'select'].includes(key)) setShowSettings(true);
-            if (key === 'r') window.location.reload();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+    // Handle Keyboard & Remote Input (Memoized for stability)
+    const handleKeyDown = useCallback((e) => {
+        const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
+        if (isInput) return;
+        const key = e.key.toLowerCase();
+        if (['s', 'm', 'enter', 'select'].includes(key)) setShowSettings(true);
+        if (key === 'r') window.location.reload();
     }, []);
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown, { passive: true });
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [handleKeyDown]);
 
     // --- PRAYER TIMES CORE LOGIC ---
     useEffect(() => {
@@ -370,11 +402,13 @@ export default function TvDisplay() {
 
             setInfoTani(prev => {
                 const updated = { ...nI, isSilenceMode };
-                return JSON.stringify(prev) === JSON.stringify(updated) ? prev : updated;
+                const isSame = prev && JSON.stringify(prev) === JSON.stringify(updated);
+                if (!isSame) saveToSafety('infoTani', updated);
+                return isSame ? prev : updated;
             });
         };
         perditeso();
-        const intv = setInterval(perditeso, 10000);
+        const intv = setInterval(perditeso, 10 * 60000);
         return () => clearInterval(intv);
     }, []);
 
@@ -464,46 +498,47 @@ export default function TvDisplay() {
                     <div className="absolute -bottom-[20%] -right-[20%] w-[60%] h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)', willChange: 'transform' }} />
                 </div>
 
-                <header className="mb-2 shrink-0 relative z-20">
-                    <div className="flex justify-between items-center w-full px-10">
-                        {/* Left Column: Location & Personnel */}
-                        <div className="flex flex-col gap-0 flex-1 min-w-0">
-                            <p className="text-zinc-500 text-4xl font-black tracking-wider uppercase whitespace-nowrap overflow-visible">{site.tvOptions?.adresa || "Kaçanik"}</p>
-                            <p className="text-zinc-600 text-2xl font-bold tracking-tight uppercase">
-                                Imami: <span className="text-zinc-400 font-black">{site.global?.imam}</span>
-                            </p>
+                <ErrorBoundary fallback={<div className="h-20 bg-red-900/10 flex items-center justify-center text-zinc-500 uppercase font-black">Gabim në ngarkimin e Headerit</div>}>
+                    <header className="mb-2 shrink-0 relative z-20">
+                        <div className="flex justify-between items-center w-full px-10">
+                            <div className="flex flex-col gap-0 flex-1 min-w-0">
+                                <p className="text-zinc-500 text-4xl font-black tracking-wider uppercase whitespace-nowrap overflow-visible">{site.tvOptions?.adresa || "Kaçanik"}</p>
+                                <p className="text-zinc-600 text-2xl font-bold tracking-tight uppercase">
+                                    Imami: <span className="text-zinc-400 font-black">{site.global?.imam}</span>
+                                </p>
 
-                            <button
-                                onClick={() => setShowSettings(true)}
-                                className="flex items-center gap-4 px-8 py-3 w-fit rounded-[1.5rem] bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 transition-all duration-500 group mt-1 shadow-2xl backdrop-blur-xl -ml-2"
-                            >
-                                <HiCog className="text-4xl text-zinc-600 group-hover:text-emerald-400 group-hover:rotate-180 transition-all duration-700" />
-                                <span className="text-xl font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-emerald-400">Konfiguro</span>
-                            </button>
+                                <button
+                                    onClick={() => setShowSettings(true)}
+                                    className="flex items-center gap-4 px-8 py-3 w-fit rounded-[1.5rem] bg-white/5 hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/30 transition-all duration-500 group mt-1 shadow-2xl backdrop-blur-xl -ml-2"
+                                >
+                                    <HiCog className="text-4xl text-zinc-600 group-hover:text-emerald-400 group-hover:rotate-180 transition-all duration-700" />
+                                    <span className="text-xl font-black uppercase tracking-[0.2em] text-zinc-500 group-hover:text-emerald-400">Konfiguro</span>
+                                </button>
+                            </div>
+
+                            <div className="flex-[2] flex justify-center px-0">
+                                <h1 className={`font-black text-emerald-500 tracking-tighter uppercase text-center leading-[0.8] whitespace-nowrap ${(site.tvOptions?.emriXhamis || "").length > 20 ? 'text-5xl' : 'text-7xl'
+                                    }`}>
+                                    {site.tvOptions?.emriXhamis}
+                                </h1>
+                            </div>
+
+                            <div className="flex-1 flex justify-end">
+                                <Clock />
+                            </div>
                         </div>
+                    </header>
+                </ErrorBoundary>
 
-                        {/* Center Column: Mosque Brand */}
-                        <div className="flex-[2] flex justify-center px-0">
-                            <h1 className={`font-black text-emerald-500 tracking-tighter uppercase text-center leading-[0.8] whitespace-nowrap ${(site.tvOptions?.emriXhamis || "").length > 20 ? 'text-5xl' : 'text-7xl'
-                                }`}>
-                                {site.tvOptions?.emriXhamis}
-                            </h1>
+                <ErrorBoundary fallback={<div className="flex-1 bg-black/40 flex items-center justify-center text-zinc-500 font-black uppercase text-4xl">Gabim në shfaqjen e vaktisë</div>}>
+                    <main className="flex-1 flex flex-col gap-2 min-h-0" style={{ contain: 'layout style paint' }}>
+                        <div className="flex-[1.4] grid grid-cols-2 gap-2 relative z-10 min-h-0">
+                            <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
+                            <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
                         </div>
-
-                        {/* Right Column: Time & Calendar */}
-                        <div className="flex-1 flex justify-end">
-                            <Clock />
-                        </div>
-                    </div>
-                </header>
-
-                <main className="flex-1 flex flex-col gap-2 min-h-0" style={{ contain: 'layout style paint' }}>
-                    <div className="flex-[1.4] grid grid-cols-2 gap-2 relative z-10 min-h-0">
-                        <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
-                        <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
-                    </div>
-                    <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
-                </main>
+                        <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
+                    </main>
+                </ErrorBoundary>
 
 
                 <SettingsModal
