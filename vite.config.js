@@ -19,8 +19,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
+      includeAssets: ['favicon.ico', 'logo.png', 'favicon.svg'],
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,ttf,woff,woff2,webp}'],
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
+        navigateFallback: '/index.html',
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,ttf,woff,woff2,webp,avif}'],
         maximumFileSizeToCacheInBytes: 15000000,
         runtimeCaching: [
           {
@@ -28,7 +33,7 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'google-fonts-cache',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] }
             }
           },
@@ -37,7 +42,7 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'gstatic-fonts-cache',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] }
             }
           }
@@ -50,6 +55,7 @@ export default defineConfig({
         theme_color: '#10b981',
         background_color: '#000000',
         display: 'standalone',
+        orientation: 'landscape',
         icons: [
           {
             src: '/logo.png',

@@ -49,7 +49,7 @@ export default function TvDisplay() {
 
     // --- RECOVERY & STABILITY: LocalStorage Sync ---
     const saveToSafety = (key, data) => {
-        try { localStorage.setItem(`safety_${key}`, JSON.stringify(data)); } catch (e) {}
+        try { localStorage.setItem(`safety_${key}`, JSON.stringify(data)); } catch (e) { }
     };
     const getFromSafety = (key) => {
         try { return JSON.parse(localStorage.getItem(`safety_${key}`)); } catch (e) { return null; }
@@ -179,8 +179,8 @@ export default function TvDisplay() {
             const currentPeriod = Math.floor(now.getHours() / 6);
             const nextPeriodHour = (currentPeriod + 1) * 6;
             const nextPeriodDate = new Date();
-            nextPeriodDate.setHours(nextPeriodHour, Math.floor(Math.random() * 15), 0, 0); 
-            
+            nextPeriodDate.setHours(nextPeriodHour, Math.floor(Math.random() * 15), 0, 0);
+
             const msUntilCheck = nextPeriodDate.getTime() - now.getTime();
             timerId = setTimeout(() => {
                 const isNearPrayer = infoTani && infoTani.mbetur < 15;
@@ -263,74 +263,52 @@ export default function TvDisplay() {
     }, [handleKeyDown]);
 
     // --- PRAYER TIMES CORE LOGIC ---
+    const xhematiFn = useCallback((emri) => {
+        if (!vaktiSot) return null;
+        const isR = site.ramazan?.active;
+        if (emri === "Sabahu") {
+            if (isR) return vaktiSot.Sabahu;
+            if (vaktiSot.Lindja) {
+                const [h, m] = vaktiSot.Lindja.split(":").map(Number);
+                const t = h * 60 + m - 40;
+                return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(((t % 60) + 60) % 60).padStart(2, "0")}`;
+            }
+        }
+        if (emri === "Dreka" && vaktiSot?.Dreka) {
+            const now = new Date();
+            const isDST = now.getTimezoneOffset() < new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
+            return isDST ? "12:55" : "11:55";
+        }
+        if (emri === "Jacia" && vaktiSot?.Jacia) {
+            if (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00") return site.ramazan.kohaTeravise;
+            return vaktiSot.Jacia;
+        }
+        return vaktiSot?.[emri] ?? null;
+    }, [vaktiSot?.Date, site.ramazan?.active, site.ramazan?.kohaTeravise]);
+
     useEffect(() => {
         if (!vaktet?.length) return;
         const perditeso = () => {
-            const sot = new Date();
-            const d = sot.getDate();
-            const mStr = sot.toLocaleString("en", { month: "short" });
+            // Optimization: Don't run expensive calculations if page is hidden
+            if (document.visibilityState === 'hidden') return;
+
+            const now = new Date();
+            const d = now.getDate();
+            const mStr = now.toLocaleString("en", { month: "short" });
             const isR = site.ramazan?.active;
+            const isF = now.getDay() === 5;
+            
             const rreshti = vaktet.find(v => {
                 const [vd, vm] = v.Date.split("-");
                 return Number(vd) === d && vm === mStr;
             }) ?? vaktet[0];
 
-            // Update state if data has changed (even on the same day)
-            setVaktiSot(prev => (JSON.stringify(prev) === JSON.stringify(rreshti) ? prev : rreshti));
+            setVaktiSot(prev => (prev?.Date === rreshti.Date ? prev : rreshti));
 
-            const xhemati_inner = (emri) => {
-                if (!PRAYERS.includes(emri)) return null;
-                if (emri === "Sabahu" && rreshti) {
-                    if (isR) return rreshti.Sabahu;
-                    if (rreshti.Lindja) {
-                        const [h, min] = rreshti.Lindja.split(":").map(Number);
-                        const total = h * 60 + min - 40;
-                        return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(((total % 60) + 60) % 60).padStart(2, "0")}`;
-                    }
-                }
-                if (emri === "Dreka" && rreshti?.Dreka) {
-                    const now = new Date();
-                    // Automatically switch between 12:55 (DST) and 11:55 (Standard Time)
-                    const isDST = now.getTimezoneOffset() < new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
-                    return isDST ? "12:55" : "11:55";
-                }
-                if (emri === "Jacia" && rreshti?.Jacia) {
-                    if (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00") return site.ramazan.kohaTeravise;
-                    return rreshti.Jacia;
-                }
-                return rreshti?.[emri] ?? null;
-            };
-
-            const moments = [];
-            const PRAYER_KEYS = isR ? ["Imsaku", ...PRAYERS] : PRAYERS;
-
-            PRAYER_KEYS.forEach(n => {
-                if (rreshti[n]) {
-                    const xh = xhemati_inner(n);
-
-                    // LOGIC: Skip raw astronomical Dreka to prioritize the mosque fixed time (11:55/12:55)
-                    const skipRawDreka = (n === "Dreka");
-                    // LOGIC: Skip raw astronomical Sabahu (Imsak/Adhan target) to point the countdown directly to the congregation time
-                    const skipRawSabahu = (n === "Sabahu" && xh && xh !== rreshti[n]);
-                    // In Ramazan, skip the raw Jacia (Adhan) time to prioritize Teravia (if configured)
-                    const skipRawJacia = (n === "Jacia" && isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00");
-
-                    if (!skipRawDreka && !skipRawJacia && !skipRawSabahu) {
-                        moments.push({ id: n, kohe: rreshti[n], isXh: false });
-                    }
-
-                    if (xh) {
-                        // Avoid adding duplicate entries if the xhemat time is identical to the vakti time
-                        // unless we skipped the raw time, in which case we definitely need the xhemat entry.
-                        if (xh !== rreshti[n] || skipRawJacia || skipRawSabahu) {
-                            moments.push({ id: n, kohe: xh, isXh: true });
-                        }
-                    }
-                }
-            });
+            const minTani = now.getHours() * 60 + now.getMinutes();
+            const labelCtx = { isR, isFriday: isF };
 
             const getL = (id, xh) => {
-                const isF = sot.getDay() === 5;
                 let base = id;
                 if (id === 'Imsaku' && isR) base = "Syfyri (Imsaku)";
                 else if (id === 'Dreka' && isF) base = "Xhumaja";
@@ -339,15 +317,32 @@ export default function TvDisplay() {
                 return xh ? `ME XHEMAT: ${base}` : base;
             };
 
-            const minTani = sot.getHours() * 60 + sot.getMinutes();
+            const moments = [];
+            const PRAYER_KEYS = isR ? ["Imsaku", ...PRAYERS] : PRAYERS;
+
+            PRAYER_KEYS.forEach(n => {
+                const xh = xhematiFn(n);
+                const skipRawDreka = (n === "Dreka");
+                const skipRawSabahu = (n === "Sabahu" && xh && xh !== rreshti[n]);
+                const skipRawJacia = (n === "Jacia" && isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00");
+
+                if (rreshti[n] && !skipRawDreka && !skipRawJacia && !skipRawSabahu) {
+                    moments.push({ id: n, kohe: rreshti[n], isXh: false });
+                }
+                if (xh) {
+                    if (xh !== rreshti[n] || skipRawJacia || skipRawSabahu) {
+                        moments.push({ id: n, kohe: xh, isXh: true });
+                    }
+                }
+            });
+
             let nIdx = moments.findIndex(mm => neMinuta(mm.kohe) > minTani);
             let nI;
 
             if (nIdx === -1) {
                 const neser = vaktet[vaktet.findIndex(v => v.Date === rreshti.Date) + 1] ?? vaktet[0];
-                const isR = site.ramazan?.active;
                 const hasNN = isR && site.ramazan?.namazNate?.active;
-                
+
                 let tomId, tomK, isXh;
                 if (hasNN) {
                     tomId = "NamazNate";
@@ -358,30 +353,22 @@ export default function TvDisplay() {
                     tomK = neser.Imsaku;
                     isXh = false;
                 } else {
+                    const [h, min] = neser.Lindja.split(":").map(Number);
+                    const total = h * 60 + min - 40;
                     tomId = "Sabahu";
+                    tomK = `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(((total % 60) + 60) % 60).padStart(2, "0")}`;
                     isXh = true;
-                    if (neser.Lindja) {
-                        const [h, min] = neser.Lindja.split(":").map(Number);
-                        const total = h * 60 + min - 40;
-                        tomK = `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(((total % 60) + 60) % 60).padStart(2, "0")}`;
-                    } else {
-                        tomK = neser.Sabahu;
-                    }
                 }
 
-                nI = { 
-                    tani: { id: "Jacia", label: getL("Jacia", false) }, 
-                    ardhshëm: { id: tomId, label: getL(tomId, isXh), kohe: tomK, isXh: isXh }, 
-                    mbetur: (24 * 60 - minTani) + neMinuta(tomK) 
+                nI = {
+                    tani: { id: "Jacia", label: getL("Jacia", false) },
+                    ardhshëm: { id: tomId, label: getL(tomId, isXh), kohe: tomK, isXh: isXh },
+                    mbetur: (24 * 60 - minTani) + neMinuta(tomK)
                 };
-            } else if (nIdx === 0) {
-                const idxS = vaktet.findIndex(v => v.Date === rreshti.Date);
-                const dje = idxS > 0 ? vaktet[idxS - 1] : vaktet[vaktet.length - 1];
-                nI = { tani: { id: "Jacia", label: getL("Jacia", false), kohe: dje.Jacia }, ardhshëm: { ...moments[0], label: getL(moments[0].id, moments[0].isXh) }, mbetur: neMinuta(moments[0].kohe) - minTani };
             } else {
-                let tani = { ...moments[nIdx - 1], label: getL(moments[nIdx - 1].id, moments[nIdx - 1].isXh) };
+                const currentMoment = nIdx === 0 ? { id: "Jacia", kohe: "00:00" } : moments[nIdx - 1];
+                let tani = { ...currentMoment, label: getL(currentMoment.id, currentMoment.isXh) };
 
-                // If it's past Sunrise (Lindja), Sabahu is no longer "current"
                 if (tani.id === "Sabahu" && rreshti.Lindja && minTani >= neMinuta(rreshti.Lindja)) {
                     tani = { id: "Lindja", label: "Lindja e Diellit", kohe: rreshti.Lindja };
                 }
@@ -392,25 +379,19 @@ export default function TvDisplay() {
                     mbetur: neMinuta(moments[nIdx].kohe) - minTani
                 };
             }
-            // Fix Silence Mode logic:
-            // 1. Up to 5 minutes BEFORE the next prayer
-            // 2. Up to 2 minutes AFTER the prayer that just started (tani)
-            const diffA = nI.ardhshëm ? neMinuta(nI.ardhshëm.kohe) - minTani : 999;
-            const diffT = nI.tani?.kohe ? minTani - neMinuta(nI.tani.kohe) : 999;
 
-            const isSilenceMode = (diffA <= 5 && diffA >= 0) || (diffT >= 0 && diffT <= 2);
+            const isSilenceMode = (nI.mbetur <= 5 && nI.mbetur >= 0) || (nI.tani?.kohe && (minTani - neMinuta(nI.tani.kohe) >= 0 && minTani - neMinuta(nI.tani.kohe) <= 2));
 
             setInfoTani(prev => {
-                const updated = { ...nI, isSilenceMode };
-                const isSame = prev && JSON.stringify(prev) === JSON.stringify(updated);
-                if (!isSame) saveToSafety('infoTani', updated);
-                return isSame ? prev : updated;
+                const isSame = prev && prev.mbetur === nI.mbetur && prev.isSilenceMode === isSilenceMode && prev.ardhshëm?.id === nI.ardhshëm?.id;
+                if (!isSame) saveToSafety('infoTani', { ...nI, isSilenceMode });
+                return isSame ? prev : { ...nI, isSilenceMode };
             });
         };
         perditeso();
-        const intv = setInterval(perditeso, 10 * 60000);
+        const intv = setInterval(perditeso, 10000);
         return () => clearInterval(intv);
-    }, []);
+    }, [xhematiFn]);
 
     const formatDallim = useCallback((min) => {
         if (min <= 0) return "0m";
@@ -427,31 +408,6 @@ export default function TvDisplay() {
         const [h, m] = ora.split(":").map(Number);
         return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
     }, []);
-
-    const xhematiFn = useCallback((emri) => {
-        if (!vaktiSot) return null;
-        const isR = site.ramazan?.active;
-        if (emri === "Sabahu") {
-            if (isR) return vaktiSot.Sabahu;
-            if (vaktiSot.Lindja) {
-                const [h, m] = vaktiSot.Lindja.split(":").map(Number);
-                const t = h * 60 + m - 40;
-                return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(((t % 60) + 60) % 60).padStart(2, "0")}`;
-            }
-        }
-        if (emri === "Dreka" && vaktiSot?.Dreka) {
-            const isDST = (dt) => {
-                const jan = new Date(dt.getFullYear(), 0, 1).getTimezoneOffset();
-                return dt.getTimezoneOffset() < jan;
-            };
-            return isDST(new Date()) ? "12:55" : "11:55";
-        }
-        if (emri === "Jacia" && vaktiSot?.Jacia) {
-            if (isR && site.ramazan?.kohaTeravise && site.ramazan?.kohaTeravise !== "00:00") return site.ramazan.kohaTeravise;
-            return vaktiSot.Jacia;
-        }
-        return vaktiSot?.[emri] ?? null;
-    }, [vaktiSot]);
 
     const listaNamazeve = useMemo(() => {
         const isR = site.ramazan?.active;
@@ -487,7 +443,7 @@ export default function TvDisplay() {
                     transform: `translate(-50%, -50%) scale(${Math.max(0.01, scale)})`,
                     transformOrigin: 'center center',
                     flexShrink: 0,
-                    contain: 'strict'
+                    contain: 'layout style paint'
                 }}>
 
 
@@ -533,10 +489,10 @@ export default function TvDisplay() {
                 <ErrorBoundary fallback={<div className="flex-1 bg-black/40 flex items-center justify-center text-zinc-500 font-black uppercase text-4xl">Gabim në shfaqjen e vaktisë</div>}>
                     <main className="flex-1 flex flex-col gap-2 min-h-0" style={{ contain: 'layout style paint' }}>
                         <div className="flex-[1.4] grid grid-cols-2 gap-2 relative z-10 min-h-0">
-                            <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} />
+                            <NextPrayer infoTani={infoTani} ne24hFn={ne24h} formatDallimFn={formatDallim} settings={site} />
                             <ActivityBox displayMode={displayMode} customMsg={customMsg} currentHadith={currentHadith} vaktiSot={vaktiSot} infoTani={infoTani} />
                         </div>
-                        <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} />
+                        <PrayerGrid listaNamazeve={listaNamazeve} vaktiSot={vaktiSot} infoTani={infoTani} xhematiFn={xhematiFn} ne24hFn={ne24h} isRamazan={site.ramazan?.active} settings={site} />
                     </main>
                 </ErrorBoundary>
 

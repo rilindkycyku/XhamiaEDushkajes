@@ -38,6 +38,10 @@
 html {
   font-family: "Quicksand", ui-sans-serif, system-ui, sans-serif;
   scroll-behavior: smooth;
+  font-synthesis: none;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {

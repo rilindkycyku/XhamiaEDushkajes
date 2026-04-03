@@ -16,11 +16,18 @@
   <link rel="icon" href="/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  <!-- Google Fonts -->
+  
+  <!-- ── Resource Preloading & Performance ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Base reset and paint isolation */
+    #root { display: block; width: 100%; }
+    body { background: #000; margin: 0; min-height: 100vh; }
+  </style>
 
   <link rel="icon" type="image/png" href="/img/favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png" />
