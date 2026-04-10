@@ -1,11 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/tv",
-      "destination": "https://tv.xhamiaedushkajes.org",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/(.*)",

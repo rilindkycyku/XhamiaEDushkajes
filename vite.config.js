@@ -49,13 +49,13 @@ export default defineConfig({
         ]
       },
       manifest: {
-        name: 'Xhamia e Dushkajës TV',
-        short_name: 'Dushkaja TV',
-        description: 'Ekrani 24/7 i kohëve të namazit',
-        theme_color: '#10b981',
-        background_color: '#000000',
+        name: 'Xhamia e Dushkajës',
+        short_name: 'XH. Dushkajës',
+        description: 'Faqja zyrtare e Xhamisë së Dushkajës',
+        theme_color: '#064e3b',
+        background_color: '#ffffff',
         display: 'standalone',
-        orientation: 'landscape',
+        orientation: 'portrait',
         icons: [
           {
             src: '/logo.png',
