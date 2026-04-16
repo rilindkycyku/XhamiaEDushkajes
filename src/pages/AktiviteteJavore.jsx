@@ -4,6 +4,7 @@ const YouTubeChannelEmbed = lazy(() => import("../components/YouTubeChannelEmbed
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../components/SEO";
 import { HiOutlineClock, HiOutlineMapPin, HiOutlineVideoCamera, HiSparkles, HiOutlineChevronDown } from "react-icons/hi2";
+import { logEvent } from "../lib/analytics";
 
 const ActivityDescription = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -16,7 +17,11 @@ const ActivityDescription = ({ text }) => {
       </p>
       {isLong && (
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            const nextState = !isExpanded;
+            setIsExpanded(nextState);
+            logEvent('click_expand_activity', { event_category: 'engagement', event_label: nextState ? 'Expanded' : 'Collapsed' });
+          }}
           className="mt-4 flex items-center gap-1.5 text-emerald-600 font-bold text-sm hover:text-emerald-700 transition-colors group/btn"
         >
           {isExpanded ? "Shih më pak" : "Lexo më shumë"}

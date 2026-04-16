@@ -12,6 +12,7 @@ import {
   HiSpeakerWave,
   HiSpeakerXMark
 } from "react-icons/hi2";
+import { logEvent } from "../lib/analytics";
 
 const videot = Object.entries(
   import.meta.glob("../assets/video/xhamia/*.{mp4,webm,mov}", {
@@ -59,7 +60,10 @@ export default function VideoGallery() {
 
       {/* COMPACT CINEMATIC PLAYER */}
       <div
-        onClick={() => setIsFS(true)}
+        onClick={() => {
+          setIsFS(true);
+          logEvent('open_video_lightbox', { event_category: 'engagement', event_label: 'Gallery Video' });
+        }}
         className="relative group rounded-3xl md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 cursor-zoom-in"
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none scale-125 blur-[80px] opacity-30 saturate-[1.6]">

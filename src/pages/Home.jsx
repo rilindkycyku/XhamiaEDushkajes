@@ -7,6 +7,7 @@ import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { HiArrowRight } from "react-icons/hi2";
+import { logEvent } from "../lib/analytics";
 
 export default function Home() {
   const dataHapjes = new Date(siteConfig.home?.dataHapjes);
@@ -120,6 +121,7 @@ export default function Home() {
                   href={siteConfig.socials?.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => logEvent('click_social', { event_category: 'engagement', event_label: 'Facebook_Home' })}
                   className="inline-flex items-center justify-center w-full sm:w-auto gap-2 text-emerald-700 font-bold bg-emerald-50 px-6 py-3 rounded-2xl hover:bg-emerald-100 transition-colors"
                 >
                   Facebook <HiArrowRight />

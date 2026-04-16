@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BiCookie, BiBarChartAlt2 } from 'react-icons/bi';
 import { HiX, HiShieldCheck, HiChevronDown, HiChevronUp, HiAdjustments } from 'react-icons/hi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { updateConsent } from '../lib/analytics';
 
 const STORAGE_KEY = 'cookie-consent';
 
@@ -36,6 +37,7 @@ export default function CookieConsent() {
     window.dispatchEvent(new Event('cookie-consent-changed'));
     setStatus(accepted ? 'accepted' : 'declined');
     setIsVisible(false);
+    updateConsent(accepted);
   };
 
   const openPreferences = () => {
@@ -186,8 +188,8 @@ export default function CookieConsent() {
                           <div className="flex items-start gap-2.5">
                             <BiBarChartAlt2 className="text-[13px] text-emerald-400 mt-0.5 flex-shrink-0" />
                             <div>
-                              <p className="text-white/70 text-xs font-semibold">Vercel Analytics</p>
-                              <p className="text-white/35 text-[11px] leading-relaxed">Vizita, referuesit, lloji i pajisjes. Asnjë IP ose identifikues nuk ruhet.</p>
+                              <p className="text-white/70 text-xs font-semibold">Google Analytics</p>
+                              <p className="text-white/35 text-[11px] leading-relaxed">Përdorim Google Analytics për të përmirësuar faqen. Gjenerohet vetëm analitikë e thjeshtë. Nuk mbledhim data për reklama (Ads).</p>
                             </div>
                           </div>
                           <div className="flex items-start gap-2.5">

@@ -12,6 +12,7 @@ const DhuroPerXhamin = lazy(() => import("./pages/DhuroPerXhamin"));
 import GlobalQuranRadio from "./components/GlobalQuranRadio";
 import CookieConsent from "./components/CookieConsent";
 import { Analytics } from "@vercel/analytics/react";
+import { initGA, logPageView } from "./lib/analytics";
 
 import siteConfig from "./data/site.json";
 import useConsentAccepted from "./hooks/useConsentAccepted";
@@ -19,6 +20,14 @@ import useConsentAccepted from "./hooks/useConsentAccepted";
 export default function App() {
   const location = useLocation();
   const consentAccepted = useConsentAccepted();
+
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  useEffect(() => {
+    logPageView(location.pathname + location.search);
+  }, [location]);
 
   const offsetHeight = siteConfig.ramazan?.active ? "pt-[100px] md:pt-[120px]" : "pt-[64px] md:pt-[80px]";
 

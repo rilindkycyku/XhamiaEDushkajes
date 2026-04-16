@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import siteConfig from '../data/site.json';
 import { FaFacebook, FaYoutube } from 'react-icons/fa';
 import { HiOutlineMapPin, HiSparkles } from 'react-icons/hi2';
+import { logEvent } from '../lib/analytics';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -56,6 +57,7 @@ export default function Footer() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => logEvent('click_social', { event_category: 'engagement', event_label: social.url.includes('facebook') ? 'Facebook' : 'YouTube' })}
                   className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all duration-300 shadow-inner group"
                   aria-label={social.label}
                 >

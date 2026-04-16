@@ -3,10 +3,19 @@ import dhuro from "../data/dhuro-per-xhami.json";
 import site from "../data/site.json";
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
-import { HiOutlineHeart, HiOutlineGlobeAlt, HiSparkles } from "react-icons/hi2";
+import { HiOutlineHeart, HiOutlineGlobeAlt, HiSparkles, HiOutlineDocumentDuplicate, HiOutlineQrCode, HiOutlineBanknotes, HiCheck } from "react-icons/hi2";
+import { logEvent } from "../lib/analytics";
 
 export default function DhuroPerXhamin() {
   const [teDhenat] = useState(dhuro);
+  const [copiedField, setCopiedField] = useState(null);
+
+  const copyToClipboard = (text, field) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+    logEvent('copy_bank_detail', { event_category: 'engagement', event_label: field });
+  };
 
   const hadithet = [
     {
@@ -85,6 +94,121 @@ export default function DhuroPerXhamin() {
         ))}
       </motion.div>
 
+      <motion.section variants={itemVariants} className="bg-slate-900 rounded-[3rem] md:rounded-[4rem] px-6 py-12 md:px-8 md:py-16 relative overflow-hidden shadow-2xl border border-slate-800">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">Mënyrat e Donacionit</h2>
+            <p className="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto">
+              Këto janë llogaritë tona të sigurta për transferime bankare ose donacione direkte dixhitale.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+            {/* Local Bank "} */}
+            <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6 md:p-8 backdrop-blur-sm relative group hover:border-emerald-500/30 transition-all flex flex-col h-full">
+              <div className="flex items-center gap-4 mb-8 shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                  <HiOutlineBanknotes size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Brenda Kosovës</h3>
+                  <p className="text-sm font-medium text-emerald-400 uppercase tracking-widest mt-1">OneFor Kosovo</p>
+                </div>
+              </div>
+
+              <div className="space-y-5 flex-1 flex flex-col">
+                <div>
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1.5 focus:outline-none">Pronari Llogarisë</p>
+                  <p className="text-lg font-bold text-slate-200">Rilind Kycyku</p>
+                </div>
+                <div className="group/copy relative">
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1.5">IBAN</p>
+                  <div className="flex items-center justify-between bg-black/40 rounded-xl p-3 border border-white/5 hover:border-emerald-500/30 transition-colors cursor-pointer" onClick={() => copyToClipboard('5001000087606925', 'localIban')}>
+                    <p className="font-mono text-emerald-300 font-bold tracking-wider truncate sm:text-base text-sm">5001 0000 8760 6925</p>
+                    <button className={`p-1.5 rounded-lg transition-colors ${copiedField === 'localIban' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'}`}>
+                      {copiedField === 'localIban' ? <HiCheck size={18} /> : <HiOutlineDocumentDuplicate size={18} />}
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-auto pt-4">
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1.5">Përshkrimi Bankar / Referenca</p>
+                  <p className="text-sm md:text-base font-semibold text-slate-300">Donacion - Xhamia e Dushkajes</p>
+                </div>
+              </div>
+            </div>
+
+            {/* International Bank Details */}
+            <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6 md:p-8 backdrop-blur-sm relative group hover:border-gold-500/30 transition-all flex flex-col h-full">
+              <div className="flex items-center gap-4 mb-8 shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+                  <HiOutlineGlobeAlt size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Nga Evropa / Bota</h3>
+                  <p className="text-sm font-medium text-gold-400 uppercase tracking-widest mt-1">MOORWAND LTD</p>
+                </div>
+              </div>
+
+              <div className="space-y-5 flex-1 flex flex-col">
+                <div>
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">Pronari Llogarisë</p>
+                  <p className="text-lg font-bold text-slate-200">Rilind Kycyku</p>
+                </div>
+                <div className="group/copy relative">
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">IBAN (Euro)</p>
+                  <div className="flex items-center justify-between bg-black/40 rounded-xl p-3 border border-white/5 hover:border-gold-500/30 transition-colors cursor-pointer" onClick={() => copyToClipboard('GB22MOOW00993591483670', 'euIban')}>
+                    <p className="font-mono text-gold-300 font-bold tracking-wider text-xs sm:text-sm truncate mr-2">GB22 MOOW 0099 3591 4836 70</p>
+                    <button className={`p-1.5 rounded-lg shrink-0 transition-colors ${copiedField === 'euIban' ? 'bg-gold-500/20 text-gold-400' : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'}`}>
+                      {copiedField === 'euIban' ? <HiCheck size={18} /> : <HiOutlineDocumentDuplicate size={18} />}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">Adresa e Bankës</p>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-400 leading-snug">Moorwand Ltd Fora, 3 Lloyds Avenue, London, EC3N 3DS</p>
+                </div>
+                <div className="mt-auto pt-4">
+                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1.5">Përshkrimi Bankar / Referenca</p>
+                  <p className="text-sm md:text-base font-semibold text-slate-300">Donacion - Xhamia e Dushkajes</p>
+                </div>
+              </div>
+            </div>
+
+            {/* QR Code Quick Transfer */}
+            <div className="md:col-span-2 bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 justify-between shadow-xl mt-4">
+              <div className="flex-1 text-center md:text-left space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] mb-2 border border-blue-500/20">
+                  <HiOutlineQrCode size={16} /> Transfere e Menjëhershme
+                </div>
+                <h3 className="text-3xl md:text-4xl font-black text-white">Paguaj përmes <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">OneFor</span></h3>
+                <p className="text-slate-400 font-medium md:text-lg">Skanoni QR Kodin ose klikoni butonin për të hapur aplikacionin tuaj OneFor në telefon dhe dërgoni transaksionin me 0€ provizion.</p>
+                <a
+                  href="https://web.app.onefor.com/web/contact?userName=rilindkycyku"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => logEvent('click_onefor_link', { event_category: 'engagement', event_label: 'OneFor Payment Link' })}
+                  className="inline-flex items-center gap-2 mt-4 bg-white text-slate-900 px-8 py-4 rounded-xl font-black hover:bg-emerald-400 hover:text-slate-900 transition-colors shadow-lg"
+                >
+                  Hap OneFor
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+              </div>
+              <div className="bg-slate-950/50 p-2 md:p-3 rounded-[1.5rem] md:rounded-3xl shadow-[0_0_50px_rgba(59,130,246,0.15)] shrink-0 group hover:scale-[1.03] transition-transform duration-500 border-4 border-white/5 relative overflow-hidden">
+                <img
+                  src="/img/onefor_qr.png"
+                  alt="OneFor QR Code"
+                  className="w-36 h-36 md:w-44 md:h-44 object-contain rounded-xl drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </motion.section>
+
       <motion.section variants={itemVariants} className="group relative">
         <div className="absolute inset-0 bg-gold-500/5 rounded-[4.5rem] rotate-1 group-hover:rotate-0 transition-standard" />
         <div className="bg-white rounded-[4rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] overflow-hidden border border-slate-100 relative">
@@ -114,6 +238,7 @@ export default function DhuroPerXhamin() {
                   href="https://docs.google.com/spreadsheets/d/1J6tehqBppt5zFp0POSAhIKEIbdpegZV5lWQcJLrMv9I/edit?gid=1052631879#gid=1052631879"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => logEvent('click_transparency_docs', { event_category: 'engagement', event_label: 'Google Sheets' })}
                   className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-black text-xs uppercase tracking-widest transition-colors"
                 >
                   Hap në Tab të Ri <HiOutlineGlobeAlt size={16} />

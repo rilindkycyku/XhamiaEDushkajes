@@ -9,6 +9,7 @@ import {
   HiArrowsPointingOut,
   HiXMark
 } from "react-icons/hi2";
+import { logEvent } from "../lib/analytics";
 
 const fotot = Object.entries(
   import.meta.glob("../assets/img/xhamia/*.{jpg,jpeg,png,gif,webp}", {
@@ -46,7 +47,10 @@ export default function FotoGallery() {
     <div className="flex flex-col gap-8 w-full select-none max-w-4xl mx-auto">
       {/* MAIN VIEWER - COMPACT & CENTERED */}
       <div
-        onClick={() => setIsFS(true)}
+        onClick={() => {
+          setIsFS(true);
+          logEvent('open_photo_lightbox', { event_category: 'engagement', event_label: 'Gallery Photo' });
+        }}
         className="relative group rounded-3xl md:rounded-[3.5rem] overflow-hidden bg-slate-950 aspect-square md:aspect-[21/10] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] ring-1 ring-white/10 cursor-zoom-in"
       >
         <AnimatePresence mode="wait">
