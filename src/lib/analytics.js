@@ -1,5 +1,11 @@
 export const GA_MEASUREMENT_ID = 'G-51XF1CD60L';
 
+// ─── Module Level Queueing ──────────────────────────────────────────────────
+// This ensures gtag() can be called even before the script finishes loading
+window.dataLayer = window.dataLayer || [];
+function gtag() { window.dataLayer.push(arguments); }
+window.gtag = gtag;
+
 export const initGA = () => {
     if (!GA_MEASUREMENT_ID) return;
 
@@ -12,22 +18,7 @@ export const initGA = () => {
         // Ignore parsing errors
     }
 
-    // Dynamically inject the native Google Analytics script
-    const script = document.createElement("script");
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    script.async = true;
-    document.head.appendChild(script);
-
-    // Setup the global layer
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { 
-        window.dataLayer.push(arguments); 
-    }
-    window.gtag = gtag;
-
-    gtag("js", new Date());
-    
-    // Set default consent mode BEFORE initializing GA
+    // Set default consent mode BEFORE configuring GA
     gtag('consent', 'default', {
         'analytics_storage': hasConsent ? 'granted' : 'denied',
         'ad_storage': 'denied',
@@ -35,8 +26,16 @@ export const initGA = () => {
         'ad_personalization': 'denied'
     });
 
-    gtag("config", GA_MEASUREMENT_ID);
-    console.log("Native Google Analytics initialized with ID:", GA_MEASUREMENT_ID);
+    gtag("js", new Date());
+    gtag("config", GA_MEASUREMENT_ID, {
+        send_page_view: false // Manual override to prevent duplicate hits and track SPA navigation correctly
+    });
+
+    // Dynamically inject the native Google Analytics script
+    const script = document.createElement("script");
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    script.async = true;
+    document.head.appendChild(script);
 };
 
 export const updateConsent = (accepted) => {
