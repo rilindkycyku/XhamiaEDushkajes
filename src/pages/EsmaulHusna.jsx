@@ -82,9 +82,10 @@ export default function EsmaulHusna() {
   return (
     <>
       <SEO
-        title="99 Emrat e Allahut (Esmaul Husna)"
-        description="Eksploroni 99 Emrat e Bukur të Allahut me shkrim origjinal arab, transliterim, kuptim dhe shpjegime teologjike."
+        title="99 Emrat e Allahut - Esmaul Husna Shqip"
+        description="Zbuloni 99 Emrat e Bukur të Allahut (Esmaul Husna) me shkrim arab, transliterim shqip, kuptim dhe shpjegim teologjik të detajuar. Emrat e Allahut në shqip, arabisht dhe transliterim — Xhamia e Dushkajës, Kaçanik."
         url="/esmaul-husna"
+        keywords="99 emrat e allahut, esmaul husna, esmaul husna shqip, 99 emrat shqip, emrat e bukur te allahut, 99 emrat e bukur, emrat e allahut ne shqip, esma ul husna, 99 names of allah albanian, emrat e allahut me shpjegim, emrat e allahut arabisht, el-melik, er-rahman, er-rahim, islam shqip, feja islame shqip, xhamia dushkajes kacanik"
       />
 
       {/* Hero */}

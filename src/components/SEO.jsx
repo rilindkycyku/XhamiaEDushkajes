@@ -15,6 +15,7 @@ const BREADCRUMB_MAP = {
   '/kohetenamazitpersot':  [{ name: 'Kryefaqja', url: SITE_URL }, { name: 'Kohët e Namazit', url: `${SITE_URL}/kohetenamazitpersot` }],
   '/dhuroperxhamin':       [{ name: 'Kryefaqja', url: SITE_URL }, { name: 'Dhuro për Xhaminë', url: `${SITE_URL}/dhuroperxhamin` }],
   '/kontakti':             [{ name: 'Kryefaqja', url: SITE_URL }, { name: 'Kontakti', url: `${SITE_URL}/kontakti` }],
+  '/esmaul-husna':         [{ name: 'Kryefaqja', url: SITE_URL }, { name: '99 Emrat e Allahut', url: `${SITE_URL}/esmaul-husna` }],
 };
 
 // ─── JSON-LD helpers ──────────────────────────────────────────────────────────
