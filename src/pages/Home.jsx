@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
+import EsmaulHusnaWidget from "../components/EsmaulHusnaWidget";
 import { lazy, Suspense } from "react";
 const FacebookEmbed = lazy(() => import("../components/FacebookEmbed"));
 import siteConfig from "../data/site.json";
@@ -137,10 +138,13 @@ export default function Home() {
 
           {/* Sidebar Column */}
           <aside className="lg:col-span-4 space-y-10 md:space-y-12">
-            <motion.div variants={itemVariants} className="sticky top-28">
+            <motion.div variants={itemVariants} className="sticky top-28 space-y-6">
               <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
                 <PrayerTimes />
               </div>
+
+              {/* Esmaul Husna daily name widget */}
+              <EsmaulHusnaWidget />
 
             </motion.div>
           </aside>

@@ -8,11 +8,13 @@ const RrethXhamis = lazy(() => import("./pages/RrethXhamis"));
 const Home = lazy(() => import("./pages/Home"));
 const KohetENamazitPerSot = lazy(() => import("./pages/KohetENamazitPerSot"));
 const DhuroPerXhamin = lazy(() => import("./pages/DhuroPerXhamin"));
+const EsmaulHusna = lazy(() => import("./pages/EsmaulHusna"));
 
 import GlobalQuranRadio from "./components/GlobalQuranRadio";
 import CookieConsent from "./components/CookieConsent";
 import { Analytics } from "@vercel/analytics/react";
 import { initGA, logPageView } from "./lib/analytics";
+import ScrollToTop from "./components/ScrollToTop";
 
 import siteConfig from "./data/site.json";
 import useConsentAccepted from "./hooks/useConsentAccepted";
@@ -33,6 +35,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      <ScrollToTop />
       {/* Analytics only loads when the user has explicitly accepted */}
       {consentAccepted && <Analytics />}
 
@@ -51,6 +54,7 @@ export default function App() {
             <Route path="/aktivitetejavore" element={<AktiviteteJavore />} />
             <Route path="/rrethxhamis" element={<RrethXhamis />} />
             <Route path="/kohetenamazitpersot" element={<KohetENamazitPerSot />} />
+            <Route path="/esmaul-husna" element={<EsmaulHusna />} />
           </Routes>
         </Suspense>
       </main>
