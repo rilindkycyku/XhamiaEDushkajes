@@ -1,4 +1,4 @@
-# Xhamia e Dushkajës - Web Portal & TV Module
+﻿# Xhamia e Dushkajës - Web Portal & TV Module
 
 Një platformë moderne dhe gjithëpërfshirëse për besimtarët, e ndërtuar për të ofruar informacione në kohë reale dhe menaxhuar aktivitetet e xhamisë.
 
@@ -49,3 +49,8 @@ E gjithë platforma (Web + TV) kontrollohet nga një pikë e vetme: `src/data/si
 
 ---
 Ndërtuar me përkushtim për **Xhaminë e Dushkajës**.
+
+
+## Të Drejtat e Autorit (Copyright & License)
+
+Ky projekt është pronë intelektuale e **Rilind Kyçyku**. Nuk lejohet përdorimi, kopjimi, modifikimi apo shpërndarja e këtij kodi pa pëlqimin paraprak dhe miratimin me shkrim nga autori. Çdo përdorim i paautorizuar është rreptësisht i ndaluar.
