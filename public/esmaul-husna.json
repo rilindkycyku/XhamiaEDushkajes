@@ -25,7 +25,7 @@
     "id": 2,
     "arabic": "ٱلرَّحْمَٰنُ",
     "transliterations": {
-      "sq": "ER-RRAHMAN",
+      "sq": "Ar-Rrahman",
       "en": "AR-RAHMAN",
       "de": "AR-RAHMAN",
       "tr": "ER-RAHMÂN"
@@ -37,7 +37,7 @@
       "tr": "Dünyadaki bütün yaratıklara merhamet eden"
     },
     "explanations": {
-      "sq": "Mëshira e Tij e pafundme përfshin çdo gjë dhe çdo krijesë në këtë botë, qofshin ata besimtarë apo jobesimtarë. Çdo e mirë që ekziston është rezultat i kësaj mëshire.",
+      "sq": "Mëshira e Tij është absolute dhe gjithëpërfshirëse. Ajo përfshin çdo gjë dhe çdo krijesë në këtë botë, pavarësisht nëse janë besimtarë apo jobesimtarë. Ai jep jetë, diell, ujë dhe furnizim për të gjithë pa dallim.",
       "en": "He who wills goodness and mercy for all His creatures, embracing both believers and disbelievers in this worldly life with sustenance and blessings.",
       "de": "Derjenige, dessen Barmherzigkeit im Diesseits alle Geschöpfe umfasst – sowohl Gläubige als auch Ungläubige –, indem er sie versorgt und beschützt.",
       "tr": "Dünyada yarattığı bütün canlılara şefkat gösteren, inanan ya da inanmayan ayırt etmeksizin her mahlukata rızık ve nimet veren sonsuz merhamet sahibidir."
@@ -47,7 +47,7 @@
     "id": 3,
     "arabic": "ٱلرَّحِيمُ",
     "transliterations": {
-      "sq": "ER-RRAHIM",
+      "sq": "Ar-Rrahīm",
       "en": "AR-RAHEEM",
       "de": "AR-RAHIM",
       "tr": "ER-RAHÎM"
@@ -59,7 +59,7 @@
       "tr": "Ahirette sadece müminlere merhamet eden"
     },
     "explanations": {
-      "sq": "Ai që ka një mëshirë të veçantë, të përhershme dhe të plotë për besimtarët në botën tjetër, duke i shpërblyer ata me Xhenet për besimin dhe punët e tyre.",
+      "sq": "Ky emër tregon mëshirën e Tij specifike dhe të veçantë. Është Mëshira që Ai e ka rezervuar në Botën Tjetër (Ahiret) vetëm për besimtarët, duke i falur dhe duke i shpërblyer me Xhenet.",
       "en": "He who grants specific and permanent mercy to the believers, rewarding them for their faith and good deeds on the Day of Judgment and in the Hereafter.",
       "de": "Derjenige, der den Gläubigen im Jenseits eine besondere, dauerhafte Barmherzigkeit erweist und sie im Paradies reichlich belohnt.",
       "tr": "Ahiret hayatında yalnız müminlere özel merhamet gösteren, onların günahlarını örten ve onları eşsiz cennet nimetleriyle ödüllendirecek olandır."
@@ -69,7 +69,7 @@
     "id": 4,
     "arabic": "ٱلْمَلِكُ",
     "transliterations": {
-      "sq": "EL-MELIK",
+      "sq": "Al-Melik",
       "en": "AL-MALIK",
       "de": "AL-MALIK",
       "tr": "EL-MELİK"
@@ -81,7 +81,7 @@
       "tr": "Mülkün ve kainatın gerçek sahibi"
     },
     "explanations": {
-      "sq": "Sunduesi dhe Mbreti absolut i të gjithë ekzistencës. Ai udhëheq çdo gjë me urtësi dhe pushtet të plotë, pa pasur nevojë për askënd.",
+      "sq": "Ai është Pronari dhe Sundimtari absolut i gjithësisë. Çdo pushtet në tokë është i përkohshëm dhe i huazuar prej Tij. Përballë Tij, njeriu kujton përulësinë dhe faktin që streha e vërtetë është vetëm tek Mbreti i vërtetë.",
       "en": "The absolute Ruler and sovereign King of all existence, who governs with supreme authority and complete independence.",
       "de": "Der Herrscher und absolute König der gesamten Schöpfung, der alles mit uneingeschränkter Macht und Weisheit regiert.",
       "tr": "Mülkün, evrenin ve bütün yaratılmışların mutlak sahibi, yegane yöneticisi ve egemeni. O'nun izni olmadan hiçbir şey gerçekleşemez."
@@ -91,19 +91,19 @@
     "id": 5,
     "arabic": "ٱلْقُدُّوسُ",
     "transliterations": {
-      "sq": "EL-KUDDUS",
+      "sq": "Al-Kuddūs",
       "en": "AL-QUDDUS",
       "de": "AL-QUDDUS",
       "tr": "EL-KUDDÛS"
     },
     "translations": {
-      "sq": "I Pastërti / I Shenjti",
+      "sq": "I Shenjti / I Pastri nga çdo e metë",
       "en": "The Pure / The Holy",
       "de": "Der Heilige",
       "tr": "Her türlü eksiklikten uzak olan"
     },
     "explanations": {
-      "sq": "Ai që është plotësisht i pastër nga çdo e metë, mangësi, dobësi apo ngjashmëri me krijesat e Tij. Ai është i Lartësuar në përsosmërinë e Tij.",
+      "sq": "Allahu është i pastër nga çdo e metë, dobësi, kufizim apo mangësi që mund t'i atribuohet nga mendja njerëzore. Kjo na mëson t'i drejtohemi Atij si e Vërteta e përsosur.",
       "en": "The One who is absolutely free from any flaw, error, defect, or resemblance to His creation. He is pure perfection in all His attributes.",
       "de": "Der absolut Reine und Fehlerfreie, der von allen Mängeln, Schwächen und Ähnlichkeiten mit Seinen Geschöpfen erhaben ist.",
       "tr": "Hata, noksanlık, acizlik ve yaratılmışlara özgü her türlü eksiklikten tamamen uzak, arı ve tertemiz olan, kutsallığı her şeyi kuşatandır."
@@ -113,19 +113,19 @@
     "id": 6,
     "arabic": "ٱلسَّلَامُ",
     "transliterations": {
-      "sq": "ES-SELAM",
+      "sq": "As-Selām",
       "en": "AS-SALAM",
       "de": "AS-SALAM",
       "tr": "ES-SELÂM"
     },
     "translations": {
-      "sq": "Paqedhënësi",
+      "sq": "Paqedhënësi / Burimi i Paqes",
       "en": "The Source of Peace",
       "de": "Der Friedensstifter",
       "tr": "Esenlik veren, tehlikelerden koruyan"
     },
     "explanations": {
-      "sq": "Burimi i paqes, shpëtimit dhe sigurisë. Ai që i shpëton krijesat e Tij nga çdo padrejtësi dhe u dhuron qetësi e paqe shpirtërore në zemra.",
+      "sq": "Ai është i shpëtuar nga çdo mangësi dhe është i vetmi Burim i paqes dhe sigurisë. Kushdo që kërkon qetësi shpirtërore dhe siguri në jetë, e gjen atë duke u lidhur me Paqedhënësin.",
       "en": "The Giver of peace and safety who free His creations from injustice and grants tranquility to the hearts of believers.",
       "de": "Die Quelle des Friedens und der Sicherheit, der Seine Geschöpfe vor Unrecht bewahrt und den Gläubigen inneren Frieden schenkt.",
       "tr": "Kullarını her türlü tehlikeden, kederden ve zulümden selamete çıkaran; barış, huzur ve esenliğin yegane kaynağı olan zat."
@@ -135,19 +135,19 @@
     "id": 7,
     "arabic": "ٱلْمُؤْمِنُ",
     "transliterations": {
-      "sq": "EL-MU'MIN",
+      "sq": "Al-Mu'min",
       "en": "AL-MU'MIN",
       "de": "AL-MU'MIN",
       "tr": "EL-MÜ'MİN"
     },
     "translations": {
-      "sq": "Siguruesi / Dhënësi i Besës",
+      "sq": "Siguruesi / Dhënësi i Besimit",
       "en": "The Giver of Belief",
       "de": "Der Gewährer der Sicherheit",
       "tr": "Güven veren, vaadine sadık kalan"
     },
     "explanations": {
-      "sq": "Ai që jep siguri, besim e qetësi në zemrat e besimtarëve. Ai u qëndron gjithmonë besnik premtimeve të Tij dhe i mbron robërit nga frika.",
+      "sq": "Ai që i ofron siguri robërve të Tij nga padrejtësia dhe nga frika. Ai është Dëshmuesi i së vërtetës dhe i mban premtimet e Tij gjithmonë.",
       "en": "The One who grants security, faith, and peace of mind. He is always true to His word and protects His servants from fear and injustice.",
       "de": "Derjenige, der den Gläubigen Sicherheit und Glauben einflößt. Er ist Seinen Versprechen stets treu und schützt Seine Diener vor Angst.",
       "tr": "Gönüllerde iman ışığını yakan, kullarına güven veren, kendine sığınanları korkulardan emin kılan ve vaadinde daima sadık kalandır."
@@ -157,19 +157,19 @@
     "id": 8,
     "arabic": "ٱلْمُهَيْمِنُ",
     "transliterations": {
-      "sq": "EL-MUHEJMIN",
+      "sq": "Al-Muhejmin",
       "en": "AL-MUHAYMIN",
       "de": "AL-MUHAYMIN",
       "tr": "EL-MÜHEYMİN"
     },
     "translations": {
-      "sq": "Mbikëqyrësi / Ruajtësi",
+      "sq": "Mbikëqyrësi / Dëshmuesi",
       "en": "The Guardian",
       "de": "Der Hüter / Der Wächter",
       "tr": "Her şeyi gözeten ve koruyan"
     },
     "explanations": {
-      "sq": "Ruajtësi, Mbikëqyrësi dhe Dëshmitari i çdo gjëje. Ai kontrollon dhe kujdeset për çdo hollësi të krijimit dhe i ruan krijesat e Tij me dashuri.",
+      "sq": "Allahu dëshmon çdo vepër, kujdeset, ruan dhe mbron çdo krijesë në çdo moment. Të jetosh me këtë emër do të thotë të kesh vetëdijen se Ai po të sheh dhe po kujdeset për ty gjithnjë.",
       "en": "The supreme Protector and Witness who oversees all things, controls every detail of the universe, and guards His creation with infinite care.",
       "de": "Der Beschützer und Zeuge aller Dinge, der jedes Detail des Universums überwacht und Seine Geschöpfe mit unendlicher Fürsorge behütet.",
       "tr": "Bütün varlıkları gözetim altında tutan, her şeyi denetleyen, koruyan, kollayan ve yarattıklarının kaderini doğrudan elinde bulundurandır."
@@ -179,19 +179,19 @@
     "id": 9,
     "arabic": "ٱلْعَزِيزُ",
     "transliterations": {
-      "sq": "EL-AZIZ",
+      "sq": "Al-'Azīz",
       "en": "AL-AZIZ",
       "de": "AL-AZIZ",
       "tr": "EL-AZÎZ"
     },
     "translations": {
-      "sq": "I Plotfuqishmi / Gjithëkrenari",
+      "sq": "I Plotfuqishmi / Ngadhënjyesi",
       "en": "The Almighty",
       "de": "Der Allmächtige",
       "tr": "İzzet sahibi, mağlup edilmesi imkansız"
     },
     "explanations": {
-      "sq": "Fuqiploti i pamposhtur dhe Krenari absolut. Ai që zotëron çdo forcë e pushtet dhe askush e asgjë nuk mund t'i bëjë ballë apo ta mposhtë Atë.",
+      "sq": "Fuqia dhe Krenaria e Tij janë të pakufishme. Ai është gjithmonë fitimtar dhe nuk mund të mposhtet nga askush. Por fuqia e Tij është gjithmonë e shoqëruar me drejtësi dhe urtësi.",
       "en": "The invincible Almighty who possesses all strength and honor. Nothing in the heavens or earth can overcome or resist His decrees.",
       "de": "Der unbesiegbare Allmächtige, der alle Stärke und Ehre besitzt. Nichts im Universum kann Seinen Dekreten widerstehen oder Ihn überwinden.",
       "tr": "Sonsuz izzet ve şeref sahibi olan, her şeye galip gelen, asla mağlup edilemeyen ve eşi benzeri bulunmayan mutlak güç sahibidir."
@@ -201,19 +201,19 @@
     "id": 10,
     "arabic": "ٱلْجَبَّارُ",
     "transliterations": {
-      "sq": "EL-XHEBBAR",
+      "sq": "Al-Xhebbār",
       "en": "AL-JABBAR",
       "de": "AL-DSCHABBAR",
       "tr": "EL-CEBBÂR"
     },
     "translations": {
-      "sq": "Gjithëfuqishmi / Imponuesi",
+      "sq": "Detyruesi / Riparuesi",
       "en": "The Compeller",
       "de": "Der Unterwerfer",
       "tr": "Dilediğini zorla yaptıran, kırıkları onaran"
     },
     "explanations": {
-      "sq": "Ai që me vullnetin e Tij rregullon çdo gjë të dëmtuar, shëron të lënduarit, pasuron të varfrit dhe detyron gjithçka sipas urtësisë së Tij absolute.",
+      "sq": "Ky emër ka dy anë: e para është Ai që rregullon punët e thyera, që shëron zemrat e lënduara dhe forcon të dobëtit. E dyta është Ai që e ka gjithçka nën kontroll dhe askush nuk mund të dalë jashtë vullnetit të Tij.",
       "en": "The Compeller who repairs what is broken, heals the wounded, enriches the poor, and carries out His absolute will without opposition.",
       "de": "Der Unterwerfer, der alles Zerbrochene heilt, den Armen reich macht und Seinen absoluten Willen im gesamten Universum durchsetzt.",
       "tr": "Dilediğini zorla yaptıran, eksikleri tamamlayan, kırılanları onaran, kullarının yaralarını saran ve gücü karşısında her şeyin boyun eğdiği mutlak kudrettir."
@@ -223,19 +223,19 @@
     "id": 11,
     "arabic": "ٱلْمُتَكَبِّرُ",
     "transliterations": {
-      "sq": "EL-MUTEKEBBIR",
+      "sq": "Al-Mutekebbir",
       "en": "AL-MUTAKABBIR",
       "de": "AL-MUTAKABBIR",
       "tr": "EL-MÜTEKEBBİR"
     },
     "translations": {
-      "sq": "I Madhërishmi",
+      "sq": "I Madhërishmi / Krenari",
       "en": "The Supreme",
       "de": "Der Stolze / Der Erhabene",
       "tr": "Büyüklükte eşi benzeri olmayan"
     },
     "explanations": {
-      "sq": "Ai që është madhështor dhe i vetëmjaftueshëm. I vetmi që meriton krenarinë dhe madhështinë e vërtetë, i lartësuar mbi çdo cilësi të krijesave.",
+      "sq": "Madhështia dhe Krenaria i takojnë vetëm Atij si Krijues. Njeriu, duke qenë krijesë e dobët, nuk mund të jetë arrogant. Arroganca (kibër-i) është rroba e Zotit dhe nuk i ka hije asnjë njeriu.",
       "en": "The Supreme who is majestic and self-sufficient. He alone deserves true pride and grandeur, far exalted above any attribute of His creatures.",
       "de": "Der stolze Erhabene, dem allein wahre Größe und Stolz zustehen. Er ist weit über die Eigenschaften Seiner Geschöpfe erhöht.",
       "tr": "Her şeyde büyüklüğünü gösteren, büyüklük ve azametini ortaya koyan, yaratıkların hiçbirine ihtiyaç duymayan yegane azamet sahibidir."
@@ -245,7 +245,7 @@
     "id": 12,
     "arabic": "ٱلْخَالِقُ",
     "transliterations": {
-      "sq": "EL-HALIK",
+      "sq": "Al-Hālik (H e fortë)",
       "en": "AL-KHALIQ",
       "de": "AL-CHALIQ",
       "tr": "EL-HÂLIK"
@@ -257,7 +257,7 @@
       "tr": "Yoktan var eden, yaratan"
     },
     "explanations": {
-      "sq": "Ai që krijon gjithçka nga mosekzistenca, pa pasur ndonjë model paraprak, pa asnjë lodhje dhe me një planifikim e përcaktim të përkryer.",
+      "sq": "Ai është Zoti që projekton dhe krijon çdo gjë nga mosekzistenca. Të njohësh Krijuesin do të thotë të mahnitesh me thellësinë e universit dhe të vetë qenies njerëzore.",
       "en": "The Creator who brings everything from non-existence into existence, without any prior model, tiredness, or effort.",
       "de": "Der Schöpfer, der alles aus dem Nichts ins Dasein ruft, ohne ein vorheriges Muster, ohne Mühe oder Anstrengung.",
       "tr": "Her şeyi yoktan var eden, yaratacağı mahlukatın bütün hallerini, takdirini ve sınırlarını önceden belirleyen benzersiz yaratıcıdır."
@@ -267,19 +267,19 @@
     "id": 13,
     "arabic": "ٱلْبَارِئُ",
     "transliterations": {
-      "sq": "EL-BARI",
+      "sq": "Al-Bāri'",
       "en": "AL-BARI",
       "de": "AL-BARI",
       "tr": "EL-BÂRİ"
     },
     "translations": {
-      "sq": "Formuesi / Filluesi",
+      "sq": "Filluesi / Përsosësi",
       "en": "The Evolver",
       "de": "Der Erschaffer",
       "tr": "Kusursuz yaratan, düzene koyan"
     },
     "explanations": {
-      "sq": "Ai që i nxjerr krijesat në ekzistencë me përputhshmëri, harmoni dhe përsosmëri të plotë, pa asnjë sforcim apo gabim në strukturën e tyre.",
+      "sq": "Ai nuk thjesht krijon (Al-Hālik), por e sjell çdo gjë në ekzistencë pa asnjë model të mëparshëm, duke i dhënë masën dhe funksionin e duhur me një harmoni të përsosur.",
       "en": "The Maker who shapes and proportions His creation perfectly, bringing harmony and order to all structural forms of life.",
       "de": "Der Erschaffer, der Seine Schöpfung perfekt formt und strukturiert und Harmonie und Ordnung in alle Lebensformen bringt.",
       "tr": "Yarattığı varlıkların aza ve organlarını birbirine uyumlu, kusursuz ve tam bir düzen içerisinde meydana getiren ilahi güçtür."
@@ -289,7 +289,7 @@
     "id": 14,
     "arabic": "ٱلْمُصَوِّرُ",
     "transliterations": {
-      "sq": "EL-MUSAVVIR",
+      "sq": "Al-Musau-uir",
       "en": "AL-MUSAWWIR",
       "de": "AL-MUSAWWIR",
       "tr": "EL-MUSAVVİR"
@@ -301,7 +301,7 @@
       "tr": "Her varlığa kendine has şekil veren"
     },
     "explanations": {
-      "sq": "Ai që u jep formë dhe veçori unike çdo krijese, duke i bërë ato të ndryshme, të dallueshme dhe të projektuara bukur sipas qëllimit të tyre.",
+      "sq": "Ai i jep formë dhe pamje unike, karakteristika dhe bukuri të veçantë çdo krijese sipas dëshirës së Tij, ashtu siç i ka dhënë formën më të bukur njeriut.",
       "en": "The Fashioner who shapes each creation with distinct, unique features and beautifully projects their forms according to their purpose.",
       "de": "Der Gestalter, der jedem Geschöpf eine einzigartige Gestalt und Merkmale verleiht und seine Formen entsprechend seinem Zweck entwirft.",
       "tr": "Yarattığı varlıklara en uygun şekli, rengi ve özellikleri veren; her bir mahlukatı diğerlerinden farklı ve benzersiz kılan form vericidir."
@@ -311,19 +311,19 @@
     "id": 15,
     "arabic": "ٱلْغَفَّارُ",
     "transliterations": {
-      "sq": "EL-GAFFAR",
+      "sq": "Al-Gaffār",
       "en": "AL-GHAFFAR",
       "de": "AL-GHAFFAR",
       "tr": "EL-GAFFÂR"
     },
     "translations": {
-      "sq": "Falësi",
+      "sq": "Gjithëfalësi (që fal vazhdimisht)",
       "en": "The All-Forgiving",
       "de": "Der Allverzeihende",
       "tr": "Kullarının günahlarını tekrar tekrar affeden"
     },
     "explanations": {
-      "sq": "Ai që fal gabimet dhe mëkatet e robve të Tij duke i mbuluar ato me mëshirën e Tij dhe duke u dhënë atyre mundësi e kohë për t'u përmirësuar.",
+      "sq": "Forma e kësaj fjale në arabisht tregon dikë që fal përsëri dhe përsëri. Nuk ka rëndësi sa herë bie njeriu në gabime; nëse ai kthehet me pendim të sinqertë, dyert e Falësit janë të hapura gjithmonë. Ai i mbulon të metat tona në këtë botë dhe na i fal ato në tjetrën.",
       "en": "The All-Forgiving who repeatedly overlooks and conceals the sins and mistakes of His servants whenever they seek sincere repentance.",
       "de": "Der Allverzeihende, der die Sünden und Fehler Seiner Diener immer wieder übersieht und zudeckt, wann immer sie aufrichtig bereuen.",
       "tr": "Kullarının günahlarını örten, onları rezil etmeyen, tövbe ettiklerinde hatalarını tekrar tekrar bağışlayan sonsuz af sahibidir."
@@ -333,19 +333,19 @@
     "id": 16,
     "arabic": "ٱلْقَهَّارُ",
     "transliterations": {
-      "sq": "EL-KAHHAR",
+      "sq": "Al-Kahhār",
       "en": "AL-QAHHAR",
       "de": "AL-QAHHAR",
       "tr": "EL-KAHHÂR"
     },
     "translations": {
-      "sq": "Nënshtruesi",
+      "sq": "Mposhtësi / Dominuesi absolut",
       "en": "The Subduer",
       "de": "Der Bezwinger",
       "tr": "Her şeye galip gelen, mutlak güç"
     },
     "explanations": {
-      "sq": "Ai që mposht dhe mban nën kontroll të plotë çdo krijesë. Para të Cilit çdo fuqi tjetër në qiej e tokë është krejtësisht e pafuqishme.",
+      "sq": "Sunduesi para të Cilit nënshtrohet çdo krijesë dhe asgjë nuk mund t'i kundërvihet vullnetit të Tij. Ky emër thyen egon e tiranëve dhe u jep qetësi të shtypurve se një Ditë, Zoti do të bëjë drejtësi.",
       "en": "The Subduer who dominates all existence. Before His majesty and absolute power, every other force is completely helpless and subdued.",
       "de": "Der Bezwinger, der die gesamte Existenz beherrscht. Vor Seiner Majestät und absoluten Macht ist jede andere Kraft völlig machtlos.",
       "tr": "Düşmanlarını kahreden, her şeye galip gelen ve boyun eğdiren; gücü karşısında hiçbir gücün duramayacağı mutlak hakimdir."
@@ -355,19 +355,19 @@
     "id": 17,
     "arabic": "ٱلْوَهَّابُ",
     "transliterations": {
-      "sq": "EL-VEHHAB",
+      "sq": "Al-Uehhāb",
       "en": "AL-WAHHAB",
       "de": "AL-WAHHAB",
       "tr": "EL-VEHHÂB"
     },
     "translations": {
-      "sq": "Dhuruesi",
+      "sq": "Dhuruesi i madh",
       "en": "The Bestower",
       "de": "Der Schenkende",
       "tr": "Karşılıksız veren, ihsanı bol olan"
     },
     "explanations": {
-      "sq": "Dhuruesi i madh që jep mirësi, dhunti dhe bekime të panumërta pa kërkuar asgjë në këmbim, dhe pa pritur ndonjë shpërblim prej krijesave.",
+      "sq": "Ai jep vazhdimisht pa pritur asnjë lloj shpërblimi në këmbim. Çdo dhuratë në jetën tonë (familja, trupi, talentet, udhëzimi) është dhuratë falas nga \"Al-Uehhab\", e cila kërkon vetëm mirënjohje.",
       "en": "The Bestower who continuously gives blessings, favors, and gifts to His creation without expecting anything in return or any reward.",
       "de": "Der Schenkende, der Seiner Schöpfung kontinuierlich Segen, Gunst und Gaben gewährt, ohne eine Gegenleistung oder Belohnung zu erwarten.",
       "tr": "Kullarına karşılıksız veren, ihsan ve lutufları tükenmeyen, hiçbir menfaat gözetmeden bol bol bağışta bulunan büyük ikram sahibidir."
@@ -377,7 +377,7 @@
     "id": 18,
     "arabic": "ٱلرَّزَّاقُ",
     "transliterations": {
-      "sq": "ER-RREZZAK",
+      "sq": "Ar-Rrezzāk",
       "en": "AR-RAZZAQ",
       "de": "AR-RAZZAQ",
       "tr": "ER-REZZÂK"
@@ -389,7 +389,7 @@
       "tr": "Bütün canlıların rızkını veren"
     },
     "explanations": {
-      "sq": "Ai që krijon ushqimin, jetesën dhe të gjitha nevojat fizike dhe shpirtërore për të gjitha krijesat e Tij, duke e shpërndarë atë sipas urtësisë së Tij.",
+      "sq": "Ai jep çdo rrizk (furnizim). Kjo nuk përfshin vetëm ushqimin apo pasurinë, por edhe diturinë, qetësinë e zemrës dhe besimin. Të kuptosh këtë emër largon stresin dhe fiksimin e tepruar për anën materiale, pasi furnizimi është i garantuar nga Ai, ndërsa ne bëjmë vetëm përpjekjen.",
       "en": "The Provider who creates and distributes food, sustenance, and all physical and spiritual needs for all His creations.",
       "de": "Der Versorger, der Nahrung, Lebensunterhalt sowie alle physischen und spirituellen Bedürfnisse für alle Seine Geschöpfe schafft und verteilt.",
       "tr": "Yeryüzündeki bütün canlıların hayatta kalması için ihtiyaç duydukları rızkı yaratan, onlara ulaştıran ve faydalandıran yegane rızık vericidir."
@@ -399,19 +399,19 @@
     "id": 19,
     "arabic": "ٱلْفَتَّاحُ",
     "transliterations": {
-      "sq": "EL-FETTAH",
+      "sq": "Al-Fettāh",
       "en": "AL-FATTAH",
       "de": "AL-FATTAH",
       "tr": "EL-FETTÂH"
     },
     "translations": {
-      "sq": "Hapësi / Zgjidhjedhënësi",
+      "sq": "Zgjidhjadhënësi / Hapësi",
       "en": "The Opener",
       "de": "Der Öffner",
       "tr": "Her türlü sıkıntıyı gideren, kapıları açan"
     },
     "explanations": {
-      "sq": "Ai që hap dyert e mëshirës, suksesit e diturisë, dhe zgjidh çdo vështirësi, sprovë e problem për robërit e Tij me drejtësi dhe mëshirë.",
+      "sq": "Ai që hap dyert e bllokuara. Kush gjendet në vështirësi, në mbyllje të rrugëve apo pengesa shpirtërore e materiale, i drejtohet Atij për t'i hapur rrugët e suksesit, udhëzimit dhe qetësimit.",
       "en": "The Opener who opens the gates of mercy, success, and knowledge, and resolves every difficulty or trial for His servants with justice.",
       "de": "Der Öffner, der die Tore der Barmherzigkeit, des Erfolgs und des Wissens öffnet und jede Schwierigkeit für Seine Diener mit Gerechtigkeit löst.",
       "tr": "Kullarının önündeki her türlü maddi ve manevi engeli kaldıran, darlık ve sıkıntıları gideren, rahmet, hayır ve ilim kapılarını ardına kadar açandır."
@@ -421,7 +421,7 @@
     "id": 20,
     "arabic": "ٱلْعَلِيمُ",
     "transliterations": {
-      "sq": "EL-ALIM",
+      "sq": "Al-'Alīm",
       "en": "AL-ALIM",
       "de": "AL-ALIM",
       "tr": "EL-ALÎM"
@@ -433,7 +433,7 @@
       "tr": "Her şeyi en ince detayına kadar bilen"
     },
     "explanations": {
-      "sq": "Ai që di gjithçka në përsosmëri absolute: të kaluarën, të tashmen, të ardhmen, si dhe çdo fshehtësi apo mendim që gjendet në zemra.",
+      "sq": "Ai di gjithçka: të kaluarën, të tashmen, të ardhmen, ato që themi me zë të lartë dhe ato që i fshehim thellë në zemër. Dija e Tij është e pakufishme.",
       "en": "The All-Knowing whose knowledge is perfect and absolute, encompassing the past, the present, the future, and every secret hidden in the hearts.",
       "de": "Der Allwissende, dessen Wissen vollkommen und absolut ist und die Vergangenheit, Gegenwart, Zukunft sowie jedes im Herzen verborgene Geheimnis umfasst.",
       "tr": "Olmuş, olmakta olan ve gelecekte olacak her şeyi, gizliyi, açığı, kalplerden geçen en ince düşünceleri dahi eksiksiz ve sınırsız bilen bilgedir."
@@ -443,19 +443,19 @@
     "id": 21,
     "arabic": "ٱلْقَابِضُ",
     "transliterations": {
-      "sq": "EL-KABID",
+      "sq": "Al-Kābid",
       "en": "AL-QABID",
       "de": "AL-QABID",
       "tr": "EL-KÂBID"
     },
     "translations": {
-      "sq": "Shtrënguesi",
+      "sq": "Shtrënguesi / Ndaluesi",
       "en": "The Withholder",
       "de": "Der Verenger / Der Zurückhaltende",
       "tr": "Dilediğine rızkı daraltan, ruhları kabzeden"
     },
     "explanations": {
-      "sq": "Ai që me urtësinë e Tij ua shtrëngon apo ua pakëson furnizimin apo shpirtrat atyre që dëshiron, për t'i sprovuar dhe edukuar.",
+      "sq": "Jeta rrotullohet mes lehtësimit dhe vështirësisë. Ndonjëherë Ai e ngushton (shtrëngon) furnizimin, gëzimin apo lehtësimin për të na edukuar, për të testuar durimin tonë, ose për të na kthyer te Vetja nga hutimi i kësaj bote. (Ky emër vjen gjithmonë bashkë me emrin e 21-të, Al-Bāsit - Zgjeruesi).",
       "en": "The Withholder who constricts and restricts sustenance, life, or souls to whom He wills in accordance with His divine wisdom.",
       "de": "Der Zurückhaltende, der die Versorgung oder die Seelen derjenigen verengt, die Er will, um sie auf die Probe zu stellen.",
       "tr": "Sonsuz hikmetiyle dilediği kulunun rızkını daraltan, eceli gelen canlıların ruhlarını alan ve kudretini hissettiren kabzedicidir."
@@ -465,19 +465,19 @@
     "id": 22,
     "arabic": "ٱلْبَاسِطُ",
     "transliterations": {
-      "sq": "EL-BASIT",
+      "sq": "Al-Bāsit",
       "en": "AL-BASIT",
       "de": "AL-BASIT",
       "tr": "EL-BÂSIT"
     },
     "translations": {
-      "sq": "Zgjeruesi",
+      "sq": "Zgjeruesi / Dhënësi i bollëkut",
       "en": "The Extender",
       "de": "Der Gewährende / Der Ausbreiter",
       "tr": "Dilediğine rızkı açan ve genişleten"
     },
     "explanations": {
-      "sq": "Ai që me bujarinë e Tij e shton dhe e zgjeron furnizimin, mirësinë, jetën dhe gëzimin për krijesat e Tij, duke sjellë gjerësi.",
+      "sq": "Ky emër është çift me të 20-in (Al-Kābid). Allahu e zgjeron furnizimin, gëzimin dhe jetën për kë të dojë, me mëshirën e Tij. Kur dyert hapen dhe gjërat ecin mbarë, kujtojmë se është Ai që po na e zgjeron rrugën.",
       "en": "The Expander who amplifies, expands, and stretches out sustenance, mercy, and joy to His creation with generous grace.",
       "de": "Der Ausbreiter, der die Versorgung und den Segen für Seine Geschöpfe großzügig vermehrt und ausbreitet.",
       "tr": "Lütuf ve keremiyle dilediği kulunun rızkını bollukla genişleten, kalplere ferahlık ve neşe bahşeden genişleticidir."
@@ -487,19 +487,19 @@
     "id": 23,
     "arabic": "ٱلْخَافِضُ",
     "transliterations": {
-      "sq": "EL-HAFID",
+      "sq": "Al-Hāfid (H e ashpër)",
       "en": "AL-KHAFID",
       "de": "AL-CHAFID",
       "tr": "EL-HÂFID"
     },
     "translations": {
-      "sq": "Ulësi / Poshtëruesi",
+      "sq": "Përulësi / Ulësi",
       "en": "The Abaser",
       "de": "Der Erniedriger",
       "tr": "Kafirleri, asileri alçaltan"
     },
     "explanations": {
-      "sq": "Ai që ul dhe poshtëron të këqinjtë, arrogantët dhe ata që refuzojnë të vërtetën, duke u treguar atyre dobësinë e tyre para fuqisë së Tij.",
+      "sq": "Ai poshtëron zullumqarët, arrogantët dhe ata që devijojnë nga e vërteta. Askush nuk mund të mbajë një pozitë të lartë nëse Ai vendos ta ulë.",
       "en": "The Abaser who humbles and lowers the arrogant, the tyrants, and those who reject the truth, revealing their ultimate weakness.",
       "de": "Der Erniedriger, der die Hochmütigen und diejenigen erniedrigt, die Seine Gesetze brechen und die Wahrheit ablehnen.",
       "tr": "Kibirli, zalim ve hakikati inkar edenleri alçaltan, onların kibir ve gururlarını ayaklar altına alarak değersizleştirendir."
@@ -509,19 +509,19 @@
     "id": 24,
     "arabic": "ٱلرَّافِعُ",
     "transliterations": {
-      "sq": "ER-RRAFI",
+      "sq": "Ar-Rāfi'",
       "en": "AR-RAFI",
       "de": "AR-RAFI",
       "tr": "ER-RÂFİ"
     },
     "translations": {
-      "sq": "Ngritësi",
+      "sq": "Lartësuesi / Ngritësi",
       "en": "The Exalter",
       "de": "Der Erhöher",
       "tr": "Müminleri, salihleri yükselten"
     },
     "explanations": {
-      "sq": "Ai që ngre lart statusin, nderin dhe gradat e besimtarëve dhe të njerëzve të mirë në këtë botë dhe në botën tjetër përmes besimit dhe diturisë.",
+      "sq": "Ai i lartëson besimtarët, të diturit dhe ata që janë të përulur ndaj Tij. Nderi i vërtetë vjen vetëm duke kërkuar Lartësuesin, dhe jo duke u servilosur te njerëzit.",
       "en": "The Exalter who raises the status, honor, and ranks of the righteous believers and scholars in this world and the Hereafter.",
       "de": "Der Erhöher, der den Status, die Ehre und die Ränge der rechtschaffenen Gläubigen im Diesseits und Jenseits erhöht.",
       "tr": "İnanan kullarının derecelerini yükselten, onları onurlandıran, kalplerini imanla ve ilimle yücelten yüce yükselticidir."
@@ -531,19 +531,19 @@
     "id": 25,
     "arabic": "ٱلْمُعِزُّ",
     "transliterations": {
-      "sq": "EL-MUIZ",
+      "sq": "Al-Mu'izz",
       "en": "AL-MU'IZZ",
       "de": "AL-MUIZZ",
       "tr": "EL-MUIZZ"
     },
     "translations": {
-      "sq": "Nderuesi",
+      "sq": "Nderuesi / Ngadhënjyesi",
       "en": "The Giver of Honor",
       "de": "Der Verleiher der Ehre",
       "tr": "Dilediğine izzet ve şeref veren"
     },
     "explanations": {
-      "sq": "Ai që i jep nder, krenari, dinjitet dhe sukses kujdo që dëshiron, duke e udhëzuar në rrugën e Tij të drejtë e duke e mbrojtur.",
+      "sq": "Ai i jep krenari, nder dhe pushtet atij që i bindet. Besimtari gjen forcë dhe dinjitet të thellë në këtë emër, duke ditur se \"Krenaria (Izzeti) i takon vetëm Allahut\".",
       "en": "The Bestower of Honor who grants dignity, nobility, and success to whom He wills, elevating them above humiliation.",
       "de": "Der Verleiher der Ehre, der Würde, Adel und Erfolg schenkt, wem Er will, und ihn vor Erniedrigung schützt.",
       "tr": "Dilediği kulunu dünyada ve ahirette şereflendiren, ona güç, itibar, izzet ve üstünlük kazandıran yegane şeref vericidir."
@@ -553,19 +553,19 @@
     "id": 26,
     "arabic": "ٱلْمُذِلُّ",
     "transliterations": {
-      "sq": "EL-MUDHIL",
+      "sq": "Al-Mudhill (Dh si that në anglisht)",
       "en": "AL-MUDHILL",
       "de": "AL-MUDHILL",
       "tr": "EL-MÜZİLL"
     },
     "translations": {
-      "sq": "Përulësi",
+      "sq": "Poshtëruesi",
       "en": "The Giver of Dishonor",
       "de": "Der Demütiger",
       "tr": "Dilediğini zillete düşüren, alçaltan"
     },
     "explanations": {
-      "sq": "Ai që u heq nderin dhe i bën të përulur dhe të turpëruar ata që devijojnë dhe rebelohen kundër ligjeve të Tij të përsosura.",
+      "sq": "Kujtdo që i kthen shpinën së vërtetës dhe mbështetet vetëm tek egoja e vet, Ai ia heq mbrojtjen dhe e lë të poshtërohet. Kjo tregon balancën e Tij mes mëshirës dhe drejtësisë.",
       "en": "The Humiliator who deprives the rebellious and disobedient of honor, leaving them in humiliation and disgrace.",
       "de": "Der Demütiger, der den Ungehorsamen und Rebellen die Ehre entzieht und sie in Demütigung und Schande zurücklässt.",
       "tr": "Kendi yasalarına isyan eden, büyüklük taslayan kullarını zillete düşüren, rezil ve rüsvay eden mutlak iradedir."
@@ -575,19 +575,19 @@
     "id": 27,
     "arabic": "ٱلسَّمِيعُ",
     "transliterations": {
-      "sq": "ES-SEMI",
+      "sq": "As-Semī'",
       "en": "AS-SAMI",
       "de": "AS-SAMI",
       "tr": "ES-SEMÎ"
     },
     "translations": {
-      "sq": "Dëgjuesi",
+      "sq": "Të Gjithëdëgjuesi",
       "en": "The All-Hearing",
       "de": "Der Allhörende",
       "tr": "Her şeyi en iyi işiten"
     },
     "explanations": {
-      "sq": "Ai që dëgjon çdo zë, lutje e pëshpëritje në çdo gjuhë e vend, pa u penguar nga dëgjimi i zërave të tjerë në të njëjtën kohë.",
+      "sq": "Ai dëgjon çdo gjë: çdo lutje të shprehur me zë, çdo pëshpëritje, madje edhe fjalët e pathëna që fshihen në thellësi të zemrës. Kjo i jep besimtarit siguri absolute kur bën lutje (Dua).",
       "en": "The All-Hearing who hears every sound, prayer, whisper, and thought, without any physical limitation or hindrance.",
       "de": "Der Allhörende, der jedes Geräusch, Gebet und Flüstern hört, ohne irgendeine physische Einschränkung oder Behinderung.",
       "tr": "Hiçbir şarta ve araca bağlı olmadan kainattaki her sesi, fısıltıyı, gizli lutuf yakarışlarını kusursuzca işiten ve dualara icabet edendir."
@@ -597,19 +597,19 @@
     "id": 28,
     "arabic": "ٱلْبَصِيرُ",
     "transliterations": {
-      "sq": "EL-BESIR",
+      "sq": "Al-Besīr",
       "en": "AL-BASEER",
       "de": "AL-BASIR",
       "tr": "EL-BASÎR"
     },
     "translations": {
-      "sq": "Vështruesi",
+      "sq": "Të Gjithëshikuesi",
       "en": "The All-Seeing",
       "de": "Der Allsehende",
       "tr": "Her şeyi en iyi gören"
     },
     "explanations": {
-      "sq": "Ai që sheh çdo gjë, madje edhe lëvizjen e milingonës së zezë mbi shkëmbin e zi në natën më të errët. Çdo gjë është e shfaqur para Tij.",
+      "sq": "Ai sheh çdo qelizë në univers dhe çdo vepër tonën. Të jetosh me vetëdijen e këtij emri do të thotë të arrish shkallën e Ihsanit (Përsosmërisë): të veprosh ashtu sikur e sheh Atë, e nëse ti nuk e sheh, të dish se Ai të sheh ty.",
       "en": "The All-Seeing who sees everything in the universe, including the smallest movements in the darkest places. Nothing is hidden from His view.",
       "de": "Der Allsehende, der alles im Universum sieht, einschließlich der kleinsten Bewegungen an den dunkelsten Orten.",
       "tr": "Karanlıkta hareket eden en küçük mahlukatı dahi, hiçbir ışığa ve göze ihtiyaç duymadan gören, her şeyin önünde apaçık olduğu basiret sahibidir."
@@ -619,19 +619,19 @@
     "id": 29,
     "arabic": "ٱلْحَكَمُ",
     "transliterations": {
-      "sq": "EL-HAKEM",
+      "sq": "Al-Hekem",
       "en": "AL-HAKAM",
       "de": "AL-HAKAM",
       "tr": "EL-HAKEM"
     },
     "translations": {
-      "sq": "Gjithëgjykuesi",
+      "sq": "Gjykuesi Absolut / Arbitri",
       "en": "The Judge",
       "de": "Der Schiedsrichter",
       "tr": "Mutlak hakim, hüküm veren"
     },
     "explanations": {
-      "sq": "Gjykatësi suprem dhe i pagabueshëm, vendimi i të Cilit është i pakthyeshëm dhe ligji i Tij është i përkryer e pa asnjë padrejtësi.",
+      "sq": "Ai është gjykatësi i vetëm i vërtetë. Rregullat, ligjet dhe gjykimet e Tij janë të përsosura dhe pa asnjë të metë.",
       "en": "The Supreme Judge whose decisions are final, absolute, and perfectly just. No one can reverse His judgments or challenge His decrees.",
       "de": "Der oberste Richter, dessen Entscheidungen endgültig, absolut und vollkommen gerecht sind. Niemand kann Seine Urteile rückgängig machen.",
       "tr": "Hüküm verme yetkisi tamamen kendisine ait olan, verdiği kararlar asla değiştirilemeyen ve mutlak adaletle hükmeden en büyük hakemdir."
@@ -641,19 +641,19 @@
     "id": 30,
     "arabic": "ٱلْعَدْلُ",
     "transliterations": {
-      "sq": "EL-ADL",
+      "sq": "Al-'Adl",
       "en": "AL-ADL",
       "de": "AL-ADL",
       "tr": "EL-ADL"
     },
     "translations": {
-      "sq": "I Drejti",
+      "sq": "I Drejti Absolut",
       "en": "The Utterly Just",
       "de": "Der Gerechte",
       "tr": "Mutlak adil olan, haksızlık yapmayan"
     },
     "explanations": {
-      "sq": "Ai që është Drejtësia absolute. Nuk bën kurrë padrejtësi dhe çdo vendim, krijim apo ligj i Tij bazohet në drejtësi e urtësi të përsosur.",
+      "sq": "Drejtësia e Tij është e pakorruptueshme. Atij nuk i shpëton asnjë e drejtë e mohuar, dhe tek Ai, askujt nuk i bëhet zullum (padrejtësi) as sa një grimcë.",
       "en": "The Utterly Just who is absolute justice itself. He never commits injustice and everything He does is in perfect balance.",
       "de": "Der Gerechte, der die absolute Gerechtigkeit selbst ist. Er begeht niemals Unrecht und alles, was Er tut, ist in perfektem Gleichgewicht.",
       "tr": "Kendisinden asla haksızlık ve zulüm sadır olmayan, mutlak adalet sahibi. Her yarattığını en uygun yerde ve dengede tutandır."
@@ -663,19 +663,19 @@
     "id": 31,
     "arabic": "ٱللَّطِيفُ",
     "transliterations": {
-      "sq": "EL-LETIF",
+      "sq": "Al-Letīf",
       "en": "AL-LATIF",
       "de": "AL-LATIF",
       "tr": "EL-LATÎF"
     },
     "translations": {
-      "sq": "I Buti / I Tejdukshmi",
+      "sq": "I Buti / Bamirësi / I Holli (Në njohjen e detajeve)",
       "en": "The Subtle One",
       "de": "Der Feinfühlige",
       "tr": "Lutufkar, gizli işleri bilen"
     },
     "explanations": {
-      "sq": "Ai që njeh çdo fshehtësi të hollësishme dhe sillet me butësi, kujdes e dashuri të pafundme ndaj robve të Tij, duke u dhuruar mirësi nga nuk e presin.",
+      "sq": "Ai dërgon mirësi dhe rrugëdalje në mënyra aq \"të holla\" e subtile, saqë ne shpesh nuk i vëmë re fare derisa ato të kenë ndodhur. Ai kujdeset për ne butësisht në momentet më të papritura.",
       "en": "The Subtle One who is highly refined in His actions, knows every tiny secret, and grants kindness to His servants in unexpected ways.",
       "de": "Der Feinfühlige, der in Seinen Handlungen äußerst feinfühlig ist, jedes winzige Geheimnis kennt und Seinen Dienern auf unerwartete Weise Güte erweist.",
       "tr": "Kullarına sezilmez yollarla lutufta bulunan, en gizli, ince işleri bilen ve onlara hak etmedikleri iyilikleri sevgiyle sunandır."
@@ -685,19 +685,19 @@
     "id": 32,
     "arabic": "ٱلْخَبِيرُ",
     "transliterations": {
-      "sq": "EL-KHABIR",
+      "sq": "Al-Habīr (H e ashpër)",
       "en": "AL-KHABER",
       "de": "AL-CHABIR",
       "tr": "EL-HABÎR"
     },
     "translations": {
-      "sq": "I Gjithinformuari",
+      "sq": "I Gjithëdituri (për të fshehtat)",
       "en": "The All-Aware",
       "de": "Der Kundige",
       "tr": "Her şeyin iç yüzünü bilen"
     },
     "explanations": {
-      "sq": "Ai që është plotësisht i vetëdijshëm për çdo gjë që ndodh në gjithësi, duke njohur shkaqet dhe pasojat më të thella dhe motivet e zemrave.",
+      "sq": "Ndryshe nga Al-'Alīm (që thekson dijen e përgjithshme), Al-Habīr thekson njohjen e brendësisë, realitetit të thellë dhe qëllimeve të fshehta të çdo vepre e mendimi.",
       "en": "The All-Aware who has inner knowledge of everything in existence, knowing the true reality, causes, and deepest hidden secrets of all things.",
       "de": "Der Kundige, der ein inneres Wissen über alles hat, was existiert, und die wahre Realität und die am tiefsten verborgenen Geheimnisse aller Dinge kennt.",
       "tr": "Olup biten her şeyin iç yüzünden, saklı ve gizli yönlerinden en ince ayrıntılarına kadar tam ve eksiksiz haberdar olan ulu bilge."
@@ -707,19 +707,19 @@
     "id": 33,
     "arabic": "ٱلْحَلِيمُ",
     "transliterations": {
-      "sq": "EL-HALIM",
+      "sq": "Al-Helīm",
       "en": "AL-HALEEM",
       "de": "AL-HALIM",
       "tr": "EL-HALÎM"
     },
     "translations": {
-      "sq": "Përdëllimtari / I Buti",
+      "sq": "I Buti / Toleranti / Përdëllimtari",
       "en": "The Forbearing",
       "de": "Der Nachsichtige / Der Milde",
       "tr": "Hata yapanlara hemen ceza vermeyen"
     },
     "explanations": {
-      "sq": "I buti dhe i durueshmi që nuk nxiton të dënojë menjëherë mëkatarët për gabimet e tyre, por u jep atyre kohë dhe mundësi për pendim.",
+      "sq": "Ai sheh mëkatet tona dhe ka fuqi të na dënojë menjëherë, por me tolerancën e Tij, nuk nxiton. Ai na jep kohë, hapësirë dhe mundësi të reflektojmë e të pendohemi para se të marrim atë që meritojmë.",
       "en": "The Forbearing who is patient and calm, and does not rush to punish the sinners, giving them time to realize their mistakes and repent.",
       "de": "Der Nachsichtige, der geduldig und milde ist und die Sünder nicht sofort bestraft, sondern ihnen Zeit gibt, ihre Fehler einzusehen und zu bereuen.",
       "tr": "Günahkarlara ceza vermede acele etmeyen, son derece yumuşak huylu davranarak onlara pişman olmaları için zaman tanıyan sabır kaynağıdır."
@@ -729,19 +729,19 @@
     "id": 34,
     "arabic": "ٱلْعَظِيمُ",
     "transliterations": {
-      "sq": "EL-ADHIM",
+      "sq": "Al-'Adhīm (Dh e theksuar)",
       "en": "AL-AZEEM",
       "de": "AL-ASIM",
       "tr": "EL-AZÎM"
     },
     "translations": {
-      "sq": "Madhështori",
+      "sq": "I Madhërishmi",
       "en": "The Magnificent",
       "de": "Der Großartige / Der Erhabene",
       "tr": "Büyüklükte sınırı olmayan"
     },
     "explanations": {
-      "sq": "Ai që zotëron madhështinë dhe lavdinë më të lartë. Para madhështisë së Tij, çdo gjë tjetër në krijim duket e vogël, e pafuqishme dhe e papërfillshme.",
+      "sq": "Madhështia e Tij tejkalon çdo perceptim njerëzor. Kur biem në ruku gjatë namazit, themi \"Subhane Rabbijel 'Adhim\", pikërisht për të përulur veten tonë fizikisht dhe shpirtërisht para kësaj Madhështie.",
       "en": "The Magnificent whose greatness is infinite and absolute. Before His majesty, all of creation appears tiny, weak, and humble.",
       "de": "Der Großartige, dessen Größe unendlich und absolut is. Vor Seiner Majestät erscheint die gesamte Schöpfung winzig und schwach.",
       "tr": "Zatının ve sıfatlarının büyüklüğünde akıl ve hayalin sınırlarını aşan, mutlak ve en büyük azamet sahibi olan ulu yaratıcı."
@@ -751,19 +751,19 @@
     "id": 35,
     "arabic": "ٱلْغَفُورُ",
     "transliterations": {
-      "sq": "EL-GAFUR",
+      "sq": "Al-Gafūr",
       "en": "AL-GHAFOOR",
       "de": "AL-GHAFUR",
       "tr": "EL-GAFÛR"
     },
     "translations": {
-      "sq": "Falësi i Madh",
+      "sq": "Mëkatfalësi i Madh",
       "en": "The Great Forgiver",
       "de": "Der Vergebende",
       "tr": "Günahları çokça bağışlayan"
     },
     "explanations": {
-      "sq": "Ai që fal shumë, pa kufi dhe vazhdimisht, duke fshirë tërësisht gjurmët e mëkateve të atyre që pendohen dhe duke i zëvendësuar ato me mëshirë.",
+      "sq": "Ndryshe nga Al-Gaffar (që fal vazhdimisht përsëritjen e gabimeve), Al-Gafur thekson thellësinë e faljes. Ai fal madje edhe mëkatet më të mëdha, nëse robi kthehet me zemër të thyer e të penduar tek Ai.",
       "en": "The All-Forgiving who forgives extensively, completely erasing the traces of sins for those who repent and covering them with His mercy.",
       "de": "Der Vergebende, der ausgiebig vergibt, die Spuren von Sünden für diejenigen, die bereuen, vollständig auslöscht und sie mit Barmherzigkeit bedeckt.",
       "tr": "Çok bağışlayan, en büyük günahları bile merhametiyle affeden, kullarının pişmanlıklarını karşılıksız bırakmayan yüce bağışlayıcıdır."
@@ -773,19 +773,19 @@
     "id": 36,
     "arabic": "ٱلشَّكُورُ",
     "transliterations": {
-      "sq": "ESH-SHEKUR",
+      "sq": "Ash-Shekūr",
       "en": "ASH-SHAKUR",
       "de": "AS-SCHAKUR",
       "tr": "EŞ-ŞEKÛR"
     },
     "translations": {
-      "sq": "Mirënjohësi",
+      "sq": "Mirënjohësi / Shpërblyesi",
       "en": "The Appreciative",
       "de": "Der Dankbare",
       "tr": "Az amele çok mükafat veren"
     },
     "explanations": {
-      "sq": "Ai që vlerëson dhe shpërblen me shumëfish të mira edhe veprat më të vogla të mira të robve të Tij, duke u dhënë shpërblim të pafund.",
+      "sq": "Edhe pse ne bëjmë shumë pak, Ai na shpërblen jashtëzakonisht shumë. Ai vlerëson çdo vepër të mirë, sado e vogël të jetë ajo (madje edhe largimin e një pengese nga rruga), dhe e shumëfishon shpërblimin e saj.",
       "en": "The Appreciative who values and rewards the smallest good deeds of His servants with immense and manifold rewards.",
       "de": "Der Dankbare, der die kleinsten guten Taten Seiner Diener schätzt und mit immensen und vielfältigen Belohnungen belohnt.",
       "tr": "Kullarının ibadetlerini ve iyi amellerini fazlasıyla ödüllendiren, az bir iyiliğe bol bol nimet ve sevapla karşılık veren şükür kabul edendir."
@@ -795,7 +795,7 @@
     "id": 37,
     "arabic": "ٱلْعَلِيُّ",
     "transliterations": {
-      "sq": "EL-ALI",
+      "sq": "Al-'Alijj",
       "en": "AL-ALIY",
       "de": "AL-ALI",
       "tr": "EL-ALİYY"
@@ -807,7 +807,7 @@
       "tr": "Çok yüce, her şeyden üstün"
     },
     "explanations": {
-      "sq": "Ai që është mbi të gjitha gradat, i Lartësuar në cilësi e pushtet mbi çdo mangësi, ngjashmëri apo përshkrim fizik të krijesave.",
+      "sq": "Pozita e Tij është më e larta, absolutisht mbi çdo krijesë, mbi çdo të metë dhe mbi çdo gjë që mund të asociohet me Të. Ai i lartëson ata që përulen para Tij.",
       "en": "The Most High who is exalted in ranks, attributes, and power, far above any physical limit or similarity to His creation.",
       "de": "Der Höchste, der in Rängen, Eigenschaften und Macht erhaben ist, weit über jede physische Grenze oder Ähnlichkeit mit Seiner Schöpfung.",
       "tr": "İzzet, şeref, hükümranlık ve yücelikte sınır tanımayan, her şeyden üstün ve en yüce makama sahip olan tek ilahtır."
@@ -817,19 +817,19 @@
     "id": 38,
     "arabic": "ٱلْكَبِيرُ",
     "transliterations": {
-      "sq": "EL-KEBIR",
+      "sq": "Al-Kebīr",
       "en": "AL-KABEER",
       "de": "AL-KABIR",
       "tr": "EL-KEBÎR"
     },
     "translations": {
-      "sq": "I Madhi",
+      "sq": "I Madhi / I Pakufishmi",
       "en": "The Greatest",
       "de": "Der Große",
       "tr": "Büyüklüğü akıllara sığmayan"
     },
     "explanations": {
-      "sq": "Ai që është më i madhi në çdo aspekt të qenies dhe cilësive të Tij, pa fillim, pa mbarim dhe i paarritshëm nga imagjinata e krijesave.",
+      "sq": "Asgjë nuk është më e madhe se Ai. Kjo është logjika pse themi vazhdimisht \"Allahu Ekber\" (Allahu është më i Madhi). Sado i madh të jetë një problem apo një frikë në jetë, Allahu është shumë herë më i Madh.",
       "en": "The Greatest who is magnificent in His essence and attributes, infinite, and beyond the reach of human imagination.",
       "de": "Der Große, der in Seinem Wesen und Seinen Eigenschaften großartig ist, unendlich und außerhalb der Reichweite der menschlichen Vorstellungskraft.",
       "tr": "Büyüklüğü ve azameti hiçbir ölçüye sığmayan, yarattıklarının akıl ve kavrayış sınırlarını aşan mutlak en büyük varlıktır."
@@ -839,7 +839,7 @@
     "id": 39,
     "arabic": "ٱلْحَفِيظُ",
     "transliterations": {
-      "sq": "EL-HAFIDH",
+      "sq": "Al-Hefīdh",
       "en": "AL-HAFEEZ",
       "de": "AL-HAFIZ",
       "tr": "EL-HAFÎZ"
@@ -851,7 +851,7 @@
       "tr": "Her şeyi koruyan ve dengede tutan"
     },
     "explanations": {
-      "sq": "Ai që ruan gjithësinë nga shkatërrimi apo rrëmuja, dhe ruan me kujdes të veçantë besimtarët dhe të gjitha veprat e tyre të mira e të këqija.",
+      "sq": "Ai mban universin që të mos shkatërrohet, mbron besimtarin nga e keqja fizike dhe shpirtërore, dhe ruan të regjistruara të gjitha veprat tona, pa humbur asgjë, për Ditën e Llogarisë.",
       "en": "The Preserver who protects the entire universe from destruction and chaos, and carefully guards His servants and their deeds.",
       "de": "Der Erhalter, der das gesamte Universum vor Zerstörung und Chaos schützt und Seine Diener und ihre Taten sorgfältig behütet.",
       "tr": "Evreni yok olmaktan koruyan, varlıkların düzenini sağlayan, kullarının yaptığı her ameli eksiksiz kaydedip saklayan ulu koruyucudur."
@@ -861,19 +861,19 @@
     "id": 40,
     "arabic": "ٱلْمُقِيتُ",
     "transliterations": {
-      "sq": "EL-MUKIT",
+      "sq": "Al-Mukīt",
       "en": "AL-MUQEET",
       "de": "AL-MUQIT",
       "tr": "EL-MUKÎT"
     },
     "translations": {
-      "sq": "Ushqyesi / Mbajtësi",
+      "sq": "Ushqyesi / Mirëmbajtësi",
       "en": "The Sustainer",
       "de": "Der Ernährer",
       "tr": "Bedenlerin ve ruhların gıdasını veren"
     },
     "explanations": {
-      "sq": "Ai që krijon dhe shpërndan ushqimin, duke u dhënë forcë, jetë e mbështetje trupave dhe shpirtrave të të gjitha krijesave të Tij.",
+      "sq": "Ai i jep çdo krijese furnizimin specifik që e mban atë gjallë: ushqim për trupin dhe ushqim (besim e njohuri) për shpirtin. Ai është i Vetmi që kujdeset për ruajtjen e jetës në çdo moment.",
       "en": "The Sustainer who creates and delivers nourishment, giving life, energy, and support to both physical bodies and spiritual souls.",
       "de": "Der Ernährer, der Nahrung schafft und liefert und sowohl dem physischen Körper als auch der spirituellen Seele Leben und Energie schenkt.",
       "tr": "Bütün canlıların gıdasını, rızkını tayin eden; ruhları imanla, bedenleri yiyeceklerle besleyip ayakta tutan rızık verici güçtür."
@@ -883,19 +883,19 @@
     "id": 41,
     "arabic": "ٱلْحَسِيبُ",
     "transliterations": {
-      "sq": "EL-HASIB",
+      "sq": "Al-Hesīb",
       "en": "AL-HASEEB",
       "de": "AL-HASIB",
       "tr": "EL-HASÎB"
     },
     "translations": {
-      "sq": "Llogarimarësi",
+      "sq": "Llogarimarrësi / Mjaftuesi",
       "en": "The Reckoner",
       "de": "Der Abrechner",
       "tr": "Kullarının hesabını en iyi gören"
     },
     "explanations": {
-      "sq": "Ai që mjafton për robërit e Tij si mbështetës, dhe mban llogari të përpiktë e të saktë për çdo veprim, sekondë e atom të krijesave të Tij.",
+      "sq": "Ky emër tregon se Ai llogarit gjithçka me precizion absolut në Ditën e Gjykimit. Gjithashtu, tregon mbështetjen: për besimtarin, Ai është \"HasbiyAllahu\" – Allahu më mjafton mua (Ai është zgjidhësi më i mirë i çështjeve).",
       "en": "The Reckoner who is sufficient for His servants as a supporter, and keeps a precise, perfect account of all deeds and thoughts of His creations.",
       "de": "Der Abrechner, der Seinen Dienern als Unterstützer genügt und eine präzise, perfekte Abrechnung aller Taten und Gedanken Seiner Geschöpfe führt.",
       "tr": "Kullarının yaptığı her işin hesabını en ince detayıyla bilen ve kıyamette bunu adaletle hesaba çekecek olan, her şeye kafi gelen zat."
@@ -905,19 +905,19 @@
     "id": 42,
     "arabic": "ٱلْجَلِيلُ",
     "transliterations": {
-      "sq": "EL-XHELIL",
+      "sq": "Al-Xhelīl",
       "en": "AL-JALEEL",
       "de": "AL-DSCHALIL",
       "tr": "EL-CELÎL"
     },
     "translations": {
-      "sq": "Madhështori",
+      "sq": "I Madhërishmi / I Lavdishmi",
       "en": "The Majestic",
       "de": "Der Erhabene",
       "tr": "Celal ve azamet sahibi olan"
     },
     "explanations": {
-      "sq": "Zotëruesi i madhështisë, lavdisë së lartë dhe përsosmërisë absolute në të gjitha cilësitë e Tij të shkëlqyera hyjnore.",
+      "sq": "Ky emër tregon madhështinë e Tij në cilësi dhe atribute. Ashtu si Al-Kebir tregon madhështinë në qenie, Al-Xhelil tregon bukurinë dhe përsosmërinë e atributeve të Tij, që ngjallin respekt dhe mahnitje të thellë tek besimtari.",
       "en": "The Majestic who possesses supreme greatness, glory, and absolute perfection in all His beautiful and holy attributes.",
       "de": "Der Erhabene, der überragende Größe, Ruhm und absolute Vollkommenheit in all Seinen schönen und heiligen Attributen besitzt.",
       "tr": "Celal, büyüklük, şan, şeref ve yücelik sıfatları kendisinde toplanmış olan, her türlü övgüye layık benzersiz azamet sahibidir."
@@ -927,19 +927,19 @@
     "id": 43,
     "arabic": "ٱلْكَرِيمُ",
     "transliterations": {
-      "sq": "EL-KERIM",
+      "sq": "Al-Kerīm",
       "en": "AL-KAREEM",
       "de": "AL-KARIM",
       "tr": "EL-KERÎM"
     },
     "translations": {
-      "sq": "Bujari",
+      "sq": "Fisniku / Bujari Absolut",
       "en": "The Generous One",
       "de": "Der Großzügige",
       "tr": "Lütuf ve keremi bol olan, bujar"
     },
     "explanations": {
-      "sq": "Ai që jep me bujari të pafund pa kërkuar asgjë në këmbim, dhuron bekim pa u pyetur dhe fal me fisnikëri kur ka mundësi të dënojë.",
+      "sq": "Ai jep pa masë, edhe kur nuk i kërkohet, dhe fal edhe kur robi e meriton ndëshkimin. Bujaria e Tij nuk shteron kurrë dhe Ai mbulon të metat e njerëzve me fisnikëri, duke i trajtuar me butësi edhe kur ata gabojnë.",
       "en": "The Generous One who gives endlessly without expecting any return, bestows favors without request, and forgives with noble grace.",
       "de": "Der Großzügige, der endlos gibt, ohne eine Gegenleistung zu erwarten, Gunst erweist und mit edler Gnade vergibt.",
       "tr": "Hiçbir karşılık beklemeden kullarına bol bol ikram eden, vaadini eksiksiz yerine getiren, sonsuz kerem ve cömertlik sahibidir."
@@ -949,19 +949,19 @@
     "id": 44,
     "arabic": "ٱلرَّقِيبُ",
     "transliterations": {
-      "sq": "ER-RREKIB",
+      "sq": "Ar-Rrekīb",
       "en": "AL-RAQEEB",
       "de": "AR-RAQIB",
       "tr": "ER-RAKÎB"
     },
     "translations": {
-      "sq": "Vigjëluesi",
+      "sq": "Mbikëqyrësi / Vigjilenti",
       "en": "The Watchful",
       "de": "Der Wachsame",
       "tr": "Her an her şeyi kontrol eden ve izleyen"
     },
     "explanations": {
-      "sq": "Mbikëqyrësi i vëmendshëm dhe vigjilent që nuk i shpëton asgjë, i Cili shikon, dëgjon dhe regjistron çdo lëvizje tonën në çdo sekondë.",
+      "sq": "Asnjë lëvizje, sado e vogël, nuk i shpëton vëmendjes së Tij. Kuptimi i këtij emri e ndihmon njeriun të arrijë vetëdijen shpirtërore (muraqaba) – ndjesinë se Zoti është gjithmonë i pranishëm, duke e ruajtur njeriun nga veprat e këqija kur është vetëm.",
       "en": "The Watchful who is constantly observant and attentive, and nothing escapes His sight, hearing, or recording in the entire universe.",
       "de": "Der Wachsame, der ständig beobachtet und aufmerksam ist, und Seinem Blick entgeht nichts im gesamten Universum.",
       "tr": "Bütün varlıkları her an gözeten, hiçbir şeyi gözden kaçırmayan, kullarının bütün hallerine ve eylemlerine şahit olan vigjilent güçtür."
@@ -971,19 +971,19 @@
     "id": 45,
     "arabic": "ٱلْمُجِيبُ",
     "transliterations": {
-      "sq": "EL-MUXHIB",
+      "sq": "Al-Muxhīb",
       "en": "AL-MUJEEB",
       "de": "AL-MUDSCHIB",
       "tr": "EL-MUCÎB"
     },
     "translations": {
-      "sq": "Përgjigjedhënësi",
+      "sq": "Lutjepranuesi / Përgjigjësi",
       "en": "The Responsive",
       "de": "Der Erhöhrer",
       "tr": "Duaları kabul eden, cevap veren"
     },
     "explanations": {
-      "sq": "Ai që u përgjigjet lutjeve, thirrjeve dhe nevojave të të gjithë atyre që e thërrasin me sinqeritet, duke u dhënë atë që u sjell dobi.",
+      "sq": "Allahu i përgjigjet çdo lutjeje (Duaje) që vjen nga një zemër e sinqertë. Ai u përgjigjet në mënyrën më të mirë dhe në kohën më të duhur, qoftë duke e dhënë atë që kërkohet, duke larguar një të keqe, apo duke e ruajtur si shpërblim për në Botën Tjetër.",
       "en": "The Responsive who answers and fulfills the prayers, supplications, and needs of all those who call upon Him with sincere hearts.",
       "de": "Der Erhörer, der die Gebete, Bittgebete und Bedürfnisse all derer erhört und erfüllt, die Ihn mit aufrichtigem Herzen anrufen.",
       "tr": "Kendine dua eden kullarının niyazlarını işiten, dualarını kabul eden ve isteklerine en hayırlı şekilde karşılık verendir."
@@ -993,19 +993,19 @@
     "id": 46,
     "arabic": "ٱلْوَاسِعُ",
     "transliterations": {
-      "sq": "EL-VASI",
+      "sq": "Al-Uāsi'",
       "en": "AL-WAASI",
       "de": "AL-WASI",
       "tr": "EL-VÂSİ"
     },
     "translations": {
-      "sq": "Gjithëpërfshirësi",
+      "sq": "Gjithëpërfshirësi / I Gjëri",
       "en": "The All-Encompassing",
       "de": "Der Allumfassende",
       "tr": "İlmi, ihsanı ve rahmeti her şeyi kuşatan"
     },
     "explanations": {
-      "sq": "Ai që ka dituri, mëshirë, pasuri e cilësi të pafundme, që përfshin dhe mbulon gjithçka që ekziston në qiej e tokë.",
+      "sq": "Mëshira, dija, furnizimi dhe falja e Tij janë aq të gjëra sa nuk kanë kufij. Pavarësisht sa të mëdha janë nevojat e krijesave apo sa të rënda janë gabimet e tyre, \"Gjërësia\" e Zotit i mbulon të gjitha.",
       "en": "The All-Encompassing whose mercy, knowledge, and abundance are infinite and embrace all things in existence without any boundary.",
       "de": "Der Allumfassende, dessen Barmherzigkeit, Wissen und Fülle unendlich sind und alle existierenden Dinge grenzenlos umfassen.",
       "tr": "Lütfu, zenginliği, af ve merhameti sonsuz olan, ilmi ve kudretiyle bütün kainatı içine alıp kuşatan en geniş varlıktır."
@@ -1015,19 +1015,19 @@
     "id": 47,
     "arabic": "ٱلْحَكِيمُ",
     "transliterations": {
-      "sq": "EL-HAKIM",
+      "sq": "Al-Hekīm",
       "en": "AL-HAKEEM",
       "de": "AL-HAKIM",
       "tr": "EL-HAKÎM"
     },
     "translations": {
-      "sq": "I Urti",
+      "sq": "I Urti / Plot Urtësi",
       "en": "The Wise",
       "de": "Der Allweise",
       "tr": "Her işi hikmetli ve kusursuz olan"
     },
     "explanations": {
-      "sq": "Ai që bën çdo gjë me urtësi absolute. Çdo urdhër, ligj dhe krijim i Tij ka një qëllim, kuptim dhe përsosmëri absolute.",
+      "sq": "Çdo gjë që Ai krijon, çdo ligj që vendos dhe çdo caktim në jetën tonë është i mbushur me urtësi absolute, edhe nëse ne nuk e kuptojmë dot arsyen në atë moment. Pas çdo vështirësie fshihet një urtësi e Tij.",
       "en": "The Wise whose actions, decrees, and creations are based on absolute wisdom. Everything He ordains has a perfect purpose and meaning.",
       "de": "Der Allweise, dessen Handlungen, Dekrete und Schöpfungen auf absoluter Weisheit beruhen. Alles, was Er anordnet, hat einen perfekten Zweck.",
       "tr": "Bütün emirleri, yasaları ve yarattığı her şeyde kusursuz hikmetler barındıran; her işi en doğru ve yerli yerinde yapandır."
@@ -1037,19 +1037,19 @@
     "id": 48,
     "arabic": "ٱلْوَدُودُ",
     "transliterations": {
-      "sq": "EL-VEDUD",
+      "sq": "Al-Uedūd",
       "en": "AL-WADOOD",
       "de": "AL-WADUD",
       "tr": "EL-VEDÛD"
     },
     "translations": {
-      "sq": "I Dashuri",
+      "sq": "I Dashuri / Burimi i Dashurisë",
       "en": "The Loving",
       "de": "Der Liebevolle",
       "tr": "Kullarını çok seven, sevilmeye layık"
     },
     "explanations": {
-      "sq": "Ai që i do shumë robërit e Tij besimtarë dhe e bën Veten të dashur për ta përmes mirësive, mëshirës dhe dhuntive të Tij të panumërta.",
+      "sq": "Ndryshe nga llojet e tjera të dashurisë, Uedud është një dashuri e shprehur përmes veprave të vazhdueshme të mirësisë. Ai i do robërit e Tij të mirë dhe u fal atyre dashurinë për njëri-tjetrin. Ai është Ai që kthehet me dashuri tek robi i Tij edhe pasi robi është penduar.",
       "en": "The Loving who loves His faithful servants deeply and makes Himself loved by them through His endless blessings and mercy.",
       "de": "Der Liebevolle, der Seine gläubigen Diener zutiefst liebt und Sich ihnen durch Seinen endlosen Segen und Seine Barmherzigkeit liebt macht.",
       "tr": "İyi kullarını çok seven, onları rahmetiyle kuşatan, kalplere sevgi tohumları eken ve sevilmeye en çok layık olandır."
@@ -1059,19 +1059,19 @@
     "id": 49,
     "arabic": "ٱلْمَجِيدُ",
     "transliterations": {
-      "sq": "EL-MEXHID",
+      "sq": "Al-Mexhīd",
       "en": "AL-MAJEED",
       "de": "AL-MADSCHID",
       "tr": "EL-MECÎD"
     },
     "translations": {
-      "sq": "I Lavdishmi",
+      "sq": "I Lavdishmi / I Lartësuari",
       "en": "The Glorious",
       "de": "Der Ruhmreiche",
       "tr": "Şanı çok yüce ve görkemli olan"
     },
     "explanations": {
-      "sq": "Zotëruesi i lavdisë së plotë, nderit dhe respektit më të madh, i Cili shkëlqen në bujari, madhështi dhe cilësi të larta hyjnore.",
+      "sq": "Lavdia e Tij është e pakrahasueshme për shkak të përsosmërisë së veprave dhe fisnikërisë së Tij. Është një kombinim i Al-Xhelil (Madhështisë) dhe Al-Kerim (Bujarisë).",
       "en": "The Glorious who possesses supreme honor, majesty, and dignity, shining in His endless generosity and perfect attributes.",
       "de": "Der Ruhmreiche, der höchste Ehre, Majestät und Würde besitzt und in Seiner endlosen Großzügigkeit und vollkommenen Attributen glänzt.",
       "tr": "Şanı, şerefi ve azameti çok yüce olan, kullarına lütuf ve ikramı bol olan, övgülerin en güzeline layık şanlı yaratıcıdır."
@@ -1081,19 +1081,19 @@
     "id": 50,
     "arabic": "ٱلْبَاعِثُ",
     "transliterations": {
-      "sq": "EL-BAITH",
+      "sq": "Al-Bā'ith (Th si thanks në anglisht)",
       "en": "AL-BA'ITH",
       "de": "AL-BAITH",
       "tr": "EL-BÂİS"
     },
     "translations": {
-      "sq": "Ringjallësi",
+      "sq": "Ringjallësi / Dërguesi",
       "en": "The Resurrector",
       "de": "Der Erwecker",
       "tr": "Ölüleri diriltip kabirden çıkaran"
     },
     "explanations": {
-      "sq": "Ai që do t'i ringjallë të gjitha krijesat nga varret në Ditën e Gjykimit për t'i marrë ato në llogari dhe për t'i shpërblyer me drejtësi.",
+      "sq": "Ai është Zoti që ringjall të vdekurit ditën e Kiametit nga varret e tyre për të dhënë llogari. Gjithashtu, është Ai që dërgon Profetët për të zgjuar zemrat e vdekura të njerëzve dhe për t'i udhëzuar ata.",
       "en": "The Resurrector who will bring back all dead souls to life on the Day of Judgment to hold them accountable and reward them with justice.",
       "de": "Der Erwecker, der am Tag des Jüngsten Gerichts alle toten Seelen wieder zum Leben erwecken wird, um sie zur Rechenschaft zu ziehen.",
       "tr": "Eceli gelenleri öldürdükten sonra kıyamet gününde tekrar dirilten, kabirlerde çürümüş bedenlere yeniden hayat verendir."
@@ -1103,19 +1103,19 @@
     "id": 51,
     "arabic": "ٱلشَّهِيدُ",
     "transliterations": {
-      "sq": "ESH-SHEHID",
+      "sq": "Ash-Shehīd",
       "en": "ASH-SHAHEED",
       "de": "AS-SCHAHID",
       "tr": "EŞ-ŞEHÎD"
     },
     "translations": {
-      "sq": "Dëshmuesi",
+      "sq": "Dëshmuesi Absolut",
       "en": "The Witness",
       "de": "Der Zeuge",
       "tr": "Her şeye şahit olan, her an hazır"
     },
     "explanations": {
-      "sq": "Ai që është dëshmitar i pranishëm kudo, i Cili sheh, dëgjon dhe di çdo gjë që ndodh në publik apo në fshehtësinë më të thellë.",
+      "sq": "Ai është dëshmitar i çdo ngjarjeje, i çdo fjale dhe i çdo sekreti. Asgjë nuk ndodh në univers pa qenë Ai dëshmitar. Kjo i jep siguri atij që i bëhet padrejtësi në tokë, se Dëshmitari kryesor nuk harron.",
       "en": "The Witness who is present everywhere, seeing and knowing all things, whether done in public or in the deepest secrets.",
       "de": "Der Zeuge, der überall präsent ist und alle Dinge sieht und weiß, ob sie öffentlich oder im tiefsten Geheimnis geschehen.",
       "tr": "Kainattaki her şeyi gören, bilen, her yerde hazır olan ve kıyamette kullarının yaptığı her amele doğrudan şahitlik edecek olandır."
@@ -1125,19 +1125,19 @@
     "id": 52,
     "arabic": "ٱلْحَقُّ",
     "transliterations": {
-      "sq": "EL-HAK",
+      "sq": "Al-Hakk",
       "en": "AL-HAQQ",
       "de": "AL-HAQQ",
       "tr": "EL-HAKK"
     },
     "translations": {
-      "sq": "I Vërteti",
+      "sq": "E Vërteta / I Vërteti",
       "en": "The Truth",
       "de": "Die Wahrheit",
       "tr": "Varlığı fiilen gerçek, değişmez olan"
     },
     "explanations": {
-      "sq": "Ai që është e Vërteta absolute. Ekzistenca e të Cilit është e padyshimtë, e pandryshueshme dhe të gjitha premtimet e Tij janë gjithmonë të vërteta.",
+      "sq": "Ai është e Vërteta e vetme absolute dhe e pandryshueshme. Gjithçka tjetër përveç Tij është kalimtare. Fjala e Tij është e vërtetë, premtimi i Tij është i vërtetë, dhe Kiameti është i vërtetë.",
       "en": "The Truth who is absolute reality. His existence is indubitable, unchangeable, and all His promises are eternally true and fulfilled.",
       "de": "Die Wahrheit, die absolute Realität ist. Seine Existenz ist unbezweifelbar, unveränderlich und all Seine Versprechen sind ewig wahr.",
       "tr": "Varlığı hiç değişmeden duran, fiilen var olan, hakikatin yegane kaynağı ve vaatleri kesinlikle doğru olandır."
@@ -1147,19 +1147,19 @@
     "id": 53,
     "arabic": "ٱلْوَكِيلُ",
     "transliterations": {
-      "sq": "EL-VEKIL",
+      "sq": "Al-Uekīl",
       "en": "AL-WAKEEL",
       "de": "AL-WAKIL",
       "tr": "EL-VEKÎL"
     },
     "translations": {
-      "sq": "Përkujdesësi",
+      "sq": "Kujdestari / Mbështetësi / Besuesi",
       "en": "The Trustee",
       "de": "Der Sachwalter",
       "tr": "Kullarının işlerini yöneten, güvenilen"
     },
     "explanations": {
-      "sq": "Ai të Cilit mund t'i mbështetemi plotësisht. Mbrojtësi më i mirë që kujdeset me përsosmëri për çështjet e atyre që e delegojnë besimin tek Ai.",
+      "sq": "Ai të cilit i besohen të gjitha çështjet. Kur besimtari thotë \"Hasbuna-llahu ue ni'mel Uekil\" (Allahu na mjafton, Ai është Kujdestari më i mirë), ai dorëzon barrën e jetës së tij te Zoti, duke u liruar nga ankthi dhe frika.",
       "en": "The Trustee who is the ultimate protector and helper. He manages the affairs of those who place their complete trust in Him perfectly.",
       "de": "Der Sachwalter, der der ultimative Beschützer ist. Er regelt die Angelegenheiten derer perfekt, die ihr volles Vertrauen in Ihn setzen.",
       "tr": "Kendine güvenip dayanan kullarının işlerini en iyi şekilde yoluna koyan, onları koruyan ve her türlü ihtiyaçlarına kafi gelendir."
@@ -1169,19 +1169,19 @@
     "id": 54,
     "arabic": "ٱلْقَوِيُّ",
     "transliterations": {
-      "sq": "EL-KAVI",
+      "sq": "Al-Kauijj",
       "en": "AL-QAWIYY",
       "de": "AL-QAWI",
       "tr": "EL-KAVİYY"
     },
     "translations": {
-      "sq": "I Forti",
+      "sq": "I Forti / I Plotfuqishmi",
       "en": "The All-Strong",
       "de": "Der Starke",
       "tr": "Sonsuz kudret ve güce sahip olan"
     },
     "explanations": {
-      "sq": "Ai që zotëron forcë të plotë, të pakufizuar dhe absolute, pa asnjë dobësi apo lodhje në kontrollin dhe sundimin e Tij mbi gjithësinë.",
+      "sq": "Fuqia e Tij është e pashtershme dhe nuk ka nevojë për asnjë mjet apo ndihmë. Kjo forcë ruan qiejt dhe tokën, dhe u jep forcë atyre që mbështeten tek Ai në momentet më të dobëta të jetës.",
       "en": "The All-Strong who possesses infinite and absolute strength, without any weakness, fatigue, or limitation in His power.",
       "de": "Der Starke, der über unendliche und absolute Stärke verfügt, ohne jegliche Schwäche, Müdigkeit oder Einschränkung Seiner Macht.",
       "tr": "Kudreti ve gücü sınırsız olan, hiçbir şey karşısında aciz kalmayan, her şeye boyun eğdiren mutlak güç sahibidir."
@@ -1191,19 +1191,19 @@
     "id": 55,
     "arabic": "ٱلْمَتِينُ",
     "transliterations": {
-      "sq": "EL-METIN",
+      "sq": "Al-Metīn",
       "en": "AL-MATEEN",
       "de": "AL-MATIN",
       "tr": "EL-METÎN"
     },
     "translations": {
-      "sq": "I Pathyeshmi",
+      "sq": "I Pathyeshmi / I Qëndrueshmi",
       "en": "The Firm One",
       "de": "Der Feste",
       "tr": "Kudreti çok şiddetli, sarsılmaz"
     },
     "explanations": {
-      "sq": "Ai që është i fortë dhe i patundur, i pathyeshëm në vendimet dhe në fuqinë e Tij të pafundme, ku forca e Tij nuk pakësohet kurrë.",
+      "sq": "Ndërkohë që Al-Kauijj tregon sasinë e forcës, Al-Metin tregon intensitetin dhe qëndrueshmërinë e saj. Nuk ka asnjë sfidë apo rezistencë që mund të lodhë apo të dobësojë vullnetin e Tij.",
       "en": "The Firm One whose strength is unshakeable and solid. His power never decreases and His decrees are carried out with perfect firmness.",
       "de": "Der Feste, dessen Stärke unerschütterlich und solide ist. Seine Macht nimmt niemals ab und Seine Dekrete werden mit perfekter Festigkeit ausgeführt.",
       "tr": "Güç ve kudret kaynağı sarsılmaz derecede sağlam, son derece metin olan, hiçbir şeyle gücü eksilmeyen sarsılmaz güçtür."
@@ -1213,19 +1213,19 @@
     "id": 56,
     "arabic": "ٱلْوَلِيُّ",
     "transliterations": {
-      "sq": "EL-VELIJ",
+      "sq": "Al-Uelijj",
       "en": "AL-WALIYY",
       "de": "AL-WALI",
       "tr": "EL-VELİYY"
     },
     "translations": {
-      "sq": "Mbrojtësi / Dashuridhënësi",
+      "sq": "Mbrojtësi / Miku / Kujdestari i afërt",
       "en": "The Protecting Associate",
       "de": "Der Schutzherr",
       "tr": "İnananların dostu, yardımcısı"
     },
     "explanations": {
-      "sq": "Mbrojtësi dhe miku më i afërt i besimtarëve, që i ndihmon, i udhëzon dhe i nxjerr ata nga errësira e mosbesimit në dritën e besimit.",
+      "sq": "Ai është Miku dhe Mbrojtësi më i afërt i atyre që besojnë. Ai i nxjerr ata nga errësira në dritë, i drejton hapat e tyre dhe i mbron kur janë të pambrojtur nga askush tjetër.",
       "en": "The Protecting Friend who guides, protects, and supports the believers, bringing them out of darkness into the light of faith.",
       "de": "Der Schutzherr, der die Gläubigen führt, beschützt und unterstützt und sie aus der Dunkelheit in das Licht des Glaubens führt.",
       "tr": "Müminlerin dostu ve yardımcısı olan, onları karanlıklardan aydınlığa çıkaran, koruyup gözeten yegane velidir."
@@ -1235,19 +1235,19 @@
     "id": 57,
     "arabic": "ٱلْحَمِيدُ",
     "transliterations": {
-      "sq": "EL-HAMID",
+      "sq": "Al-Hamīd",
       "en": "AL-HAMEED",
       "de": "AL-HAMID",
       "tr": "EL-HAMÎD"
     },
     "translations": {
-      "sq": "I Falënderuari",
+      "sq": "I Falënderuari / I Lavdëruari",
       "en": "The Praiseworthy",
       "de": "Der Lobenswerte",
       "tr": "Övgüye layık, hamd edilen"
     },
     "explanations": {
-      "sq": "Ai që meriton të gjitha lavdërimet dhe falënderimet e mundshme në çdo kohë e gjendje, për të gjitha mirësitë dhe përsosmërinë e Tij.",
+      "sq": "Ai meriton çdo lavdërim, falënderim dhe mirënjohje në çdo gjendje, qoftë në gëzim apo hidhërim. Ai është i lavdëruar në qenien e Tij, edhe nëse asnjë krijesë nuk e falënderon Atë.",
       "en": "The Praiseworthy who deserves all possible praise and gratitude at all times, for His infinite blessings and perfect attributes.",
       "de": "Der Lobenswerte, der zu jeder Zeit all mögliches Lob und Dankbarkeit verdient für Seine unendlichen Segnungen und vollkommenen Eigenschaften.",
       "tr": "Her türlü övgüye, hamde ve şükre layık olan; bütün kainatın diliyle gece gündüz durmaksızın övülen yegane hamd merciidir."
@@ -1257,19 +1257,19 @@
     "id": 58,
     "arabic": "ٱلْمُحْصِي",
     "transliterations": {
-      "sq": "EL-MUHSI",
+      "sq": "Al-Muhsī",
       "en": "AL-MUHSI",
       "de": "AL-MUHSI",
       "tr": "EL-MUHSÎ"
     },
     "translations": {
-      "sq": "Numëruesi",
+      "sq": "Llogaritësi / Regjistruesi",
       "en": "The Appraiser",
       "de": "Der Erfassende",
       "tr": "Her şeyin sayısını eksiksiz bilen"
     },
     "explanations": {
-      "sq": "Ai që regjistron dhe mban llogari të saktë të çdo atomi, sekondi, frymëmarrjeje apo vepre të krijuar në mbarë gjithësinë.",
+      "sq": "Ai numëron dhe regjistron me saktësi absolute çdo vepër, çdo fjalë, madje edhe gjethet që bien nga pemët, pa i shpëtuar asnjë detaj, sado i vogël, për ta sjellë atë në Ditën e Gjykimit.",
       "en": "The Appraiser who counts, records, and keeps a perfect account of every single atom, breath, or deed created in the entire universe.",
       "de": "Der Erfassende, der jedes einzelne Atom, jeden Atemzug oder jede Tat, die im gesamten Universum erschaffen wurde, zählt und erfasst.",
       "tr": "Yarattığı her şeyin sayısını, miktarını ve değerini tek tek eksiksiz bilen; hiçbir varlığı ve hareketi hesapsız bırakmayandır."
@@ -1279,19 +1279,19 @@
     "id": 59,
     "arabic": "ٱلْمُبْدِئُ",
     "transliterations": {
-      "sq": "EL-MUBDI",
+      "sq": "Al-Mubdi'",
       "en": "AL-MUBDI",
       "de": "AL-MUBDI",
       "tr": "EL-MÜBDİ'"
     },
     "translations": {
-      "sq": "Filluesi",
+      "sq": "Nismëtari / Filluesi",
       "en": "The Originator",
       "de": "Der Urheber",
       "tr": "Maddesiz, örneksiz ilk kez yaratan"
     },
     "explanations": {
-      "sq": "Ai që e fillon krijimin për herë të parë nga asgjëja, duke i dhënë fillim jetës dhe ekzistencës pa pasur ndonjë shembull apo model të mëparshëm.",
+      "sq": "Ai është Ai që e filloi krijimin e universit nga asgjëja. Pa Të, asgjë nuk mund ta ketë një fillim. Kjo na mëson se çdo nismë e mirë duhet të fillojë duke përmendur emrin e Tij (Bismilah).",
       "en": "The Originator who starts and originates the creation for the first time from nothingness, without any prior sample or pattern.",
       "de": "Der Urheber, der die Schöpfung zum ersten Mal aus dem Nichts erschafft, ohne jegliches vorheriges Muster oder Beispiel.",
       "tr": "Bütün varlıkları maddesiz, örneksiz ve hiçbir model olmadan yoktan ilk kez ortaya koyan, yaratılışı başlatandır."
@@ -1301,19 +1301,19 @@
     "id": 60,
     "arabic": "ٱلْمُعِيدُ",
     "transliterations": {
-      "sq": "EL-MUID",
+      "sq": "Al-Mu'īd",
       "en": "AL-MUEED",
       "de": "AL-MUID",
       "tr": "EL-MUÎD"
     },
     "translations": {
-      "sq": "Kthyesi / Përsëritësi",
+      "sq": "Rikthyesi / Përsëritësi",
       "en": "The Restorer",
       "de": "Der Wiederhersteller",
       "tr": "Öldükten sonra tekrar dirilten"
     },
     "explanations": {
-      "sq": "Ai që do ta rikthejë krijimin në jetë pas vdekjes, duke përsëritur procesin e krijimit me lehtësi absolute në Ditën e Ringjalljes.",
+      "sq": "Ai që i jep fund jetës dhe e rikthen atë sërish. Ai e rikthen njeriun në jetë në Ditën e Ringjalljes po aq lehtë sa e krijoi atë për herë të parë.",
       "en": "The Restorer who will recreate all beings and bring them back to life after death, repeating the process on the Day of Resurrection.",
       "de": "Der Wiederhersteller, der alle Wesen nach dem Tod wieder zum Leben erwecken wird, indem Er den Prozess am Tag der Auferstehung wiederholt.",
       "tr": "Hayatlarını kaybetmiş olan varlıkları öldükten sonra yeniden dirilten, onları asıllarına ve eski hallerine geri döndürendir."
@@ -1323,7 +1323,7 @@
     "id": 61,
     "arabic": "ٱلْمُحْيِي",
     "transliterations": {
-      "sq": "EL-MUHJI",
+      "sq": "Al-Muhjī",
       "en": "AL-MUHYI",
       "de": "AL-MUHYI",
       "tr": "EL-MUHYÎ"
@@ -1335,7 +1335,7 @@
       "tr": "Can veren, hayat bahşeden"
     },
     "explanations": {
-      "sq": "Ai që u jep jetë trupave të pajetë, ngjall tokën e vdekur me shi dhe jep shpirt në krijesat e Tij, duke qenë burimi i jetës.",
+      "sq": "Ai fut shpirtin në trupat e vdekur duke u dhënë jetë, Ai ngjall tokën e thatë me shiun, dhe ngjall zemrat e zbrazëta me dritën e besimit dhe diturisë.",
       "en": "The Giver of Life who grants life to lifeless bodies, revives the dead earth with rain, and breathes souls into His creation.",
       "de": "Der Lebensspender, der leblosen Körpern Leben schenkt, die tote Erde mit Regen wiederbelebt und Seinen Geschöpfen Seelen einhaucht.",
       "tr": "Cansız maddelere hayat üfleyen, tohumlara can verip yeşerten, ölü toprakları yağmurla canlandıran yegane hayat vericidir."
@@ -1345,19 +1345,19 @@
     "id": 62,
     "arabic": "ٱلْمُمِيتُ",
     "transliterations": {
-      "sq": "EL-MUMIT",
+      "sq": "Al-Mumīt",
       "en": "AL-MUMEET",
       "de": "AL-MUMIT",
       "tr": "EL-MÜMÎT"
     },
     "translations": {
-      "sq": "Vdekjeprurësi",
+      "sq": "Vdekjedhënësi / Marrësi i jetës",
       "en": "The Bringer of Death",
       "de": "Der Bringer des Todes",
       "tr": "Canı alan, ölümü yaratan"
     },
     "explanations": {
-      "sq": "Ai që përcakton vdekjen për çdo gjë të gjallë kur t'i vijë koha, duke marrë shpirtrat sipas caktimit të Tij të saktë e të pakthyeshëm.",
+      "sq": "Ai është i Vetmi që përcakton fundin e jetës së çdo krijese. Në perspektivën hyjnore, vdekja nuk është fundi absolut, por një stacion kalimtar nga kjo botë në Botën e Përjetshme, e caktuar me urtësinë e Tij.",
       "en": "The Giver of Death who decrees death for every living creature at its appointed time, taking back the souls according to His final decree.",
       "de": "Der Bringer des Todes, der für jedes Lebewesen den Tod zu seiner festgesetzten Zeit bestimmt und die Seelen zurücknimmt.",
       "tr": "Her canlı için ölümü takdir eden, eceli geldiğinde canlıların hayatına son vererek ruhlarını bedenlerinden ayıran mutlak güçtür."
@@ -1367,19 +1367,19 @@
     "id": 63,
     "arabic": "ٱلْحَيُّ",
     "transliterations": {
-      "sq": "EL-HAJ",
+      "sq": "Al-Hajj (H e thellë)",
       "en": "AL-HAYY",
       "de": "AL-HAYY",
       "tr": "EL-HAYY"
     },
     "translations": {
-      "sq": "I Gjalli",
+      "sq": "I Gjalli (Përgjithmonë)",
       "en": "The Ever-Living",
       "de": "Der Ewiglebende",
       "tr": "Sonsuz hayat sahibi olan"
     },
     "explanations": {
-      "sq": "Ai që është i Gjallë me jetë të përhershme e të përsosur, pa fillim dhe pa fund, duke qenë burimi i parë i jetës për çdo krijesë.",
+      "sq": "Jeta e Tij është e përsosur, absolute, pa fillim dhe pa fund. Ndryshe nga jeta e krijesave, e cila është e kufizuar dhe e varur prej Tij, Atë nuk e zë as dremitja dhe as gjumi.",
       "en": "The Ever-Living who possesses perfect, eternal life, with no beginning and no end. He is the ultimate source of all life.",
       "de": "Der Ewiglebende, der über ein vollkommenes, ewiges Leben ohne Anfang und Ende verfügt. Er ist die Quelle allen Lebens.",
       "tr": "Zatına mahsus, ezeli ve ebedi bir hayatla diri olan; ölmesi asla düşünülemeyen ve her şeye hayat bahşeden yegane diridir."
@@ -1389,19 +1389,19 @@
     "id": 64,
     "arabic": "ٱلْقَيُّومُ",
     "transliterations": {
-      "sq": "EL-KAJJUM",
+      "sq": "Al-Kajjūm",
       "en": "AL-QAYYUM",
       "de": "AL-QAYYUM",
       "tr": "EL-KAYYÛM"
     },
     "translations": {
-      "sq": "I Përjetshmi / Vetëmbajtësi",
+      "sq": "I Vetëmjaftueshmi / Mbajtësi i gjithçkaje",
       "en": "The Self-Subsisting",
       "de": "Der Beständige / Der Erhalter",
       "tr": "Her şeyi ayakta tutan, kendi kendine kafi"
     },
     "explanations": {
-      "sq": "Ai që ekziston vetvetiu e nuk ka nevojë për askënd, ndërsa çdo krijesë dhe mbarë gjithësia varet plotësisht nga Ai për të mbijetuar e funksionuar.",
+      "sq": "Ky emër është baza e ekzistencës. Ai ekziston në Vetvete dhe mban në ekzistencë çdo gjë tjetër. Asgjë në univers nuk mund të funksionojë as për një fraksion sekondi pa u mirëmbajtur nga Ai.",
       "en": "The Self-Sustaining who requires nothing to exist, whereas all of creation depends entirely on Him to exist and function.",
       "de": "Der Erhalter, der aus Sich Selbst heraus existiert und nichts benötigt, während die gesamte Schöpfung völlig von Ihm abhängt.",
       "tr": "Kendi kendine var olan, varlığı için hiçbir şeye ihtiyaç duymayan, tüm kainatı ve varlıkları ise her an ayakta tutup yönetendir."
@@ -1411,19 +1411,19 @@
     "id": 65,
     "arabic": "ٱلْوَاجِدُ",
     "transliterations": {
-      "sq": "EL-VAXHID",
+      "sq": "Al-Uāxhid",
       "en": "AL-WAJID",
       "de": "AL-WAJID",
       "tr": "EL-VÂCİD"
     },
     "translations": {
-      "sq": "Gjetësi",
+      "sq": "Gjetësi / I Pasuri (që s'i mungon asgjë)",
       "en": "The Perceiver",
       "de": "Der Finder",
       "tr": "İstediği her şeyi anında bulan"
     },
     "explanations": {
-      "sq": "Ai që gjen dhe zotëron gjithçka që dëshiron. Atij nuk mund t'i humbë apo t'i shpëtojë asnjë gjë, sepse çdo gjë është në praninë e Tij.",
+      "sq": "Ai gjen çfarëdo që dëshiron dhe kurdo që dëshiron; asgjë nuk mund t'i shpëtojë apo t'i fshihet. Atij nuk i mungon asgjë, ndaj i mjafton vetëm të thotë \"Bëhu!\" dhe ajo bëhet.",
       "en": "The Finder who finds and possesses whatever He wills. Nothing can ever be lost or escape from Him, as all things are always present before Him.",
       "de": "Der Finder, der alles findet und besitzt, was Er will. Nichts kann jemals verloren gehen oder Seiner Gegenwart entgehen.",
       "tr": "Kendisinden hiçbir şey gizli kalmayan, dilediği her şeyi dilediği an bulan, hiçbir şeye ihtiyacı olmayan zenginlik sahibidir."
@@ -1433,19 +1433,19 @@
     "id": 66,
     "arabic": "ٱلْمَاجِدُ",
     "transliterations": {
-      "sq": "EL-MAXHID",
+      "sq": "Al-Māxhid",
       "en": "AL-MAJID",
       "de": "AL-MAJID",
       "tr": "EL-MÂCİD"
     },
     "translations": {
-      "sq": "I Lavdishmi",
+      "sq": "I Lavdishmi / Fisniku i Lartë",
       "en": "The Illustrious",
       "de": "Der Ruhmreiche",
       "tr": "Kadr-ü kıymeti yüksek, şanlı"
     },
     "explanations": {
-      "sq": "Zotëruesi i një fisnikërie të gjerë, i lavdisë së madhe dhe i cilësive të panumërta të bukura e të larta hyjnore.",
+      "sq": "Ashtu si Al-Mexhid, ky emër tregon lavdinë e Tij, por thekson veçanërisht fisnikërinë e Tij në trajtimin e krijesave. Ai është jashtëzakonisht i lavdishëm në dhurimin e mirësive, duke ndihmuar robtë e Tij vazhdimisht.",
       "en": "The Illustrious who is highly magnificent, noble, generous, and possesses infinite glory and sublime attributes.",
       "de": "Der Ruhmreiche, der überragend großzügig und edel ist und unendlichen Ruhm sowie erhabene Eigenschaften besitzt.",
       "tr": "Sonsuz şeref, şan ve kerem sahibi; cömertliği ve lütfu tüm kainatı dolduran, iyiliği bol olan yüce mahlukattır."
@@ -1455,7 +1455,7 @@
     "id": 67,
     "arabic": "ٱلْوَاحِدُ",
     "transliterations": {
-      "sq": "EL-VAHID",
+      "sq": "Al-Uāhid (H e thellë)",
       "en": "AL-WAHID",
       "de": "AL-WAHID",
       "tr": "EL-VÂHID"
@@ -1467,7 +1467,7 @@
       "tr": "Zatında, sıfatlarında tek olan"
     },
     "explanations": {
-      "sq": "Ai që është një i vetëm në qenien e Tij, në cilësitë dhe në veprat e Tij, pa asnjë shok, ortak apo të ngjashëm në gjithësi.",
+      "sq": "Ai është Një dhe i pandashëm. Nuk ka ortak, as shok, as ndihmës. Ai nuk ndahet në pjesë. Ky emër është thelbi i Teuhidit (Monoteizmit) të pastër islam.",
       "en": "The One who is unique and single in His essence, attributes, and actions, without any partner, associate, or equal.",
       "de": "Der Einzige, der in Seinem Wesen, Seinen Eigenschaften und Seinen Handlungen einzigartig ist, ohne Partner oder Gleichen.",
       "tr": "Zatında, sıfatlarında, işlerinde ve hükümlerinde asla ortağı, benzeri ve dengi bulunmayan, tek ve biricik olan ilahtır."
@@ -1477,19 +1477,19 @@
     "id": 68,
     "arabic": "ٱلصَّمَدُ",
     "transliterations": {
-      "sq": "ES-SAMED",
+      "sq": "As-Samed",
       "en": "AS-SAMAD",
       "de": "AS-SAMAD",
       "tr": "ES-SAMED"
     },
     "translations": {
-      "sq": "I Panevoji",
+      "sq": "Streha Absolute / I Përjetshmi",
       "en": "The Eternal",
       "de": "Der Unabhängige",
       "tr": "Hiçbir şeye ihtiyacı olmayan, herkesin muhtaç olduğu"
     },
     "explanations": {
-      "sq": "Ai tek i Cili drejtohen të gjitha krijesat për nevojat e tyre, ndërsa Ai Vetë nuk ka nevojë për asgjë, as ushqim, as pije e as ndihmë.",
+      "sq": "Ai tek i Cili drejtohen të gjitha krijesat për të përmbushur nevojat e tyre, ndërsa Ai vetë nuk ka nevojë për asgjë. Ai nuk ha, nuk pi, as nuk ka lindur dikë, dhe as nuk është i lindur nga dikush tjetër.",
       "en": "The Self-Sufficient to whom all creatures turn for their needs, while He needs nothing, nor does He depend on anyone.",
       "de": "Der Unabhängige, an den sich alle Geschöpfe für ihre Bedürfnisse wenden, während Er selbst absolut nichts benötigt.",
       "tr": "Herkesin ve her şeyin kendisine muhtaç olduğu, kendisi ise hiçbir şeye muhtaç olmayan, yemeyen, içmeyen mutlak dayanaktır."
@@ -1499,19 +1499,19 @@
     "id": 69,
     "arabic": "ٱلْقَادِرُ",
     "transliterations": {
-      "sq": "EL-KADIR",
+      "sq": "Al-Kādir",
       "en": "AL-QADIR",
       "de": "AL-QADIR",
       "tr": "EL-KÂDİR"
     },
     "translations": {
-      "sq": "I Fuqishmi",
+      "sq": "I Plotfuqishmi",
       "en": "The Capable",
       "de": "Der Mächtige",
       "tr": "Her şeye gücü yeten, muktedir"
     },
     "explanations": {
-      "sq": "Ai që ka fuqi të bëjë çfarëdo që dëshiron. Fuqia e Tij është e pakufizuar dhe realizon çdo gjë sipas planit dhe urtësisë së Tij.",
+      "sq": "Ai ka fuqinë dhe aftësinë për të bërë gjithçka që do. Ndryshe nga njerëzit, fuqia e të cilëve është e kufizuar dhe varet nga shkaqet e jashtme, forca e Tij realizon çdo synim pa asnjë lodhje apo kufizim.",
       "en": "The Capable who has the power to do whatever He wills. His power has no bounds and realizes everything with ease.",
       "de": "Der Mächtige, der die Macht hat, alles zu tun, was Er will. Seine Macht hat keine Grenzen und verwirklicht alles mit Leichtigkeit.",
       "tr": "Dilediği şeyi dilediği şekilde yapmaya gücü yeten, kudretiyle her şeyi gerçekleştiren mutlak güç sahibidir."
@@ -1521,19 +1521,19 @@
     "id": 70,
     "arabic": "ٱلْمُقْتَدِرُ",
     "transliterations": {
-      "sq": "EL-MUKTEDIR",
+      "sq": "Al-Muktedir",
       "en": "AL-MUQTADIR",
       "de": "AL-MUQTADIR",
       "tr": "EL-MUKTEDİR"
     },
     "translations": {
-      "sq": "Fuqimadhi",
+      "sq": "Krijuesi i Fuqisë / I Gjithëpushtetshmi",
       "en": "The All-Powerful",
       "de": "Der Allmächtige",
       "tr": "Gücü her şeye boyun eğdiren"
     },
     "explanations": {
-      "sq": "Ai që zotëron fuqinë maksimale sunduese. Vendimet e të Cilit realizohen me lehtësi të përsosur dhe askush nuk mund t'i pengojë ato.",
+      "sq": "Ai jo vetëm që është i fuqishëm Vetë, por është Ai që krijon, përcakton dhe menaxhon fuqinë në çdo krijesë. Asnjë mbret, perandori apo forcë e natyrës nuk mund të ushtrojë pushtet veçse me lejen e Tij.",
       "en": "The All-Powerful who dominates all things with supreme power. His decrees are executed perfectly and nothing can obstruct Him.",
       "de": "Der Allmächtige, der alle Dinge mit höchster Macht beherrscht. Seine Dekrete werden perfekt ausgeführt und nichts kann Ihn behindern.",
       "tr": "Kudretiyle her şeye galip gelen, gücünü tasarrufunda gösteren; güç sahiplerinin gücünü de elinde bulunduran mutlak muktedirdir."
@@ -1543,19 +1543,19 @@
     "id": 71,
     "arabic": "ٱلْمُقَدِّمُ",
     "transliterations": {
-      "sq": "EL-MUKADDIM",
+      "sq": "Al-Mukaddim",
       "en": "AL-MUQADDIM",
       "de": "AL-MUQADDIM",
       "tr": "EL-MUKADDİM"
     },
     "translations": {
-      "sq": "Përparuesi",
+      "sq": "Nismëtari / Pararendësi (Që u jep përparësi gjërave)",
       "en": "The Expediter",
       "de": "Der Voranbringer",
       "tr": "Dilediğini öne alan, yükselten"
     },
     "explanations": {
-      "sq": "Ai që afron dhe vendos përpara në gradë, status dhe nder njerëzit e mirë, besimtarët dhe savantët sipas urtësisë së Tij të përsosur.",
+      "sq": "Ai u jep përparësi personave apo çështjeve sipas urtësisë së Tij. Për shembull, Ai i afron besimtarët drejt Vetes, u jep sukses atyre që përpiqen, dhe udhëheq ngjarjet e historisë drejt asaj që është më e mira.",
       "en": "The Expediter who brings forward and elevates in ranks, honor, and status whom He wills, according to His supreme wisdom.",
       "de": "Der Voranbringer, der in Rängen, Ehre und Status voranbringt und erhöht, wen Er will, gemäß Seiner höchsten Weisheit.",
       "tr": "Dilediği şeyi veya kimseyi öne alan, öne geçiren; sevdiklerini manevi mertebelerde yükselterek öne çıkaran zat."
@@ -1565,19 +1565,19 @@
     "id": 72,
     "arabic": "ٱلْمُؤَخِّرُ",
     "transliterations": {
-      "sq": "EL-MUAHHIR",
+      "sq": "Al-Mu'ahhir (H e ashpër)",
       "en": "AL-MU'AKHKHIR",
       "de": "AL-MUACHCHIR",
       "tr": "EL-MUAHHİR"
     },
     "translations": {
-      "sq": "Shtyrësi",
+      "sq": "Shtyrtari / Lënësi prapa",
       "en": "The Delayer",
       "de": "Der Hinauszögernde",
       "tr": "Dilediğini geriye bırakan"
     },
     "explanations": {
-      "sq": "Ai që largon apo lë mbrapa në gradë e status ata që meritojnë të lihen prapa për shkak të mosbindjes apo arrogancës së tyre.",
+      "sq": "I kundërti i Mukaddim. Ai mund të vonojë një shpërblim, një sukses, apo një dënim me plot mençuri. Ndonjëherë Ai e vonon dënimin e gabimtarëve për t'u dhënë atyre një shans për t'u penduar.",
       "en": "The Delayer who delays and pushes back in status or time whom He wills, according to His perfect justice and wisdom.",
       "de": "Der Hinauszögernde, der in Status oder Zeit hinauszögert und zurückstellt, wen Er will, gemäß Seiner Gerechtigkeit.",
       "tr": "İlahi hikmeti gereği dilediğini geriye bırakan, erteleyen; isyankarları cezalandırmada acele etmeyip geriye bırakandır."
@@ -1587,7 +1587,7 @@
     "id": 73,
     "arabic": "ٱلْأَوَّلُ",
     "transliterations": {
-      "sq": "EL-EVVEL",
+      "sq": "Al-Au-uel",
       "en": "AL-AWWAL",
       "de": "AL-AWWAL",
       "tr": "EL-EVVEL"
@@ -1599,7 +1599,7 @@
       "tr": "Varlığının başlangıcı olmayan"
     },
     "explanations": {
-      "sq": "Ai që ekzistonte përpara çdo gjëje tjetër, pa fillim, pa pasur asgjë përpara Tij. Ai krijoi kohën dhe hapësirën.",
+      "sq": "Ai ekzistonte para se të ekzistonte hapësira, koha dhe çdo krijesë tjetër. Ekzistenca e Tij nuk ka një pikënisje; Ai është Burimi dhe Fillimi i gjithçkaje.",
       "en": "The First who existed before everything else, without a beginning. There was nothing before Him; He created time and space.",
       "de": "Der Erste, der vor allem anderen existierte, ohne einen Anfang. Es gab nichts vor Ihm; Er erschuf Zeit und Raum.",
       "tr": "Ezeli olan, varlığının başlangıcı bulunmayan, her şeyden önce var olan yegane ilktir. O'ndan önce hiçbir şey yoktu."
@@ -1609,7 +1609,7 @@
     "id": 74,
     "arabic": "ٱلْآخِرُ",
     "transliterations": {
-      "sq": "EL-AHIR",
+      "sq": "Al-Āhir (H e ashpër)",
       "en": "AL-AKHIR",
       "de": "AL-ACHIR",
       "tr": "EL-ÂHİR"
@@ -1621,7 +1621,7 @@
       "tr": "Varlığının sonu olmayan"
     },
     "explanations": {
-      "sq": "Ai që do të mbetet i vetëm pas shkatërrimit të çdo krijese, i Përjetshëm pa fund. Asgjë nuk ekziston pas Tij.",
+      "sq": "Ekzistenca e Tij nuk ka fund. Kur çdo gjë në univers të zhduket dhe të marrë fund, vetëm Ai do të mbetet i Përhershëm. Ne e nisim jetën tek Ai dhe tek Ai do të kthehemi në fund.",
       "en": "The Last who will remain alive and existing after the destruction of all creation. He is eternal, with no end.",
       "de": "Der Letzte, der nach der Vernichtung aller Schöpfung lebendig und existierend bleiben wird. Er ist ewig, ohne Ende.",
       "tr": "Ebedi olan, varlığının sonu bulunmayan, her şey yok olduktan sonra da baki kalacak olan mutlak ve tek son varlıktır."
@@ -1631,19 +1631,19 @@
     "id": 75,
     "arabic": "ٱلظَّاهِرُ",
     "transliterations": {
-      "sq": "EDH-DHAHIR",
+      "sq": "Adh-Dhāhir (Dh e theksuar thellë)",
       "en": "AZ-ZAHIR",
       "de": "AS-SAHIR",
       "tr": "EZ-ZÂHİR"
     },
     "translations": {
-      "sq": "I Dukshmi",
+      "sq": "I Dukshmi / I Shfaquri (me argumente)",
       "en": "The Manifest",
       "de": "Der Offenbare",
       "tr": "Varlığı delillerle apaçık olan"
     },
     "explanations": {
-      "sq": "Ai që shfaqet qartë përmes shenjave, argumenteve të pakundërshtueshme dhe krijimit të Tij të mrekullueshëm në mbarë gjithësinë.",
+      "sq": "Ekzistenca dhe fuqia e Tij janë aq të qarta dhe të dukshme përmes shenjave të krijimit. Dielli, yjet, jeta, ligjet e fizikës dhe çdo atom tregon për gjenialitetin e Krijuesit, duke e bërë praninë e Tij krejtësisht \"të dukshme\" për mendjen.",
       "en": "The Manifest who is clear and apparent through His endless signs, proofs, and magnificent creation throughout the universe.",
       "de": "Der Offenbare, der durch Seine unzähligen Zeichen, Beweise und Seine großartige Schöpfung im gesamten Universum deutlich sichtbar ist.",
       "tr": "Yarattığı eserler, koyduğu kanunlar ve eşsiz sanatıyla varlığı akıl sahipleri için son derece açık ve belirgin olandır."
@@ -1653,19 +1653,19 @@
     "id": 76,
     "arabic": "ٱلْبَاطِنُ",
     "transliterations": {
-      "sq": "EL-BATIN",
+      "sq": "Al-Bātin",
       "en": "AL-BATIN",
       "de": "AL-BATIN",
       "tr": "EL-BÂTIN"
     },
     "translations": {
-      "sq": "I Padukshmi",
+      "sq": "I Fshehti (për syrin)",
       "en": "The Hidden One",
       "de": "Der Verborgene",
       "tr": "Zatıyla gizli, idrak edilemeyen"
     },
     "explanations": {
-      "sq": "Ai që është i fshehur nga sytë dhe imagjinata e krijesave në këtë botë, dhe njeh hollësitë më të fshehta e sekrete të çdo gjëje.",
+      "sq": "Megjithëse shenjat e Tij janë kudo, Vetja e Tij është e fshehtë dhe e pakapshme nga shqisat tona fizike në këtë botë. Gjithashtu, thekson se Ai njeh thellësitë më të fshehta të zemrave dhe mendimeve tona.",
       "en": "The Hidden One who is concealed from the eyes and imaginations of creatures in this world, yet knows the deepest secrets of all.",
       "de": "Der Verborgene, der den Augen und Vorstellungen der Geschöpfe in dieser Welt verborgen ist, aber die tiefsten Geheimnisse kennt.",
       "tr": "Duyularla algılanamayan, zatının mahiyeti insan aklı tarafından kavranamayan, her şeyin ruhuna ve gizli yönlerine nüfuz edendir."
@@ -1675,19 +1675,19 @@
     "id": 77,
     "arabic": "ٱلْوَالِي",
     "transliterations": {
-      "sq": "EL-VALI",
+      "sq": "Al-Uālī",
       "en": "AL-WALI",
       "de": "AL-WALI",
       "tr": "EL-VÂLÎ"
     },
     "translations": {
-      "sq": "Sunduesi",
+      "sq": "Rregulluesi / Kujdestari Drejtues",
       "en": "The Governor",
       "de": "Der Herrscher",
       "tr": "Kainatı yöneten tek idareci"
     },
     "explanations": {
-      "sq": "Zotëruesi dhe Mbrojtësi që drejton, rregullon dhe menaxhon çdo çështje, ngjarje dhe ligj në mbretërinë e Tij pa asnjë ndihmë.",
+      "sq": "Ai e drejton, menaxhon dhe rregullon universin dhe jetën e krijesave të Tij. Ashtu si një kujdestar i dashur drejton punët e atij që ka në ngarkim, ashtu Ai siguron që çdo gjë të funksionojë në harmoni.",
       "en": "The Governor who owns, directs, governs, and manages all affairs, events, and laws in His kingdom without any help.",
       "de": "Der Herrscher, der alle Angelegenheiten, Ereignisse und Gesetze in Seinem Königreich ohne jegliche Hilfe regelt und verwaltet.",
       "tr": "Bütün kainatı tek başına yöneten, her an her varlığı idare eden ve mülkündeki her şeyi düzene koyan tek yöneticidir."
@@ -1697,19 +1697,19 @@
     "id": 78,
     "arabic": "ٱلْمُتَعَالِي",
     "transliterations": {
-      "sq": "EL-MUTEALI",
+      "sq": "Al-Muta'ālī",
       "en": "AL-MUTA'ALI",
       "de": "AL-MUTA'ALI",
       "tr": "EL-MÜTEÂLÎ"
     },
     "translations": {
-      "sq": "I Gjithëlartësuari",
+      "sq": "I Lartësuari (mbi çdo gjë)",
       "en": "The Most Exalted",
       "de": "Der Höchsterhabene",
       "tr": "Eksikliklerden tamamen arınmış"
     },
     "explanations": {
-      "sq": "Ai që është i ngritur dhe i lartësuar mbi çdo imagjinatë, e metë, dobësi apo ngjashmëri me cilësitë e krijesave të Tij.",
+      "sq": "Ai është i lartësuar mbi çdo të metë, mbi çdo trillim njerëzor, dhe mbi çdo mendim apo kufizim. Asnjë perceptim i yni nuk arrin ta rrokë madhështinë dhe përsosmërinë e Tij absolute.",
       "en": "The Supreme Exalted who is elevated far above any human imagination, defect, weakness, or resemblance to His creation.",
       "de": "Der Höchsterhabene, der weit über jede menschliche Vorstellung, Mangel, Schwäche oder Ähnlichkeit mit Seiner Schöpfung erhaben ist.",
       "tr": "Noksanlıklardan, yaratılmışların sıfatlarından ve insan aklının ulaştığı her türlü sınırın üstünde, son derece yüce olandır."
@@ -1719,19 +1719,19 @@
     "id": 79,
     "arabic": "ٱلْبَرُّ",
     "transliterations": {
-      "sq": "EL-BERR",
+      "sq": "Al-Berr",
       "en": "AL-BARR",
       "de": "AL-BARR",
       "tr": "EL-BERR"
     },
     "translations": {
-      "sq": "Mirëbërësi",
+      "sq": "Bamirësi i Madh / Burimi i Mirësisë",
       "en": "The Source of Goodness",
       "de": "Der Gütige",
       "tr": "İyilik ve lütfu bol olan"
     },
     "explanations": {
-      "sq": "Ai që është i mirë, i dashur dhe bamirës i madh ndaj krijesave të Tij, duke u dhuruar atyre të mira të panumërta dhe duke pranuar veprat.",
+      "sq": "Ai është thelbi dhe burimi i çdo mirësie. Çdo e mirë që të vjen në jetë, pavarësisht shkakut në dukje, vjen si një akt i mirësisë dhe dashamirësisë së Tij ndaj teje.",
       "en": "The Source of All Goodness who is kind, loving, and highly beneficent to His creation, showering them with infinite gifts.",
       "de": "Die Quelle aller Güte, der gütig, liebevoll und äußerst wohltätig gegenüber Seiner Schöpfung ist und sie mit unzähligen Gaben überhäuft.",
       "tr": "Kullarına karşı son derece şefkatli, iyilik ve lütfu bol olan, kullarının iyiliğini isteyen ve onları mükafatlandırandır."
@@ -1741,19 +1741,19 @@
     "id": 80,
     "arabic": "ٱلتَّوَّابُ",
     "transliterations": {
-      "sq": "ET-TEVVAB",
+      "sq": "At-Teu-uāb",
       "en": "AT-TAWWAB",
       "de": "AT-TAWWAB",
       "tr": "ET-TEVVÂB"
     },
     "translations": {
-      "sq": "Pendimpranuesi",
+      "sq": "Pranuesi i Pendimit / Pendimpranuesi",
       "en": "The Acceptor of Repentance",
       "de": "Der Reue-Annehmende",
       "tr": "Tövbeleri kabul eden, bağışlayan"
     },
     "explanations": {
-      "sq": "Ai që pranon vazhdimisht pendimet e robve të Tij mëkatarë sa herë që ata kthehen tek Ai me sinqeritet, duke ua kthyer mëshirën e Tij.",
+      "sq": "Ky emër është një burim shprese. Ai pranon pendimin (Teuben) e njeriut sado thellë të ketë gabuar ai, me kusht që të kthehet me sinqeritet. Forma e fjalës do të thotë që Ai e pranon pendimin përsëri dhe përsëri, pa u lodhur nga ne.",
       "en": "The Acceptor of Repentance who continuously accepts the sincere repentance of His sinning servants, replacing their sins with mercy.",
       "de": "Der Reue-Annehmende, der die aufrichtige Reue Seiner sündigen Diener immer wieder annimmt und ihre Sünden in Barmherzigkeit verwandelt.",
       "tr": "Tövbe kapısını açık tutan, kullarının samimi pişmanlıklarını kabul edip onları bağışlayan, tövbe etmeye yönlendirendir."
@@ -1763,19 +1763,19 @@
     "id": 81,
     "arabic": "ٱلْمُنْتَقِمُ",
     "transliterations": {
-      "sq": "EL-MUNTEKIM",
+      "sq": "Al-Muntakim",
       "en": "AL-MUNTAQIM",
       "de": "AL-MUNTAQIM",
       "tr": "EL-MÜNTEKİM"
     },
     "translations": {
-      "sq": "Ndëshkuesi",
+      "sq": "Ndëshkuesi / Hakmarrësi (ndaj zullumqarëve)",
       "en": "The Avenger",
       "de": "Der Vergeltende",
       "tr": "Suçluları adaletiyle cezalandıran"
     },
     "explanations": {
-      "sq": "Ai që ndëshkon me drejtësi të përsosur tiranët, keqbërësit dhe ata që refuzojnë me kokëfortësi të vërtetën dhe shtypin të tjerët.",
+      "sq": "Ai ndëshkon ata që këmbëngulin në krime dhe padrejtësi. Ky nuk është një inat njerëzor, por drejtësi e thellë për të rivendosur ekuilibrin dhe për të mbrojtur të shtypurit e të dobtit në tokë.",
       "en": "The Avenger who justly punishes the tyrants, oppressors, and those who persistently reject the truth and harm others.",
       "de": "Der Vergeltende, der die Tyrannen, Unterdrücker und diejenigen, die hartnäckig die Wahrheit ablehnen, gerecht bestraft.",
       "tr": "Zulmedenleri, suçluları hak ettikleri şekilde adaletiyle cezalandıran; mazlumların hakkını zalimlerden alan intikam sahibidir."
@@ -1785,19 +1785,19 @@
     "id": 82,
     "arabic": "ٱلْعَفُوُّ",
     "transliterations": {
-      "sq": "EL-AFUV",
+      "sq": "Al-'Afu-uu",
       "en": "AL-AFUW",
       "de": "AL-AFUW",
       "tr": "EL-AFÜVV"
     },
     "translations": {
-      "sq": "Mëkatfalësi",
+      "sq": "Falësi / Fshirësi i mëkateve",
       "en": "The Supreme Pardoner",
       "de": "Der Verzeihende",
       "tr": "Günahları tamamen silen, affeden"
     },
     "explanations": {
-      "sq": "Falësi i madh që fshin dhe shlyen plotësisht gjurmët e mëkateve nga regjistrat, duke i bërë ato sikur të mos kishin ndodhur kurrë.",
+      "sq": "Ndryshe nga Al-Gafur (që e mbulon mëkatin), Al-'Afu-uu e fshin atë plotësisht nga regjistri, sikur të mos kishte ndodhur kurrë. Është shkalla më e lartë dhe më qetësuese e faljes.",
       "en": "The Pardoner who completely erases and wipes out the traces of sins from the records, making them as if they never happened.",
       "de": "Der Verzeihende, der die Spuren von Sünden vollständig aus den Registern tilgt, so als ob sie nie geschehen wären.",
       "tr": "Günahları affetmekle kalmayıp tamamen silen, izlerini yok eden; kullarını cezalandırmaktan vazgeçen büyük bağışlayıcıdır."
@@ -1807,19 +1807,19 @@
     "id": 83,
     "arabic": "ٱلرَّؤُوفُ",
     "transliterations": {
-      "sq": "ER-RRAUF",
+      "sq": "Ar-Rra'ūf",
       "en": "AR-RA'OOF",
       "de": "AR-RA'UF",
       "tr": "ER-RAÛF"
     },
     "translations": {
-      "sq": "I Dhembshuri",
+      "sq": "I Buti / I Dhembshuri",
       "en": "The Compassionate",
       "de": "Der Mitleidige / Der Gütige",
       "tr": "Çok şefkatli, merhameti bol"
     },
     "explanations": {
-      "sq": "Ai që tregon dhembshuri, mëshirë dhe butësi të jashtëzakonshme e të skajshme ndaj robve të Tij, duke u lehtësuar detyrimet.",
+      "sq": "Dhembshuria e Tij është e pakufishme. Ai na lehtëson barrët dhe nuk na ngarkon me atë që nuk e mbajmë dot, duke treguar një kujdes të veçantë dhe të ëmbël për krijesat e Tij.",
       "en": "The Compassionate who shows immense, tender mercy and extreme kindness to His creation, making His laws easy for them.",
       "de": "Der Mitleidige, der Seine Geschöpfen immense, zärtliche Barmherzigkeit und extreme Güte erweist und ihnen ihre Lasten erleichtert.",
       "tr": "Merhameti ve şefkati son derece sınırsız olan, kullarına taşıyamayacakları yükleri yüklemeyen, çok acıyan şefkat abidesidir."
@@ -1829,19 +1829,19 @@
     "id": 84,
     "arabic": "مَالِكُ ٱلْمُلْكِ",
     "transliterations": {
-      "sq": "MALIKUL-MULK",
+      "sq": "Mālik-ul-Mulk",
       "en": "MALIK-UL-MULK",
       "de": "MALIK-UL-MULK",
       "tr": "MÂLİKÜ'L-MÜLK"
     },
     "translations": {
-      "sq": "Zotëruesi i Gjithësisë",
+      "sq": "Pronari i Pushtetit Absolut",
       "en": "The Owner of All Sovereignty",
       "de": "Der Besitzer der Herrschaft",
       "tr": "Mülkün ebedi ve tek mutlak sahibi"
     },
     "explanations": {
-      "sq": "Pronari i vetëm, absolut dhe i përjetshëm i gjithësisë dhe i çdo gjëje që ekziston. Ai bën me mbretërinë e Tij çfarë të dëshirojë.",
+      "sq": "Ai është i vetmi pronar i vërtetë i gjithçkaje në ekzistencë. Ai e jep pushtetin dhe pasurinë kujt të dojë dhe ia heq kujt të dojë. Njeriu është vetëm një menaxhues i përkohshëm i të mirave.",
       "en": "The absolute Owner of all sovereignty and kingdoms. He governs all domain according to His ultimate will and decree.",
       "de": "Der absolute Besitzer aller Herrschaft und Reiche. Er regiert das gesamte Universum nach Seinem ultimativen Willen.",
       "tr": "Bütün mülkün ve kainatın tek, mutlak ve gerçek sahibi; mülkünde dilediği gibi tasarruf eden yegane güç sahibidir."
@@ -1851,19 +1851,19 @@
     "id": 85,
     "arabic": "ذُو ٱلْجَلَالِ وَٱلْإِكْرَامِ",
     "transliterations": {
-      "sq": "DHUL-XHELALI VEL-IKRAM",
+      "sq": "Dhūl-Xhelāli uel-Ikrām (Dh e theksuar)",
       "en": "DHU-AL-JALAL WA-AL-IKRAM",
       "de": "DHU-L-DSCHALAL WA-L-IKRAM",
       "tr": "ZÜ'L-CELÂLİ VE'L-İKRAM"
     },
     "translations": {
-      "sq": "Zot i Madhështisë dhe Nderit",
+      "sq": "Poseduesi i Madhështisë dhe Nderit",
       "en": "The Lord of Majesty and Generosity",
       "de": "Der Herr der Majestät und Ehre",
       "tr": "Celal, büyüklük ve ikram sahibi"
     },
     "explanations": {
-      "sq": "Ai që zotëron çdo madhështi, lavdi, nderim e respekt, dhe dhuron bujari e ikram të pakufishëm për krijesat e Tij besimtare.",
+      "sq": "Ai bashkon dy cilësi: Madhështinë (që kërkon respekt e përulje) dhe Bujarinë/Nderin (që kërkon dashuri e shpresë). Kjo e mban besimtarin gjithmonë në një balancë mes frikës me respekt dhe shpresës plot dashuri.",
       "en": "The Lord of supreme majesty, glory, and honor who bestows infinite generosity, blessings, and noble gifts upon His creation.",
       "de": "Der Herr der höchsten Majestät, des Ruhms und der Ehre, der Seiner Schöpfung unendliche Großzügigkeit und Segen schenkt.",
       "tr": "Hem sonsuz azamet ve büyüklük sahibi olan, hem de kullarına bol bol ikram, lütuf ve ihsanda bulunan yegane şeref merciidir."
@@ -1873,19 +1873,19 @@
     "id": 86,
     "arabic": "ٱلْمُقْسِطُ",
     "transliterations": {
-      "sq": "EL-MUKSIT",
+      "sq": "Al-Muksit",
       "en": "AL-MUQSIT",
       "de": "AL-MUQSIT",
       "tr": "EL-MUKSİT"
     },
     "translations": {
-      "sq": "Gjykuesi i Drejtë",
+      "sq": "I Drejti / Rregullatori",
       "en": "The Equitable One",
       "de": "Der Gerechte / Der Ausgleichende",
       "tr": "Adaletle hükmeden, mazlumu koruyan"
     },
     "explanations": {
-      "sq": "Ai që vë në vend drejtësinë e përsosur, mbron të shtypurit nga shtypësit e tyre dhe shpërblen me drejtësi e barazi të gjithë.",
+      "sq": "Ai e zbaton drejtësinë me përpikmëri. Ai u jep hakun të gjithëve dhe rregullon marrëdhëniet mes krijesave, duke garantuar që në fund, askush nuk do të dëmtohet padrejtësisht.",
       "en": "The Equitable who establishes perfect justice, protects the oppressed from the oppressors, and acts with complete fairness.",
       "de": "Der Gerechte, der vollkommene Gerechtigkeit etabliert, die Unterdrückten vor den Unterdrückern schützt und mit absoluter Fairness handelt.",
       "tr": "Hükmünde ve işlerinde tam bir adalet sergileyen, mazlumların hakkını koruyan ve adil olanları çok seven mutlak dengeleyicidir."
@@ -1895,19 +1895,19 @@
     "id": 87,
     "arabic": "ٱلْجَامِعُ",
     "transliterations": {
-      "sq": "EL-XHAMI",
+      "sq": "Al-Xhāmi'",
       "en": "AL-JAMI",
       "de": "AL-DSCHAMI",
       "tr": "EL-CÂMİ'"
     },
     "translations": {
-      "sq": "Tubuesi",
+      "sq": "Tubuesi / Bashkuesi",
       "en": "The Gatherer",
       "de": "Der Sammler",
       "tr": "İstediğini istediği an bir araya getiren"
     },
     "explanations": {
-      "sq": "Ai që do t'i tubojë të gjitha krijesat në Ditën e Gjykimit, si dhe tubon pjesët e shpërndara të trupave dhe të gjitha elementet e gjithësisë.",
+      "sq": "Ai do t'i bashkojë të gjitha krijesat në Ditën e Gjykimit. Në këtë botë, Ai bashkon trupat me shpirtrat, njerëzit me njëri-tjetrin dhe gjërat e kundërta në një harmoni të përsosur të natyrës.",
       "en": "The Gatherer who will gather all human beings on the Day of Judgment, and gathers all elements and parts of the universe perfectly.",
       "de": "Der Sammler, der am Tag des Jüngsten Gerichts alle Menschen versammeln wird und alle Elemente des Universums perfekt zusammenführt.",
       "tr": "Kıyamet gününde bütün insanları hesap için bir araya toplayan; zıtları ve dağınık unsurları dilediği an birleştirendir."
@@ -1917,19 +1917,19 @@
     "id": 88,
     "arabic": "ٱلْغَنِيُّ",
     "transliterations": {
-      "sq": "EL-GANI",
+      "sq": "Al-Ganijj",
       "en": "AL-GHANI",
       "de": "AL-GHANI",
       "tr": "EL-GANÎY"
     },
     "translations": {
-      "sq": "I Pasuri",
+      "sq": "I Pasuri Absolut (I Pavaruri)",
       "en": "The Self-Sufficient",
       "de": "Der Reiche",
       "tr": "Hiçbir şeye muhtaç olmayan zengin"
     },
     "explanations": {
-      "sq": "Ai që është i pasur dhe i vetëmjaftueshëm në përsosmëri absolute. Ai nuk ka nevojë për askënd, ndërsa të gjithë kanë nevojë për Të.",
+      "sq": "Ai nuk ka nevojë për asgjë dhe për askënd. Adhurimet tona nuk i shtojnë asgjë madhështisë së Tij dhe mosbindja jonë nuk i heq asgjë; çdo vepër e bëjmë vetëm për dobinë tonë.",
       "en": "The Rich who is completely self-sufficient. He needs nothing from His creation, whereas every single thing depends entirely on Him.",
       "de": "Der Reiche, der völlig unabhängig ist. Er benötigt nichts von Seiner Schöpfung, während jedes einzelne Ding von Ihm abhängt.",
       "tr": "Çok zengin olan, zatı ve sıfatlarıyla hiçbir şeye muhtaç olmayan, her şeyin kendisine muhtaç olduğu mutlak zenginlik sahibidir."
@@ -1939,19 +1939,19 @@
     "id": 89,
     "arabic": "ٱلْمُغْنِي",
     "transliterations": {
-      "sq": "EL-MUGNI",
+      "sq": "Al-Mugnī",
       "en": "AL-MGHNI",
       "de": "AL-MUGHNI",
       "tr": "EL-MUĞNÎ"
     },
     "translations": {
-      "sq": "Pasuruesi",
+      "sq": "Pasuridhënësi",
       "en": "The Enricher",
       "de": "Der Verleiher des Reichtums",
       "tr": "Dilediğini zengin eden, tatmin eden"
     },
     "explanations": {
-      "sq": "Ai që pasuron krijesat e Tij me mirësi, pasuri, dituri dhe qetësi e kënaqësi shpirtërore sipas urtësisë së Tij të përkryer.",
+      "sq": "Ai pasuron kë të dojë, qoftë me pasuri materiale, qoftë me pasuri shpirtërore. Qetësia e thellë e zemrës dhe kënaqësia me atë që ke (Kenaati) është pasuria më e madhe që Ai i dhuron njeriut.",
       "en": "The Enricher who enriches His creation with wealth, knowledge, tranquility, and satisfaction, according to His supreme wisdom.",
       "de": "Der Verleiher des Reichtums, der Seine Geschöpfe mit Reichtum, Wissen und Zufriedenheit bereichert, gemäß Seiner Weisheit.",
       "tr": "Dilediği kulunu zenginleştiren, ona servet ve manevi tatmin bahşeden, kullarının ihtiyaçlarını gideren zengin edicidir."
@@ -1961,19 +1961,19 @@
     "id": 90,
     "arabic": "ٱلْمَانِعُ",
     "transliterations": {
-      "sq": "EL-MANI",
+      "sq": "Al-Māni'",
       "en": "AL-MANI",
       "de": "AL-MANI",
       "tr": "EL-MÂNİ'"
     },
     "translations": {
-      "sq": "Mbrojtësi / Penguesi",
+      "sq": "Ndaluesi / Mbrojtësi",
       "en": "The Withholder",
       "de": "Der Verhinderer",
       "tr": "Dilediği şeyin gerçekleşmesini engelleyen"
     },
     "explanations": {
-      "sq": "Ai që pengon apo ndalon të këqijat, si dhe u refuzon të mirat dhe furnizimin atyre që dëshiron për t'i sprovuar apo mbrojtur ata.",
+      "sq": "Ai i ndalon të këqijat dhe dëmet që t'u afrohen atyre që mbron. Ndonjëherë Ai mund të ndalojë edhe një \"të mirë\" në dukje, sepse në dijen e Tij të fshehtë ajo gjë mund të ishte e dëmshme për ne.",
       "en": "The Preventer who blocks and prevents harm or evil, and holds back sustenance or blessings from whom He wills for trial or protection.",
       "de": "Der Verhinderer, der Schaden oder Böses verhindert und Segen von denjenigen zurückhält, die Er prüfen oder beschützen will.",
       "tr": "Dilediği şeyin gerçekleşmesine izin vermeyen, kullarını zarar görecekleri şeylerden korumak için engel olan koruyucu güçtür."
@@ -1983,19 +1983,19 @@
     "id": 91,
     "arabic": "ٱلضَّارُّ",
     "transliterations": {
-      "sq": "ED-DARR",
+      "sq": "Ad-Dārr (D e theksuar thellë)",
       "en": "AD-DARR",
       "de": "AD-DARR",
       "tr": "ED-DÂRR"
     },
     "translations": {
-      "sq": "Sjellësi i Dëmit",
+      "sq": "Dëmsjellësi / Krijuesi i dëmit",
       "en": "The Distressor",
       "de": "Der Schadenbringer",
       "tr": "Zarar veren şeyleri yaratan"
     },
     "explanations": {
-      "sq": "Ai që ka në dorë krijimin e dëmit, sprovës dhe vështirësisë. Asgjë nuk mund të na dëmtojë në gjithësi pa lejen dhe caktimin e Tij.",
+      "sq": "Çdo vështirësi, sëmundje apo dëm vjen me lejen e Tij si sprovë, edukim apo pastrim nga mëkatet. (Ky emër përmendet gjithmonë i lidhur me emrin pasardhës, An-Nāfi').",
       "en": "The Creator of Harm who controls and decrees distress, trials, and hardships. Nothing can ever harm anyone without His permission.",
       "de": "Der Schadenbringer, der Not und Prüfungen kontrolliert und beschließt. Nichts kann jemals jemandem ohne Seine Erlaubnis schaden.",
       "tr": "Zararı ve şerri yaratan, kullarını imtihan etmek için darlık ve hastalık veren; O'nun izni olmadan hiçbir şeyin zarar veremeyeceği kuvvettir."
@@ -2005,19 +2005,19 @@
     "id": 92,
     "arabic": "ٱلنَّافِعُ",
     "transliterations": {
-      "sq": "EN-NAFI",
+      "sq": "An-Nāfi'",
       "en": "AN-NAFI",
       "de": "AN-NAFI",
       "tr": "EN-NÂFİ'"
     },
     "translations": {
-      "sq": "Sjellësi i Dobisë",
+      "sq": "Dobiprurësi",
       "en": "The Benefactor",
       "de": "Der Nützliche",
       "tr": "Faydalı şeyleri yaratan, lütfeden"
     },
     "explanations": {
-      "sq": "Ai që sjell dobi, të mira, shërim dhe suksese. Çdo e mirë, dobi apo sukses që na vjen në jetë është vetëm prej bujarisë së Tij.",
+      "sq": "Ai është burimi i vetëm i çdo dobie, shërimi, lehtësimi dhe suksesi. Nëse të gjithë njerëzit bashkohen për të të bërë dëm, nuk munden nëse Ai vendos të sjellë dobi për ty.",
       "en": "The Benefactor who creates and delivers goodness, benefits, and success. Every single benefit in life comes solely from His grace.",
       "de": "Der Nützliche, der Gutes, Nutzen und Erfolg erschafft und liefert. Jeder einzelne Vorteil im Leben kommt ausschließlich von Seiner Gnade.",
       "tr": "Fayda ve hayır yaratan, kullarına iyilik, şifa ve menfaat sağlayan, her türlü güzel sonucun yegane yaratıcısıdır."
@@ -2027,19 +2027,19 @@
     "id": 93,
     "arabic": "ٱلنُّورُ",
     "transliterations": {
-      "sq": "EN-NUR",
+      "sq": "An-Nūr",
       "en": "AN-NUR",
       "de": "AN-NUR",
       "tr": "EN-NÛR"
     },
     "translations": {
-      "sq": "Ndriçuesi",
+      "sq": "Drita",
       "en": "The Light",
       "de": "Das Licht",
       "tr": "Alemleri nurlandıran, yol gösteren"
     },
     "explanations": {
-      "sq": "Burimi i dritës dhe i udhëzimit. Ai që ndriçon qiejt dhe tokën, dhe mbush zemrat e besimtarëve me dritën e besimit, të vërtetës e diturisë.",
+      "sq": "Ai është Drita e qiejve dhe e tokës. Ai ndriçon universin fizikisht dhe, më e rëndësishmja, ndriçon zemrat dhe mendjet me besim, për t'i nxjerrë nga errësira e padijes dhe e konfuzionit.",
       "en": "The Light who is the source of all light and guidance. He illuminates the heavens and earth, and fills the hearts with the light of faith.",
       "de": "Das Licht, das die Quelle allen Lichts und aller Rechtleitung ist. Er erleuchtet Himmel und Erde und erfüllt die Herzen mit Glauben.",
       "tr": "Alemleri nurlarıyla aydınlatan, kalplere iman ve hidayet ışığı veren, körlüğü ve karanlığı gideren yegane nur kaynağıdır."
@@ -2049,7 +2049,7 @@
     "id": 94,
     "arabic": "ٱلْهَادِي",
     "transliterations": {
-      "sq": "EL-HADI",
+      "sq": "Al-Hādī",
       "en": "AL-HADI",
       "de": "AL-HADI",
       "tr": "EL-HÂDÎ"
@@ -2061,7 +2061,7 @@
       "tr": "Hidayet veren, doğru yola ulaştıran"
     },
     "explanations": {
-      "sq": "Ai që udhëzon krijesat e Tij në rrugën e drejtë dhe drejt asaj që u sjell shpëtim, mirësi e qetësi në këtë botë dhe në botën tjetër.",
+      "sq": "Ai i udhëzon zemrat drejt rrugës së drejtë. Është Ai që u tregon zogjve rrugën e shtegtimit pa busull, ashtu siç i tregon njeriut rrugën e shpëtimit shpirtëror.",
       "en": "The Guide who directs His creatures to the straight path and guides them to what brings salvation, goodness, and peace in both worlds.",
       "de": "Der Führer, der Seine Geschöpfe auf den geraden Weg führt und sie zu dem leitet, was Rettung, Güte und Frieden in beiden Welten bringt.",
       "tr": "Kullarına doğru yolu gösteren, onları hidayete erdiren, hayırlı ve kurtuluşa götüren yollara ulaştıran mutlak kılavuzdur."
@@ -2071,19 +2071,19 @@
     "id": 95,
     "arabic": "ٱلْبَدِيعُ",
     "transliterations": {
-      "sq": "EL-BEDI",
+      "sq": "Al-Bedī'",
       "en": "AL-BADEE",
       "de": "AL-BADI",
       "tr": "EL-BEDÎ'"
     },
     "translations": {
-      "sq": "Shpikësi",
+      "sq": "Shpikësi / Krijuesi i Pashëmbullt",
       "en": "The Incomparable Originator",
       "de": "Der Unvergleichliche",
       "tr": "Örneksiz, hayranlık uyandırıcı yaratan"
     },
     "explanations": {
-      "sq": "Ai që krijoi gjithësinë me bukuri, harmoni e dizajn të jashtëzakonshëm, unik e mrekullueshëm, pa asnjë shembull apo model të mëparshëm.",
+      "sq": "Ai krijon gjithçka me një bukuri, inxhinieri dhe inovacion të pashoq, pa kopjuar asnjë model të mëparshëm. Çdo yll, çdo lule dhe çdo qelizë është një vepër arti unike e Tij.",
       "en": "The Incomparable Originator who created the universe with magnificent beauty and unique design, without any prior template.",
       "de": "Der Unvergleichliche, der das Universum mit prächtiger Schönheit und einzigartigem Design erschaffen hat, ohne jegliche Vorlage.",
       "tr": "Eşsiz, örneksiz, benzersiz ve hayranlık uyandırıcı güzellikte mahlukat yaratan; sanatıyla akılları durduran eşsiz tasarımcıdır."
@@ -2093,19 +2093,19 @@
     "id": 96,
     "arabic": "ٱلْبَاقِي",
     "transliterations": {
-      "sq": "EL-BAKI",
+      "sq": "Al-Bākī",
       "en": "AL-BAQI",
       "de": "AL-BAQI",
       "tr": "EL-BÂKÎ"
     },
     "translations": {
-      "sq": "I Përjetshmi",
+      "sq": "I Përjetshmi (pas zhdukjes së gjithçkaje)",
       "en": "The Everlasting",
       "de": "Der Ewigbleibende",
       "tr": "Varlığının sonu olmayan, ebedi"
     },
     "explanations": {
-      "sq": "Ai që mbetet përgjithmonë i Përjetshëm, ekzistenca e të Cilit nuk ka fund dhe asnjëherë nuk do të pushojë apo të ndryshojë.",
+      "sq": "Çdo gjë në këtë botë fizike ka një fund, përveç Atij. Të lidhësh zemrën me Krijuesin do të thotë të lidhesh me atë që nuk vdes kurrë, duke i dhënë kuptim të përhershëm jetës sate kalimtare.",
       "en": "The Everlasting whose existence is infinite, with no end. He remains forever, long after all of His creation has vanished.",
       "de": "Der Ewigbleibende, dessen Existenz unendlich ist, ohne Ende. Er bleibt für immer, lange nachdem Seine Schöpfung vergangen ist.",
       "tr": "Varlığının sonu olmayan, ebedi olan; zaman ve mekanın ötesinde, her şey yok olduktan sonra da varlığı devam edecek olandır."
@@ -2115,7 +2115,7 @@
     "id": 97,
     "arabic": "ٱلْوَارِثُ",
     "transliterations": {
-      "sq": "EL-VARITH",
+      "sq": "Al-Uārith (Th si thanks në anglisht)",
       "en": "AL-WARITH",
       "de": "AL-WARITH",
       "tr": "EL-VÂRİS"
@@ -2127,7 +2127,7 @@
       "tr": "Mülkün gerçek varisi"
     },
     "explanations": {
-      "sq": "Trashëgimtari i fundit i mbarë gjithësisë, tek i Cili do të rikthehet çdo pronë, zotërim e ekzistencë pas shuarjes së të gjitha krijesave.",
+      "sq": "Pas përfundimit të pronësisë iluzore të njerëzve në këtë botë, çdo gjë i kthehet Pronarit të Vërtetë. Ai është Trashëgimtari absolut i qiejve, tokës dhe çdo gjëje brenda tyre.",
       "en": "The Ultimate Inheritor of the entire universe, to whom all ownership, domain, and existence return after the passing of all creation.",
       "de": "Der Erbe des gesamten Universums, an den jeglicher Besitz und Existenz nach dem Vergehen aller Geschöpfe zurückfällt.",
       "tr": "Varlıkların hayatı son bulduktan sonra mülkü devralacak olan, evrenin ve her şeyin asıl ve ebedi gerçek varisidir."
@@ -2137,19 +2137,19 @@
     "id": 98,
     "arabic": "ٱلرَّشِيدُ",
     "transliterations": {
-      "sq": "ER-RRESHID",
+      "sq": "Ar-Rreshīd",
       "en": "AR-RASHEED",
       "de": "AR-RASCHID",
       "tr": "ER-REŞÎD"
     },
     "translations": {
-      "sq": "Udhërrëfyesi",
+      "sq": "Drejtuesi i Përsosur / Udhërrëfyesi i Drejtë",
       "en": "The Guide to the Right Path",
       "de": "Der Rechtleitende",
       "tr": "Doğru yolu gösteren, hikmet sahibi"
     },
     "explanations": {
-      "sq": "Ai që udhëzon me urtësi absolute, pa asnjë gabim apo devijim. Çdo rregull, ligj apo urdhër i Tij është i drejtë dhe çon në sukses.",
+      "sq": "Ai i drejton çështjet drejt përfundimit më të mirë me një mençuri absolute, pa patur nevojë për këshillën apo ndihmën e askujt. Çdo plan i Tij funksionon me përsosmëri.",
       "en": "The Guide to the Right Path who directs with perfect wisdom, errorless guidance, and leads all affairs to their correct outcomes.",
       "de": "Der Rechtleitende, der mit vollkommener Weisheit und fehlerfreier Führung leitet und alle Angelegenheiten zu ihren richtigen Ergebnissen führt.",
       "tr": "İşleri en doğru ve faydalı şekilde sonuçlandıran, kullarına doğru ve güvenli yolu gösteren en büyük doğru yol göstericisidir."
@@ -2159,19 +2159,19 @@
     "id": 99,
     "arabic": "ٱلصَّبُورُ",
     "transliterations": {
-      "sq": "ES-SABUR",
+      "sq": "As-Sabūr",
       "en": "AS-SABOOR",
       "de": "AS-SABUR",
       "tr": "ES-SABÛR"
     },
     "translations": {
-      "sq": "I Durueshmi",
+      "sq": "Durimtari i Madh",
       "en": "The Patient One",
       "de": "Der Geduldige",
       "tr": "Çok sabırlı, cezayı acele vermeyen"
     },
     "explanations": {
-      "sq": "Ai që është i durueshëm e nuk nxiton në dënimin e mëkatarëve apo kryeneçëve, duke u dhënë atyre kohë të plotë për t'u penduar e përmirësuar.",
+      "sq": "Ai nuk nxiton të ndëshkojë gabimtarët, megjithëse ka fuqinë t'i ndalojë në moment. Ai u jep atyre kohë dhe jetë për të reflektuar e për t'u penduar, duke na mësuar ne virtytin hyjnor të durimit.",
       "en": "The Patient One who does not rush to punish the disobedient, giving them ample time and opportunity to reflect, repent, and correct themselves.",
       "de": "Der Geduldige, der Ungehorsame nicht voreilig bestraft, sondern ihnen reichlich Zeit gibt, um in sich zu gehen und zu bereuen.",
       "tr": "Çok sabırlı olan, günahkarları cezalandırmada acele etmeyen, merhametiyle onlara pişman olmaları için mühlet tanıyan sabır abidesidir."
