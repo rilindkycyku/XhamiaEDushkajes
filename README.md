@@ -1,9 +1,13 @@
 ﻿# Xhamia e Dushkajës - Web Portal & TV Module
 
+![Xhamia e Dushkajës — A digital home for the mosque community](./GitHubFoto/montage/hero.png)
+
 Një platformë moderne dhe gjithëpërfshirëse për besimtarët, e ndërtuar për të ofruar informacione në kohë reale dhe menaxhuar aktivitetet e xhamisë.
 
 ## 🌐 Web Portal (Main Infrastructure)
 Platforma është e optimizuar për çdo pajisje (Mobile, Tablet, Desktop), duke ofruar një eksperiencë të pasur vizuale dhe funksionale.
+
+![One portal, everything the community needs](./GitHubFoto/montage/showcase.png)
 
 | Ballina | Rreth Xhamisë |
 | :---: | :---: |
