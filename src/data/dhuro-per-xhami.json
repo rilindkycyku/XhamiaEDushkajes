@@ -1,13 +1,8 @@
 {
   "pershkrimiDhuro": "Dhuroni për Xhaminë e Dushkajës – Kaçanik. Çdo kontribut ndihmon në mirëmbajtjen dhe zhvillimin e xhamisë sonë.",
   "bankaKosove": {
-    "bank": "Banka për Biznes",
-    "iban": "XK12 3456 7890 1234 5678",
-    "mbajtesi": "Xhamia e Dushkajës - Kaçanik"
-  },
-  "bankaJashtVendi": {
-    "bank": "Revolut Bank (SEPA – Lituani)",
-    "iban": "LT12 3456 7890 1234 567",
-    "mbajtesi": "Xhamia e Dushkajës - Kaçanik (Intl)"
+    "bank": "OneFor Kosovo",
+    "iban": "5001 0000 8760 6925",
+    "mbajtesi": "Rilind Kycyku"
   }
 }

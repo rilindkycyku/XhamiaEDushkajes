@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import PrayerTimes from "../components/PrayerTimes";
 import EsmaulHusnaWidget from "../components/EsmaulHusnaWidget";
+import ZekatCalculator from "../components/ZekatCalculator";
 import { lazy, Suspense } from "react";
 const FacebookEmbed = lazy(() => import("../components/FacebookEmbed"));
 import siteConfig from "../data/site.json";
@@ -145,6 +146,9 @@ export default function Home() {
 
               {/* Esmaul Husna daily name widget */}
               <EsmaulHusnaWidget />
+
+              {/* Zekat / Sadaka-el-Fitri calculator */}
+              <ZekatCalculator />
 
             </motion.div>
           </aside>
