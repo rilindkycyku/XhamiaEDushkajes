@@ -33,7 +33,14 @@ npm run preview
 
 There is **no test suite**. ESLint is in `devDependencies` but there is **no config file and no
 `lint` script**, so `npm run lint` does not exist — don't put it in a commit message as if it ran.
-Verification is manual, in a browser, and the commit body is where you say what you checked.
+`npm run build` is the only automated check, and it passes; verification is otherwise manual, in a
+browser, and the commit body is where you say what you checked.
+
+The build output is informative. It emits the three hand-split chunks (`vendor`, `framer`, `icons`)
+each with a `-legacy` twin, plus `sw.js`, and it prints what the image optimizer did — including
+which files it **skipped because optimizing would grow them**. Already-optimized `.webp`/`.avif`
+assets are expected to be skipped; that is the plugin confirming you committed the optimized file,
+not a warning.
 `lighthouse.json` at the root is a saved Lighthouse report, kept as a reference point.
 
 ## House style
