@@ -144,7 +144,7 @@ export default function GlobalQuranRadio() {
     if (!consentAccepted || !audio) return null;
 
     return (
-        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-3 pointer-events-none select-none">
+        <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] flex flex-col items-end gap-2 md:gap-3 pointer-events-none select-none">
 
             {/* ── Toast Feedback ── */}
             <AnimatePresence>
@@ -167,21 +167,21 @@ export default function GlobalQuranRadio() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={togglePlay}
-                    className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl border-4 ${isPlaying
+                    className={`relative w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl border-2 md:border-4 ${isPlaying
                         ? 'bg-emerald-600 border-white text-white shadow-emerald-500/20'
                         : 'bg-white border-slate-50 text-slate-400'
                         }`}
                 >
                     {isLoading ? (
-                        <div className="w-8 h-8 border-3 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+                        <div className="w-5 h-5 md:w-8 md:h-8 border-2 md:border-3 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
                     ) : isPlaying ? (
-                        <HiPause size={32} />
+                        <HiPause className="text-xl md:text-3xl" />
                     ) : (
-                        <HiPlay size={32} className="ml-1" />
+                        <HiPlay className="text-xl md:text-3xl ml-0.5 md:ml-1" />
                     )}
 
                     {isPlaying && (
-                        <div className="absolute -inset-4 rounded-full border-2 border-emerald-400/20 animate-ping pointer-events-none" />
+                        <div className="absolute -inset-2 md:-inset-4 rounded-full border-2 border-emerald-400/20 animate-ping pointer-events-none" />
                     )}
                 </motion.button>
             </div>

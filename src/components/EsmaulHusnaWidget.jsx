@@ -59,7 +59,7 @@ export default function EsmaulHusnaWidget() {
       className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden"
     >
       {/* Dark Header — same style as PrayerTimes */}
-      <div className="bg-slate-900 p-5 text-white relative overflow-hidden">
+      <div className="bg-slate-900 p-4 sm:p-5 text-white relative overflow-hidden">
         {/* Subtle glow blob */}
         <div className="absolute -top-8 -right-8 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
@@ -69,7 +69,7 @@ export default function EsmaulHusnaWidget() {
 
         {/* Arabic calligraphy */}
         <p
-          className="text-4xl font-bold text-center mb-3 leading-relaxed"
+          className="text-3xl sm:text-4xl font-bold text-center mb-3 leading-relaxed"
           style={{ fontFamily: 'serif', direction: 'rtl' }}
         >
           {dailyName.arabic}
@@ -84,7 +84,7 @@ export default function EsmaulHusnaWidget() {
       </div>
 
       {/* White body */}
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         {/* Meaning */}
         <div className="mb-3">
           <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest mb-1">
@@ -96,7 +96,7 @@ export default function EsmaulHusnaWidget() {
         </div>
 
         {/* Short explanation */}
-        <p className="text-slate-500 text-sm leading-relaxed mb-5">
+        <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-4 sm:mb-5">
           {shortExplanation}
         </p>
 
@@ -106,7 +106,7 @@ export default function EsmaulHusnaWidget() {
         {/* CTA button */}
         <Link
           to="/esmaul-husna"
-          className="flex items-center justify-between w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all group"
+          className="flex items-center justify-between w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-3 rounded-xl transition-all group"
         >
           <span>Shiko të gjitha 99 Emrat</span>
           <HiChevronRight className="text-lg text-emerald-300 group-hover:translate-x-1 transition-transform" />

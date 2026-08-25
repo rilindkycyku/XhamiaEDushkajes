@@ -22,9 +22,9 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-slate-200/50 bg-white/80 backdrop-blur-xl">
         <div className="glass py-3 md:py-4 !border-none shadow-none">
           <div className="container flex items-center justify-between">
-            <Link to="/" aria-label="Kthehu tek faqja kryesore" className="flex items-center gap-3 md:gap-4 group">
+            <Link to="/" aria-label="Kthehu tek faqja kryesore" className="flex items-center gap-2.5 sm:gap-3 md:gap-4 group min-w-0">
               <div className="relative">
-                <div className="w-9 h-9 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-all shadow-md shadow-slate-200 border border-slate-100 overflow-hidden p-1.5">
+                <div className="w-9 h-9 md:w-12 md:h-12 shrink-0 bg-white rounded-xl flex items-center justify-center group-hover:scale-110 transition-all shadow-md shadow-slate-200 border border-slate-100 overflow-hidden p-1.5">
                   <img
                     src={siteConfig.global?.logo}
                     alt="Logo"
@@ -32,7 +32,7 @@ export default function Header() {
                   />
                 </div>
               </div>
-              <span className="text-lg md:text-2xl font-black tracking-tight text-slate-900">
+              <span className="text-base sm:text-lg md:text-2xl font-black tracking-tight text-slate-900 truncate">
                 {titulli}<span className="text-emerald-500">.</span>
               </span>
             </Link>
@@ -62,11 +62,11 @@ export default function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="lg:hidden focus:outline-none p-2 rounded-xl text-slate-900 bg-slate-100 hover:bg-slate-200 transition-all"
+              className="lg:hidden shrink-0 ml-2 focus:outline-none p-2 rounded-xl text-slate-900 bg-slate-100 hover:bg-slate-200 transition-all"
               onClick={() => setMenuHapur(!menuHapur)}
               aria-label="Menu"
             >
-              {menuHapur ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
+              {menuHapur ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
             </button>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function Header() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="lg:hidden absolute top-full left-4 right-4 mt-2 bg-white backdrop-blur-2xl border border-slate-200 rounded-[2rem] shadow-2xl overflow-hidden p-4"
+              className="lg:hidden absolute top-full left-3 right-3 sm:left-4 sm:right-4 mt-2 bg-white backdrop-blur-2xl border border-slate-200 rounded-3xl shadow-2xl overflow-hidden p-3 sm:p-4"
             >
               <ul className="flex flex-col gap-1">
                 {navigimi.map((item) => (
@@ -89,7 +89,7 @@ export default function Header() {
                     <Link
                       to={item.path}
                       onClick={() => setMenuHapur(false)}
-                      className={`block py-3 px-6 rounded-xl font-bold transition-all ${location.pathname === item.path ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'
+                      className={`block py-3 px-5 sm:px-6 rounded-xl font-bold transition-all ${location.pathname === item.path ? 'bg-emerald-50 text-emerald-700' : 'text-slate-600 hover:bg-slate-50'
                         }`}
                     >
                       {item.emri}

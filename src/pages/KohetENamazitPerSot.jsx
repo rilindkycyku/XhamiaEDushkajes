@@ -239,7 +239,7 @@ export default function KohetENamazitPerSot() {
   const progress = infoTani ? Math.max(0, Math.min(100, (1 - infoTani.mbetur / infoTani.total) * 100)) : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-8 pb-20 px-3 md:px-4 relative font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 pt-6 pb-16 sm:pt-8 sm:pb-20 px-3 md:px-4 relative font-sans overflow-x-hidden">
       <SEO
         title="Kohët e Namazit"
         description="Shikoni kohët e sakta të namazit për sot në Kaçanik (Dushkajë). Informohuni mbi kohën e Imsakut, Sabahut, Drekës, Ikindisë, Akshamit dhe Jacisë."
@@ -256,7 +256,7 @@ export default function KohetENamazitPerSot() {
         <div className="flex flex-col gap-5">
 
           {/* TOP NAV & DATE CARD */}
-          <div className="flex flex-col gap-6 text-white mb-2">
+          <div className="flex flex-col gap-4 sm:gap-6 text-white mb-2">
             <div className="flex justify-between items-center">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-3">
@@ -309,7 +309,7 @@ export default function KohetENamazitPerSot() {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3 md:gap-4">
                     <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                      <HiClock className="text-white" size={20} md:size={24} />
+                      <HiClock className="text-white text-xl md:text-2xl" />
                     </div>
                     <div>
                       <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-emerald-400/80 mb-0.5">Namazi i Radhës</p>
@@ -345,12 +345,12 @@ export default function KohetENamazitPerSot() {
           )}
 
           {/* PRAYER LIST (MOBILE OPTIMIZED) */}
-          <div className="bg-white rounded-[2.5rem] p-2 md:p-4 shadow-xl shadow-slate-200 border border-slate-100 flex flex-col font-sans">
-            {/* Table Header */}
-            <div className="flex items-center text-[9px] font-black uppercase text-slate-400 px-5 py-5 border-b border-slate-50 mb-2 tracking-widest">
+          <div className="bg-white rounded-3xl sm:rounded-[2.5rem] p-2 md:p-4 shadow-xl shadow-slate-200 border border-slate-100 flex flex-col font-sans">
+            {/* Table Header — column widths must match the rows below */}
+            <div className="flex items-center text-[9px] font-black uppercase text-slate-400 px-3 py-4 sm:px-5 sm:py-5 border-b border-slate-50 mb-2 tracking-widest">
               <span className="flex-1">Namazi</span>
-              <span className="w-16 text-center">Koha</span>
-              <span className="w-24 text-center text-emerald-600">Xhemat</span>
+              <span className="w-14 md:w-16 text-center">Koha</span>
+              <span className="w-20 md:w-24 text-center text-emerald-600">Xhemat</span>
             </div>
 
             <div className="flex flex-col gap-0.5 md:gap-1 pb-2">
