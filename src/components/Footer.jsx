@@ -24,16 +24,16 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-950 text-white pt-20 md:pt-32 pb-12 border-t border-white/5 mt-auto relative overflow-hidden">
+    <footer className="bg-slate-950 text-white pt-14 sm:pt-20 md:pt-32 pb-10 sm:pb-12 border-t border-white/5 mt-auto relative overflow-hidden">
       {/* Decorative gradients */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] -translate-y-1/2" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-emerald-900/10 rounded-full blur-[100px] translate-y-1/2" />
 
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 md:gap-12 mb-20">
+      <div className="container relative z-10 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-16 md:gap-12 mb-12 sm:mb-20">
 
           {/* Brand Section */}
-          <div className="space-y-8 lg:col-span-5">
+          <div className="space-y-6 sm:space-y-8 lg:col-span-5">
             <Link to="/" className="inline-block group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-xl group-hover:scale-110 transition-transform">
@@ -44,7 +44,7 @@ export default function Footer() {
                 </h4>
               </div>
             </Link>
-            <p className="text-slate-400 text-lg leading-relaxed font-medium max-w-md">
+            <p className="text-slate-400 text-base sm:text-lg leading-relaxed font-medium max-w-md">
               Misioni ynë është të ofrojmë një ambient të ngrohtë dhe frymëzues për të gjithë besimtarët, duke promovuar vlerat e bashkëjetesës dhe dritës.
             </p>
             <div className="flex gap-4">
@@ -58,7 +58,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => logEvent('click_social', { event_category: 'engagement', event_label: social.url.includes('facebook') ? 'Facebook' : 'YouTube' })}
-                  className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all duration-300 shadow-inner group"
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all duration-300 shadow-inner group"
                   aria-label={social.label}
                 >
                   <span className="group-hover:scale-110 transition-transform">{social.icon}</span>
@@ -68,16 +68,16 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="space-y-8 lg:col-span-3">
+          <div className="space-y-5 sm:space-y-8 lg:col-span-3">
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500 flex items-center gap-2">
               <HiSparkles className="animate-pulse" /> Lidhje të Shpejta
             </h4>
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-3 sm:gap-4">
               {['Ballina', 'Rreth Xhamisë', 'Aktivitete Javore', 'Dhuro'].map((link) => (
                 <Link
                   key={link}
                   to={getPath(link)}
-                  className="text-slate-400 hover:text-white transition-all font-bold text-lg hover:translate-x-2 w-fit inline-flex items-center group"
+                  className="text-slate-400 hover:text-white transition-all font-bold text-base sm:text-lg hover:translate-x-2 w-fit inline-flex items-center group"
                 >
                   <span className="w-0 group-hover:w-4 h-0.5 bg-emerald-500 mr-0 group-hover:mr-3 transition-all rounded-full" />
                   {link}
@@ -87,15 +87,15 @@ export default function Footer() {
           </div>
 
           {/* Location Section */}
-          <div className="space-y-8 lg:col-span-4">
+          <div className="space-y-5 sm:space-y-8 lg:col-span-4">
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500 flex items-center gap-2">
               <HiOutlineMapPin /> Vendndodhja
             </h4>
-            <div className="bg-white/5 p-8 rounded-[2.5rem] border border-white/5 space-y-4 hover:border-white/10 transition-colors group">
-              <p className="text-slate-300 text-lg font-bold leading-relaxed">
+            <div className="bg-white/5 p-6 sm:p-8 rounded-3xl sm:rounded-[2.5rem] border border-white/5 space-y-4 hover:border-white/10 transition-colors group">
+              <p className="text-slate-300 text-base sm:text-lg font-bold leading-relaxed">
                 {siteConfig.footer?.adresa}
               </p>
-              <p className="text-slate-500 text-sm font-medium">
+              <p className="text-slate-500 text-xs sm:text-sm font-medium">
                 Dyer tona janë gjithmonë të hapura për besimtarët dhe vizitorët.
               </p>
               <div className="pt-4">
@@ -109,8 +109,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-500 text-sm font-bold tracking-wide">
+        <div className="pt-8 sm:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
+          <p className="text-slate-500 text-xs sm:text-sm font-bold tracking-wide text-center md:text-left">
             © {year} - Zhvilluar me përkushtim nga Xhemati i Xhamisë së Dushkajës.
           </p>
         </div>

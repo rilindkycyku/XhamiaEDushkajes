@@ -89,23 +89,23 @@ export default function EsmaulHusna() {
       />
 
       {/* Hero */}
-      <div className="bg-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
+      <div className="bg-slate-900 text-white pt-10 pb-14 sm:pt-16 sm:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 to-slate-900 pointer-events-none" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="container relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-black uppercase tracking-widest mb-5">
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[10px] sm:text-xs font-black uppercase tracking-widest mb-4 sm:mb-5">
             Esmaul Husna
           </span>
-          <h1 className="text-3xl md:text-5xl font-black mb-4 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black mb-3 sm:mb-4 tracking-tight">
             99 Emrat e Allahut
           </h1>
-          <p className="text-slate-400 max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-8">
+          <p className="text-slate-400 max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8">
             Eksploroni 99 Emrat e Bukur të Allahut me shkrim origjinal arab, transliterim, kuptim dhe shpjegime teologjike të detajuara.
           </p>
           <a
             href="/esmaul-husna.json"
             download="esmaul-husna.json"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-bold uppercase tracking-wider transition-all"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all"
           >
             <HiArrowDownTray className="text-emerald-400 text-base" />
             Shkarko JSON
@@ -113,9 +113,9 @@ export default function EsmaulHusna() {
         </div>
       </div>
 
-      <main className="container py-12 -mt-6 relative z-10">
+      <main className="container py-8 sm:py-12 -mt-6 relative z-10">
         {/* Search */}
-        <div className="max-w-xl mx-auto mb-10">
+        <div className="max-w-xl mx-auto mb-6 sm:mb-10">
           <div className="relative">
             <HiMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg" />
             <input
@@ -123,7 +123,7 @@ export default function EsmaulHusna() {
               placeholder="Kërko emrin (p.sh. El-Melik, Sunduesi, 4)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-10 py-3.5 rounded-2xl border border-slate-200 bg-white shadow-sm text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all"
+              className="w-full pl-11 pr-10 py-3 sm:py-3.5 rounded-2xl border border-slate-200 bg-white shadow-sm text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all"
             />
             {searchQuery && (
               <button
@@ -138,9 +138,9 @@ export default function EsmaulHusna() {
 
         {/* Loading skeleton */}
         {loading && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
             {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl p-4 border border-slate-100 animate-pulse h-36" />
+              <div key={i} className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-100 animate-pulse h-32 sm:h-36" />
             ))}
           </div>
         )}
@@ -151,7 +151,7 @@ export default function EsmaulHusna() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
           >
             {filteredNames.map((name) => {
               const localIndex = names.findIndex((n) => n.id === name.id);
@@ -160,7 +160,7 @@ export default function EsmaulHusna() {
                   key={name.id}
                   variants={itemVariants}
                   onClick={() => setActiveIndex(localIndex)}
-                  className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-emerald-200 transition-all cursor-pointer group"
+                  className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-emerald-200 transition-all cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[9px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
@@ -168,7 +168,7 @@ export default function EsmaulHusna() {
                     </span>
                   </div>
                   <p
-                    className="text-2xl text-center text-slate-900 mb-2 leading-relaxed group-hover:text-emerald-700 transition-colors"
+                    className="text-xl sm:text-2xl text-center text-slate-900 mb-2 leading-relaxed group-hover:text-emerald-700 transition-colors"
                     style={{ fontFamily: 'serif', direction: 'rtl' }}
                   >
                     {name.arabic}
@@ -207,7 +207,7 @@ export default function EsmaulHusna() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-3 sm:p-4"
             style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)' }}
           >
             <motion.div
@@ -216,10 +216,10 @@ export default function EsmaulHusna() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.97 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="bg-white rounded-[2rem] shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden"
+              className="bg-white rounded-3xl sm:rounded-[2rem] shadow-2xl w-full max-w-lg max-h-[88vh] sm:max-h-[85vh] flex flex-col overflow-hidden"
             >
               {/* Modal header */}
-              <div className="bg-slate-900 px-6 pt-6 pb-5 text-white relative flex-shrink-0">
+              <div className="bg-slate-900 px-5 pt-5 pb-4 sm:px-6 sm:pt-6 sm:pb-5 text-white relative flex-shrink-0">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full -mr-16 -mt-16 blur-3xl pointer-events-none" />
                 <div className="flex items-center justify-between mb-4 relative z-10">
                   <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">
@@ -233,7 +233,7 @@ export default function EsmaulHusna() {
                   </button>
                 </div>
                 <p
-                  className="text-5xl text-center mb-4 leading-relaxed"
+                  className="text-4xl sm:text-5xl text-center mb-3 sm:mb-4 leading-relaxed"
                   style={{ fontFamily: 'serif', direction: 'rtl' }}
                 >
                   {activeName.arabic}
@@ -246,7 +246,7 @@ export default function EsmaulHusna() {
               </div>
 
               {/* Modal body — scrollable */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-5">
+              <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 sm:space-y-5">
                 <div>
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Kuptimi</p>
                   <p className="text-slate-900 font-bold text-lg">{activeName.translations?.sq ?? ''}</p>
@@ -259,21 +259,21 @@ export default function EsmaulHusna() {
               </div>
 
               {/* Modal footer — Prev / Next */}
-              <div className="flex-shrink-0 border-t border-slate-100 px-6 py-4 flex items-center justify-between gap-4">
+              <div className="flex-shrink-0 border-t border-slate-100 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2 sm:gap-4">
                 <button
                   onClick={handlePrev}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 hover:border-emerald-300 transition-all"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-emerald-300 transition-all"
                 >
-                  <HiChevronLeft className="text-emerald-600" />
+                  <HiChevronLeft className="text-emerald-600 shrink-0" />
                   I mëparshmi
                 </button>
-                <span className="text-xs font-bold text-slate-400">{activeName.id} / 99</span>
+                <span className="text-[10px] sm:text-xs font-bold text-slate-400 shrink-0">{activeName.id} / 99</span>
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 hover:border-emerald-300 transition-all"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-emerald-300 transition-all"
                 >
                   I radhës
-                  <HiChevronRight className="text-emerald-600" />
+                  <HiChevronRight className="text-emerald-600 shrink-0" />
                 </button>
               </div>
             </motion.div>

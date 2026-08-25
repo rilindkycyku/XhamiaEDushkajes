@@ -31,7 +31,9 @@ export default function App() {
     logPageView(location.pathname + location.search);
   }, [location]);
 
-  const offsetHeight = siteConfig.ramazan?.active ? "pt-[100px] md:pt-[120px]" : "pt-[64px] md:pt-[80px]";
+  // Header shell (64px mobile / 80px desktop) + VaktetTicker (36px) — the ticker
+  // renders in both Ramadan and normal mode, so the offset is the same either way.
+  const offsetHeight = "pt-[104px] md:pt-[124px]";
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

@@ -180,7 +180,7 @@ body:has(.tv-container) * { scrollbar-width: none; }
 
 .container { 
   max-width: var(--container-max); 
-  @apply mx-auto px-6;
+  @apply mx-auto px-4 sm:px-6;
 }
 
 /* Transitions */

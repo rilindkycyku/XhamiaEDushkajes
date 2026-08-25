@@ -53,7 +53,7 @@ export default function ZekatCalculator() {
       className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden"
     >
       {/* Dark Header — same style as PrayerTimes / EsmaulHusnaWidget */}
-      <div className="bg-slate-900 p-5 text-white relative overflow-hidden">
+      <div className="bg-slate-900 p-4 sm:p-5 text-white relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
         <div className="flex items-center gap-3 relative z-10">
           <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shrink-0">
@@ -68,7 +68,7 @@ export default function ZekatCalculator() {
         </div>
       </div>
 
-      <div className="p-5 space-y-6">
+      <div className="p-4 sm:p-5 space-y-5 sm:space-y-6">
         <p className="text-slate-500 text-xs leading-relaxed">
           Ky kalkulim është vetëm orientues. Për raste specifike, konsultohuni me një dijetar fetar.
         </p>
@@ -83,13 +83,13 @@ export default function ZekatCalculator() {
             href="https://www.google.com/search?q=%C3%A7mimi+i+arit+dhe+argjendit+sot+p%C3%ABr+gram"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-xs px-4 py-2.5 rounded-xl transition-colors"
+            className="flex items-center justify-between w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-[11px] sm:text-xs px-3 sm:px-4 py-2.5 rounded-xl transition-colors text-left"
           >
             <span>Kontrollo çmimin e sotëm të arit/argjendit</span>
             <HiArrowTopRightOnSquare className="text-sm shrink-0 ml-2" />
           </a>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
             <label className="block">
               <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wide">Çmimi i Arit</span>
               <input
@@ -161,7 +161,7 @@ export default function ZekatCalculator() {
             Sadaka-el-Fitri
           </p>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
             <label className="block">
               <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wide">Shuma për person</span>
               <input

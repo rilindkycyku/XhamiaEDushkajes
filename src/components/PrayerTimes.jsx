@@ -197,7 +197,7 @@ export default function PrayerTimes() {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col max-w-md mx-auto font-sans">
-      <div className="bg-slate-900 p-5 text-white relative">
+      <div className="bg-slate-900 p-4 sm:p-5 text-white relative">
         <div className="absolute top-0 left-0 right-0 h-1 bg-white/5">
           <motion.div animate={{ width: `${progress}%` }} className="h-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
         </div>
@@ -220,7 +220,7 @@ export default function PrayerTimes() {
         </div>
 
         {infoTani?.ardhshëm && (
-          <div className="grid grid-cols-2 gap-4 items-end pt-4 border-t border-white/5 font-sans">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 items-end pt-3 sm:pt-4 border-t border-white/5 font-sans">
             <div>
               <p className="text-slate-500 text-[9px] md:text-[10px] uppercase font-bold tracking-widest mb-1 text-left">Vakti i radhës</p>
               <div className="flex items-baseline gap-2">

@@ -8,7 +8,7 @@ export default function Hero() {
   const logo = siteConfig.global?.logo || "/assets/logo.png";
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Enhanced Overlays */}
       <div className="absolute inset-0 z-0">
         <picture>
@@ -32,15 +32,15 @@ export default function Hero() {
       <div className="absolute top-1/4 -left-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] animate-pulse" />
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-gold-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
 
-      <div className="container relative z-10 py-16 pt-8 md:pt-16 px-4">
+      <div className="container relative z-10 py-10 sm:py-16 pt-6 sm:pt-8 md:pt-16">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
-            <div className="w-24 h-24 md:w-36 md:h-36 mb-6 md:mb-8 mx-auto relative group animate-float">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 mb-4 sm:mb-6 md:mb-8 mx-auto relative group animate-float">
               {/* Soft White Background Base */}
               <div className="absolute inset-0 bg-white shadow-2xl rounded-full scale-110 border border-slate-100"></div>
               <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all duration-700"></div>
@@ -62,7 +62,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="glass-dark p-6 sm:p-10 md:p-16 rounded-[2.5rem] md:rounded-[3rem] border border-white/10 w-full relative overflow-hidden group"
+            className="glass-dark p-5 sm:p-10 md:p-16 rounded-3xl sm:rounded-[2.5rem] md:rounded-[3rem] border border-white/10 w-full relative overflow-hidden group"
           >
             {/* Glossy Effect overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
@@ -71,7 +71,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[1.1]"
+              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-4 sm:mb-6 md:mb-8 tracking-tighter leading-[1.1]"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-500 drop-shadow-sm">
                 Mirë se vini!
@@ -82,7 +82,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-lg md:text-2xl text-slate-300 mb-8 md:mb-10 font-medium leading-relaxed max-w-3xl mx-auto px-2"
+              className="text-base sm:text-lg md:text-2xl text-slate-300 mb-6 sm:mb-8 md:mb-10 font-medium leading-relaxed max-w-3xl mx-auto"
             >
               {siteConfig.hero?.titulli}
             </motion.p>
@@ -93,12 +93,12 @@ export default function Hero() {
               transition={{ delay: 0.8 }}
               className="flex flex-wrap gap-3 md:gap-6 justify-center items-center"
             >
-              <div className="flex items-center gap-2 md:gap-4 bg-emerald-500/10 backdrop-blur-xl px-5 py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl border border-emerald-500/20 group-hover:border-emerald-500/40 transition-standard">
+              <div className="flex items-center gap-2 md:gap-4 bg-emerald-500/10 backdrop-blur-xl px-4 py-2.5 sm:px-5 sm:py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl border border-emerald-500/20 group-hover:border-emerald-500/40 transition-standard">
                 <span className="relative flex h-2.5 w-2.5 md:h-3 md:w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 md:h-3 md:w-3 bg-emerald-500"></span>
                 </span>
-                <span className="text-emerald-50 font-bold tracking-wide text-sm md:text-base">Imam: {siteConfig.global?.imam}</span>
+                <span className="text-emerald-50 font-bold tracking-wide text-xs sm:text-sm md:text-base">Imam: {siteConfig.global?.imam}</span>
               </div>
             </motion.div>
           </motion.div>
@@ -109,7 +109,7 @@ export default function Hero() {
       <motion.div
         animate={{ y: [0, 12, 0] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-6 sm:bottom-12 left-1/2 -translate-x-1/2 z-10"
       >
         <div className="w-7 h-12 border-2 border-white/20 rounded-full flex justify-center p-1.5 glass bg-white/5">
           <div className="w-1.5 h-3 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.8)]" />

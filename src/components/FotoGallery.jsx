@@ -44,7 +44,7 @@ export default function FotoGallery() {
   if (fotot.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-8 w-full select-none max-w-4xl mx-auto">
+    <div className="flex flex-col gap-5 sm:gap-8 w-full select-none max-w-4xl mx-auto">
       {/* MAIN VIEWER - COMPACT & CENTERED */}
       <div
         onClick={() => {

@@ -65,7 +65,7 @@ export default function CookieConsent() {
                 ? 'Cookie-t refuzohen - kliko për të ndryshuar'
                 : 'Preferencat e cookie-ve'
             }
-            className="fixed bottom-5 left-5 z-[99] group"
+            className="fixed bottom-4 left-4 sm:bottom-5 sm:left-5 z-[99] group"
           >
             <span className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-emerald-950/95 backdrop-blur-xl border border-emerald-800/40 shadow-xl shadow-black/50 hover:border-emerald-600/50 hover:bg-emerald-900/90 transition-all duration-300">
               <BiCookie
@@ -102,7 +102,7 @@ export default function CookieConsent() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 60, opacity: 0, scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed bottom-5 left-5 z-[100] w-[340px] sm:w-[380px]"
+            className="fixed bottom-4 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-auto z-[100] w-auto sm:w-[380px]"
           >
             <div className="relative overflow-hidden bg-emerald-950/98 backdrop-blur-2xl border border-emerald-800/30 rounded-2xl shadow-2xl shadow-black/60">
               {/* Decorative glow */}
@@ -124,7 +124,7 @@ export default function CookieConsent() {
                 <HiX className="text-[15px]" />
               </button>
 
-              <div className="p-5 flex flex-col gap-4">
+              <div className="p-4 sm:p-5 flex flex-col gap-3.5 sm:gap-4">
                 {/* Header */}
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
